@@ -1,0 +1,2 @@
+sample_id	fastq_file
+hg001	/datastore/lbcfs/collaborations/pirl/workflows/data/raw/gm12878_pacbio_hifi_ccs_rna.fastq.gz

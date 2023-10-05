@@ -1,0 +1,2 @@
+sample_id	fastq_file_1	fastq_file_2	fasta_file
+hg001	/datastore/lbcfs/collaborations/pirl/workflows/data/raw/hg001_illumina_rna_r1.fastq.gz	/datastore/lbcfs/collaborations/pirl/workflows/data/raw/hg001_illumina_rna_r2.fastq.gz	/datastore/lbcfs/collaborations/pirl/seqdata/references/gencode.v41.transcripts.fa
