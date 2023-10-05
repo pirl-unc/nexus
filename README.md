@@ -7,13 +7,13 @@
 | [Variant Calling](#variant-calling) | Identify variants |
 
 ## Alignment
-### [long_read_alignment_minimap2.nf](/pipelines/alignment/long_read_alignment_minimap2/)
+### [long_read_alignment_minimap2.nf](/pipelines/alignment/long_read_minimap2/)
 Aligns long (Pacific Biosciences or Oxford Nanopore) DNA or RNA `FASTQ` files to a reference genome using `minimap2`.
 
-### [long_read_rna_alignment_ultra.nf](/pipelines/alignment/long_read_rna_alignment_ultra/)
+### [long_read_rna_alignment_ultra.nf](/pipelines/alignment/long_read_rna_ultra/)
 Aligns long (Pacific Biosciences or Oxford Nanopore) RNA `FASTQ` files  to a reference genome using `ultra`.
 
-### [paired_end_read_dna_alignment_bwa-mem2.nf](/pipelines/alignment/paired_end_read_dna_alignment_bwa-mem2/)
+### [paired_end_read_dna_alignment_bwa-mem2.nf](/pipelines/alignment/paired_end_read_dna_bwa-mem2/)
 Aligns paired-end (Illumina) DNA `FASTQ` files to a reference genome using `bwa-mem2`.
 
 <hr/>
