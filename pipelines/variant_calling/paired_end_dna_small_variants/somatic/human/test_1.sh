@@ -5,6 +5,7 @@ NEXTFLOW=/home/jinseok/software/nextflow/nextflow
 GATK4=/home/jinseok/software/gatk4/gatk-4.2.5.0/gatk
 PICARD=/home/jinseok/software/picard/picard_2.26.10/picard.jar
 STRELKA2=/home/jinseok/software/strelka2/strelka-2.9.10.centos6_x86_64/bin/
+SINGULARITY="/usr/bin/singularity"
 
 # 2. Metadata file path
 SAMPLES_TSV_FILE=/datastore/lbcfs/collaborations/pirl/workflows/data/raw/metadata/human_illumina_dna_case_control_bam_files.tsv
@@ -26,6 +27,10 @@ GATK4_GETPILEUPSUMMARIES_PARAMS="-V $KNOWN_VARIANT_SITES_VCF_FILE \
 GATK4_GETPILEUPSUMMARIES_PARAMS_STR=`echo "$GATK4_GETPILEUPSUMMARIES_PARAMS"`
 STRELKA2_PARAMS=""
 STRELKA2_PARAMS_STR=`echo "$STRELKA2_PARAMS"`
+DEEPVARIANT_BIN_VERSION="1.4.0"
+DEEPVARIANT_BIN_PATH="/opt/deepvariant/bin/run_deepvariant"
+DEEPVARIANT_LIB_PATH="/datastore/:/datastore/"
+DEEPVARIANT_MODEL_TYPE="WES"
 CHROMOSOMES=""
 for chr in {1..22}; do
 	CHROMOSOMES+=chr"${chr},"
@@ -50,6 +55,11 @@ $NEXTFLOW run $SCRIPT -resume \
   --picard $PICARD \
   --strelka2 $STRELKA2 \
   --strelka2_params $STRELKA2_PARAMS_STR \
+  --singularity $SINGULARITY \
+  --deepvariant_bin_path $DEEPVARIANT_BIN_PATH \
+  --deepvariant_bin_version $DEEPVARIANT_BIN_VERSION \
+  --deepvariant_lib_path $DEEPVARIANT_LIB_PATH \
+  --deepvariant_model_type $DEEPVARIANT_MODEL_TYPE \
   --chromosomes $CHROMOSOMES \
   --output_dir $OUTPUT_DIR \
   -w $WORK_DIR

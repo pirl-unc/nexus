@@ -18,7 +18,7 @@ Aligns paired-end short DNA reads (Illumina) to a reference genome using [bwa-me
 ### Usage
 
 ```shell
-usage: nextflow run paired_end_read_dna_alignment_bwa-mem2.nf [required] [optional] [--help]
+nextflow run paired_end_read_dna_alignment_bwa-mem2.nf [required] [optional] [--help]
 
 required arguments:
     --samples_tsv_file              :   TSV file with the following columns:
