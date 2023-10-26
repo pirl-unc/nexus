@@ -28,10 +28,10 @@ Quantifies paired-end (Illumina) RNA `FASTQ` files using `salmon` (mapping mode)
 ### [pacbio_dna_small_variants.nf](/pipelines/variant_calling/long_read_dna_small_variants/pacbio/)
 Identifies small DNA variants (SNVs and INDELs) using `deepvariant` in PacBio long-read DNA sequencing `BAM` files.
 
-### [pacbio_dna_structural_variants.nf](/pipelines/variant_calling/long_read_dna_structural_variants/pacbio/)
+### [pacbio_dna_structural_variants.nf](/pipelines/variant_calling/long_read_dna_structural_variants/pacbio/somatic_germline/)
 Identifies structural DNA variants using `sniffles2`, `pbsv`, `svim`, and `cutesv` in PacBio long-read DNA sequencing `BAM` files.
 
-### [pacbio_dna_somatic_structural_variants.nf](/pipelines/variant_calling/long_read_dna_structural_variants/pacbio/)
+### [pacbio_dna_somatic_structural_variants.nf](/pipelines/variant_calling/long_read_dna_structural_variants/pacbio/somatic/)
 Identifies somatic structural DNA variants using `savana` in PacBio long-read DNA sequencing `BAM` files.
 
 ### [paired_end_human_dna_somatic_small_variants.nf](/pipelines/variant_calling/paired_end_dna_small_variants/somatic/human/)

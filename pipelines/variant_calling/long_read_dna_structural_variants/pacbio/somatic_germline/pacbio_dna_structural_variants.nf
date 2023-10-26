@@ -8,10 +8,10 @@
 nextflow.enable.dsl=2
 
 // Step 1. Import Nextflow modules
-include { runSniffles2 } from '../../../modules/sniffles2'
-include { runPbsv } from '../../../modules/pbsv'
-include { runSvimAlignmentMode } from '../../../modules/svim'
-include { runCuteSV } from '../../../modules/cutesv'
+include { runSniffles2 } from '../../../../modules/sniffles2'
+include { runPbsv } from '../../../../modules/pbsv'
+include { runSvimAlignmentMode } from '../../../../modules/svim'
+include { runCuteSV } from '../../../../modules/cutesv'
 
 // Step 2. Input arguments
 params.help = ''
