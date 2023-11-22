@@ -1,4 +1,4 @@
-function testLongReadMinimap2 {
+testLongReadMinimap2() {
   # Step 1. Define tools available in environment
   NEXTFLOW=nextflow
   MINIMAP2=minimap2
