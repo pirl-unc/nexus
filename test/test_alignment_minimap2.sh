@@ -15,15 +15,13 @@ WORK_DIR=$SCRIPT_DIR/tmp/test_alignment_minimap2/work
 INTERMEDIATE=$SCRIPT_DIR/tmp/test_alignment_minimap2/intermediate
 OUTPUT_DIR=$SCRIPT_DIR/tmp/test_alignment_minimap2/output
 mkdir -p $WORK_DIR
-mkdir -p $INTERMEDIATE/
-mkdir -p $OUTPUT_DIR/
+mkdir -p $INTERMEDIATE
+mkdir -p $OUTPUT_DIR
 
 # Step 5. Create samples TSV file
 samples_tsv_file=$INTERMEDIATE/test_alignment_minimap2_samples.tsv
-echo "sample_id\tfastq_file" > "$samples_tsv_file"
-echo "sample001\t$SCRIPT_DIR/data/hg38_tp53_variants_dna.fastq.gz" >> "$samples_tsv_file"
-
-cat $samples_tsv_file
+printf "%s\t%s\n" "sample_id" "fastq_file" > $samples_tsv_file
+printf "%s\t%s" "sample001" "$SCRIPT_DIR/data/hg38_tp53_variants_dna.fastq.gz" >> $samples_tsv_file
 
 # Step 6. Define minimap2 parameters
 MINIMAP2_PARAMS="-ax map-hifi --cs --eqx -Y -L"
