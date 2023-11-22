@@ -2,3 +2,6 @@
 .idea/
 data/processed/*
 releases/*
+test/tmp/
+test/.nextflow*
+playground/

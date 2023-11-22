@@ -8,7 +8,7 @@
 nextflow.enable.dsl=2
 
 // Step 1. Import Nextflow modules
-include { runSavana } from '../../../modules/savana'
+include { runSavana } from '../../../../modules/savana'
 
 // Step 2. Input arguments
 params.help = ''
