@@ -31,4 +31,5 @@ jobs:
         conda install -c bioconda minimap2
         conda install -c bioconda nextflow
         sudo apt install shunit2
+        chmod +x test/test_alignment_minimap2.sh
         shunit2 test/test_alignment_minimap2.sh
