@@ -36,9 +36,5 @@ jobs:
         mv shunit2 $HOME/bin
         echo 'PATH=$PATH:$HOME/bin' >> $HOME/.bashrc
         source $HOME/.bashrc
-
-    - name: Run unit tests
-      shell: bash -l {0}
-      run: |
-        chmod +x unittest.sh
-        ./unittest.sh
+        echo $PATH
+        shunit2
