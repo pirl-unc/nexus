@@ -32,15 +32,8 @@ jobs:
         conda install -c bioconda nextflow
         wget https://raw.githubusercontent.com/kward/shunit2/master/shunit2
         chmod +x shunit2
-        mkdir -p $HOME/bin
-        mv shunit2 $HOME/bin
-        echo 'PATH=$PATH:$HOME/bin' >> $HOME/.bashrc
-        source $HOME/.bashrc
-        echo $PATH
-        shunit2
 
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        chmod +x unittest.sh        
-        bash unittest.sh
+        shunit2 test/test_alignment_minimap2.sh
