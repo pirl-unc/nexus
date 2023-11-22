@@ -37,4 +37,5 @@ jobs:
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        shunit2 test/test_alignment_minimap2.sh
+        chmod +x unittest.sh
+        ./unittest.sh
