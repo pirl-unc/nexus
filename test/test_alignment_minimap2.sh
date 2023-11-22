@@ -1,15 +1,15 @@
 function testLongReadMinimap2 {
-  # Step 1. Define nextflow workflow to test
-  SCRIPT=../pipelines/alignment/long_read_minimap2/long_read_alignment_minimap2.nf
-
-  # Step 2. Define tools available in environment
+  # Step 1. Define tools available in environment
   NEXTFLOW=nextflow
   MINIMAP2=minimap2
   SAMTOOLS=samtools
 
-  # Step 3. Change directory to current script path
+  # Step 2. Change directory to current script path
   SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   cd "$SCRIPT_DIR"
+
+  # Step 3. Define nextflow workflow to test
+  SCRIPT=../pipelines/alignment/long_read_minimap2/long_read_alignment_minimap2.nf
 
   # Step 4. Create directories
   WORK_DIR=$SCRIPT_DIR/tmp/test_alignment_minimap2/work
