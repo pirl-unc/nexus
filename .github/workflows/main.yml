@@ -26,8 +26,7 @@ jobs:
       shell: bash -l {0}
       run: |
         conda env list
-        conda info      
-        pip install . --verbose
+        conda info
         conda install samtools
         conda install -c bioconda minimap2
         conda install -c bioconda nextflow
