@@ -38,3 +38,9 @@ jobs:
         source $HOME/.bashrc
         echo $PATH
         shunit2
+
+    - name: Run unit tests
+      shell: bash -l {0}
+      run: |
+        chmod +x unittest.sh        
+        bash unittest.sh
