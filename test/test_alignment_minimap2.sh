@@ -1,4 +1,4 @@
-function testLongReadMinimap2() {
+function testLongReadMinimap2 {
   # Step 1. Define nextflow workflow to test
   SCRIPT=../pipelines/alignment/long_read_minimap2/long_read_alignment_minimap2.nf
 
