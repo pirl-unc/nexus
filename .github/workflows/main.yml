@@ -32,10 +32,7 @@ jobs:
         conda install -c bioconda nextflow
         wget https://raw.githubusercontent.com/kward/shunit2/master/shunit2
         chmod +x shunit2
-        mkdir -p $HOME/bin
-        mv shunit2 $HOME/bin
-        echo 'PATH=$PATH:$HOME/bin' >> $HOME/.bashrc
-        source $HOME/.bashrc
+        sudo mv shunit2 /usr/local/bin
 
     - name: Run unit tests
       shell: bash -l {0}
