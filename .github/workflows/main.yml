@@ -32,6 +32,7 @@ jobs:
         conda install -c bioconda nextflow
         wget https://raw.githubusercontent.com/kward/shunit2/master/shunit2
         chmod +x shunit2
+        export shunit2=shunit2
 
     - name: Run unit tests
       shell: bash -l {0}
