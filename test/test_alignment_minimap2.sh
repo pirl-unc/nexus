@@ -6,7 +6,7 @@ testLongReadMinimap2() {
 
   # Step 2. Change directory to current script path
   SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-  cd "$SCRIPT_DIR"
+  cd $SCRIPT_DIR
 
   # Step 3. Define nextflow workflow to test
   SCRIPT=../pipelines/alignment/long_read_minimap2/long_read_alignment_minimap2.nf
