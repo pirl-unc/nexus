@@ -38,4 +38,4 @@ jobs:
       run: |
         chmod +x unittest.sh
         chmod +x test/test_alignment_minimap2.sh
-        ./shunit2 unittest.sh
+        ./shunit2 test/test_alignment_minimap2.sh
