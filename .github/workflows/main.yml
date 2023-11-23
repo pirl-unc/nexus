@@ -30,12 +30,12 @@ jobs:
         conda install -c bioconda samtools
         conda install -c bioconda minimap2
         conda install -c bioconda nextflow
-        sudo apt install shunit2
+        wget https://raw.githubusercontent.com/kward/shunit2/master/shunit2
+        chmod +x shunit2
 
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        echo $PWD
         chmod +x unittest.sh
         chmod +x test/test_alignment_minimap2.sh
-        bash unittest.sh
+        ./shunit2 unittest.sh
