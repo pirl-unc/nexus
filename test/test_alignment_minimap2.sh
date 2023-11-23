@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 
 testLongReadMinimap2() {
   # Step 1. Define tools available in environment

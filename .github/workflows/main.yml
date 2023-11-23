@@ -35,6 +35,7 @@ jobs:
     - name: Run unit tests
       shell: bash -l {0}
       run: |
+        echo $PWD
         chmod +x unittest.sh
         chmod +x test/test_alignment_minimap2.sh
         bash unittest.sh
