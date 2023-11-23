@@ -2,7 +2,6 @@
 
 /*
  * Author: Jin Seok (Andy) Lee
- * Last updated date: Oct 3, 2023
  */
 
 nextflow.enable.dsl=2

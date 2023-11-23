@@ -4,4 +4,4 @@ data/processed/*
 releases/*
 test/tmp/
 test/.nextflow*
-playground/
+shunit2

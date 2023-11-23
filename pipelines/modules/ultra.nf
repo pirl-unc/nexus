@@ -29,7 +29,7 @@ process runUltra {
             $ultra_params \
             $reference_genome_fasta_file \
             ${sample_id}.fastq \
-            \$PWD/${sample_id}_ultra/
+            ${sample_id}_ultra/
         $samtools sort -@ {task.samtools_cpus} -m ${task.samtools_memory.toGiga()}G -O bam -o ${sample_id}_ultra_sorted.bam ${sample_id}_ultra/minimap2.sam
         $samtools index -b ${sample_id}_ultra_sorted.bam ${sample_id}_ultra_sorted.bam.bai
         """

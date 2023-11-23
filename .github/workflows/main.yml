@@ -30,6 +30,7 @@ jobs:
         conda install -c bioconda samtools
         conda install -c bioconda minimap2
         conda install -c bioconda nextflow
+        pip install ultra-bioinformatics
         wget https://raw.githubusercontent.com/kward/shunit2/master/shunit2
         chmod +x ./shunit2
 
