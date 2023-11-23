@@ -1,3 +1,5 @@
+#!/bin/bash
+
 testLongReadMinimap2() {
   # Step 1. Define tools available in environment
   NEXTFLOW=nextflow
