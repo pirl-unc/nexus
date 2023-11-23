@@ -2,8 +2,8 @@
 
 
 testLongReadMinimap2() {
-  BASEDIR=$(dirname "$0")
-  echo "$BASEDIR"
+  SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+  echo $SCRIPT_DIR
 #  # Step 1. Define tools available in environment
 #  NEXTFLOW=nextflow
 #  MINIMAP2=minimap2
