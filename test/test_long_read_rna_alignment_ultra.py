@@ -28,7 +28,7 @@ def test_long_read_rna_alignment_ultra():
     if not os.path.exists(intermediate_dir + '/uLTRA_index/'):
         os.makedirs(intermediate_dir + '/uLTRA_index/')
     cmd = [
-        'ultra', 'index',
+        'uLTRA', 'index',
         '--disable_infer',
         reference_genome_fasta_file,
         reference_gtf_file,

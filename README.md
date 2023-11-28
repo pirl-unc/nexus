@@ -1,5 +1,9 @@
 # Nexus
 
+**NEX**tflow's **U**ltimate **S**treamliner
+
+Python package that encapsulates bioinformatics pipelines.
+
 ## 01. Installation
 
 ```
