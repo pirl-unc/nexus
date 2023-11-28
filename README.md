@@ -8,54 +8,77 @@ pip install . --verbose
 
 ## 02. Dependencies
 
-Install the following tools using conda
-
 ```
+conda install pandas
 conda install nextflow
-conda install samtools>=1.18
-conda install minimap2>=2.22
+conda install samtools==1.18
+conda install minimap2==2.22
+conda install sniffles==2.2
+conda install svim==2.0.0
+conda install pbsv==2.9.0
+conda install cutesv==2.1.0
+pip install ultra-bioinformatics
 ```
 
 ## 03. Usage
 
-| Pipeline                            | Description                              |
-|:------------------------------------|:-----------------------------------------|
-| [Alignment](#alignment)             | Align sequencing reads |
-| [Quantification](#quantification)   | Quantify analytes |
-| [Variant Calling](#variant-calling) | Identify variants |
+To view all available workflows
+```
+nexus avail
+```
 
-## Alignment
-### [long_read_alignment_minimap2.nf](/pipelines/alignment/long_read_minimap2/)
-Aligns long (Pacific Biosciences or Oxford Nanopore) DNA or RNA `FASTQ` files to a reference genome using `minimap2`.
+To run a workflow
+```
+nexus run [-h] [--nf-workflow NF_NEXTFLOW] [workflow-specific parameters]
+```
 
-### [long_read_rna_alignment_ultra.nf](/pipelines/alignment/long_read_rna_ultra/)
-Aligns long (Pacific Biosciences or Oxford Nanopore) RNA `FASTQ` files  to a reference genome using `ultra`.
+To view workflow-specific parameters
+```
+nexus run --nf-workflow <workflow> --help
+```
 
-### [paired_end_read_dna_alignment_bwa-mem2.nf](/pipelines/alignment/paired_end_read_dna_bwa-mem2/)
-Aligns paired-end (Illumina) DNA `FASTQ` files to a reference genome using `bwa-mem2`.
+### Example
 
-<hr/>
+Long-read whole-genome sequencing `fastq.gz` alignment
 
-## Quantification
-### [paired_end_read_rna_quantification_salmon_mapping_mode.nf](/pipelines/quantification/paired_end_read_rna/salmon_mapping_mode/)
-Quantifies paired-end (Illumina) RNA `FASTQ` files using `salmon` (mapping mode).
+| I/O    | Description                                                                  |
+|:-------|:-----------------------------------------------------------------------------|
+| Input  | `fastq.gz` file for each sample.<br/>                                        | 
+| Ouptut | MD-tagged and sorted `bam` and `bam.bai` files for each sample. |
 
-<hr/>
+```
+nexus run \
+    --nf-workflow long_read_alignment_minimap2.nf \
+    -c nextflow.config \
+    -w WORK_DIR \
+    --samples_tsv_file SAMPLES_TSV_FILE \
+    --output_dir OUTPUT_DIR \
+    --reference_genome_fasta_file FASTA_FILE \
+    --minimap2 minimap2 \
+    --minimap2_params "'-ax map-hifi --cs --eqx -Y -L'" \
+    --samtools samtools \
+    --platform_tag pacbio \
+```
 
-## Variant Calling
-### [pacbio_dna_small_variants.nf](/pipelines/variant_calling/long_read_dna_small_variants/pacbio/)
-Identifies small DNA variants (SNVs and INDELs) using `deepvariant` in PacBio long-read DNA sequencing `BAM` files.
+`nextflow.config` can be downloaded from [here](/configs/) for 
+local computers (laptop) and HPC (slurm).
 
-### [pacbio_dna_structural_variants.nf](/pipelines/variant_calling/long_read_dna_structural_variants/pacbio/somatic_germline/)
-Identifies structural DNA variants using `sniffles2`, `pbsv`, `svim`, and `cutesv` in PacBio long-read DNA sequencing `BAM` files.
+`SAMPLES_TSV_FILE` is a tab-delimited file:
 
-### [pacbio_dna_somatic_structural_variants.nf](/pipelines/variant_calling/long_read_dna_structural_variants/pacbio/somatic/)
-Identifies somatic structural DNA variants using `savana` in PacBio long-read DNA sequencing `BAM` files.
+| Header     | Description                  |
+| ---------- |------------------------------|
+| sample_id  | Sample ID                    |
+| fastq_file | Full path to `fastq.gz` file |
 
-### [paired_end_human_dna_somatic_small_variants.nf](/pipelines/variant_calling/paired_end_dna_small_variants/somatic/human/)
-Identifies small DNA somatic variants (SNVs and INDELs) using `gatk4-mutect2` and `strelka2` in paired-end Illumina human DNA sequencing `BAM` files.
+For more on this particular workflow, check out [here](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/).
 
-### [paired_end_dna_somatic_structural_variants.nf](/pipelines/variant_calling/paired_end_dna_structural_variants/somatic/)
-Identifies structural DNA somatic variants using `delly2` and `lumpyexpress` in paired-end Illumina DNA sequencing `BAM` files.
+## 04. Available workflows
 
-<hr/>
+Here is a list of all available workflows for `v0.0.1`
+
+| Category       | Workflow                                                                                                                                    |
+|:---------------|:--------------------------------------------------------------------------------------------------------------------------------------------|
+| Alignment      | [long_read_alignment_minimap2.nf](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/)                                          |
+| Alignment      | [long_read_rna_alignment_ultra.nf](/src/nexuslib/pipelines/alignment/long_read_rna_alignment_ultra)                                         |
+| Alignment      | [paired-end_read_dna_alignment_bwa-mem2.nf](/src/nexuslib/pipelines/alignment/paired-end_read_dna_alignment_bwa-mem2/)                      |
+| Quantification | [paired-end_read_rna_quantification_salmon_mapping_mode.nf](/src/nexuslib/pipelines/quantification/paired-end_read_rna_quantification_salmon-mapping/) |

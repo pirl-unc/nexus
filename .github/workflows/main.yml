@@ -27,25 +27,33 @@ jobs:
       run: |
         conda env list
         conda info
+        conda config --add channels defaults
+        conda config --add channels bioconda
+        conda config --add channels conda-forge
+        conda config --set channel_priority strict
         conda install pandas
-        conda install -c bioconda samtools
-        conda install -c bioconda minimap2
-        conda install -c bioconda nextflow
+        conda install nextflow
+        conda install samtools==1.18
+        conda install minimap2==2.22
+        conda install sniffles==2.2
+        conda install svim==2.0.0
+        conda install pbsv==2.9.0
+        conda install cutesv==2.1.0
         pip install ultra-bioinformatics
-        conda install -c bioconda sniffles
-        conda install -c bioconda svim
-        conda install -c bioconda pbsv
-        conda install -c bioconda cutesv
         conda install pylint
         conda install coveralls
         conda install pytest
         conda install pytest-cov
         pip install . --verbose
 
-    - name: Run unit tests
+    - name: Run linter
       shell: bash -l {0}
       run: |
         chmod +x lint.sh
-        chmod +x unittest.sh
         bash lint.sh
+
+    - name: Run unit tests
+      shell: bash -l {0}
+      run: |
+        chmod +x unittest.sh
         bash unittest.sh

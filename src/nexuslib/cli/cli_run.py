@@ -63,7 +63,7 @@ def run_nexus_run_from_parsed_args(args, workflow_args):
     """
     # Print --help if requested
     if args.nf_workflow is None and ('--help' in workflow_args or '-h' in workflow_args):
-        print("usage: nexus run [-h] [--workflow WORKFLOW] [workflow-specific parameters]")
+        print("usage: nexus run [-h] [--nf-workflow NF_WORKFLOW] [workflow-specific parameters]")
         print("")
         print("required arguments:")
         print("\t--nf-workflow NF_WORKFLOW. To view the list of all available workflows, run 'nexus avail'")
