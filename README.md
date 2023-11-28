@@ -2,7 +2,10 @@
 
 **NEX**tflow's **U**ltimate **S**treamliner
 
-Python package that encapsulates bioinformatics pipelines.
+Command-line interface (CLI) for conveniently running bioinformatics 
+workflows written in nextflow.
+
+[![build](https://github.com/pirl-unc/nexus/actions/workflows/main.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/main.yml)
 
 ## 01. Installation
 

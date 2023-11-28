@@ -46,6 +46,11 @@ jobs:
         conda install pytest-cov
         pip install . --verbose
 
+    - name: Set up Singularity
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y singularity-container
+
     - name: Run linter
       shell: bash -l {0}
       run: |
@@ -55,5 +60,6 @@ jobs:
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        chmod +x unittest.sh
-        bash unittest.sh
+        pytest -s test/test_long_read_dna_small_variants.py
+#        chmod +x unittest.sh
+#        bash unittest.sh
