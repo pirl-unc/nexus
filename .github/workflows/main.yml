@@ -27,16 +27,25 @@ jobs:
       run: |
         conda env list
         conda info
+        conda install pandas
         conda install -c bioconda samtools
         conda install -c bioconda minimap2
         conda install -c bioconda nextflow
         pip install ultra-bioinformatics
-        wget https://raw.githubusercontent.com/kward/shunit2/master/shunit2
-        chmod +x ./shunit2
+        conda install -c bioconda sniffles
+        conda install -c bioconda svim
+        conda install -c bioconda pbsv
+        conda install -c bioconda cutesv
+        conda install pylint
+        conda install coveralls
+        conda install pytest
+        conda install pytest-cov
+        pip install . --verbose
 
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        chmod +x test/*.sh
+        chmod +x lint.sh
         chmod +x unittest.sh
-        ./unittest.sh
+        bash lint.sh
+        bash unittest.sh

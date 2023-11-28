@@ -1,4 +1,22 @@
-# Available Pipelines
+# Nexus
+
+## 01. Installation
+
+```
+pip install . --verbose
+```
+
+## 02. Dependencies
+
+Install the following tools using conda
+
+```
+conda install nextflow
+conda install samtools>=1.18
+conda install minimap2>=2.22
+```
+
+## 03. Usage
 
 | Pipeline                            | Description                              |
 |:------------------------------------|:-----------------------------------------|

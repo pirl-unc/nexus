@@ -1,7 +1,11 @@
 **.DS_Store
 .idea/
-data/processed/*
 releases/*
-test/tmp/
-test/.nextflow*
-shunit2
+tmp/
+.nextflow/
+.nextflow.log*
+.coverage
+build/
+dist/
+src/nexus.egg-info/
+test/__pycache__/

@@ -1,3 +1,0 @@
-sample_id	fastq_file_1	fastq_file_2
-hg001	/datastore/lbcfs/collaborations/pirl/workflows/data/raw/hg001_illumina_gdna_r1.fastq.gz	/datastore/lbcfs/collaborations/pirl/workflows/data/raw/hg001_illumina_gdna_r2.fastq.gz
-hg002	/datastore/lbcfs/collaborations/pirl/workflows/data/raw/hg002_illumina_gdna_r1.fastq.gz	/datastore/lbcfs/collaborations/pirl/workflows/data/raw/hg002_illumina_gdna_r2.fastq.gz
