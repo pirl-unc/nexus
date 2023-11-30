@@ -32,7 +32,9 @@ jobs:
       run: |
         conda env list
         conda info
-        conda install -c conda-forge openjdk
+        conda config --add channels bioconda
+        conda config --add channels conda-forge
+        conda install openjdk
         conda install java-jdk
         conda install mamba
         mamba config --add channels bioconda
