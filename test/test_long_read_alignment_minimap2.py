@@ -9,10 +9,10 @@ def test_long_read_alignment_minimap2_dna():
     long_read_tumor_dna_fastq_file = get_data_path(name='hg38_tp53_tumor_long_read_dna.fastq.gz')
     long_read_normal_dna_fastq_file = get_data_path(name='hg38_tp53_normal_long_read_dna.fastq.gz')
     reference_genome_fasta_file = get_data_path(name='hg38_chr17_1-8000000.fa')
-    temp_dir = os.getcwd() + '/tmp/'
-    intermediate_dir = temp_dir + 'intermediate/test_long_read_alignment_minimap2_dna/'
-    work_dir = temp_dir + 'work/test_long_read_alignment_minimap2_dna/'
-    output_dir = temp_dir + 'outputs/test_long_read_alignment_minimap2_dna/'
+    temp_dir = os.getcwd() + '/tmp'
+    intermediate_dir = temp_dir + '/intermediate/test_long_read_alignment_minimap2_dna'
+    work_dir = temp_dir + '/work/test_long_read_alignment_minimap2_dna'
+    output_dir = temp_dir + '/outputs/test_long_read_alignment_minimap2_dna'
     if not os.path.exists(intermediate_dir):
         os.makedirs(intermediate_dir)
     if not os.path.exists(work_dir):
