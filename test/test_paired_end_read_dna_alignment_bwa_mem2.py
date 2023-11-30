@@ -14,10 +14,10 @@ def test_paired_end_read_dna_alignment_bwa_mem2():
     reference_genome_fasta_file = get_data_path(name='hg38_chr17_1-8000000.fa')
     abra2_targets_bed_file = get_data_path(name='gencode-v41-annotation-abra2-exon-targets.bed')
     known_sites_vcf_file = get_data_path(name='known_sites_hg38.vcf')
-    temp_dir = os.getcwd() + '/tmp/'
-    intermediate_dir = temp_dir + 'intermediate/test_paired_end_read_alignment_bwa_mem2/'
-    work_dir = temp_dir + 'work/test_paired_end_read_alignment_bwa_mem2/'
-    output_dir = temp_dir + 'outputs/test_paired_end_read_alignment_bwa_mem2/'
+    temp_dir = os.getcwd() + '/tmp'
+    intermediate_dir = temp_dir + '/intermediate/test_paired_end_read_alignment_bwa_mem2'
+    work_dir = temp_dir + '/work/test_paired_end_read_alignment_bwa_mem2'
+    output_dir = temp_dir + '/outputs/test_paired_end_read_alignment_bwa_mem2'
     if not os.path.exists(intermediate_dir):
         os.makedirs(intermediate_dir)
     if not os.path.exists(work_dir):

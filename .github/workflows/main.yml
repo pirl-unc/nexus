@@ -54,6 +54,7 @@ jobs:
         wget https://github.com/mozack/abra2/releases/download/v2.23/abra2-2.23.jar
         chmod +x abra2-2.23.jar
         export abra2="$(pwd)/abra2-2.23.jar"
+        echo $abra2
         pip install . --verbose
 
     - name: Run linter
@@ -65,5 +66,4 @@ jobs:
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        chmod +x unittest_ci.sh
-        bash unittest_ci.sh
+        pytest -s test/test_paired_end_read_dna_alignment_bwa_mem2.py
