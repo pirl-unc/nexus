@@ -19,7 +19,7 @@ process runDeepVariantSingularity {
         val(deepvariant_model_type)
         val(deepvariant_bin_version)
         val(deepvariant_bin_path)
-        val(deepvariant_lib_path)
+        val(deepvariant_input_path)
         val(output_dir)
 
     output:
@@ -28,7 +28,7 @@ process runDeepVariantSingularity {
     script:
         """
         $singularity run \
-            -B ${deepvariant_lib_path} \
+            -B ${deepvariant_input_path} \
             docker://google/deepvariant:$deepvariant_bin_version \
             $deepvariant_bin_path \
             --model_type=$deepvariant_model_type \
@@ -60,7 +60,7 @@ process runDeepVariantDocker {
         val(deepvariant_model_type)
         val(deepvariant_bin_version)
         val(deepvariant_bin_path)
-        val(deepvariant_lib_path)
+        val(deepvariant_input_path)
         val(deepvariant_output_path)
         val(output_dir)
 
@@ -71,7 +71,7 @@ process runDeepVariantDocker {
         """
         mkdir -p \${PWD}/${sample_id}_deepvariant_intermediate_results/
         $docker run \
-            -v ${deepvariant_lib_path}:${deepvariant_lib_path} \
+            -v ${deepvariant_input_path}:${deepvariant_input_path} \
             -v ${deepvariant_output_path}:${deepvariant_output_path} \
             google/deepvariant:${deepvariant_bin_version} \
             $deepvariant_bin_path \
