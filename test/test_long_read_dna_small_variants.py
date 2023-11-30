@@ -70,7 +70,7 @@ def test_long_read_dna_small_variants_docker():
         '--deepvariant_input_path', '/Users/leework/Documents/Research/projects/nexus/',
         '--deepvariant_output_path', '/var/folders/',
         '--deepvariant_bin_version', '1.6.0',
-        '--deepvariant_model_type', 'WGS',
+        '--deepvariant_model_type', 'PACBIO',
         '--output_dir', output_dir,
         '-w', work_dir
     ]

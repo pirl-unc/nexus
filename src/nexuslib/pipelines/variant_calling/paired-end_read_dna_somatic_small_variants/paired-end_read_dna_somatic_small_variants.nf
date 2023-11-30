@@ -109,6 +109,7 @@ if (params.help) {
             --strelka2_params                   :   Strelka2 parameters.
                                                     Note that the parameters need to be wrapped in quotes
                                                     and a space at the end of the string is necessary.
+                                                    An empty space should be supplied if no parameter is set.
             --containerization                  :   Containerization ('singularity' or 'docker'; default: 'singularity').
             --deepvariant_bin_path              :   DeepVariant bin path (e.g. '/opt/deepvariant/bin/run_deepvariant').
             --deepvariant_bin_version           :   DeepVariant bin version (e.g. 1.6.0).
@@ -161,10 +162,11 @@ Channel
 gatk4_chromosomes_count = params.gatk4_chromosomes.split(",").size()
 
 // Step 5. Workflows
-workflow PAIRED_END_READ_HUMAN_DNA_SOMATIC_SMALL_VARIANTS {
+workflow PAIRED_END_READ_DNA_SOMATIC_SMALL_VARIANTS {
     take:
         input_bam_files_ch             // channel: [val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file), path(normal_bam_file), path(normal_bam_bai_file), val(tumor_sample_id), val(normal_sample_id)]
         output_dir
+        is_human
         reference_genome_fasta_file
         python2
         gatk4
@@ -196,59 +198,89 @@ workflow PAIRED_END_READ_HUMAN_DNA_SOMATIC_SMALL_VARIANTS {
             .set { run_deepvariant_normal_input_ch }
 
         // GATK4-Mutect2
-        input_bam_files_ch
-            .map{ [it[0], it[1], it[2]] }
-            .set{ run_gatk4_getpileupsummaries_input_ch }
-        runGatk4GetPileupSummaries(
-            run_gatk4_getpileupsummaries_input_ch,
-            gatk4,
-            gatk4_getpileupsummaries_params
-        )
-        runGatk4CalculateContamination(
-            runGatk4GetPileupSummaries.out.f,
-            gatk4
-        )
-        runGatk4Mutect2TumorNormal(
-            run_gatk4_mutect2_input_ch,
-            reference_genome_fasta_file,
-            gatk4,
-            gatk4_mutect2_params
-        )
-        runGatk4Mutect2TumorNormal.out.f
-            .groupTuple(by: [0], size: gatk4_chromosomes_count)
-            .set{ run_gatk4_mutect2_output_ch }
-        run_gatk4_mutect2_output_ch
-            .map{ [it[0], it[1], it[5]] }
-            .transpose()
-            .set{ run_gatk4_learn_read_orientation_model_input_ch }
-        runGatk4LearnReadOrientationModel(
-            run_gatk4_learn_read_orientation_model_input_ch,
-            gatk4
-        )
-        runGatk4LearnReadOrientationModel.out.f
-            .groupTuple(by: [0], size: gatk4_chromosomes_count)
-            .transpose()
-            .set{ run_gatk4_learn_read_orientation_model_output_ch }
-        run_gatk4_mutect2_output_ch
-            .join(runGatk4CalculateContamination.out.f)
-            .transpose()
-            .join(run_gatk4_learn_read_orientation_model_output_ch, by: [0, 1])
-            .map{ [it[0], it[1], it[2], it[3], it[4], it[6], it[7], it[8]] }
-            .set { run_gatk4_filter_mutect2_calls_input_ch }
-        runGatk4FilterMutect2Calls(
-            run_gatk4_filter_mutect2_calls_input_ch,
-            reference_genome_fasta_file,
-            gatk4
-        )
-        runGatk4FilterMutect2Calls.out.f
-            .groupTuple(by: [0], size: gatk4_chromosomes_count)
-            .set{ run_picard_merge_vcfs_input_ch }
-        runPicardMergeVCFs(
-            run_picard_merge_vcfs_input_ch,
-            picard,
-            "gatk4-mutect2",
-            output_dir
-        )
+        if (is_human) {
+            input_bam_files_ch
+                .map{ [it[0], it[1], it[2]] }
+                .set{ run_gatk4_getpileupsummaries_input_ch }
+            runGatk4GetPileupSummaries(
+                run_gatk4_getpileupsummaries_input_ch,
+                gatk4,
+                gatk4_getpileupsummaries_params
+            )
+            runGatk4CalculateContamination(
+                runGatk4GetPileupSummaries.out.f,
+                gatk4
+            )
+            runGatk4Mutect2TumorNormal(
+                run_gatk4_mutect2_input_ch,
+                reference_genome_fasta_file,
+                gatk4,
+                gatk4_mutect2_params
+            )
+            runGatk4Mutect2TumorNormal.out.f
+                .groupTuple(by: [0], size: gatk4_chromosomes_count)
+                .set{ run_gatk4_mutect2_output_ch }
+            run_gatk4_mutect2_output_ch
+                .map{ [it[0], it[1], it[5]] }
+                .transpose()
+                .set{ run_gatk4_learn_read_orientation_model_input_ch }
+            runGatk4LearnReadOrientationModel(
+                run_gatk4_learn_read_orientation_model_input_ch,
+                gatk4
+            )
+            runGatk4LearnReadOrientationModel.out.f
+                .groupTuple(by: [0], size: gatk4_chromosomes_count)
+                .transpose()
+                .set{ run_gatk4_learn_read_orientation_model_output_ch }
+            run_gatk4_mutect2_output_ch
+                .join(runGatk4CalculateContamination.out.f)
+                .transpose()
+                .join(run_gatk4_learn_read_orientation_model_output_ch, by: [0, 1])
+                .map{ [it[0], it[1], it[2], it[3], it[4], it[6], it[7], it[8]] }
+                .set { run_gatk4_filter_mutect2_calls_input_ch }
+            runGatk4FilterMutect2Calls(
+                run_gatk4_filter_mutect2_calls_input_ch,
+                reference_genome_fasta_file,
+                gatk4
+            )
+            runGatk4FilterMutect2Calls.out.f
+                .groupTuple(by: [0], size: gatk4_chromosomes_count)
+                .set{ run_picard_merge_vcfs_input_ch }
+            runPicardMergeVCFs(
+                run_picard_merge_vcfs_input_ch,
+                picard,
+                "gatk4-mutect2",
+                output_dir
+            )
+        } else {
+            // GATK4-Mutect2
+            runGatk4Mutect2TumorNormalNonHumanSample(
+                run_gatk4_mutect2_input_ch,
+                reference_genome_fasta_file,
+                gatk4,
+                gatk4_mutect2_params
+            )
+            runGatk4Mutect2TumorNormalNonHumanSample.out.f
+                .groupTuple(by: [0], size: gatk4_chromosomes_count)
+                .set{ run_gatk4_mutect2_output_ch }
+            run_gatk4_mutect2_output_ch
+                .map{ [it[0], it[1], it[2], it[3], it[4]] }
+                .set{ run_gatk4_filter_input_ch }
+            runGatk4FilterMutect2CallsNonHumanSample(
+                run_gatk4_filter_input_ch,
+                gatk4,
+                reference_genome_fasta_file
+            )
+            runGatk4FilterMutect2CallsNonHumanSample.out.f
+                .groupTuple(by: [0], size: gatk4_chromosomes_count)
+                .set{ run_picard_merge_vcfs_input_ch }
+            runPicardMergeVCFs(
+                run_picard_merge_vcfs_input_ch,
+                picard,
+                "gatk4-mutect2",
+                output_dir
+            )
+        }
 
         // Strelka2
         runStrelka2SomaticMode(
@@ -284,7 +316,7 @@ workflow PAIRED_END_READ_HUMAN_DNA_SOMATIC_SMALL_VARIANTS {
             )
         }
         if (containerization == "docker") {
-            runDeepVariantTumorSingularity(
+            runDeepVariantTumorDocker(
                 run_deepvariant_tumor_input_ch,
                 reference_genome_fasta_file,
                 containerization,
@@ -295,7 +327,7 @@ workflow PAIRED_END_READ_HUMAN_DNA_SOMATIC_SMALL_VARIANTS {
                 deepvariant_output_path,
                 output_dir
             )
-            runDeepVariantNormalSingularity(
+            runDeepVariantNormalDocker(
                 run_deepvariant_normal_input_ch,
                 reference_genome_fasta_file,
                 containerization,
@@ -309,173 +341,28 @@ workflow PAIRED_END_READ_HUMAN_DNA_SOMATIC_SMALL_VARIANTS {
         }
 }
 
-workflow PAIRED_END_READ_NON_HUMAN_DNA_SOMATIC_SMALL_VARIANTS {
-    take:
-        input_bam_files_ch             // channel: [val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file), path(normal_bam_file), path(normal_bam_bai_file), val(tumor_sample_id), val(normal_sample_id)]
-        output_dir
-        reference_genome_fasta_file
-        python2
-        gatk4
-        gatk4_mutect2_params
-        gatk4_getpileupsummaries_params
-        gatk4_chromosomes
-        gatk4_chromosomes_count
-        picard
-        strelka2
-        strelka2_params
-        containerization
-        deepvariant_bin_path
-        deepvariant_bin_version
-        deepvariant_input_path
-        deepvariant_output_path
-        deepvariant_model_type
-
-    main:
-        gatk4_chromosomes_ch = Channel
-                                .value(gatk4_chromosomes.tokenize(','))
-                                .flatten()
-        run_gatk4_mutect2_input_ch = input_bam_files_ch.combine(gatk4_chromosomes_ch)
-        run_strelka2_input_ch = input_bam_files_ch
-        input_bam_files_ch
-            .map{ [it[0], it[1], it[2]] }
-            .set { run_deepvariant_tumor_input_ch }
-        input_bam_files_ch
-            .map{ [it[0], it[3], it[4]] }
-            .set { run_deepvariant_normal_input_ch }
-
-        // GATK4-Mutect2
-        runGatk4Mutect2TumorNormalNonHumanSample(
-            run_gatk4_mutect2_input_ch,
-            reference_genome_fasta_file,
-            gatk4,
-            gatk4_mutect2_params
-        )
-        runGatk4Mutect2TumorNormalNonHumanSample.out.f
-            .groupTuple(by: [0], size: gatk4_chromosomes_count)
-            .set{ run_gatk4_mutect2_output_ch }
-        run_gatk4_mutect2_output_ch
-            .map{ [it[0], it[1], it[2], it[3], it[4]] }
-            .set{ run_gatk4_filter_input_ch }
-        runGatk4FilterMutect2CallsNonHumanSample(
-            run_gatk4_filter_input_ch,
-            gatk4,
-            reference_genome_fasta_file
-        )
-        runGatk4FilterMutect2CallsNonHumanSample.out.f
-            .groupTuple(by: [0], size: gatk4_chromosomes_count)
-            .set{ run_picard_merge_vcfs_input_ch }
-        runPicardMergeVCFs(
-            run_picard_merge_vcfs_input_ch,
-            picard,
-            "gatk4-mutect2",
-            output_dir
-        )
-
-        // Strelka2
-        runStrelka2SomaticMode(
-            input_bam_files_ch,
-            reference_genome_fasta_file,
-            python2,
-            strelka2,
-            strelka2_params,
-            output_dir
-        )
-
-        // DeepVariant
-        if (containerization == "singularity") {
-            runDeepVariantTumorSingularity(
-                run_deepvariant_tumor_input_ch,
-                reference_genome_fasta_file,
-                containerization,
-                deepvariant_model_type,
-                deepvariant_bin_version,
-                deepvariant_bin_path,
-                deepvariant_input_path,
-                output_dir
-            )
-            runDeepVariantNormalSingularity(
-                run_deepvariant_normal_input_ch,
-                reference_genome_fasta_file,
-                containerization,
-                deepvariant_model_type,
-                deepvariant_bin_version,
-                deepvariant_bin_path,
-                deepvariant_input_path,
-                output_dir
-            )
-        }
-        if (containerization == "docker") {
-            runDeepVariantTumorSingularity(
-                run_deepvariant_tumor_input_ch,
-                reference_genome_fasta_file,
-                containerization,
-                deepvariant_model_type,
-                deepvariant_bin_version,
-                deepvariant_bin_path,
-                deepvariant_input_path,
-                deepvariant_output_path,
-                output_dir
-            )
-            runDeepVariantNormalSingularity(
-                run_deepvariant_normal_input_ch,
-                reference_genome_fasta_file,
-                containerization,
-                deepvariant_model_type,
-                deepvariant_bin_version,
-                deepvariant_bin_path,
-                deepvariant_input_path,
-                deepvariant_output_path,
-                output_dir
-            )
-        }
-}
-
-if (params.is_human) {
-    workflow {
-        PAIRED_END_HUMAN_DNA_SOMATIC_SMALL_VARIANTS(
-            input_bam_files_ch,
-            params.output_dir,
-            params.reference_genome_fasta_file,
-            params.python2,
-            params.gatk4,
-            params.gatk4_mutect2_params,
-            params.gatk4_getpileupsummaries_params,
-            params.gatk4_chromosomes,
-            gatk4_chromosomes_count,
-            params.picard,
-            params.strelka2,
-            params.strelka2_params,
-            params.containerization,
-            params.deepvariant_bin_path,
-            params.deepvariant_bin_version,
-            params.deepvariant_input_path,
-            params.deepvariant_output_path,
-            params.deepvariant_model_type
-        )
-    }
-} else {
-    workflow {
-        PAIRED_END_READ_NON_HUMAN_DNA_SOMATIC_SMALL_VARIANTS(
-            input_bam_files_ch,
-            params.output_dir,
-            params.reference_genome_fasta_file,
-            params.python2,
-            params.gatk4,
-            params.gatk4_mutect2_params,
-            params.gatk4_getpileupsummaries_params,
-            params.gatk4_chromosomes,
-            gatk4_chromosomes_count,
-            params.picard,
-            params.strelka2,
-            params.strelka2_params,
-            params.containerization,
-            params.deepvariant_bin_path,
-            params.deepvariant_bin_version,
-            params.deepvariant_input_path,
-            params.deepvariant_output_path,
-            params.deepvariant_model_type
-        )
-    }
+workflow {
+    PAIRED_END_READ_DNA_SOMATIC_SMALL_VARIANTS(
+        input_bam_files_ch,
+        params.output_dir,
+        params.is_human,
+        params.reference_genome_fasta_file,
+        params.python2,
+        params.gatk4,
+        params.gatk4_mutect2_params,
+        params.gatk4_getpileupsummaries_params,
+        params.gatk4_chromosomes,
+        gatk4_chromosomes_count,
+        params.picard,
+        params.strelka2,
+        params.strelka2_params,
+        params.containerization,
+        params.deepvariant_bin_path,
+        params.deepvariant_bin_version,
+        params.deepvariant_input_path,
+        params.deepvariant_output_path,
+        params.deepvariant_model_type
+    )
 }
 
 workflow.onComplete {
