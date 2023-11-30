@@ -194,7 +194,7 @@ process runGatk4FilterMutect2CallsNonHumanSample {
 
     script:
         """
-        $gatk4 --java-options -Xmx${task.java_max_mem} FilterMutectCalls \
+        $gatk4 --java-options -Xmx${task.java_max_mem.toGiga()}G FilterMutectCalls \
             -V $vcf_file \
             -R $reference_genome_fasta_file \
             -O ${sample_id}_gatk4-mutect2_${chromosome}_filtered.vcf
@@ -279,7 +279,7 @@ process runGatk4Mutect2TumorNormalNonHumanSample {
 
     script:
         """
-        $gatk4 --java-options -Xmx${task.java_max_mem} Mutect2 \
+        $gatk4 --java-options -Xmx${task.java_max_mem.toGiga()}G Mutect2 \
             -R $reference_genome_fasta_file \
             -I $tumor_bam_file \
             -I $normal_bam_file \

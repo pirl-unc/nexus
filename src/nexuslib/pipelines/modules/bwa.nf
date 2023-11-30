@@ -21,9 +21,9 @@ process runBwaMem2 {
     script:
         """
         $bwa_mem2 mem -t ${task.cpus} \
+            -R "@RG\tID:$sample_id\tSM:$sample_id\tPL:$platform_tag\tLB:$library_tag\tPU:$platform_unit_tag" \
             $reference_genome_fasta_file \
             $fastq_file_1 \
-            $fastq_file_2 \
-            -R "@RG\tID:$sample_id\tSM:$sample_id\tPL:$platform_tag\tLB:$library_tag\tPU:$platform_unit_tag" > ${sample_id}.sam
+            $fastq_file_2 > ${sample_id}.sam
         """
 }

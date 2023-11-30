@@ -67,6 +67,9 @@ def run_workflow(workflow: str, workflow_args: List[str]):
             if output:
                 print(output.strip())
         return_code = process.wait()
-        print("Return Code:", return_code)
+        if return_code == 0:
+            print("Nextflow returned zero (ran successfully).")
+        else:
+            raise Exception('Nextflow returned non-zero exit code: %i' % return_code)
     else:
         raise Exception('%s is not available.' % workflow)
