@@ -53,7 +53,7 @@ jobs:
         conda install pytest-cov
         wget https://github.com/mozack/abra2/releases/download/v2.23/abra2-2.23.jar
         chmod +x abra2-2.23.jar
-        export abra2="$(pwd)/abra2-2.23.jar"
+        echo "abra2=${{ $(pwd)/abra2-2.23.jar }}" >> $GITHUB_ENV
         pip install . --verbose
 
     - name: Run linter
@@ -64,5 +64,7 @@ jobs:
 
     - name: Run unit tests
       shell: bash -l {0}
+      env:
+        abra2: 'Snyk Demo'
       run: |
         pytest -s test/test_paired_end_read_dna_alignment_bwa_mem2.py
