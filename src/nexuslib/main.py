@@ -65,7 +65,7 @@ def run_workflow(workflow: str, workflow_args: List[str]):
             if output == '' and process.poll() is not None:
                 break
             if output:
-                print(output.strip())
+                print(output.replace('\n',''))
         return_code = process.wait()
         if return_code == 0:
             print("Nextflow returned zero (ran successfully).")

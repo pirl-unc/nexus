@@ -35,7 +35,7 @@ params.gatk4_getpileupsummaries_params = ''
 params.gatk4_chromosomes = 'chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM'
 params.picard = 'picard'
 params.strelka2 = 'strelka2'
-params.strelka2_params = ''
+params.strelka2_params = ' '
 params.containerization = 'singularity'
 params.deepvariant_bin_path = '/opt/deepvariant/bin/run_deepvariant'
 params.deepvariant_bin_version = '1.6.0'
@@ -48,77 +48,57 @@ params.delete_work_dir = false
 // Step 3. Print inputs and help
 log.info """\
          =============================================================================
-         Identify Somatic Small DNA Variants Using Paired-end DNA Sequencing BAM Files
+         Identify somatic small DNA variants using paired-end DNA sequencing bam files
          =============================================================================
-         Workflow:
-            human:
-                1.  Run GATK4-Mutect2 (tumor and normal mode).
-                    Run GATK4 'LearnReadOrientationModel'.
-                    Run GATK4 'GetPileupSummaries'.
-                    Run GATK4 'CalculateContamination'.
-                    Run GATK4 'FilterMutectCalls'.
-                    Run Picard 'MergeVcfs',
-                2.  Run Strelka2 (somatic mode).
-                3.  Run DeepVariant.
-            non-human:
-                1.  Run GATK4 'Mutect2' (tumor and normal mode).
-                    Run GATK4 'FilterMutectCalls'.
-                    Run Picard 'MergeVcfs',
-                2.  Run Strelka2 (somatic mode).
-                3.  Run DeepVariant.
          """.stripIndent()
 
 if (params.help) {
     log.info"""\
-         workflow:
-            human:
-                1.  Run GATK4-Mutect2 (tumor and normal mode).
-                    Run GATK4 'LearnReadOrientationModel'.
-                    Run GATK4 'GetPileupSummaries'.
-                    Run GATK4 'CalculateContamination'.
-                    Run GATK4 'FilterMutectCalls'.
-                    Run Picard 'MergeVcfs',
-                2.  Run Strelka2 (somatic mode).
-                3.  Run DeepVariant.
-            non-human:
-                1.  Run GATK4 'Mutect2' (tumor and normal mode).
-                    Run GATK4 'FilterMutectCalls'.
-                    Run Picard 'MergeVcfs',
-                2.  Run Strelka2 (somatic mode).
-                3.  Run DeepVariant.
+    workflow:
+        human:
+            1.  Run gatk4-mutect2 (tumor and normal mode).
+                Run gatk4 LearnReadOrientationModel.
+                Run gatk4 GetPileupSummaries.
+                Run gatk4 CalculateContamination.
+                Run gatk4 FilterMutectCalls.
+                Run picard MergeVcfs,
+            2.  Run strelka2 (somatic mode).
+            3.  Run deepvariant.
+        non-human:
+            1.  Run gatk4 mutect2 (tumor and normal mode).
+                Run gatk4 FilterMutectCalls.
+                Run picard MergeVcfs,
+            2.  Run strelka2 (somatic mode).
+            3.  Run deepvariant.
 
-        usage: nexus run --nf-workflow paired_end_dna_somatic_small_variants.nf [required] [optional] [--help]
+    usage: nexus run --nf-workflow paired_end_dna_somatic_small_variants.nf [required] [optional] [--help]
 
-        required arguments:
-            --samples_tsv_file                  :   TSV file with the following columns:
-                                                    'sample_id', 'tumor_bam_file', 'tumor_bam_bai_file', 'normal_bam_file', 'normal_bam_bai_file', 'tumor_sample_id', normal_sample_id'
-            --output_dir                        :   Directory to which output files will be symlinked.
+    required arguments:
+        --samples_tsv_file                  :   TSV file with the following columns:
+                                                'sample_id', 'tumor_bam_file', 'tumor_bam_bai_file', 'normal_bam_file', 'normal_bam_bai_file', 'tumor_sample_id', normal_sample_id'
+        --deepvariant_input_path            :   DeepVariant input path (e.g. /path/to/input/).
+        --deepvariant_output_path           :   DeepVariant output path (e.g. /path/to/output/).
+        --output_dir                        :   Directory to which output files will be symlinked.
 
-        optional arguments:
-            --is_human                          :   true if the samples are human. false otherwise (default: true).
-            --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
-            --python2                           :   python2 path (default: python2).
-            --gatk4                             :   gatk4 path (default: gatk4).
-            --gatk4_mutect2_params              :   gatk4-mutect2 parameters (e.g. '"--germline-resource /path/af-only-gnomad.hg38.vcf --panel-of-normals /path/1000g_pon.hg38.vcf.gz "').
-                                                    Note that the parameters need to be wrapped in quotes
-                                                    and a space at the end of the string is necessary.
-            --gatk4_getpileupsummaries_params   :   gatk4 GetPileupSummaries parameters (e.g. '"-V /path/small_exac_common_3.hg38.vcf -L /path/small_exac_common_3.hg38.vcf "').
-                                                    Note that the parameters need to be wrapped in quotes
-                                                    and a space at the end of the string is necessary.
-            --gatk4_chromosomes                 :   gatk4 chromosomes to parallelize (separated by comma; e.g. 'chr1,chr2,chr3').
-            --picard                            :   Picard path.
-            --strelka2                          :   Strelka2 path (bin path).
-            --strelka2_params                   :   Strelka2 parameters.
-                                                    Note that the parameters need to be wrapped in quotes
-                                                    and a space at the end of the string is necessary.
-                                                    An empty space should be supplied if no parameter is set.
-            --containerization                  :   Containerization ('singularity' or 'docker'; default: 'singularity').
-            --deepvariant_bin_path              :   DeepVariant bin path (e.g. '/opt/deepvariant/bin/run_deepvariant').
-            --deepvariant_bin_version           :   DeepVariant bin version (e.g. 1.6.0).
-            --deepvariant_input_path            :   DeepVariant input path (e.g. /path/to/input/).
-            --deepvariant_output_path           :   DeepVariant output path (e.g. /path/to/output/).
-            --deepvariant_model_type            :   DeepVariant --model_type parameter value (e.g. 'WGS').
-            --delete_work_dir                   :   Delete work directory (default: false).
+    optional arguments:
+        --is_human                          :   true if the samples are human. false otherwise (default: true).
+        --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
+        --python2                           :   python2 path (default: python2).
+        --gatk4                             :   gatk4 path (default: gatk4).
+        --gatk4_mutect2_params              :   gatk4-mutect2 parameters (e.g. '"--germline-resource /path/af-only-gnomad.hg38.vcf --panel-of-normals /path/1000g_pon.hg38.vcf.gz "').
+                                                Note that the parameters need to be wrapped in quotes and a space at the end of the string is necessary.
+        --gatk4_getpileupsummaries_params   :   gatk4 GetPileupSummaries parameters (e.g. '"-V /path/small_exac_common_3.hg38.vcf -L /path/small_exac_common_3.hg38.vcf "').
+                                                Note that the parameters need to be wrapped in quotes and a space at the end of the string is necessary.
+        --gatk4_chromosomes                 :   gatk4 chromosomes to parallelize (separated by comma; e.g. 'chr1,chr2,chr3').
+        --picard                            :   Picard path (default: picard).
+        --strelka2                          :   Strelka2 bin path (default: ).
+        --strelka2_params                   :   Strelka2 parameters (default: ' ').
+                                                Note that the parameters need to be wrapped in quotes and a space at the end of the string is necessary.
+        --containerization                  :   Containerization ('singularity' or 'docker'; default: 'singularity').
+        --deepvariant_bin_path              :   DeepVariant bin path (e.g. '/opt/deepvariant/bin/run_deepvariant').
+        --deepvariant_bin_version           :   DeepVariant bin version (default: '1.6.0').
+        --deepvariant_model_type            :   DeepVariant --model_type parameter value (default: 'WGS').
+        --delete_work_dir                   :   Delete work directory (default: false).
     """.stripIndent()
     exit 0
 } else {
