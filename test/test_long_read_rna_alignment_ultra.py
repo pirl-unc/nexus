@@ -6,7 +6,7 @@ from nexuslib.main import run_workflow
 
 def test_long_read_rna_alignment_ultra():
     nextflow_config_file = get_data_path(name='nextflow_test.config')
-    long_read_tumor_rna_fastq_file = get_data_path(name='hg38_tp53_tumor_rna.fastq.gz')
+    long_read_tumor_rna_fastq_file = get_data_path(name='hg38_tp53_tumor_long_read_rna.fastq.gz')
     reference_genome_fasta_file = get_data_path(name='hg38_chr17_1-8000000.fa')
     reference_gtf_file = get_data_path(name='gencode_v41_tp53_annotation.gtf')
     temp_dir = os.getcwd() + '/tmp'

@@ -6,8 +6,8 @@ from nexuslib.main import run_workflow
 
 def test_long_read_dna_structural_variants():
     nextflow_config_file = get_data_path(name='nextflow_test.config')
-    long_read_tumor_dna_bam_file = get_data_path(name='hg38_tp53_tumor_dna_minimap2_mdtagged_sorted.bam')
-    long_read_tumor_dna_bam_bai_file = get_data_path(name='hg38_tp53_tumor_dna_minimap2_mdtagged_sorted.bam.bai')
+    long_read_tumor_dna_bam_file = get_data_path(name='hg38_tp53_tumor_long_read_dna_minimap2_mdtagged_sorted.bam')
+    long_read_tumor_dna_bam_bai_file = get_data_path(name='hg38_tp53_tumor_long_read_dna_minimap2_mdtagged_sorted.bam.bai')
     reference_genome_fasta_file = get_data_path(name='hg38_chr17_1-8000000.fa')
     temp_dir = os.getcwd() + '/tmp/'
     intermediate_dir = temp_dir + 'intermediate/test_long_read_dna_structural_variants/'

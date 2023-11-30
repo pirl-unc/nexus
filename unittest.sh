@@ -1,1 +1,0 @@
-pytest -s --cov-report=term-missing --cov=nexuslib test/

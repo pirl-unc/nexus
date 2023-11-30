@@ -67,5 +67,5 @@ jobs:
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        chmod +x unittest.sh
-        bash unittest.sh
+        chmod +x unittest_ci.sh
+        bash unittest_ci.sh
