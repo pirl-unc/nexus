@@ -88,4 +88,5 @@ Here is a list of all available workflows for `v0.0.1`
 | Alignment      | [long_read_alignment_minimap2.nf](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/)                                          |
 | Alignment      | [long_read_rna_alignment_ultra.nf](/src/nexuslib/pipelines/alignment/long_read_rna_alignment_ultra)                                         |
 | Alignment      | [paired-end_read_dna_alignment_bwa-mem2.nf](/src/nexuslib/pipelines/alignment/paired-end_read_dna_alignment_bwa-mem2/)                      |
-| Quantification | [paired-end_read_rna_quantification_salmon_mapping_mode.nf](/src/nexuslib/pipelines/quantification/paired-end_read_rna_quantification_salmon-mapping/) |
+| Variant calling | [long_read_dna_small_variants.nf](/src/nexuslib/pipelines/long_read_dna_small_variants/) |
+| Variant calling | [long_read_dna_structural_variants.nf](/src/nexuslib/pipelines/long_read_dna_structural_variants/) |

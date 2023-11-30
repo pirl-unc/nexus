@@ -33,10 +33,7 @@ log.info """\
          ==================================================================
          Align Long-read (DNA or RNA) Sequencing FASTQ Files Using Minimap2
          ==================================================================
-         PURPOSE:
-            This workflow is intended for long-read DNA or RNA sequencing FASTQ files.
-
-         WORKFLOW:
+         Workflow:
             1. Align reads to a reference genome using minimap2.
             2. Convert SAM to BAM.
             3. Generate MD tags.
@@ -45,15 +42,25 @@ log.info """\
 
 if (params.help) {
     log.info"""\
-        usage: nextflow run long_read_alignment_minimap2.nf [required] [optional] [--help]
+        workflow:
+            1. Align reads (fastq.gz files) to a reference genome using minimap2.
+            2. Convert sam files to bam files.
+            3. Generate MD tags.
+            4. Sort MD-tagged bam files.
+
+        usage: nexus run --nf-workflow long_read_alignment_minimap2.nf [required] [optional] [--help]
 
         required arguments:
+            -c                              :   Nextflow .config file.
+            -w                              :   Nextflow work directory path.
             --samples_tsv_file              :   TSV file with the following columns:
                                                 'sample_id', 'fastq_file'.
             --output_dir                    :   Directory to which output files will be copied.
             --reference_genome_fasta_file   :   Reference genome FASTA file.
             --minimap2                      :   minimap2 path.
-            --minimap2_params               :   minimap2 parameters (e.g. '--ax map-hifi --cs --eqx --Y --L').
+            --minimap2_params               :   minimap2 parameters (e.g. '"--ax map-hifi --cs --eqx --Y --L "').
+                                                Note that the parameters need to be wrapped in quotes
+                                                and a space at the end of the string is necessary.
             --samtools                      :   samtools path.
 
         optional arguments:

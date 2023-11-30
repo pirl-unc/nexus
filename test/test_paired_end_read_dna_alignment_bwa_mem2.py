@@ -38,7 +38,7 @@ def test_paired_end_read_dna_alignment_bwa_mem2():
         '--abra2', abra2_jar_path,
         '--abra2_targets_bed_file', abra2_targets_bed_file,
         '--gatk4', 'gatk',
-        '--gatk4_baserecalibrator_params', '"--known-sites %s"' % known_sites_vcf_file,
+        '--gatk4_baserecalibrator_params', '"--known-sites %s "' % known_sites_vcf_file,
         '--chromosomes', 'chr17',
         '--output_dir', output_dir,
         '-w', work_dir

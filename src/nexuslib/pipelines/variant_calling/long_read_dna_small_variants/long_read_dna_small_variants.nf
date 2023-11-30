@@ -17,10 +17,9 @@ params.samples_tsv_file = ''
 params.output_dir = ''
 params.reference_genome_fasta_file = ''
 params.containerization = 'singularity' // or docker
-params.singularity = ''
 params.deepvariant_bin_path = ''
 params.deepvariant_bin_version = ''
-params.deepvariant_lib_path = ''
+params.deepvariant_input_path = ''
 params.deepvariant_output_path = ''
 params.deepvariant_model_type = ''
 // Optional arguments
@@ -31,27 +30,29 @@ log.info """\
          ==================================================================================
          Identify Small Variants (SNVs and INDELs) using Long-read DNA Sequencing BAM Files
          ==================================================================================
-         PURPOSE:
-            This workflow is intended for long-read DNA sequencing BAM files.
-
-         WORKFLOW:
+         Workflow:
             1. Run DeepVariant.
          """.stripIndent()
 
 if (params.help) {
     log.info"""\
-        usage: nextflow run long_read_dna_small_variants.nf [required] [optional] [--help]
+        workflow:
+            1. Run DeepVariant.
+
+        usage: nexus run --nf-workflow long_read_dna_small_variants.nf [required] [optional] [--help]
 
         required arguments:
+            -c                                  :   Nextflow .config file.
+            -w                                  :   Nextflow work directory path.
             --samples_tsv_file                  :   TSV file with the following columns: 'sample_id', 'bam_file', 'bam_bai_file'.
             --output_dir                        :   Directory to which output files will be copied.
             --reference_genome_fasta_file       :   Reference genome FASTA file.
-            --singularity                       :   Singularity path.
-            --deepvariant_bin_path              :   DeepVariant bin path.
-            --deepvariant_bin_version           :   DeepVariant bin version.
-            --deepvariant_lib_path              :   DeepVariant lib path.
-            --deepvariant_output_path           :   DeepVariant output path.
-            --deepvariant_model_type            :   DeepVariant --model_type parameter value.
+            --containerization                  :   Containerization ('singularity' or 'docker'; default: 'singularity').
+            --deepvariant_bin_path              :   DeepVariant bin path (e.g. '/opt/deepvariant/bin/run_deepvariant').
+            --deepvariant_bin_version           :   DeepVariant bin version (e.g. 1.6.0).
+            --deepvariant_input_path            :   DeepVariant input path (e.g. /path/to/input/).
+            --deepvariant_output_path           :   DeepVariant output path (e.g. /path/to/output/).
+            --deepvariant_model_type            :   DeepVariant --model_type parameter value (e.g. 'WGS').
 
         optional arguments:
             --delete_work_dir                   :   Delete work directory (default: false).
@@ -65,8 +66,8 @@ if (params.help) {
             containerization                    :   ${params.containerization}
             deepvariant_bin_path                :   ${params.deepvariant_bin_path}
             deepvariant_bin_version             :   ${params.deepvariant_bin_version}
-            deepvariant_lib_path                :   ${params.deepvariant_lib_path}
-            deepvariant_output_path             ::  ${params.deepvariant_output_path}
+            deepvariant_input_path              :   ${params.deepvariant_input_path}
+            deepvariant_output_path             :   ${params.deepvariant_output_path}
             deepvariant_model_type              :   ${params.deepvariant_model_type}
             delete_work_dir                     :   ${params.delete_work_dir}
     """.stripIndent()
@@ -90,7 +91,7 @@ workflow PACBIO_DNA_SMALL_VARIANTS {
         containerization
         deepvariant_bin_version
         deepvariant_bin_path
-        deepvariant_lib_path
+        deepvariant_input_path
         deepvariant_output_path
         deepvariant_model_type
         output_dir
@@ -109,7 +110,7 @@ workflow PACBIO_DNA_SMALL_VARIANTS {
                 deepvariant_model_type,
                 deepvariant_bin_version,
                 deepvariant_bin_path,
-                deepvariant_lib_path,
+                deepvariant_input_path,
                 output_dir
             )
         }
@@ -121,7 +122,7 @@ workflow PACBIO_DNA_SMALL_VARIANTS {
                 deepvariant_model_type,
                 deepvariant_bin_version,
                 deepvariant_bin_path,
-                deepvariant_lib_path,
+                deepvariant_input_path,
                 deepvariant_output_path,
                 output_dir
             )
@@ -135,7 +136,7 @@ workflow {
         params.containerization,
         params.deepvariant_bin_version,
         params.deepvariant_bin_path,
-        params.deepvariant_lib_path,
+        params.deepvariant_input_path,
         params.deepvariant_output_path,
         params.deepvariant_model_type,
         params.output_dir

@@ -30,30 +30,33 @@ log.info """\
          ======================================================
          Align Long-read RNA Sequencing FASTQ Files Using uLTRA
          ======================================================
-         PURPOSE:
-            This workflow is intended for long-read RNA sequencing FASTQ files.
-
-         IMPORTANT NOTES:
-            - minimap2 must be available in the environment.
-
-         WORKFLOW:
-            1. Align reads to a reference genome using uLTRA.
+         Workflow:
+            1. Align reads (fastq.gz files) to a reference genome using uLTRA.
             2. Generate MD tags.
             3. Sort MD-tagged BAM file.
          """.stripIndent()
 
 if (params.help) {
     log.info"""\
-        usage: nextflow run long_read_rna_alignment_ultra.nf [required] [optional] [--help]
+         workflow:
+            1. Align reads (fastq.gz files) to a reference genome using uLTRA.
+            2. Generate MD tags.
+            3. Sort MD-tagged bam file.
+
+        usage: nexus run --nf-workflow long_read_rna_alignment_ultra.nf [required] [optional] [--help]
 
         required arguments:
+            -c                              :   Nextflow .config file.
+            -w                              :   Nextflow work directory path.
             --samples_tsv_file              :   TSV file with the following columns:
-                                                'sample_id', 'fastq_file', 'fasta_file', 'gtf_file'.
+                                                'sample_id', 'fastq_file'.
             --output_dir                    :   Directory to which output files will be copied.
             --reference_genome_fasta_file   :   Reference genome FASTA file.
             --ultra                         :   uLTRA path.
             --ultra_index                   :   uLTRA index path.
-            --ultra_params                  :   uLTRA parameters (e.g. '--isoseq').
+            --ultra_params                  :   uLTRA parameters (e.g. '"--isoseq "').
+                                                Note that the parameters need to be wrapped in quotes
+                                                and a space at the end of the string is necessary.
             --samtools                      :   samtools path.
 
         optional arguments:

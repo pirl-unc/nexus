@@ -41,24 +41,32 @@ log.info """\
          ==========================================================
          Align Paired-end DNA Sequencing FASTQ Files Using BWA-MEM2
          ==========================================================
-         PURPOSE:
-            This workflow is intended for paired-end DNA sequencing FASTQ files.
-
-         WORKFLOW:
+         Workflow:
             1. Align paired-end reads to a reference genome using bwa-mem2.
-            2. Sort SAM to BAM file.
+            2. Sort sam to bam files.
             3. Perform local realignment using abra2.
             4. Add mate score tags using samtools.
             5. Mark PCR duplicates using samtools.
-            6. Calculate base recalibration scores using GATK4.
-            7. Apply base recalibration scores using GATK4.
+            6. Calculate base recalibration scores using gatk4.
+            7. Apply base recalibration scores using gatk4.
          """.stripIndent()
 
 if (params.help) {
     log.info"""\
-        usage: nextflow run paired_end_read_dna_alignment_bwa-mem2.nf [required] [optional] [--help]
+         workflow:
+            1. Align paired-end reads to a reference genome using bwa-mem2.
+            2. Sort sam to bam files.
+            3. Perform local realignment using abra2.
+            4. Add mate score tags using samtools.
+            5. Mark PCR duplicates using samtools.
+            6. Calculate base recalibration scores using gatk4.
+            7. Apply base recalibration scores using gatk4.
+
+        usage: nexus run --nf-workflow paired_end_read_dna_alignment_bwa-mem2.nf [required] [optional] [--help]
 
         required arguments:
+            -c                              :   Nextflow .config file.
+            -w                              :   Nextflow work directory path.
             --samples_tsv_file              :   TSV file with the following columns:
                                                 'sample_id', 'fastq_file_1', 'fastq_file_2'.
             --output_dir                    :   Directory to which output files will be copied.
@@ -66,9 +74,11 @@ if (params.help) {
             --bwa_mem2                      :   bwa-mem2 path.
             --samtools                      :   samtools path.
             --abra2                         :   abra2 (.jar) path.
-            --abra2_targets_bed_file        :   ABRA2 targets BED file.
-            --gatk4                         :   GATK4 path.
-            --gatk4_baserecalibrator_params :   GATK4-BaseRecalibrator parameters (e.g. '--known-sites /<path>/dbsnp_146.hg38.vcf').
+            --abra2_targets_bed_file        :   abra2 targets BED file.
+            --gatk4                         :   gatk4 path.
+            --gatk4_baserecalibrator_params :   gatk4 BaseRecalibrator parameters (e.g. '"--known-sites /<path>/dbsnp.vcf "').
+                                                Note that the parameters need to be wrapped in quotes
+                                                and a space at the end of the string is necessary.
             --chromosomes                   :   Chromosomes to recalibrate using GATK4 (separated by comma; e.g. 'chr1,chr2,chr3').
 
         optional arguments:

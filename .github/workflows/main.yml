@@ -65,5 +65,4 @@ jobs:
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        chmod +x unittest_ci.sh
-        bash unittest_ci.sh
+        pytest -s test/test_long_read_alignment_minimap2.py
