@@ -16,6 +16,8 @@ pip install . --verbose
 ## 02. Dependencies
 
 ```
+conda install openjdk
+conda install java-jdk
 conda install pandas
 conda install nextflow
 conda install samtools==1.18
@@ -24,6 +26,8 @@ conda install sniffles==2.2
 conda install svim==2.0.0
 conda install pbsv==2.9.0
 conda install cutesv==2.1.0
+conda install bwa-mem2==2.2.1
+conda install gatk4==4.4.0.0
 pip install ultra-bioinformatics
 ```
 
@@ -83,10 +87,10 @@ For more on this particular workflow, check out [here](/src/nexuslib/pipelines/a
 
 Here is a list of all available workflows for `v0.0.1`
 
-| Category       | Workflow                                                                                                                                    |
-|:---------------|:--------------------------------------------------------------------------------------------------------------------------------------------|
-| Alignment      | [long_read_alignment_minimap2.nf](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/)                                          |
-| Alignment      | [long_read_rna_alignment_ultra.nf](/src/nexuslib/pipelines/alignment/long_read_rna_alignment_ultra)                                         |
-| Alignment      | [paired-end_read_dna_alignment_bwa-mem2.nf](/src/nexuslib/pipelines/alignment/paired-end_read_dna_alignment_bwa-mem2/)                      |
-| Variant calling | [long_read_dna_small_variants.nf](/src/nexuslib/pipelines/long_read_dna_small_variants/) |
-| Variant calling | [long_read_dna_structural_variants.nf](/src/nexuslib/pipelines/long_read_dna_structural_variants/) |
+| Category       | Workflow                                                                                                               |
+|:---------------|:-----------------------------------------------------------------------------------------------------------------------|
+| Alignment      | [long_read_alignment_minimap2.nf](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/)                     |
+| Alignment      | [long_read_rna_alignment_ultra.nf](/src/nexuslib/pipelines/alignment/long_read_rna_alignment_ultra)                    |
+| Alignment      | [paired-end_read_dna_alignment_bwa-mem2.nf](/src/nexuslib/pipelines/alignment/paired-end_read_dna_alignment_bwa-mem2/) |
+| Variant calling | [long_read_dna_small_variants.nf](/src/nexuslib/pipelines/variant_calling/long_read_dna_small_variants/)               |
+| Variant calling | [long_read_dna_structural_variants.nf](/src/nexuslib/pipelines/variant_calling/long_read_dna_structural_variants/)     |
