@@ -63,6 +63,7 @@ jobs:
 
     - name: Run unit tests
       shell: bash -l {0}
-      env: abra2=/home/runner/work/nexus/nexus/abra2-2.23.jar
+      env:
+        abra2: '/home/runner/work/nexus/nexus/abra2-2.23.jar'
       run: |
         pytest -s test/test_paired_end_read_dna_alignment_bwa_mem2.py
