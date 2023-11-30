@@ -40,21 +40,11 @@ jobs:
         conda install nextflow
         conda install samtools==1.18
         conda install minimap2==2.22
-        conda install sniffles==2.2
-        conda install svim==2.0.0
-        conda install pbsv==2.9.0
-        conda install cutesv==2.1.0
-        conda install bwa-mem2==2.2.1
-        conda install gatk4==4.4.0.0
-        pip install ultra-bioinformatics        
         conda install pylint
         conda install coveralls
         conda install pytest
         conda install pytest-cov
         pip install . --verbose
-        wget https://github.com/mozack/abra2/releases/download/v2.23/abra2-2.23.jar
-        chmod +x abra2-2.23.jar
-        export abra2="$(pwd)/abra2-2.23.jar"
 
     - name: Run linter
       shell: bash -l {0}
