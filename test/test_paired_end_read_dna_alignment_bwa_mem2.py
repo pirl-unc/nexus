@@ -43,5 +43,6 @@ def test_paired_end_read_dna_alignment_bwa_mem2():
         '--output_dir', output_dir,
         '-w', work_dir
     ]
+    print(workflow_args)
     run_workflow(workflow='paired-end_read_dna_alignment_bwa-mem2.nf',
                  workflow_args=workflow_args)

@@ -155,15 +155,15 @@ workflow PAIRED_END_DNA_READ_ALIGNMENT_BWA_MEM2 {
             runBwaMem2.out.f,
             samtools
         )
-        runAbra2(
-            runSamtoolsSamToBam.out.f,
-            abra2,
-            samtools,
-            reference_genome_fasta_file,
-            abra2_targets_bed_file
-        )
+//         runAbra2(
+//             runSamtoolsSamToBam.out.f,
+//             abra2,
+//             samtools,
+//             reference_genome_fasta_file,
+//             abra2_targets_bed_file
+//         )
         runSamtoolsFixmate(
-            runAbra2.out.f,
+            runSamtoolsSamToBam.out.f,
             samtools
         )
         runSamtoolsMarkdup(
