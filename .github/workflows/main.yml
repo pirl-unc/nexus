@@ -39,3 +39,33 @@ jobs:
         conda install mamba
         mamba config --add channels bioconda
         mamba install pandas
+        mamba install nextflow
+        mamba install samtools==1.18
+        mamba install minimap2==2.22
+        mamba install sniffles==2.2
+        mamba install svim==2.0.0
+        mamba install pbsv==2.9.0
+        mamba install cutesv==2.1.0
+        mamba install bwa-mem2==2.2.1
+        mamba install gatk4==4.4.0.0
+        pip install ultra-bioinformatics        
+        mamba install pylint
+        mamba install coveralls
+        mamba install pytest
+        mamba install pytest-cov
+        pip install . --verbose
+        wget https://github.com/mozack/abra2/releases/download/v2.23/abra2-2.23.jar
+        chmod +x abra2-2.23.jar
+        export abra2="$(pwd)/abra2-2.23.jar"
+
+    - name: Run linter
+      shell: bash -l {0}
+      run: |
+        chmod +x lint.sh
+        bash lint.sh
+
+    - name: Run unit tests
+      shell: bash -l {0}
+      run: |
+        chmod +x unittest.sh
+        bash unittest.sh
