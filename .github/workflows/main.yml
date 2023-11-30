@@ -27,14 +27,19 @@ jobs:
       run: |
         conda env list
         conda info
-        conda config --add channels conda-forge
+        conda config --add channels defaults
         conda config --add channels bioconda
-        conda install openjdk
-        conda install java-jdk
+        conda config --add channels conda-forge
+        conda config --set channel_priority strict
         conda install pandas
         conda install nextflow==23.10.0
         conda install samtools==1.18
         conda install minimap2==2.22
+        conda install sniffles==2.2
+        conda install svim==2.0.0
+        conda install pbsv==2.9.0
+        conda install cutesv==2.1.0
+        pip install ultra-bioinformatics
         conda install pylint
         conda install coveralls
         conda install pytest
