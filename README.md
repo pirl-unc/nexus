@@ -36,12 +36,12 @@ nexus avail
 
 To run a workflow
 ```
-nexus run [-h] [--nf-workflow NF_NEXTFLOW] [workflow-specific parameters]
+nexus run [-h] [--nf-workflow NF_WORKFLOW] [workflow-specific parameters]
 ```
 
 To view workflow-specific parameters
 ```
-nexus run --nf-workflow <workflow> --help
+nexus run --nf-workflow [NF_WORKFLOW] --help
 ```
 
 ### Example

@@ -36,23 +36,21 @@ jobs:
         conda config --add channels conda-forge
         conda install openjdk
         conda install java-jdk
-        conda install mamba
-        mamba config --add channels bioconda
-        mamba install pandas
-        mamba install nextflow
-        mamba install samtools==1.18
-        mamba install minimap2==2.22
-        mamba install sniffles==2.2
-        mamba install svim==2.0.0
-        mamba install pbsv==2.9.0
-        mamba install cutesv==2.1.0
-        mamba install bwa-mem2==2.2.1
-        mamba install gatk4==4.4.0.0
+        conda install pandas
+        conda install nextflow
+        conda install samtools==1.18
+        conda install minimap2==2.22
+        conda install sniffles==2.2
+        conda install svim==2.0.0
+        conda install pbsv==2.9.0
+        conda install cutesv==2.1.0
+        conda install bwa-mem2==2.2.1
+        conda install gatk4==4.4.0.0
         pip install ultra-bioinformatics        
-        mamba install pylint
-        mamba install coveralls
-        mamba install pytest
-        mamba install pytest-cov
+        conda install pylint
+        conda install coveralls
+        conda install pytest
+        conda install pytest-cov
         pip install . --verbose
         wget https://github.com/mozack/abra2/releases/download/v2.23/abra2-2.23.jar
         chmod +x abra2-2.23.jar

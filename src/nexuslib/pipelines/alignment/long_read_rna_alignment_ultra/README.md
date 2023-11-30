@@ -4,9 +4,10 @@ Aligns long RNA reads (Pacific Biosciences or Oxford Nanopore) to a reference ge
 
 ### Inputs / Outputs
 
-| Input(s)        | Output(s)                                       |
-| --------------- | ----------------------------------------------- |
-| `FASTQ.GZ` file | Sorted and MD-tagged `BAM` and `BAM.BAI` files  |
+| I/O    | Description                                                       |
+|:-------|:------------------------------------------------------------------|
+| Input  | `fastq.gz` file for each sample.<br/>                             | 
+| Ouptut | MD-tagged and sorted `bam` and `bam.bai` files for each sample.   |
 
 ### Dependencies
 
@@ -15,8 +16,8 @@ Aligns long RNA reads (Pacific Biosciences or Oxford Nanopore) to a reference ge
 
 ### Usage
 
-```shell
-nextflow run long_read_rna_alignment_ultra.nf [required] [optional] [--help]
+```
+nexus run --nf-workflow long_read_rna_alignment_ultra.nf [required] [optional] [--help]
 
 required arguments:
     --samples_tsv_file              :   TSV file with the following columns:
@@ -25,7 +26,8 @@ required arguments:
     --reference_genome_fasta_file   :   Reference genome FASTA file.
     --ultra                         :   uLTRA path.
     --ultra_index                   :   uLTRA index path.
-    --ultra_params                  :   uLTRA parameters (e.g. '--isoseq').
+    --ultra_params                  :   uLTRA parameters (e.g. "'--isoseq'").
+                                        Note that the parameters need to be wrapped in quotes.
     --samtools                      :   samtools path.
 
 optional arguments:
@@ -36,14 +38,20 @@ optional arguments:
 
 `--sample_tsv_file`
 
-| Header     | Description                |
-| ---------- | -------------------------- |
-| sample_id  | Sample ID                  |
-| fastq_file | Full path to `FASTQ.GZ` file |
+| Header     | Description                  |
+| ---------- |------------------------------|
+| sample_id  | Sample ID.                   |
+| fastq_file | Full path to `fastq.gz` file |
+
+`--reference_genome_fasta_file`
+
+Reference genome FASTA files can be found in 
+`/datastore/lbcfs/collaborations/pirl/seqdata/references/` on the LBG.
 
 `--ultra_index`
 
-An [uLTRA index](https://github.com/ksahlin/ultra) needs to be generated prior to running this workflow script.
+An [uLTRA index](https://github.com/ksahlin/ultra) needs to be generated prior to running this workflow. 
+Prebuilt uLTRA indices are available in `/datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/ultra/` on the LBG.
 
 `--ultra_params`
 
