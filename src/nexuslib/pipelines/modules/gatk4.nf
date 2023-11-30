@@ -49,7 +49,7 @@ process runGatk4GatherBQSRReports {
         for element in "\${array[@]}"; do
             input_data_table_files+="-I \${element} "
         done
-        CMD="${gatk4} --java-options -Xmx64G GatherBQSRReports \${input_data_table_files} -O ${sample_id}_recalibration_merged.data.table"
+        CMD="${gatk4} --java-options -Xmx${task.java_max_mem.toGiga()}G GatherBQSRReports \${input_data_table_files} -O ${sample_id}_recalibration_merged.data.table"
         eval \${CMD}
         """
 }
@@ -71,7 +71,7 @@ process runGatk4ApplyBQSR {
 
     script:
         """
-        $gatk4 --java-options -Xmx64G ApplyBQSR \
+        $gatk4 --java-options -Xmx${task.java_max_mem.toGiga()}G ApplyBQSR \
             -I ${bam_file} \
             -R ${reference_genome_fasta_file} \
             --bqsr-recal-file ${data_table_file} \
@@ -95,7 +95,7 @@ process runGatk4LearnReadOrientationModel {
 
     script:
         """
-        $gatk4 --java-options -Xmx4G LearnReadOrientationModel \
+        $gatk4 --java-options -Xmx${task.java_max_mem.toGiga()}G LearnReadOrientationModel \
             -I $f1r2_file \
             -O ${f1r2_file.baseName}_gatk4_read-orientation-model.tar.gz
         """
@@ -119,7 +119,7 @@ process runGatk4GetPileupSummaries {
         def gatk4_getpileupsummaries_params_ = gatk4_getpileupsummaries_params == true ? '' : gatk4_getpileupsummaries_params
 
         """
-        $gatk4 --java-options -Xmx64G GetPileupSummaries \
+        $gatk4 --java-options -Xmx${task.java_max_mem.toGiga()}G GetPileupSummaries \
             -I $bam_file \
             -O ${sample_id}_gatk4_pileup-summaries.table \
             $gatk4_getpileupsummaries_params_
@@ -141,7 +141,7 @@ process runGatk4CalculateContamination {
 
     script:
         """
-        $gatk4 --java-options -Xmx64G CalculateContamination \
+        $gatk4 --java-options -Xmx${task.java_max_mem.toGiga()}G CalculateContamination \
             -I $pileup_file \
             -tumor-segmentation ${sample_id}_gatk4_segments.table \
             -O ${sample_id}_gatk4_contamination.table
@@ -166,7 +166,7 @@ process runGatk4FilterMutect2Calls {
 
     script:
         """
-        $gatk4 --java-options -Xmx4G FilterMutectCalls \
+        $gatk4 --java-options -Xmx${task.java_max_mem.toGiga()}G FilterMutectCalls \
             -V $vcf_file \
             -R $reference_genome_fasta_file \
             --tumor-segmentation $segmentation_file \
@@ -220,12 +220,12 @@ process runGatk4Mutect2TumorNormal {
         def gat4k_mutect2_params_ = gat4k_mutect2_params == true ? '' : gat4k_mutect2_params
 
         """
-        $gatk4 --java-options -Xmx16G Mutect2 \
+        $gatk4 --java-options -Xmx${task.java_max_mem.toGiga()}G Mutect2 \
             -R $reference_genome_fasta_file \
             -I $tumor_bam_file \
             -I $normal_bam_file \
             -normal $normal_sample_id \
-            --native-pair-hmm-threads 4 \
+            --native-pair-hmm-threads ${task.hmm_threads} \
             --intervals $chromosome \
             --f1r2-tar-gz ${sample_id}_gatk4-mutect2_${chromosome}_unfiltered_f1r2.tar.gz \
             -O ${sample_id}_gatk4-mutect2_${chromosome}_unfiltered.vcf \
@@ -252,10 +252,10 @@ process runGatk4Mutect2TumorOnly {
         def gat4k_mutect2_params_ = gat4k_mutect2_params == true ? '' : gat4k_mutect2_params
 
         """
-        $gatk4 --java-options -Xmx16G Mutect2 \
+        $gatk4 --java-options -Xmx${task.java_max_mem.toGiga()}G Mutect2 \
             -R $reference_genome_fasta_file \
             -I $tumor_bam_file \
-            --native-pair-hmm-threads 4 \
+            --native-pair-hmm-threads ${task.hmm_threads} \
             --intervals $chromosome \
             --f1r2-tar-gz ${sample_id}_gatk4-mutect2_${chromosome}_unfiltered_f1r2.tar.gz \
             -O ${sample_id}_gatk4-mutect2_${chromosome}_unfiltered.vcf \
