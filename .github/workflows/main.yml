@@ -72,4 +72,5 @@ jobs:
         python2: '/usr/share/miniconda3/envs/py27/bin/python'
         strelka2: '/home/runner/work/nexus/nexus/strelka-2.9.10.centos6_x86_64/bin'
       run: |
+        alias python2='/usr/share/miniconda3/envs/py27/bin/python'
         pytest -s test/test_paired_end_read_dna_somatic_small_variants.py -k test_paired_end_read_dna_somatic_small_variants_human_singularity
