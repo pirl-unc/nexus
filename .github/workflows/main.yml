@@ -33,9 +33,9 @@ jobs:
         conda env list
         conda info
         conda install -c conda-forge openjdk
+        conda install java-jdk
         conda install mamba
         mamba config --add channels bioconda
-        mamba install java-jdk
         mamba install pandas
         mamba install nextflow
         mamba install samtools==1.18
