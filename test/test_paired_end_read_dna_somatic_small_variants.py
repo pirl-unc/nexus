@@ -12,7 +12,7 @@ def test_paired_end_read_dna_somatic_small_variants_human_docker():
     tumor_bam_bai_file = get_data_path(name='hg38_tp53_tumor_paired_end_dna_fixmate_markeddup_recalibrated.bam.bai')
     normal_bam_file = get_data_path(name='hg38_tp53_normal_paired_end_dna_fixmate_markeddup_recalibrated.bam')
     normal_bam_bai_file = get_data_path(name='hg38_tp53_normal_paired_end_dna_fixmate_markeddup_recalibrated.bam.bai')
-    known_sites_vcf_file = get_data_path(name='known_sites_hg38.vcf')
+    known_sites_vcf_file = get_data_path(name='small_exac_common_3.hg38.vcf')
     reference_genome_fasta_file = get_data_path(name='hg38_chr17_1-8000000.fa')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_paired_end_read_dna_somatic_small_variants_human'
@@ -67,7 +67,7 @@ def test_paired_end_read_dna_somatic_small_variants_human_singularity():
     tumor_bam_bai_file = get_data_path(name='hg38_tp53_tumor_paired_end_dna_fixmate_markeddup_recalibrated.bam.bai')
     normal_bam_file = get_data_path(name='hg38_tp53_normal_paired_end_dna_fixmate_markeddup_recalibrated.bam')
     normal_bam_bai_file = get_data_path(name='hg38_tp53_normal_paired_end_dna_fixmate_markeddup_recalibrated.bam.bai')
-    known_sites_vcf_file = get_data_path(name='known_sites_hg38.vcf')
+    known_sites_vcf_file = get_data_path(name='small_exac_common_3.hg38.vcf')
     reference_genome_fasta_file = get_data_path(name='hg38_chr17_1-8000000.fa')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_paired_end_read_dna_somatic_small_variants_human'

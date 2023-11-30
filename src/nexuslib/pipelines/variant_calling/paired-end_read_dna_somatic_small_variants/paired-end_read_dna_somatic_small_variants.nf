@@ -25,7 +25,11 @@ include { runDeepVariantDocker as runDeepVariantNormalDocker } from '../../modul
 params.help = ''
 // Required arguments
 params.samples_tsv_file = ''
+params.deepvariant_input_path = ''
+params.deepvariant_output_path = ''
 params.output_dir = ''
+
+// Optional arguments
 params.is_human = true
 params.reference_genome_fasta_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa'
 params.python2 = 'python2'
@@ -39,10 +43,7 @@ params.strelka2_params = ' '
 params.containerization = 'singularity'
 params.deepvariant_bin_path = '/opt/deepvariant/bin/run_deepvariant'
 params.deepvariant_bin_version = '1.6.0'
-params.deepvariant_input_path = ''
-params.deepvariant_output_path = ''
 params.deepvariant_model_type = 'WGS'
-// Optional arguments
 params.delete_work_dir = false
 
 // Step 3. Print inputs and help
