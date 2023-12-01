@@ -263,15 +263,15 @@ workflow PAIRED_END_READ_DNA_SOMATIC_SMALL_VARIANTS {
             )
         }
 
-        // Strelka2
-        runStrelka2SomaticMode(
-            input_bam_files_ch,
-            reference_genome_fasta_file,
-            python2,
-            strelka2,
-            strelka2_params,
-            output_dir
-        )
+//         // Strelka2
+//         runStrelka2SomaticMode(
+//             input_bam_files_ch,
+//             reference_genome_fasta_file,
+//             python2,
+//             strelka2,
+//             strelka2_params,
+//             output_dir
+//         )
 
         // DeepVariant
         if (containerization == "singularity") {
