@@ -15,6 +15,17 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Free Disk Space (Ubuntu)
+      uses: jlumbroso/free-disk-space@main
+      with:
+        tool-cache: false
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        docker-images: true
+        swap-storage: true
+
     - name: Set up Miniconda
       uses: conda-incubator/setup-miniconda@v2
       with:
@@ -30,6 +41,7 @@ jobs:
     - name: Install dependencies
       shell: bash -l {0}
       run: |
+        sudo rm -rf /tmp/*
         conda env list
         conda info
         conda config --add channels defaults
@@ -63,5 +75,5 @@ jobs:
         strelka2: '/home/runner/work/nexus/nexus/strelka-2.9.10.centos6_x86_64/bin'
       run: |
         shopt -s expand_aliases
-        alias python2='/usr/share/miniconda3/envs/py27/bin/python2'
+        alias python2='/usr/share/miniconda3/envs/py27/bin/python'
         pytest -s test/test_paired_end_read_dna_somatic_small_variants.py -k test_paired_end_read_dna_somatic_small_variants_human_singularity
