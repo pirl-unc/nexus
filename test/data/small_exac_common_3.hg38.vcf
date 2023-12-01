@@ -37,7 +37,7 @@
 ##NCBI_remap_source_assm="GCF_000001405.13"
 ##NCBI_remap_target_assm="GCF_000001405.26"
 ##VEP=v77 cache=/humgen/atgu1/fs03/konradk/vep/tin//homo_sapiens/77_GRCh37 db=.
-##contig=<ID=chr17,length=83257441,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=chr17,length=7843138,assembly=Homo_sapiens_assembly38.fasta>
 ##contig=<ID=HLA-A*01:01:01:01,length=3503,assembly=Homo_sapiens_assembly38.fasta>
 ##contig=<ID=HLA-A*01:01:01:02N,length=3291,assembly=Homo_sapiens_assembly38.fasta>
 ##contig=<ID=HLA-A*01:01:38L,length=3374,assembly=Homo_sapiens_assembly38.fasta>
