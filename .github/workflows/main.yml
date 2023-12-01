@@ -15,7 +15,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install dependencies
-      shell: bash -l {0}
-      run: |
-        du -h /tmp/
+    - name: Delete artifacts
+      uses: geekyeggo/delete-artifact@v2
+      with:
+          name: |
+              artifact-*
+              binary-file
+              output
