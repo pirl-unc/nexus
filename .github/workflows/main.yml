@@ -18,4 +18,4 @@ jobs:
     - name: Install dependencies
       shell: bash -l {0}
       run: |
-        rm -rf /tmp/*
+        du -h /tmp/
