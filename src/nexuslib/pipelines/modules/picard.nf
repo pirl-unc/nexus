@@ -28,7 +28,7 @@ process runPicardMergeVCFs {
         for element in "\${array[@]}"; do
             vcf_files_params+="I=\${element} "
         done
-        java -Xmx64G -jar $picard MergeVcfs \
+        java -Xmx${task.java_max_mem.toGiga()}G -jar $picard MergeVcfs \
             \${vcf_files_params} \
             O=${sample_id}_${variant_calling_method}.vcf
         """
