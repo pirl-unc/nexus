@@ -172,10 +172,10 @@ workflow PAIRED_END_READ_DNA_SOMATIC_SMALL_VARIANTS {
         run_gatk4_mutect2_input_ch = input_bam_files_ch.combine(gatk4_chromosomes_ch)
         run_strelka2_input_ch = input_bam_files_ch
         input_bam_files_ch
-            .map{ [it[0], it[1], it[2]] }
+            .map{ [it[5], it[1], it[2]] }
             .set { run_deepvariant_tumor_input_ch }
         input_bam_files_ch
-            .map{ [it[0], it[3], it[4]] }
+            .map{ [it[6], it[3], it[4]] }
             .set { run_deepvariant_normal_input_ch }
 
         // GATK4-Mutect2
@@ -263,15 +263,15 @@ workflow PAIRED_END_READ_DNA_SOMATIC_SMALL_VARIANTS {
             )
         }
 
-//         // Strelka2
-//         runStrelka2SomaticMode(
-//             input_bam_files_ch,
-//             reference_genome_fasta_file,
-//             python2,
-//             strelka2,
-//             strelka2_params,
-//             output_dir
-//         )
+        // Strelka2
+        runStrelka2SomaticMode(
+            input_bam_files_ch,
+            reference_genome_fasta_file,
+            python2,
+            strelka2,
+            strelka2_params,
+            output_dir
+        )
 
         // DeepVariant
         if (containerization == "singularity") {

@@ -19,6 +19,13 @@ if __name__ == "__main__":
     sequence = fasta.fetch("NC_000017.11:c7687490-7668421", 0, fasta.lengths[0])
     sequence = list(str(sequence))
 
+    # Point mutations
+    sequence[99] = 'A'  # 100 G>A
+    sequence[199] = 'A' # 200 G>A
+    sequence[299] = 'A' # 300 G>A
+    sequence[399] = 'C' # 400 T>C
+    sequence[499] = 'T' # 500 A>T
+
     r1_file = open('hg38_tp53_normal_paired_end_dna.r1.fastq', 'w')
     r2_file = open('hg38_tp53_normal_paired_end_dna.r2.fastq', 'w')
 

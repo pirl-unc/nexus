@@ -23,7 +23,7 @@ process runDeepVariantSingularity {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${bam_file.baseName}_deepvariant.vcf"), path("${bam_file.baseName}_deepvariant.gvcf"), emit: f
+        tuple val(sample_id), path("${sample_id}_deepvariant.vcf"), path("${sample_id}_deepvariant.gvcf"), emit: f
 
     script:
         """
@@ -34,9 +34,9 @@ process runDeepVariantSingularity {
             --model_type=$deepvariant_model_type \
             --ref=$reference_genome_fasta_file \
             --reads=$bam_file \
-            --output_vcf=${bam_file.baseName}_deepvariant.vcf \
-            --output_gvcf=${bam_file.baseName}_deepvariant.gvcf \
-            --intermediate_results_dir=\${PWD}/${bam_file.baseName}_deepvariant_intermediate_results/ \
+            --output_vcf=${sample_id}_deepvariant.vcf \
+            --output_gvcf=${sample_id}_deepvariant.gvcf \
+            --intermediate_results_dir=\${PWD}/${sample_id}_deepvariant_intermediate_results/ \
             --num_shards=${task.cpus}
         """
 }
