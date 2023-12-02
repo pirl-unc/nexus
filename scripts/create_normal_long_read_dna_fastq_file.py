@@ -8,8 +8,8 @@ if __name__ == "__main__":
     sequence = list(str(sequence))
     sequence = ''.join(sequence)
 
-    with open('hg38_tp53_normal_dna.fastq', 'w') as f:
-        for i in range(0, 100):
+    with open('hg38_tp53_normal_long_read_dna.fastq', 'w') as f:
+        for i in range(0, 60):
             read_id = '@m64012_%i_%i/%i/ccs' % (random.randint(100000,999999),
                                                 random.randint(100000,999999),
                                                 i+1)

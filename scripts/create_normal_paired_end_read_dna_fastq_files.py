@@ -22,7 +22,7 @@ if __name__ == "__main__":
     r1_file = open('hg38_tp53_normal_paired_end_dna.r1.fastq', 'w')
     r2_file = open('hg38_tp53_normal_paired_end_dna.r2.fastq', 'w')
 
-    for i in range(0, 100000):
+    for i in range(0, 2000):
         # Read ID
         # @<instrument>:<run number>:<flowcell ID>:<lane>:<tile>:<x-pos>:<y-pos> <read>:<is filtered>:<control number>:<sample number>
         r1_read_id = '@A12345:001:ABCDEFGH1:1:1000:%i:2000 1:N:0:GACTGAGT+CACTATCA' % (i + 1)
