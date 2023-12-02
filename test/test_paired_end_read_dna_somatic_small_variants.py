@@ -62,6 +62,7 @@ def test_paired_end_read_dna_somatic_small_variants_human_docker():
 def test_paired_end_read_dna_somatic_small_variants_human_singularity():
     strelka2_path = os.environ.get('strelka2')
     python2_path = os.environ.get('python2')
+    picard_jar_path = os.environ.get('picard')
     nextflow_config_file = get_data_path(name='nextflow_test.config')
     tumor_bam_file = get_data_path(name='hg38_tp53_tumor_paired_end_dna_fixmate_markeddup_recalibrated.bam')
     tumor_bam_bai_file = get_data_path(name='hg38_tp53_tumor_paired_end_dna_fixmate_markeddup_recalibrated.bam.bai')
@@ -98,7 +99,7 @@ def test_paired_end_read_dna_somatic_small_variants_human_singularity():
         '--gatk4_mutect2_params', '"--germline-resource %s --panel-of-normals %s "' % (known_sites_vcf_file, known_sites_vcf_file),
         '--gatk4_getpileupsummaries_params', '"-V %s -L %s "' % (known_sites_vcf_file, known_sites_vcf_file),
         '--gatk4_chromosomes', 'chr17',
-        '--picard', 'picard',
+        '--picard', picard_jar_path,
         '--strelka2', strelka2_path,
         '--strelka2_params', " ",
         '--containerization', "singularity",
