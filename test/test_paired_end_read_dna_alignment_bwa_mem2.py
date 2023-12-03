@@ -6,6 +6,7 @@ from nexuslib.main import run_workflow
 
 def test_paired_end_read_dna_alignment_bwa_mem2():
     abra2_jar_path = get_alias_path('abra2.jar')
+    print('abra2 jar path')
     print(abra2_jar_path)
     # nextflow_config_file = get_data_path(name='nextflow_test.config')
     # paired_end_read_tumor_dna_r1_fastq_file = get_data_path(name='hg38_tp53_tumor_paired_end_dna.r1.fastq.gz')

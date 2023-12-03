@@ -59,4 +59,6 @@ jobs:
       run: |
         echo '/home/runner/work/nexus/nexus/abra2.jar' >> $GITHUB_PATH
         echo $$GITHUB_PATH
+        echo "abra2 path:"
+        which abra2.jar
         pytest -s test/test_paired_end_read_dna_alignment_bwa_mem2.py
