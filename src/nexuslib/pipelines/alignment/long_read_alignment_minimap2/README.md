@@ -31,14 +31,14 @@ required arguments:
     --samples_tsv_file              :   TSV file with the following columns:
                                         'sample_id', 'fastq_file'.
     --output_dir                    :   Directory to which output files will be copied.
-    --reference_genome_fasta_file   :   Reference genome FASTA file.
-    --minimap2                      :   minimap2 path.
-    --minimap2_params               :   minimap2 parameters (e.g. '"--ax map-hifi --cs --eqx --Y --L "').
-                                        Note that the parameters need to be wrapped in quotes 
-                                        and a space at the end of the string is necessary.
-    --samtools                      :   samtools path.
 
 optional arguments:
+    --reference_genome_fasta_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
+    --minimap2                      :   minimap2 path (default: minimap2).
+    --minimap2_params               :   minimap2 parameters (default: '"-ax map-hifi --cs --eqx -Y -L "').
+                                        Note that the parameters need to be wrapped in quotes
+                                        and a space at the end of the string is necessary.
+    --samtools                      :   samtools path (default: samtools).
     --platform_tag                  :   Platform tag (default: 'unknown').
     --platform_unit_tag             :   Platform unit tag (default: 'unknown').
     --library_tag                   :   Library tag (default: 'unknown').
@@ -59,7 +59,7 @@ optional arguments:
 
 `--reference_genome_fasta_file`
 * Reference genome FASTA files can be found in 
-`/datastore/lbcfs/collaborations/pirl/seqdata/references/` on the LBG.
+`/datastore/lbcfs/collaborations/pirl/seqdata/references/` on LBG.
 
 `--minimap2_params`
 * Refer to the [minimap2 documentation](https://github.com/lh3/minimap2).

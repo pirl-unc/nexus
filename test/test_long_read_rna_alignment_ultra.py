@@ -39,14 +39,11 @@ def test_long_read_rna_alignment_ultra():
     # Run uLTRA
     workflow_args = [
         '-c', nextflow_config_file,
+        '-w', work_dir,
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--reference_genome_fasta_file', reference_genome_fasta_file,
-        '--ultra', 'uLTRA',
         '--ultra_index', intermediate_dir + '/uLTRA_index/',
-        '--ultra_params', '"--isoseq "', # keep the space at the end
-        '--samtools', 'samtools',
-        '--output_dir', output_dir,
-        '-w', work_dir
+        '--output_dir', output_dir
     ]
     run_workflow(workflow='long_read_rna_alignment_ultra.nf',
                  nextflow='nextflow',

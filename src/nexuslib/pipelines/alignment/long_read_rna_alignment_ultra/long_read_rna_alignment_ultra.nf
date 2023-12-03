@@ -17,12 +17,12 @@ params.help = ''
 // Required arguments
 params.samples_tsv_file = ''
 params.output_dir = ''
-params.reference_genome_fasta_file = ''
-params.ultra = ''
-params.ultra_index = ''
-params.ultra_params = ''
-params.samtools = ''
 // Optional arguments
+params.reference_genome_fasta_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa'
+params.ultra = 'uLTRA'
+params.ultra_index = '/datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/ultra/hg38_index/'
+params.ultra_params = '--isoseq '
+params.samtools = 'samtools'
 params.delete_work_dir = false
 
 // Step 3. Print inputs and help
@@ -38,7 +38,7 @@ log.info """\
 
 if (params.help) {
     log.info"""\
-         workflow:
+        workflow:
             1. Align reads (fastq.gz files) to a reference genome using uLTRA.
             2. Generate MD tags.
             3. Sort MD-tagged bam file.
@@ -51,15 +51,15 @@ if (params.help) {
             --samples_tsv_file              :   TSV file with the following columns:
                                                 'sample_id', 'fastq_file'.
             --output_dir                    :   Directory to which output files will be copied.
-            --reference_genome_fasta_file   :   Reference genome FASTA file.
-            --ultra                         :   uLTRA path.
-            --ultra_index                   :   uLTRA index path.
-            --ultra_params                  :   uLTRA parameters (e.g. '"--isoseq "').
-                                                Note that the parameters need to be wrapped in quotes
-                                                and a space at the end of the string is necessary.
-            --samtools                      :   samtools path.
 
         optional arguments:
+            --reference_genome_fasta_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
+            --ultra                         :   uLTRA path (default: uLTRA).
+            --ultra_index                   :   uLTRA index path (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/ultra/hg38_index/).
+            --ultra_params                  :   uLTRA parameters (default: '"--isoseq "').
+                                                Note that the parameters need to be wrapped in quotes
+                                                and a space at the end of the string is necessary.
+            --samtools                      :   samtools path (default: samtools).
             --delete_work_dir               :   Delete work directory (default: false).
     """.stripIndent()
     exit 0
