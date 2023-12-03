@@ -15,8 +15,20 @@ import glob
 import os
 import subprocess
 from importlib import resources
-from pathlib import Path
 from typing import List
+
+
+def get_alias_path(executable_name: str):
+    try:
+        result = subprocess.run('which %s' % executable_name,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE,
+                                shell=True,
+                                text=True,
+                                executable='/bin/bash')
+        return result.stdout.strip()
+    except:
+        raise Exception('%s not found.' % executable_name)
 
 
 def get_available_workflows():
@@ -40,25 +52,32 @@ def get_available_workflows():
     return nf_scripts_paths
 
 
-def run_workflow(workflow: str, workflow_args: List[str]):
+def run_workflow(workflow: str,
+                 nextflow: str,
+                 workflow_args: List[str]):
     """
     Runs a workflow.
 
     Args
     ----
     workflow        :   Workflow (e.g. 'long_read_alignment_minimap2').
+    nextflow        :   Nextflow path.
     workflow_args   :   List of workflow specific arguments.
     """
     nf_scripts_paths = get_available_workflows()
     if workflow in nf_scripts_paths:
-        command = ['nextflow', 'run', nf_scripts_paths[workflow]] + workflow_args
+        if nextflow == 'nextflow':
+            nextflow = get_alias_path(executable_name='nextflow')
+        command = [nextflow, 'run', nf_scripts_paths[workflow], '-resume'] + workflow_args
         print(' '.join(command))
         process = subprocess.Popen(
             ' '.join(command),
             shell=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            text=True
+            text=True,
+            bufsize=1,
+            executable='/bin/bash'
         )
         while True:
             output = process.stdout.readline()

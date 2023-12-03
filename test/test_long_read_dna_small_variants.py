@@ -38,6 +38,7 @@ def test_long_read_dna_small_variants_singularity():
         '-w', work_dir
     ]
     run_workflow(workflow='long_read_dna_small_variants.nf',
+                 nextflow='nextflow',
                  workflow_args=workflow_args)
 
 
@@ -75,4 +76,5 @@ def test_long_read_dna_small_variants_docker():
         '-w', work_dir
     ]
     run_workflow(workflow='long_read_dna_small_variants.nf',
+                 nextflow='nextflow',
                  workflow_args=workflow_args)

@@ -52,25 +52,11 @@ jobs:
         conda install nextflow==23.10.0
         conda install samtools==1.18
         conda install minimap2==2.22
-        conda install sniffles==2.2
-        conda install svim==2.0.0
-        conda install pbsv==2.9.0
-        conda install cutesv==2.1.0
-        pip install ultra-bioinformatics
-        conda install bwa-mem2==2.2.1
-        conda install gatk4==4.4.0.0
         conda install pylint
         conda install coveralls
         conda install pytest
         conda install pytest-cov
-        wget https://github.com/mozack/abra2/releases/download/v2.23/abra2-2.23.jar
-        chmod +x abra2-2.23.jar
-        wget https://github.com/broadinstitute/picard/releases/download/3.1.1/picard.jar
-        chmod +x picard.jar
-        wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2
-        tar -xvf strelka-2.9.10.centos6_x86_64.tar.bz2
         pip install . --verbose
-        conda create -n py27 python=2.7
 
     - name: Run linter
       shell: bash -l {0}
@@ -80,12 +66,5 @@ jobs:
 
     - name: Run unit tests
       shell: bash -l {0}
-      env:
-        abra2: '/home/runner/work/nexus/nexus/abra2-2.23.jar'
-        picard: '/home/runner/work/nexus/nexus/picard.jar'
-        python2: '/usr/share/miniconda3/envs/py27/bin/python2'
-        strelka2: '/home/runner/work/nexus/nexus/strelka-2.9.10.centos6_x86_64/bin'
       run: |
-        shopt -s expand_aliases
-        alias python2='/usr/share/miniconda3/envs/py27/bin/python2'
-        pytest -s test/test_paired_end_read_dna_somatic_small_variants.py -k test_paired_end_read_dna_somatic_small_variants_human_singularity
+        pytest -s test/test_long_read_alignment_minimap2.py

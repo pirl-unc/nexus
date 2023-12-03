@@ -49,4 +49,5 @@ def test_long_read_rna_alignment_ultra():
         '-w', work_dir
     ]
     run_workflow(workflow='long_read_rna_alignment_ultra.nf',
+                 nextflow='nextflow',
                  workflow_args=workflow_args)

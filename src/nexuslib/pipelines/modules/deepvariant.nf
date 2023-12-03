@@ -28,7 +28,7 @@ process runDeepVariantSingularity {
     script:
         """
         $singularity run \
-            -B ${deepvariant_input_path} \
+            -B ${deepvariant_input_path}:${deepvariant_input_path} \
             docker://google/deepvariant:$deepvariant_bin_version \
             $deepvariant_bin_path \
             --model_type=$deepvariant_model_type \

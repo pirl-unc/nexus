@@ -18,11 +18,11 @@ params.help = ''
 // Required arguments
 params.samples_tsv_file = ''
 params.output_dir = ''
-params.reference_genome_fasta_file = ''
-params.minimap2 = ''
-params.minimap2_params = ''
-params.samtools = ''
 // Optional arguments
+params.reference_genome_fasta_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa'
+params.minimap2 = 'minimap2'
+params.minimap2_params = '-ax map-hifi --cs --eqx -Y -L '
+params.samtools = 'samtools'
 params.platform_tag = 'unknown'
 params.platform_unit_tag = 'unknown'
 params.library_tag = 'unknown'
@@ -30,14 +30,9 @@ params.delete_work_dir = false
 
 // Step 3. Print inputs and help
 log.info """\
-         ==================================================================
-         Align Long-read (DNA or RNA) Sequencing FASTQ Files Using Minimap2
-         ==================================================================
-         Workflow:
-            1. Align reads to a reference genome using minimap2.
-            2. Convert SAM to BAM.
-            3. Generate MD tags.
-            4. Sort MD-tagged BAM file.
+         =======================================================
+         Align long-read (DNA or RNA) fastq files using minimap2
+         =======================================================
          """.stripIndent()
 
 if (params.help) {
@@ -56,14 +51,14 @@ if (params.help) {
             --samples_tsv_file              :   TSV file with the following columns:
                                                 'sample_id', 'fastq_file'.
             --output_dir                    :   Directory to which output files will be copied.
-            --reference_genome_fasta_file   :   Reference genome FASTA file.
-            --minimap2                      :   minimap2 path.
-            --minimap2_params               :   minimap2 parameters (e.g. '"--ax map-hifi --cs --eqx --Y --L "').
-                                                Note that the parameters need to be wrapped in quotes
-                                                and a space at the end of the string is necessary.
-            --samtools                      :   samtools path.
 
         optional arguments:
+            --reference_genome_fasta_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
+            --minimap2                      :   minimap2 path (default: minimap2).
+            --minimap2_params               :   minimap2 parameters (default: '"-ax map-hifi --cs --eqx -Y -L "').
+                                                Note that the parameters need to be wrapped in quotes
+                                                and a space at the end of the string is necessary.
+            --samtools                      :   samtools path (default: samtools).
             --platform_tag                  :   Platform tag (default: 'unknown').
             --platform_unit_tag             :   Platform unit tag (default: 'unknown').
             --library_tag                   :   Library tag (default: 'unknown').

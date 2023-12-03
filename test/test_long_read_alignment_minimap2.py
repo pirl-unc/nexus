@@ -25,16 +25,14 @@ def test_long_read_alignment_minimap2_dna():
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
     workflow_args = [
         '-c', nextflow_config_file,
+        '-w', work_dir,
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--reference_genome_fasta_file', reference_genome_fasta_file,
-        '--minimap2', 'minimap2',
-        '--minimap2_params', '"-ax map-hifi --cs --eqx -Y -L "',
-        '--samtools', 'samtools',
         '--platform_tag', 'pacbio',
-        '--output_dir', output_dir,
-        '-w', work_dir
+        '--output_dir', output_dir
     ]
     run_workflow(workflow='long_read_alignment_minimap2.nf',
+                 nextflow='nextflow',
                  workflow_args=workflow_args)
 
 
@@ -58,14 +56,13 @@ def test_long_read_alignment_minimap2_rna():
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
     workflow_args = [
         '-c', nextflow_config_file,
+        '-w', work_dir,
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--reference_genome_fasta_file', reference_genome_fasta_file,
-        '--minimap2', 'minimap2',
         '--minimap2_params', '"-ax splice:hq -uf --cs --eqx -Y -L "',
-        '--samtools', 'samtools',
         '--platform_tag', 'pacbio',
-        '--output_dir', output_dir,
-        '-w', work_dir
+        '--output_dir', output_dir
     ]
     run_workflow(workflow='long_read_alignment_minimap2.nf',
+                 nextflow='nextflow',
                  workflow_args=workflow_args)

@@ -47,6 +47,16 @@ def add_nexus_run_arg_parser(sub_parsers):
         type=str,
         help="Nextflow workflow. To view the list of all available workflows, run 'nexus avail'."
     )
+    # Optional arguments
+    parser_optional = parser.add_argument_group('optional arguments')
+    parser_optional.add_argument(
+        "--nextflow",
+        dest="nextflow",
+        type=str,
+        default='nextflow',
+        required=False,
+        help="nextflow path (default: nextflow)."
+    )
     parser.set_defaults(which='run')
     return sub_parsers
 
@@ -63,12 +73,17 @@ def run_nexus_run_from_parsed_args(args, workflow_args):
     """
     # Print --help if requested
     if args.nf_workflow is None and ('--help' in workflow_args or '-h' in workflow_args):
-        print("usage: nexus run [-h] [--nf-workflow NF_WORKFLOW] [workflow-specific parameters]")
+        print("usage: nexus run [-h] [--nf-workflow NF_WORKFLOW] [--nextflow NEXTFLOW] [workflow-specific parameters]")
         print("")
         print("required arguments:")
         print("\t--nf-workflow NF_WORKFLOW. To view the list of all available workflows, run 'nexus avail'")
         print("")
+        print("optional arguments:")
+        print("\t--nextflow NEXTFLOW (default: nextflow).'")
+        print("")
         print("view workflow-specific parameters:")
         print("\tnexus run --nf-workflow NF_WORKFLOW --help")
     else:
-        run_workflow(workflow=args.nf_workflow, workflow_args=workflow_args)
+        run_workflow(workflow=args.nf_workflow,
+                     nextflow=args.nextflow,
+                     workflow_args=workflow_args)
