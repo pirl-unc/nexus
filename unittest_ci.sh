@@ -1,8 +1,8 @@
-# Exclude test_paired_end_read_dna_alignment_bwa_mem2.py because abra2 only runs on linux
-# Exclude test_long_read_dna_small_variants_singularity on local machine (test docker)
 pytest \
   -s \
   --cov-report=term-missing \
   --cov=nexuslib \
   test/ \
-  -k "not test_long_read_dna_small_variants_docker"
+  -k "not test_long_read_dna_small_variants_docker and \
+      not test_long_read_dna_structural_variants_local and \
+      not test_paired_end_read_dna_somatic_small_variants_human_docker"

@@ -17,8 +17,8 @@ params.help = ''
 // Required arguments
 params.samples_tsv_file = ''
 params.output_dir = ''
-params.reference_genome_fasta_file = ''
 // Optional arguments
+params.reference_genome_fasta_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa'
 params.tools_list = 'sniffles2,pbsv,svim,cutesv'
 params.sniffles2 = 'sniffles'
 params.sniffles2_params = '--minsupport 3 --minsvlen 30 --mapq 20 --output-rnames '

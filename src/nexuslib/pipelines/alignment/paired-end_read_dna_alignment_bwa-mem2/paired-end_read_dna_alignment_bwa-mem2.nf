@@ -22,9 +22,9 @@ params.help = ''
 // Required arguments
 params.samples_tsv_file = ''
 params.output_dir = ''
-params.abra2 = ''
 // Optional arguments
 params.reference_genome_fasta_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa'
+params.abra2 = '/datastore/lbcfs/collaborations/pirl/share/apps/abra2/v2.23/abra2.jar'
 params.abra2_targets_bed_file = '/datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/abra2/gencode-v41-annotation-abra2-exon-targets.bed'
 params.bwa_mem2 = 'bwa-mem2'
 params.samtools = 'samtools'
@@ -62,12 +62,12 @@ if (params.help) {
         --samples_tsv_file              :   TSV file with the following columns:
                                             'sample_id', 'fastq_file_1', 'fastq_file_2'.
         --output_dir                    :   Directory to which output files will be copied.
-        --abra2                         :   abra2 .jar path.
 
     optional arguments:
         --reference_genome_fasta_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
         --bwa_mem2                      :   bwa-mem2 path (default: bwa-mem2).
         --samtools                      :   samtools path (default: samtools).
+        --abra2                         :   abra2 .jar path (default: /datastore/lbcfs/collaborations/pirl/share/apps/abra2/v2.23/abra2.jar).
         --abra2_targets_bed_file        :   abra2 targets BED file (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/abra2/gencode-v41-annotation-abra2-exon-targets.bed).
         --gatk4                         :   gatk4 path (default: gatk).
         --gatk4_baserecalibrator_params :   gatk4 BaseRecalibrator parameters

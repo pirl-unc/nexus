@@ -15,7 +15,7 @@ process runStrelka2GermlineMode {
         tuple val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file)
         val(reference_genome_fasta_file)
         val(python2)
-        val(strelka2)
+        val(strelka2) // configureStrelkaGermlineWorkflow.py
         val(strelka2_params)
         val(output_dir)
 
@@ -27,7 +27,7 @@ process runStrelka2GermlineMode {
 
         """
         mkdir -p ${sample_id}_strelka2_germline_mode/
-        ${python2} ${strelka2}/configureStrelkaGermlineWorkflow.py \
+        ${python2} ${strelka2} \
             --bam ${tumor_bam_file} \
             --referenceFasta ${reference_genome_fasta_file} \
             --runDir ${sample_id}_strelka2_germline_mode/ \
@@ -52,7 +52,7 @@ process runStrelka2SomaticMode {
         tuple val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file), path(normal_bam_file), path(normal_bam_bai_file), val(tumor_sample_id), val(normal_sample_id)
         val(reference_genome_fasta_file)
         val(python2)
-        val(strelka2)
+        val(strelka2) // configureStrelkaSomaticWorkflow.py
         val(strelka2_params)
         val(output_dir)
 
@@ -64,7 +64,7 @@ process runStrelka2SomaticMode {
 
         """
         mkdir -p ${sample_id}_strelka2_somatic_mode/
-        ${python2} ${strelka2}/configureStrelkaSomaticWorkflow.py \
+        ${python2} ${strelka2} \
             --normalBam $normal_bam_file \
             --tumorBam $tumor_bam_file \
             --referenceFasta $reference_genome_fasta_file \

@@ -66,8 +66,16 @@ jobs:
         wget https://github.com/mozack/abra2/releases/download/v2.23/abra2-2.23.jar
         mv abra2-2.23.jar abra2.jar
         chmod +x abra2.jar
+        wget https://github.com/broadinstitute/picard/releases/download/3.1.1/picard.jar
+        chmod +x picard.jar
+        wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2
+        tar -xvf strelka-2.9.10.centos6_x86_64.tar.bz2
+        chmod R 750 strelka-2.9.10.centos6_x86_64/*
         echo '/home/runner/work/nexus/nexus/' >> $GITHUB_PATH
+        echo '/home/runner/work/nexus/nexus/strelka-2.9.10.centos6_x86_64/bin/' >> $GITHUB_PATH
         pip install . --verbose
+        conda create -n py27 python=2.7
+        echo '/usr/share/miniconda3/envs/py27/bin/' >> $GITHUB_PATH
 
     - name: Run linter
       shell: bash -l {0}
@@ -79,4 +87,4 @@ jobs:
       shell: bash -l {0}
       run: |
         shopt -s expand_aliases
-        pytest -s test/test_long_read_dna_structural_variants.py -k test_long_read_dna_structural_variants_github
+        pytest -s test/test_paired_end_read_dna_somatic_small_variants.py -k test_paired_end_read_dna_somatic_small_variants_human_singularity
