@@ -57,6 +57,6 @@ jobs:
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        echo 'export PATH=$PATH:/home/runner/work/nexus/nexus/abra2.jar' >> $GITHUB_ENV
-        echo $PATH
+        echo '/home/runner/work/nexus/nexus/abra2.jar' >> $GITHUB_PATH
+        echo $$GITHUB_PATH
         pytest -s test/test_paired_end_read_dna_alignment_bwa_mem2.py
