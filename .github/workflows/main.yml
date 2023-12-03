@@ -58,6 +58,7 @@ jobs:
     - name: Run unit tests
       shell: bash -l {0}
       run: |
+        shopt -s expand_aliases
         echo $PATH
         echo "abra2 path:"
         which abra2.jar
