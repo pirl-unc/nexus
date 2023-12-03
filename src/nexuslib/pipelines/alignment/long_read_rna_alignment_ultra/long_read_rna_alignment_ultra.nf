@@ -28,7 +28,7 @@ params.delete_work_dir = false
 // Step 3. Print inputs and help
 log.info """\
          ======================================================
-         Align Long-read RNA Sequencing FASTQ Files Using uLTRA
+         Align long-read RNA sequencing fastq files using uLTRA
          ======================================================
          Workflow:
             1. Align reads (fastq.gz files) to a reference genome using uLTRA.

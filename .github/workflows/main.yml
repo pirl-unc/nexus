@@ -37,10 +37,15 @@ jobs:
         conda install samtools==1.18
         conda install minimap2==2.22
         pip install ultra-bioinformatics
+        conda install bwa-mem2==2.2.1
+        conda install gatk4==4.4.0.0
         conda install pylint
         conda install coveralls
         conda install pytest
         conda install pytest-cov
+        wget https://github.com/mozack/abra2/releases/download/v2.23/abra2-2.23.jar
+        mv abra2-2.23.jar abra2.jar
+        chmod +x abra2.jar
         pip install . --verbose
 
     - name: Run linter
@@ -52,4 +57,5 @@ jobs:
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        pytest -s test/test_long_read_rna_alignment_ultra.py
+        echo 'export PATH=$HOME/abra2.jar:$PATH' >> $GITHUB_ENV
+        pytest -s test/test_paired_end_read_dna_alignment_bwa_mem2.py

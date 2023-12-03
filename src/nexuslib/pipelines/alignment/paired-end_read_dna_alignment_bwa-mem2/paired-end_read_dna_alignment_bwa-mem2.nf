@@ -22,15 +22,15 @@ params.help = ''
 // Required arguments
 params.samples_tsv_file = ''
 params.output_dir = ''
-params.reference_genome_fasta_file = ''
-params.abra2_targets_bed_file = ''
-params.bwa_mem2 = ''
-params.samtools = ''
 params.abra2 = ''
-params.gatk4 = ''
-params.gatk4_baserecalibrator_params = ''
-params.chromosomes = ''
 // Optional arguments
+params.reference_genome_fasta_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa'
+params.abra2_targets_bed_file = '/datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/abra2/gencode-v41-annotation-abra2-exon-targets.bed'
+params.bwa_mem2 = 'bwa-mem2'
+params.samtools = 'samtools'
+params.gatk4 = 'gatk'
+params.gatk4_baserecalibrator_params = '"--known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/dbsnp_146.hg38.vcf --known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/1000G_phase1.snps.high_confidence.hg38.vcf --known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/Mills_and_1000G_gold_standard.indels.hg38.vcf --known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/Homo_sapiens_assembly38.known_indels.vcf "'
+params.chromosomes = 'chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM'
 params.platform_tag = 'illumina'
 params.platform_unit_tag = 'unknown'
 params.library_tag = 'unknown'
@@ -39,13 +39,13 @@ params.delete_work_dir = false
 // Step 3. Print inputs and help
 log.info """\
          ==========================================================
-         Align Paired-end DNA Sequencing FASTQ Files Using BWA-MEM2
+         Align paired-end DNA sequencing fastq files using bwa-mem2
          ==========================================================
          """.stripIndent()
 
 if (params.help) {
     log.info"""\
-     workflow:
+    workflow:
         1. Align paired-end reads to a reference genome using bwa-mem2.
         2. Sort sam to bam files.
         3. Perform local realignment using abra2.
@@ -62,18 +62,18 @@ if (params.help) {
         --samples_tsv_file              :   TSV file with the following columns:
                                             'sample_id', 'fastq_file_1', 'fastq_file_2'.
         --output_dir                    :   Directory to which output files will be copied.
-        --reference_genome_fasta_file   :   Reference genome FASTA file.
-        --bwa_mem2                      :   bwa-mem2 path (default: bwa-mem2).
-        --samtools                      :   samtools path (default: samtools).
-        --abra2                         :   abra2 .jar path (default: abra2).
-        --abra2_targets_bed_file        :   abra2 targets BED file (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/abra2/gencode-v41-annotation-abra2-exon-targets.bed).
-        --gatk4                         :   gatk4 path (default: gatk).
-        --gatk4_baserecalibrator_params :   gatk4 BaseRecalibrator parameters (e.g. '"--known-sites /<path>/dbsnp.vcf "').
-                                            Note that the parameters need to be wrapped in quotes
-                                            and a space at the end of the string is necessary.
-        --chromosomes                   :   Chromosomes to recalibrate using GATK4 (separated by comma; e.g. 'chr1,chr2,chr3').
+        --abra2                         :   abra2 .jar path.
 
     optional arguments:
+        --reference_genome_fasta_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
+        --bwa_mem2                      :   bwa-mem2 path (default: bwa-mem2).
+        --samtools                      :   samtools path (default: samtools).
+        --abra2_targets_bed_file        :   abra2 targets BED file (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/abra2/gencode-v41-annotation-abra2-exon-targets.bed).
+        --gatk4                         :   gatk4 path (default: gatk).
+        --gatk4_baserecalibrator_params :   gatk4 BaseRecalibrator parameters (e.g. '"--known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/dbsnp_146.hg38.vcf --known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/1000G_phase1.snps.high_confidence.hg38.vcf --known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/Mills_and_1000G_gold_standard.indels.hg38.vcf --known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/Homo_sapiens_assembly38.known_indels.vcf "').
+                                            Note that the parameters need to be wrapped in quotes
+                                            and a space at the end of the string is necessary.
+        --chromosomes                   :   Chromosomes to recalibrate using GATK4 (separated by comma; e.g. 'chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM').
         --platform_tag                  :   Platform tag (default: 'illumina').
         --platform_unit_tag             :   Platform unit tag (default: 'unknown').
         --library_tag                   :   Library tag (default: 'unknown').
