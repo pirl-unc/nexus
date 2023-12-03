@@ -46,7 +46,7 @@ jobs:
         wget https://github.com/mozack/abra2/releases/download/v2.23/abra2-2.23.jar
         mv abra2-2.23.jar abra2.jar
         chmod +x abra2.jar
-        echo '/home/runner/work/nexus/nexus/abra2.jar' >> $GITHUB_PATH
+        echo '/home/runner/work/nexus/nexus/' >> $GITHUB_PATH
         pip install . --verbose
 
     - name: Run linter
