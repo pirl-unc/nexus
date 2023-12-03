@@ -15,23 +15,21 @@ params.help = ''
 // Required arguments
 params.samples_tsv_file = ''
 params.output_dir = ''
-params.reference_genome_fasta_file = ''
-params.containerization = 'singularity' // or docker
-params.deepvariant_bin_path = ''
-params.deepvariant_bin_version = ''
-params.deepvariant_input_path = ''
-params.deepvariant_output_path = ''
-params.deepvariant_model_type = ''
 // Optional arguments
+params.reference_genome_fasta_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa'
+params.containerization = 'singularity' // or docker
+params.deepvariant_model_type = 'PACBIO'
+params.deepvariant_bin_path = '/opt/deepvariant/bin/run_deepvariant'
+params.deepvariant_bin_version = '1.6.0'
+params.deepvariant_input_path = '/datastore/'
+params.deepvariant_output_path = '/datastore/'
 params.delete_work_dir = false
 
 // Step 3. Print inputs and help
 log.info """\
          ==================================================================================
-         Identify Small Variants (SNVs and INDELs) using Long-read DNA Sequencing BAM Files
+         Identify small variants (SNVs and INDELs) using long-read DNA sequencing bam files
          ==================================================================================
-         Workflow:
-            1. Run DeepVariant.
          """.stripIndent()
 
 if (params.help) {
@@ -46,15 +44,15 @@ if (params.help) {
             -w                                  :   Nextflow work directory path.
             --samples_tsv_file                  :   TSV file with the following columns: 'sample_id', 'bam_file', 'bam_bai_file'.
             --output_dir                        :   Directory to which output files will be copied.
-            --reference_genome_fasta_file       :   Reference genome FASTA file.
-            --containerization                  :   Containerization ('singularity' or 'docker'; default: 'singularity').
-            --deepvariant_bin_path              :   DeepVariant bin path (e.g. '/opt/deepvariant/bin/run_deepvariant').
-            --deepvariant_bin_version           :   DeepVariant bin version (e.g. 1.6.0).
-            --deepvariant_input_path            :   DeepVariant input path (e.g. /path/to/input/).
-            --deepvariant_output_path           :   DeepVariant output path (e.g. /path/to/output/).
-            --deepvariant_model_type            :   DeepVariant --model_type parameter value (e.g. 'WGS').
 
         optional arguments:
+            --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
+            --containerization                  :   Containerization ('singularity' or 'docker'; default: 'singularity').
+            --deepvariant_model_type            :   DeepVariant --model_type parameter value (default: 'PACBIO').
+            --deepvariant_bin_path              :   DeepVariant bin path (default: '/opt/deepvariant/bin/run_deepvariant').
+            --deepvariant_bin_version           :   DeepVariant bin version (default: '1.6.0').
+            --deepvariant_input_path            :   DeepVariant input path (default: '/datastore/').
+            --deepvariant_output_path           :   DeepVariant output path (default: '/datastore/').
             --delete_work_dir                   :   Delete work directory (default: false).
     """.stripIndent()
     exit 0
