@@ -59,7 +59,4 @@ jobs:
       shell: bash -l {0}
       run: |
         shopt -s expand_aliases
-        echo $PATH
-        echo "abra2 path:"
-        which abra2.jar
         pytest -s test/test_paired_end_read_dna_alignment_bwa_mem2.py
