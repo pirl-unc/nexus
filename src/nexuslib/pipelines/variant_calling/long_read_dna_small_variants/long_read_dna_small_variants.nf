@@ -34,40 +34,40 @@ log.info """\
 
 if (params.help) {
     log.info"""\
-        workflow:
-            1. Run DeepVariant.
+    workflow:
+        1. Run DeepVariant.
 
-        usage: nexus run --nf-workflow long_read_dna_small_variants.nf [required] [optional] [--help]
+    usage: nexus run --nf-workflow long_read_dna_small_variants.nf [required] [optional] [--help]
 
-        required arguments:
-            -c                                  :   Nextflow .config file.
-            -w                                  :   Nextflow work directory path.
-            --samples_tsv_file                  :   TSV file with the following columns: 'sample_id', 'bam_file', 'bam_bai_file'.
-            --output_dir                        :   Directory to which output files will be copied.
+    required arguments:
+        -c                                  :   Nextflow .config file.
+        -w                                  :   Nextflow work directory path.
+        --samples_tsv_file                  :   TSV file with the following columns: 'sample_id', 'bam_file', 'bam_bai_file'.
+        --output_dir                        :   Directory to which output files will be copied.
 
-        optional arguments:
-            --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
-            --containerization                  :   Containerization ('singularity' or 'docker'; default: 'singularity').
-            --deepvariant_model_type            :   DeepVariant --model_type parameter value (default: 'PACBIO').
-            --deepvariant_bin_path              :   DeepVariant bin path (default: '/opt/deepvariant/bin/run_deepvariant').
-            --deepvariant_bin_version           :   DeepVariant bin version (default: '1.6.0').
-            --deepvariant_input_path            :   DeepVariant input path (default: '/datastore/').
-            --deepvariant_output_path           :   DeepVariant output path (default: '/datastore/').
-            --delete_work_dir                   :   Delete work directory (default: false).
+    optional arguments:
+        --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
+        --containerization                  :   Containerization ('singularity' or 'docker'; default: 'singularity').
+        --deepvariant_model_type            :   DeepVariant --model_type parameter value (default: 'PACBIO').
+        --deepvariant_bin_path              :   DeepVariant bin path (default: '/opt/deepvariant/bin/run_deepvariant').
+        --deepvariant_bin_version           :   DeepVariant bin version (default: '1.6.0').
+        --deepvariant_input_path            :   DeepVariant input path (default: '/datastore/').
+        --deepvariant_output_path           :   DeepVariant output path (default: '/datastore/').
+        --delete_work_dir                   :   Delete work directory (default: false).
     """.stripIndent()
     exit 0
 } else {
     log.info"""\
-            samples_tsv_file                    :   ${params.samples_tsv_file}
-            output_dir                          :   ${params.output_dir}
-            reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
-            containerization                    :   ${params.containerization}
-            deepvariant_bin_path                :   ${params.deepvariant_bin_path}
-            deepvariant_bin_version             :   ${params.deepvariant_bin_version}
-            deepvariant_input_path              :   ${params.deepvariant_input_path}
-            deepvariant_output_path             :   ${params.deepvariant_output_path}
-            deepvariant_model_type              :   ${params.deepvariant_model_type}
-            delete_work_dir                     :   ${params.delete_work_dir}
+        samples_tsv_file                    :   ${params.samples_tsv_file}
+        output_dir                          :   ${params.output_dir}
+        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
+        containerization                    :   ${params.containerization}
+        deepvariant_bin_path                :   ${params.deepvariant_bin_path}
+        deepvariant_bin_version             :   ${params.deepvariant_bin_version}
+        deepvariant_input_path              :   ${params.deepvariant_input_path}
+        deepvariant_output_path             :   ${params.deepvariant_output_path}
+        deepvariant_model_type              :   ${params.deepvariant_model_type}
+        delete_work_dir                     :   ${params.delete_work_dir}
     """.stripIndent()
 }
 

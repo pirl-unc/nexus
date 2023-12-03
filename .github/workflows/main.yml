@@ -55,6 +55,10 @@ jobs:
         pip install ultra-bioinformatics
         conda install bwa-mem2==2.2.1
         conda install gatk4==4.4.0.0
+        conda install sniffles==2.2
+        conda install svim==2.0.0
+        conda install pbsv==2.9.0
+        conda install cutesv==2.1.0
         conda install pylint
         conda install coveralls
         conda install pytest
@@ -75,4 +79,4 @@ jobs:
       shell: bash -l {0}
       run: |
         shopt -s expand_aliases
-        pytest -s test/test_long_read_dna_small_variants.py -k test_long_read_dna_small_variants_singularity
+        pytest -s test/test_long_read_dna_structural_variants.py -k test_long_read_dna_structural_variants_github

@@ -30,49 +30,45 @@ log.info """\
          ======================================================
          Align long-read RNA sequencing fastq files using uLTRA
          ======================================================
-         Workflow:
-            1. Align reads (fastq.gz files) to a reference genome using uLTRA.
-            2. Generate MD tags.
-            3. Sort MD-tagged BAM file.
          """.stripIndent()
 
 if (params.help) {
     log.info"""\
-        workflow:
-            1. Align reads (fastq.gz files) to a reference genome using uLTRA.
-            2. Generate MD tags.
-            3. Sort MD-tagged bam file.
+    workflow:
+        1. Align reads (fastq.gz files) to a reference genome using uLTRA.
+        2. Generate MD tags.
+        3. Sort MD-tagged bam file.
 
-        usage: nexus run --nf-workflow long_read_rna_alignment_ultra.nf [required] [optional] [--help]
+    usage: nexus run --nf-workflow long_read_rna_alignment_ultra.nf [required] [optional] [--help]
 
-        required arguments:
-            -c                              :   Nextflow .config file.
-            -w                              :   Nextflow work directory path.
-            --samples_tsv_file              :   TSV file with the following columns:
-                                                'sample_id', 'fastq_file'.
-            --output_dir                    :   Directory to which output files will be copied.
+    required arguments:
+        -c                              :   Nextflow .config file.
+        -w                              :   Nextflow work directory path.
+        --samples_tsv_file              :   TSV file with the following columns:
+                                            'sample_id', 'fastq_file'.
+        --output_dir                    :   Directory to which output files will be copied.
 
-        optional arguments:
-            --reference_genome_fasta_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
-            --ultra                         :   uLTRA path (default: uLTRA).
-            --ultra_index                   :   uLTRA index path (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/ultra/hg38_index/).
-            --ultra_params                  :   uLTRA parameters (default: '"--isoseq "').
-                                                Note that the parameters need to be wrapped in quotes
-                                                and a space at the end of the string is necessary.
-            --samtools                      :   samtools path (default: samtools).
-            --delete_work_dir               :   Delete work directory (default: false).
+    optional arguments:
+        --reference_genome_fasta_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
+        --ultra                         :   uLTRA path (default: uLTRA).
+        --ultra_index                   :   uLTRA index path (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/ultra/hg38_index/).
+        --ultra_params                  :   uLTRA parameters (default: '"--isoseq "').
+                                            Note that the parameters need to be wrapped in quotes
+                                            and a space at the end of the string is necessary.
+        --samtools                      :   samtools path (default: samtools).
+        --delete_work_dir               :   Delete work directory (default: false).
     """.stripIndent()
     exit 0
 } else {
     log.info"""\
-            samples_tsv_file                :   ${params.samples_tsv_file}
-            output_dir                      :   ${params.output_dir}
-            reference_genome_fasta_file     :   ${params.reference_genome_fasta_file}
-            ultra                           :   ${params.ultra}
-            ultra_index                     :   ${params.ultra_index}
-            ultra_params                    :   ${params.ultra_params}
-            samtools                        :   ${params.samtools}
-            delete_work_dir                 :   ${params.delete_work_dir}
+        samples_tsv_file                :   ${params.samples_tsv_file}
+        output_dir                      :   ${params.output_dir}
+        reference_genome_fasta_file     :   ${params.reference_genome_fasta_file}
+        ultra                           :   ${params.ultra}
+        ultra_index                     :   ${params.ultra_index}
+        ultra_params                    :   ${params.ultra_params}
+        samtools                        :   ${params.samtools}
+        delete_work_dir                 :   ${params.delete_work_dir}
     """.stripIndent()
 }
 

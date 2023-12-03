@@ -70,10 +70,15 @@ if (params.help) {
         --samtools                      :   samtools path (default: samtools).
         --abra2_targets_bed_file        :   abra2 targets BED file (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/abra2/gencode-v41-annotation-abra2-exon-targets.bed).
         --gatk4                         :   gatk4 path (default: gatk).
-        --gatk4_baserecalibrator_params :   gatk4 BaseRecalibrator parameters (e.g. '"--known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/dbsnp_146.hg38.vcf --known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/1000G_phase1.snps.high_confidence.hg38.vcf --known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/Mills_and_1000G_gold_standard.indels.hg38.vcf --known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/Homo_sapiens_assembly38.known_indels.vcf "').
+        --gatk4_baserecalibrator_params :   gatk4 BaseRecalibrator parameters
+                                            (default: '"--known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/dbsnp_146.hg38.vcf
+                                                        --known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/1000G_phase1.snps.high_confidence.hg38.vcf
+                                                        --known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/Mills_and_1000G_gold_standard.indels.hg38.vcf
+                                                        --known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/Homo_sapiens_assembly38.known_indels.vcf "').
                                             Note that the parameters need to be wrapped in quotes
                                             and a space at the end of the string is necessary.
-        --chromosomes                   :   Chromosomes to recalibrate using GATK4 (separated by comma; e.g. 'chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM').
+        --chromosomes                   :   Chromosomes to recalibrate using GATK4
+                                            (default: 'chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM').
         --platform_tag                  :   Platform tag (default: 'illumina').
         --platform_unit_tag             :   Platform unit tag (default: 'unknown').
         --library_tag                   :   Library tag (default: 'unknown').
@@ -82,20 +87,20 @@ if (params.help) {
     exit 0
 } else {
     log.info"""\
-            samples_tsv_file                :   ${params.samples_tsv_file}
-            output_dir                      :   ${params.output_dir}
-            reference_genome_fasta_file     :   ${params.reference_genome_fasta_file}
-            bwa_mem2                        :   ${params.bwa_mem2}
-            samtools                        :   ${params.samtools}
-            abra2                           :   ${params.abra2}
-            abra2_targets_bed_file          :   ${params.abra2_targets_bed_file}
-            gatk4                           :   ${params.gatk4}
-            gatk4_baserecalibrator_params   :   ${params.gatk4_baserecalibrator_params}
-            chromosomes                     :   ${params.chromosomes}
-            platform_tag                    :   ${params.platform_tag}
-            platform_unit_tag               :   ${params.platform_unit_tag}
-            library_tag                     :   ${params.library_tag}
-            delete_work_dir                 :   ${params.delete_work_dir}
+        samples_tsv_file                :   ${params.samples_tsv_file}
+        output_dir                      :   ${params.output_dir}
+        reference_genome_fasta_file     :   ${params.reference_genome_fasta_file}
+        bwa_mem2                        :   ${params.bwa_mem2}
+        samtools                        :   ${params.samtools}
+        abra2                           :   ${params.abra2}
+        abra2_targets_bed_file          :   ${params.abra2_targets_bed_file}
+        gatk4                           :   ${params.gatk4}
+        gatk4_baserecalibrator_params   :   ${params.gatk4_baserecalibrator_params}
+        chromosomes                     :   ${params.chromosomes}
+        platform_tag                    :   ${params.platform_tag}
+        platform_unit_tag               :   ${params.platform_unit_tag}
+        library_tag                     :   ${params.library_tag}
+        delete_work_dir                 :   ${params.delete_work_dir}
     """.stripIndent()
 }
 

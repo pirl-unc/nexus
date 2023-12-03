@@ -37,46 +37,46 @@ log.info """\
 
 if (params.help) {
     log.info"""\
-        workflow:
-            1. Align reads (fastq.gz files) to a reference genome using minimap2.
-            2. Convert sam files to bam files.
-            3. Generate MD tags.
-            4. Sort MD-tagged bam files.
+    workflow:
+        1. Align reads (fastq.gz files) to a reference genome using minimap2.
+        2. Convert sam files to bam files.
+        3. Generate MD tags.
+        4. Sort MD-tagged bam files.
 
-        usage: nexus run --nf-workflow long_read_alignment_minimap2.nf [required] [optional] [--help]
+    usage: nexus run --nf-workflow long_read_alignment_minimap2.nf [required] [optional] [--help]
 
-        required arguments:
-            -c                              :   Nextflow .config file.
-            -w                              :   Nextflow work directory path.
-            --samples_tsv_file              :   TSV file with the following columns:
-                                                'sample_id', 'fastq_file'.
-            --output_dir                    :   Directory to which output files will be copied.
+    required arguments:
+        -c                              :   Nextflow .config file.
+        -w                              :   Nextflow work directory path.
+        --samples_tsv_file              :   TSV file with the following columns:
+                                            'sample_id', 'fastq_file'.
+        --output_dir                    :   Directory to which output files will be copied.
 
-        optional arguments:
-            --reference_genome_fasta_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
-            --minimap2                      :   minimap2 path (default: minimap2).
-            --minimap2_params               :   minimap2 parameters (default: '"-ax map-hifi --cs --eqx -Y -L "').
-                                                Note that the parameters need to be wrapped in quotes
-                                                and a space at the end of the string is necessary.
-            --samtools                      :   samtools path (default: samtools).
-            --platform_tag                  :   Platform tag (default: 'unknown').
-            --platform_unit_tag             :   Platform unit tag (default: 'unknown').
-            --library_tag                   :   Library tag (default: 'unknown').
-            --delete_work_dir               :   Delete work directory (default: false).
+    optional arguments:
+        --reference_genome_fasta_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
+        --minimap2                      :   minimap2 path (default: minimap2).
+        --minimap2_params               :   minimap2 parameters (default: '"-ax map-hifi --cs --eqx -Y -L "').
+                                            Note that the parameters need to be wrapped in quotes
+                                            and a space at the end of the string is necessary.
+        --samtools                      :   samtools path (default: samtools).
+        --platform_tag                  :   Platform tag (default: 'unknown').
+        --platform_unit_tag             :   Platform unit tag (default: 'unknown').
+        --library_tag                   :   Library tag (default: 'unknown').
+        --delete_work_dir               :   Delete work directory (default: false).
     """.stripIndent()
     exit 0
 } else {
     log.info"""\
-            samples_tsv_file                :   ${params.samples_tsv_file}
-            output_dir                      :   ${params.output_dir}
-            reference_genome_fasta_file     :   ${params.reference_genome_fasta_file}
-            minimap2                        :   ${params.minimap2}
-            minimap2_params                 :   ${params.minimap2_params}
-            samtools                        :   ${params.samtools}
-            platform_tag                    :   ${params.platform_tag}
-            platform_unit_tag               :   ${params.platform_unit_tag}
-            library_tag                     :   ${params.library_tag}
-            delete_work_dir                 :   ${params.delete_work_dir}
+        samples_tsv_file                :   ${params.samples_tsv_file}
+        output_dir                      :   ${params.output_dir}
+        reference_genome_fasta_file     :   ${params.reference_genome_fasta_file}
+        minimap2                        :   ${params.minimap2}
+        minimap2_params                 :   ${params.minimap2_params}
+        samtools                        :   ${params.samtools}
+        platform_tag                    :   ${params.platform_tag}
+        platform_unit_tag               :   ${params.platform_unit_tag}
+        library_tag                     :   ${params.library_tag}
+        delete_work_dir                 :   ${params.delete_work_dir}
     """.stripIndent()
 }
 
