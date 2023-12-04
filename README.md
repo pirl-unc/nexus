@@ -9,15 +9,17 @@ workflows written in nextflow.
 
 ## 01. Installation
 
+Download the [latest stable release](https://github.com/pirl-unc/nexus/releases/download/v0.0.1/nexus-0.0.1.tar.gz)
+
 ```
-pip install . --verbose
+conda create -n nexus python=3.10
+conda activate nexus
+pip install nexus-<version>.tar.gz --verbose
 ```
 
 ## 02. Dependencies
 
 ```
-conda create -n nexus python=3.10
-conda activate nexus
 conda config --add channels defaults
 conda config --add channels bioconda
 conda config --add channels conda-forge
@@ -37,7 +39,6 @@ conda install bcftools==1.18
 conda install sambamba==1.0
 conda install samblaster==0.1.26
 pip install ultra-bioinformatics
-conda deactivate
 
 conda create -n py27 python=2.7
 conda activate py27
