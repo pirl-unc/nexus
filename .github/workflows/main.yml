@@ -39,13 +39,24 @@ jobs:
         conda deactivate
         echo "HERE 2"
         chmod +x /usr/share/miniconda3/envs/py27/bin/lumpyexpress
+        echo "HERE 3"
         chmod +x /usr/share/miniconda3/envs/py27/bin/lumpyexpress.config
+        echo "HERE 4"
         lumpyexpress_config_file=/usr/share/miniconda3/envs/py27/bin/lumpyexpress.config
+        echo "HERE 5"
         new_python_path="/usr/share/miniconda3/envs/py27/bin/python2"
+        echo "HERE 6"
         temp_file=$(mktemp)
+        echo "HERE 7"
         sed "s|PYTHON=\`which python \|\| true\`|PYTHON=$new_python_path|" "$lumpyexpress_config_file" > "$temp_file"
+        echo "HERE 8"
         mv "$temp_file" "$lumpyexpress_config_file"
+        echo "HERE 9"
         echo '/home/runner/work/nexus/nexus/' >> $GITHUB_PATH
+        echo "HERE 10"
         echo '/usr/share/miniconda3/envs/py27/bin/' >> $GITHUB_PATH
+        echo "HERE 11"
         which lumpyexpress.config
+        echo "HERE 12"
         which python2
+        echo "HERE 13"
