@@ -16,18 +16,23 @@ pip install . --verbose
 ## 02. Dependencies
 
 ```
-conda install openjdk
-conda install java-jdk
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+conda config --set channel_priority strict
 conda install pandas
-conda install nextflow
 conda install samtools==1.18
 conda install minimap2==2.22
+conda install bwa-mem2==2.2.1
+conda install gatk4==4.4.0.0
 conda install sniffles==2.2
 conda install svim==2.0.0
 conda install pbsv==2.9.0
 conda install cutesv==2.1.0
-conda install bwa-mem2==2.2.1
-conda install gatk4==4.4.0.0
+conda install delly==1.1.8
+conda install bcftools==1.18
+conda install sambamba==1.0
+conda install samblaster==0.1.26
 pip install ultra-bioinformatics
 ```
 

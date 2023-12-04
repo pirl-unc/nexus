@@ -15,7 +15,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Free Disk Space (Ubuntu)
+    - name: Free disk space (Ubuntu)
       uses: jlumbroso/free-disk-space@main
       with:
         tool-cache: false
