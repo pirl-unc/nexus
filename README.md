@@ -20,6 +20,7 @@ conda config --add channels defaults
 conda config --add channels bioconda
 conda config --add channels conda-forge
 conda config --set channel_priority strict
+conda install nextflow
 conda install pandas
 conda install samtools==1.18
 conda install minimap2==2.22
@@ -65,19 +66,13 @@ Long-read whole-genome sequencing `fastq.gz` alignment
 ```
 nexus run \
     --nf-workflow long_read_alignment_minimap2.nf \
-    -c nextflow.config \
+    -c nextflow_slurm.config \
     -w WORK_DIR \
     --samples_tsv_file SAMPLES_TSV_FILE \
-    --output_dir OUTPUT_DIR \
-    --reference_genome_fasta_file FASTA_FILE \
-    --minimap2 minimap2 \
-    --minimap2_params "'-ax map-hifi --cs --eqx -Y -L'" \
-    --samtools samtools \
-    --platform_tag pacbio \
+    --output_dir OUTPUT_DIR
 ```
 
-`nextflow.config` can be downloaded from [here](/configs/) for 
-local computers (laptop) and HPC (slurm).
+`nextflow_slurm.config` can be downloaded from [here](/configs/nextflow_slurm.config).
 
 `SAMPLES_TSV_FILE` is a tab-delimited file:
 
@@ -99,3 +94,5 @@ Here is a list of all available workflows for `v0.0.1`
 | Alignment      | [paired-end_read_dna_alignment_bwa-mem2.nf](/src/nexuslib/pipelines/alignment/paired-end_read_dna_alignment_bwa-mem2/) |
 | Variant calling | [long_read_dna_small_variants.nf](/src/nexuslib/pipelines/variant_calling/long_read_dna_small_variants/)               |
 | Variant calling | [long_read_dna_structural_variants.nf](/src/nexuslib/pipelines/variant_calling/long_read_dna_structural_variants/)     |
+| Variant calling | [paired-end_read_dna_somatic_small_variants.nf](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_somatic_small_variants/) |
+| Variant calling | [paired-end_read_dna_somatic_structural_variants.nf](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_somatic_structural_variants/) |
