@@ -8,15 +8,15 @@ process runLumpyExpressSingleSample {
 
     publishDir(
         path: "${output_dir}/${sample_id}/",
-        mode: 'symlink'
+        mode: 'copy'
     )
 
     input:
         tuple val(sample_id), path(bam_file), path(bam_bai_file)
         val(python2)
-        val(lumpy_express)
+        val(lumpyexpress)
+        val(lumpyexpress_config_file)
         val(lumpy_extract_split_reads_script_file)
-        val(lumpy_config_file)
         val(samtools)
         val(svtyper)
         val(svtyper_sso)
@@ -33,16 +33,16 @@ process runLumpyExpressSingleSample {
         PYTHONPATH=$python2
         export PYTHONPATH
         $samtools view -b -F 1294 $bam_file -o ${bam_file.baseName}_discordants.bam
-        $samtools sort -@ ${task.cpus} -m 1G ${bam_file.baseName}_discordants.bam -o ${bam_file.baseName}_discordants_sorted.bam
+        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory} ${bam_file.baseName}_discordants.bam -o ${bam_file.baseName}_discordants_sorted.bam
         $samtools index -b ${bam_file.baseName}_discordants_sorted.bam ${bam_file.baseName}_discordants_sorted.bam.bai
         $samtools view -h $bam_file | $python2 $lumpy_extract_split_reads_script_file -i stdin | $samtools view -Sb - -o ${bam_file.baseName}_splitters.bam
-        $samtools sort -@ ${task.cpus} -m 1G ${bam_file.baseName}_splitters.bam -o ${bam_file.baseName}_splitters_sorted.bam
+        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory} ${bam_file.baseName}_splitters.bam -o ${bam_file.baseName}_splitters_sorted.bam
         $samtools index -b ${bam_file.baseName}_splitters_sorted.bam ${bam_file.baseName}_splitters_sorted.bam.bai
-        $lumpy_express \
+        $lumpyexpress \
             -B $bam_file \
             -S ${bam_file.baseName}_splitters_sorted.bam \
             -D ${bam_file.baseName}_discordants_sorted.bam \
-            -K $lumpy_config_file \
+            -K $lumpyexpress_config_file \
             -o ${bam_file.baseName}_lumpy.vcf
         $svtyper \
             -B $bam_file \
@@ -72,9 +72,9 @@ process runLumpyExpressTumorNormal {
     input:
         tuple val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file), path(normal_bam_file), path(normal_bam_bai_file), val(tumor_sample_id), val(normal_sample_id)
         val(python2)
-        val(lumpy_express)
+        val(lumpyexpress)
+        val(lumpyexpress_config_file)
         val(lumpy_extract_split_reads_script_file)
-        val(lumpy_config_file)
         val(samtools)
         val(output_dir)
 
@@ -83,32 +83,28 @@ process runLumpyExpressTumorNormal {
 
     script:
         """
-        # Set python2 path
-        PYTHONPATH=$python2
-        export PYTHONPATH
-
         # Extract the discordant paired-end alignments.
         $samtools view -b -F 1294 $tumor_bam_file > ${tumor_bam_file.baseName}_discordants.bam
         $samtools view -b -F 1294 $normal_bam_file > ${normal_bam_file.baseName}_discordants.bam
-        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_per_thread_memory} ${tumor_bam_file.baseName}_discordants.bam -o ${tumor_bam_file.baseName}_discordants_sorted.bam
-        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_per_thread_memory} ${normal_bam_file.baseName}_discordants.bam -o ${normal_bam_file.baseName}_discordants_sorted.bam
+        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory} ${tumor_bam_file.baseName}_discordants.bam -o ${tumor_bam_file.baseName}_discordants_sorted.bam
+        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory} ${normal_bam_file.baseName}_discordants.bam -o ${normal_bam_file.baseName}_discordants_sorted.bam
         $samtools index -b ${tumor_bam_file.baseName}_discordants_sorted.bam ${tumor_bam_file.baseName}_discordants_sorted.bam.bai
         $samtools index -b ${normal_bam_file.baseName}_discordants_sorted.bam ${normal_bam_file.baseName}_discordants_sorted.bam.bai
 
         # Extract the split-read alignments
         $samtools view -h $tumor_bam_file | $python2 $lumpy_extract_split_reads_script_file -i stdin | $samtools view -Sb - -o ${tumor_bam_file.baseName}_splitters.bam
         $samtools view -h $normal_bam_file | $python2 $lumpy_extract_split_reads_script_file -i stdin | $samtools view -Sb - -o ${normal_bam_file.baseName}_splitters.bam
-        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_per_thread_memory} ${tumor_bam_file.baseName}_splitters.bam -o ${tumor_bam_file.baseName}_splitters_sorted.bam
-        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_per_thread_memory} ${normal_bam_file.baseName}_splitters.bam -o ${normal_bam_file.baseName}_splitters_sorted.bam
+        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory} ${tumor_bam_file.baseName}_splitters.bam -o ${tumor_bam_file.baseName}_splitters_sorted.bam
+        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory} ${normal_bam_file.baseName}_splitters.bam -o ${normal_bam_file.baseName}_splitters_sorted.bam
         $samtools index -b ${tumor_bam_file.baseName}_splitters_sorted.bam ${tumor_bam_file.baseName}_splitters_sorted.bam.bai
         $samtools index -b ${normal_bam_file.baseName}_splitters_sorted.bam ${normal_bam_file.baseName}_splitters_sorted.bam.bai
 
-        # Run lumpy express
-        $lumpy_express \
+        # Run lumpyexpress
+        $lumpyexpress \
             -B $tumor_bam_file,$normal_bam_file \
             -S ${tumor_bam_file.baseName}_splitters_sorted.bam,${normal_bam_file.baseName}_splitters_sorted.bam \
             -D ${tumor_bam_file.baseName}_discordants_sorted.bam,${normal_bam_file.baseName}_discordants_sorted.bam \
-            -K $lumpy_config_file \
+            -K $lumpyexpress_config_file \
             -o ${tumor_sample_id}_${normal_sample_id}_lumpy.vcf
         """
 }

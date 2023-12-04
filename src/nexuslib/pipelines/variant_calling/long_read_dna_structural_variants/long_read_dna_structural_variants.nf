@@ -33,9 +33,9 @@ params.delete_work_dir = false
 
 // Step 3. Print inputs and help
 log.info """\
-        ==================================================================================
-        Identify structural DNA variants using long-read whole-genome sequencing BAM files
-        ==================================================================================
+         ==================================================================================
+         Identify structural DNA variants using long-read whole-genome sequencing BAM files
+         ==================================================================================
          """.stripIndent()
 
 if (params.help) {

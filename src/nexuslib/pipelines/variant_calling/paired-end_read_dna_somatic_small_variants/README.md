@@ -18,29 +18,72 @@ Identifies small DNA variants (SNVs and INDELs) with paired-end DNA sequencing
 
 ### Usage
 
-```shell
-nextflow run paired_end_human_dna_somatic_small_variants.nf [required] [optional] [--help]
+```
+workflow:
+    human:
+        1.  Run gatk4-mutect2 (tumor and normal mode).
+            Run gatk4 LearnReadOrientationModel.
+            Run gatk4 GetPileupSummaries.
+            Run gatk4 CalculateContamination.
+            Run gatk4 FilterMutectCalls.
+            Run picard MergeVcfs,
+        2.  Run strelka2 (somatic mode).
+        3.  Run deepvariant.
+    non-human:
+        1.  Run gatk4 mutect2 (tumor and normal mode).
+            Run gatk4 FilterMutectCalls.
+            Run picard MergeVcfs,
+        2.  Run strelka2 (somatic mode).
+        3.  Run deepvariant.
+
+usage: nexus run --nf-workflow paired_end_dna_somatic_small_variants.nf [required] [optional] [--help]
 
 required arguments:
     --samples_tsv_file                  :   TSV file with the following columns:
                                             'sample_id', 'tumor_bam_file', 'tumor_bam_bai_file', 'normal_bam_file', 'normal_bam_bai_file', 'tumor_sample_id', normal_sample_id'
     --output_dir                        :   Directory to which output files will be symlinked.
-    --reference_genome_fasta_file       :   Reference genome FASTA file.
-    --gatk4                             :   GATK4 path.
-    --gatk4_mutect2_params              :   GATK4-Mutect2 parameters (e.g. "--germline-resource /<path>/af-only-gnomad.hg38.vcf --panel-of-normals /<path>/1000g_pon.hg38.vcf.gz").
-    --gatk4_getpileupsummaries_params   :   GATK4-GetPileupSummaries parameters (e.g. "-V /<path>/small_exac_common_3.hg38.vcf -L /<path>/small_exac_common_3.hg38.vcf").
-    --picard                            :   Picard path.
-    --strelka2                          :   Strelka2 path (bin path).
-    --strelka2_params                   :   Strelka2 parameters.
-    --chromosomes                       :   Chromosomes to parallelize using GATK4 (separated by comma; e.g. 'chr1,chr2,chr3').
+
+optional arguments:
+    --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
+    --tools_list                        :   Tools to run (default: 'gatk4,strelka2,deepvariant').
+    --is_human                          :   true if the samples are human. false otherwise (default: true).
+    --python2                           :   python2 path (default: python2).
+    --gatk4                             :   gatk4 path (default: gatk).
+    --gatk4_mutect2_params              :   gatk4-mutect2 parameters (default:
+                                            '"--germline-resource /datastore/lbcfs/collaborations/pirl/seqdata/references/af-only-gnomad.hg38.vcf
+                                              --panel-of-normals /datastore/lbcfs/collaborations/pirl/seqdata/references/1000g_pon.hg38.vcf "').
+                                            Note that the parameters need to be wrapped in quotes and a space at the end of the string is necessary.
+    --gatk4_getpileupsummaries_params   :   gatk4 GetPileupSummaries parameters (default:
+                                            '"-V /datastore/lbcfs/collaborations/pirl/seqdata/references/small_exac_common_3.hg38.vcf
+                                              -L /datastore/lbcfs/collaborations/pirl/seqdata/references/small_exac_common_3.hg38.vcf "').
+                                            Note that the parameters need to be wrapped in quotes and a space at the end of the string is necessary.
+    --gatk4_chromosomes                 :   gatk4 chromosomes to parallelize (default:
+                                            chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM).
+    --picard                            :   Picard path (default:
+                                            /datastore/lbcfs/collaborations/pirl/share/apps/picard/v3.1.1/picard.jar).
+    --strelka2                          :   strelka2 configureStrelkaSomaticWorkflow.py path (default:
+                                            /datastore/lbcfs/collaborations/pirl/share/apps/strelka2/strelka-2.9.10.centos6_x86_64/bin/configureStrelkaSomaticWorkflow.py).
+    --strelka2_params                   :   strelka2 parameters (default: ' ').
+                                            Note that the parameters need to be wrapped in quotes and a space at the end of the string is necessary.
+    --containerization                  :   Containerization ('singularity' or 'docker'; default: 'singularity').
+    --deepvariant_bin_path              :   DeepVariant bin path (e.g. '/opt/deepvariant/bin/run_deepvariant').
+    --deepvariant_bin_version           :   DeepVariant bin version (default: '1.6.0').
+    --deepvariant_input_path            :   DeepVariant input path (e.g. /datastore/).
+    --deepvariant_output_path           :   DeepVariant output path (e.g. /datastore/).
+    --deepvariant_model_type            :   DeepVariant --model_type parameter value (default: 'WGS').
+    --delete_work_dir                   :   Delete work directory (default: false).
 ```
 
 ### Parameters
 
 `--sample_tsv_file`
 
-| Header       | Description                 |
-|--------------|-----------------------------|
-| sample_id    | Sample ID                   |
-| bam_file     | Full path to `BAM` file     |
-| bam_bai_file | Full path to `BAM.BAI` file |
+| Header              | Description                           |
+|---------------------|---------------------------------------|
+| sample_id           | Sample ID.                            |
+| tumor_bam_file      | Full path to tumor `bam` file.        |
+| tumor_bam_bai_file  | Full path to tumor `bam.bai` file.    |
+| normal_bam_file     | Full path to normal `bam` file.       |
+| normal_bam_bai_file | Full path to normal `bam.bai` file.   |
+| tumor_sample_id     | Tumor sample ID.                      |
+| normal_sample_id    | Normal sample ID.                     |
