@@ -41,7 +41,8 @@ required arguments:
 optional arguments:
     --reference_genome_fasta_file               :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
     --tools_list                                :   Tools to run (default: 'delly2,lumpyexpress').
-    --delly2                                    :   delly2 path (default: delly).
+    --delly2                                    :   delly2 path (default:
+                                                    /datastore/lbcfs/collaborations/pirl/share/apps/delly2/delly_v1.1.8_linux_x86_64bit).
     --delly2_params                             :   delly2 'call' parameters (default:
                                                     '"--exclude /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/delly2/human.hg38.excl.tsv --map-qual 20 "').
                                                     Note that the parameters need to be wrapped in quotes
@@ -50,8 +51,7 @@ optional arguments:
     --python2                                   :   python2 path (default: python2).
     --lumpyexpress                              :   lumpyexpress path (default: lumpyexpress).
     --lumpyexpress_config_file                  :   lumpyexpress config file (default: lumpyexpress.config).
-    --lumpy_extract_split_reads_script_file     :   lumpy 'extractSplitReads_BwaMem' file (default:
-                                                    /datastore/lbcfs/collaborations/pirl/share/apps/lumpy/lumpy-sv-0.3.1/scripts/extractSplitReads_BwaMem).
+    --lumpy_extract_split_reads_script_file     :   lumpy 'extractSplitReads_BwaMem' file (default: extractSplitReads_BwaMem).
     --samtools                                  :   samtools path (default: samtools).
     --delete_work_dir                           :   Delete work directory (default: false).
 ```

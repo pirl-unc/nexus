@@ -77,8 +77,8 @@ if (params.help) {
                                                         --known-sites /datastore/lbcfs/collaborations/pirl/seqdata/references/Homo_sapiens_assembly38.known_indels.vcf "').
                                             Note that the parameters need to be wrapped in quotes
                                             and a space at the end of the string is necessary.
-        --chromosomes                   :   Chromosomes to recalibrate using GATK4
-                                            (default: 'chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM').
+        --chromosomes                   :   Chromosomes to recalibrate using GATK4 (default:
+                                            'chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM').
         --platform_tag                  :   Platform tag (default: 'illumina').
         --platform_unit_tag             :   Platform unit tag (default: 'unknown').
         --library_tag                   :   Library tag (default: 'unknown').

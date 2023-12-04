@@ -67,12 +67,9 @@ if (params.help) {
                                                         and a space at the end of the string is necessary.
         --bcftools                                  :   bcftools path (default: bcftools).
         --python2                                   :   python2 path (default: python2).
-        --lumpyexpress                              :   lumpyexpress path (default:
-                                                        /datastore/lbcfs/collaborations/pirl/share/apps/lumpy/lumpy-sv-0.3.1/scripts/lumpyexpress).
-        --lumpyexpress_config_file                  :   lumpyexpress config file (default:
-                                                        /datastore/lbcfs/collaborations/pirl/share/apps/lumpy/lumpy-sv-0.3.1/scripts/lumpyexpress.config).
-        --lumpy_extract_split_reads_script_file     :   lumpy 'extractSplitReads_BwaMem' file (default:
-                                                        /datastore/lbcfs/collaborations/pirl/share/apps/lumpy/lumpy-sv-0.3.1/scripts/extractSplitReads_BwaMem).
+        --lumpyexpress                              :   lumpyexpress path (default: lumpyexpress).
+        --lumpyexpress_config_file                  :   lumpyexpress config file (default: lumpyexpress.config).
+        --lumpy_extract_split_reads_script_file     :   lumpy 'extractSplitReads_BwaMem' file (default: extractSplitReads_BwaMem).
         --samtools                                  :   samtools path (default: samtools).
         --delete_work_dir                           :   Delete work directory (default: false).
     """.stripIndent()
