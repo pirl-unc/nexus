@@ -1,9 +1,10 @@
 ## paired_end_human_dna_somatic_small_variants.nf
 
-Identifies small DNA variants (SNVs and INDELs) with paired-end DNA sequencing 
+Identifies small somatic DNA variants (SNVs and INDELs) with paired-end DNA sequencing 
 (BAM) files using 
 [GATK4-Mutect2](https://gatk.broadinstitute.org/hc/en-us/articles/360037593851-Mutect2), 
-[Strelka2](https://github.com/Illumina/strelka).
+[Strelka2](https://github.com/Illumina/strelka), and
+[DeepVariant](https://github.com/google/deepvariant).
 
 ### Inputs / Outputs
 
@@ -15,6 +16,8 @@ Identifies small DNA variants (SNVs and INDELs) with paired-end DNA sequencing
 
 * `gatk4-mutect2`
 * `strelka2`
+* `picard`
+* `deepvariant`
 
 ### Usage
 
