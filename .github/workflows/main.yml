@@ -39,12 +39,6 @@ jobs:
         conda install lumpy-sv==0.3.1
         chmod +x /usr/share/miniconda3/envs/py27/bin/lumpyexpress
         chmod +x /usr/share/miniconda3/envs/py27/bin/lumpyexpress.config
-        lumpyexpress_config_file=/usr/share/miniconda3/envs/py27/bin/lumpyexpress.config
-        new_python_path="/usr/share/miniconda3/envs/py27/bin/python2"
-        temp_file=$(mktemp)
-        sed "s|PYTHON=\`which python \|\| true\`|PYTHON=$new_python_path|" "$lumpyexpress_config_file" > "$temp_file"
-        mv $temp_file $lumpyexpress_config_file
-        chmod +x $lumpyexpress_config_file
         conda deactivate
 
         # Export PATH        
