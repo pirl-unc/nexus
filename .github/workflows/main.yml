@@ -53,5 +53,9 @@ jobs:
         # Export PATH
         echo '/home/runner/work/nexus/nexus/' >> $GITHUB_PATH
         echo '/usr/share/miniconda3/envs/py27/bin/' >> $GITHUB_PATH
+
+    - name: Run linter
+      shell: bash -l {0}
+      run: |
         which lumpyexpress.config
         which python2
