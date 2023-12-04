@@ -54,5 +54,6 @@ jobs:
     - name: Check path
       shell: bash -l {0}
       run: |
+        which lumpyexpress.config
         file_path=`which lumpyexpress.config`
         cat $file_path
