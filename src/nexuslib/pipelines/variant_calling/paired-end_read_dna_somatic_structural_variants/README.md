@@ -2,8 +2,8 @@
 
 Identifies structural DNA variants with paired-end DNA sequencing 
 (BAM) files using 
-[Delly2](https://github.com/dellytools/delly), 
-[Lumpy](https://github.com/arq5x/lumpy-sv).
+[delly2](https://github.com/dellytools/delly), 
+[lumpy](https://github.com/arq5x/lumpy-sv).
 
 ### Inputs / Outputs
 
@@ -69,3 +69,14 @@ optional arguments:
 | normal_bam_bai_file | Full path to normal `bam.bai` file.   |
 | tumor_sample_id     | Tumor sample ID.                      |
 | normal_sample_id    | Normal sample ID.                     |
+
+`--delly2`
+* Install `delly2` in a python3 anaconda environment (`conda install delly==1.1.8`).
+
+`--lumpyexpress`
+* Install `lumpyexpress` in a `python2` anaconda environment (i.e. `conda create -n py27 python=2.7`).
+* After you install `lumpyexpress`, export the `python2` bin path to `PATH` in `~/.bashrc` (i.e. `export PATH=$PATH:/path/miniconda3/envs/py27/bin/` in `~/.bashrc`).
+* Remember to `source ~/.bashrc` to reflect the changes made so far.
+* Next, edit `PYTHON` path in `lumpyexpress.config` (found in `/path/miniconda3/envs/py27/bin/`) to be the `python2` interpreter that you installed in the `py27` environment (i.e. `PYTHON=/path/miniconda3/envs/py27/bin/python2`).
+* Lastly, make sure to `chmod +x` the `lumpyexpress.config` file.
+

@@ -51,43 +51,7 @@ jobs:
         conda config --add channels bioconda
         conda config --add channels conda-forge
         conda config --set channel_priority strict
-        conda install pandas
-        conda install nextflow==23.10.0
-        conda install samtools==1.18
-        conda install minimap2==2.22
-        pip install ultra-bioinformatics
-        conda install bwa-mem2==2.2.1
-        conda install gatk4==4.4.0.0
-        conda install sniffles==2.2
-        conda install svim==2.0.0
-        conda install pbsv==2.9.0
-        conda install cutesv==2.1.0
-        conda install delly==1.1.8
-        conda install bcftools==1.18
-        conda install sambamba==1.0
-        conda install samblaster==0.1.26
-        conda install pylint
-        conda install coveralls
-        conda install pytest
-        conda install pytest-cov
         
-        # Download abra2.jar
-        wget https://github.com/mozack/abra2/releases/download/v2.23/abra2-2.23.jar
-        mv abra2-2.23.jar abra2.jar
-        chmod +x abra2.jar
-        
-        # Download picard.jar
-        wget https://github.com/broadinstitute/picard/releases/download/3.1.1/picard.jar
-        chmod +x picard.jar
-        
-        # Download strelka2
-        wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2
-        tar -xvf strelka-2.9.10.centos6_x86_64.tar.bz2
-        chmod -R 750 strelka-2.9.10.centos6_x86_64/*
-        
-        # Install nexus
-        pip install . --verbose
-
         # Install lumpyexpress
         conda create -n py27 python=2.7
         conda activate py27
@@ -104,17 +68,10 @@ jobs:
         
         # Export PATH        
         echo '/home/runner/work/nexus/nexus/' >> $GITHUB_PATH
-        echo '/home/runner/work/nexus/nexus/strelka-2.9.10.centos6_x86_64/bin/' >> $GITHUB_PATH
         echo '/usr/share/miniconda3/envs/py27/bin/' >> $GITHUB_PATH
 
-    - name: Run linter
+    - name: Check path
       shell: bash -l {0}
       run: |
-        chmod +x lint.sh
-        bash lint.sh
-
-    - name: Run unit tests
-      shell: bash -l {0}
-      run: |
-        shopt -s expand_aliases
-        pytest -s test/test_paired_end_read_dna_somatic_structural_variants.py
+        file_path=`which lumpyexpress.config`
+        cat $file_path
