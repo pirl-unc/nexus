@@ -75,12 +75,8 @@ jobs:
         wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2
         tar -xvf strelka-2.9.10.centos6_x86_64.tar.bz2
         chmod -R 750 strelka-2.9.10.centos6_x86_64/*
-        wget https://github.com/arq5x/lumpy-sv/archive/refs/tags/v0.3.1.tar.gz
-        tar -xvf v0.3.1.tar.gz
-        chmod -R 750 lumpy-sv-0.3.1/*
         echo '/home/runner/work/nexus/nexus/' >> $GITHUB_PATH
         echo '/home/runner/work/nexus/nexus/strelka-2.9.10.centos6_x86_64/bin/' >> $GITHUB_PATH
-        echo '/home/runner/work/nexus/nexus/lumpy-sv-0.3.1/scripts/' >> $GITHUB_PATH
         pip install . --verbose
         conda create -n py27 python=2.7
         conda activate py27
@@ -105,5 +101,4 @@ jobs:
       shell: bash -l {0}
       run: |
         shopt -s expand_aliases
-        chmod +x unittest_ci.sh
-        bash unittest_ci.sh
+        pytest -s test/test_paired_end_read_dna_somatic_structural_variants.py
