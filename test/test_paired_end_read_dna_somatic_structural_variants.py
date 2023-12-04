@@ -42,7 +42,6 @@ def test_paired_end_read_dna_somatic_structural_variants():
         '-w', work_dir,
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--reference_genome_fasta_file', reference_genome_fasta_file,
-        '--tools_list', 'lumpyexpress',
         '--delly2', delly2_path,
         '--delly2_params', '"--map-qual 20 "',
         '--bcftools', bcftools_path,
