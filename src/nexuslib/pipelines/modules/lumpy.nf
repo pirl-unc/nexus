@@ -33,10 +33,10 @@ process runLumpyExpressSingleSample {
         PYTHONPATH=$python2
         export PYTHONPATH
         $samtools view -b -F 1294 $bam_file -o ${bam_file.baseName}_discordants.bam
-        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory} ${bam_file.baseName}_discordants.bam -o ${bam_file.baseName}_discordants_sorted.bam
+        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory.toGiga()}G ${bam_file.baseName}_discordants.bam -o ${bam_file.baseName}_discordants_sorted.bam
         $samtools index -b ${bam_file.baseName}_discordants_sorted.bam ${bam_file.baseName}_discordants_sorted.bam.bai
         $samtools view -h $bam_file | $python2 $lumpy_extract_split_reads_script_file -i stdin | $samtools view -Sb - -o ${bam_file.baseName}_splitters.bam
-        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory} ${bam_file.baseName}_splitters.bam -o ${bam_file.baseName}_splitters_sorted.bam
+        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory.toGiga()}G ${bam_file.baseName}_splitters.bam -o ${bam_file.baseName}_splitters_sorted.bam
         $samtools index -b ${bam_file.baseName}_splitters_sorted.bam ${bam_file.baseName}_splitters_sorted.bam.bai
         $lumpyexpress \
             -B $bam_file \
@@ -86,16 +86,16 @@ process runLumpyExpressTumorNormal {
         # Extract the discordant paired-end alignments.
         $samtools view -b -F 1294 $tumor_bam_file > ${tumor_bam_file.baseName}_discordants.bam
         $samtools view -b -F 1294 $normal_bam_file > ${normal_bam_file.baseName}_discordants.bam
-        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory} ${tumor_bam_file.baseName}_discordants.bam -o ${tumor_bam_file.baseName}_discordants_sorted.bam
-        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory} ${normal_bam_file.baseName}_discordants.bam -o ${normal_bam_file.baseName}_discordants_sorted.bam
+        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory.toGiga()}G ${tumor_bam_file.baseName}_discordants.bam -o ${tumor_bam_file.baseName}_discordants_sorted.bam
+        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory.toGiga()}G ${normal_bam_file.baseName}_discordants.bam -o ${normal_bam_file.baseName}_discordants_sorted.bam
         $samtools index -b ${tumor_bam_file.baseName}_discordants_sorted.bam ${tumor_bam_file.baseName}_discordants_sorted.bam.bai
         $samtools index -b ${normal_bam_file.baseName}_discordants_sorted.bam ${normal_bam_file.baseName}_discordants_sorted.bam.bai
 
         # Extract the split-read alignments
         $samtools view -h $tumor_bam_file | $python2 $lumpy_extract_split_reads_script_file -i stdin | $samtools view -Sb - -o ${tumor_bam_file.baseName}_splitters.bam
         $samtools view -h $normal_bam_file | $python2 $lumpy_extract_split_reads_script_file -i stdin | $samtools view -Sb - -o ${normal_bam_file.baseName}_splitters.bam
-        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory} ${tumor_bam_file.baseName}_splitters.bam -o ${tumor_bam_file.baseName}_splitters_sorted.bam
-        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory} ${normal_bam_file.baseName}_splitters.bam -o ${normal_bam_file.baseName}_splitters_sorted.bam
+        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory.toGiga()}G ${tumor_bam_file.baseName}_splitters.bam -o ${tumor_bam_file.baseName}_splitters_sorted.bam
+        $samtools sort -@ ${task.samtools_cpus} -m ${task.samtools_memory.toGiga()}G ${normal_bam_file.baseName}_splitters.bam -o ${normal_bam_file.baseName}_splitters_sorted.bam
         $samtools index -b ${tumor_bam_file.baseName}_splitters_sorted.bam ${tumor_bam_file.baseName}_splitters_sorted.bam.bai
         $samtools index -b ${normal_bam_file.baseName}_splitters_sorted.bam ${normal_bam_file.baseName}_splitters_sorted.bam.bai
 
