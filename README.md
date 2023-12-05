@@ -9,7 +9,7 @@ workflows written in nextflow.
 
 ## 01. Installation
 
-Download the [latest stable release](https://github.com/pirl-unc/nexus/releases/download/v0.0.1/nexus-0.0.1.tar.gz)
+Download the [latest stable release](https://github.com/pirl-unc/nexus/releases/download/v0.0.2/nexus-0.0.2.tar.gz)
 
 ```
 conda create -n nexus python=3.10
