@@ -120,3 +120,34 @@ process runSamtoolsFixmate {
         $samtools fixmate -m --threads ${task.cpus} ${bam_file.baseName}_name_sorted.bam ${bam_file.baseName}_fixmate.bam
         """
 }
+
+process runSamtoolsCoverage {
+
+    label 'samtools_coverage'
+    tag "${sample_id}"
+    debug true
+
+    publishDir(
+        path: "${output_dir}/${sample_id}/",
+        mode: 'copy'
+    )
+
+    input:
+        tuple val(sample_id), path(bam_file), path(bam_bai_file)
+        val(samtools)
+        val(min_mapping_quality)
+        val(min_base_quality)
+        val(output_dir)
+
+    output:
+        tuple val(sample_id), path("${bam_file.baseName}_samtools_coverage.txt"), emit: f
+
+    script:
+        """
+        $samtools coverage \
+            --min-MQ ${min_mapping_quality} \
+            --min-BQ ${min_base_quality} \
+            $bam_file \
+            --output ${bam_file.baseName}_samtools_coverage.txt
+        """
+}

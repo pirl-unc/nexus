@@ -41,7 +41,7 @@ if (params.help) {
         1. Run delly2 (tumor and normal mode).
         2. Run lumpyexpress (tumor and normal mode).
 
-    usage: nexus run --nf-workflow paired_end_dna_somatic_structural_variants.nf [required] [optional] [--help]
+    usage: nexus run --nf-workflow paired-end_read_dna_somatic_structural_variants.nf [required] [optional] [--help]
 
     required arguments:
         -c                                          :   Nextflow .config file.

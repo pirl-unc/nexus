@@ -94,13 +94,14 @@ For more on this particular workflow, check out [here](/src/nexuslib/pipelines/a
 
 ## 04. Available workflows
 
-Here is a list of all available workflows for `v0.0.1`
+Here is a list of all available workflows for `v0.0.2`
 
 | Category       | Workflow                                                                                                               |
 |:---------------|:-----------------------------------------------------------------------------------------------------------------------|
 | Alignment      | [long_read_alignment_minimap2.nf](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/)                     |
 | Alignment      | [long_read_rna_alignment_ultra.nf](/src/nexuslib/pipelines/alignment/long_read_rna_alignment_ultra)                    |
 | Alignment      | [paired-end_read_dna_alignment_bwa-mem2.nf](/src/nexuslib/pipelines/alignment/paired-end_read_dna_alignment_bwa-mem2/) |
+| Utilities       | [sequencing_coverage.nf](/src/nexuslib/pipelines/utilities/sequencing_coverage/) |
 | Variant calling | [long_read_dna_small_variants.nf](/src/nexuslib/pipelines/variant_calling/long_read_dna_small_variants/)               |
 | Variant calling | [long_read_dna_structural_variants.nf](/src/nexuslib/pipelines/variant_calling/long_read_dna_structural_variants/)     |
 | Variant calling | [paired-end_read_dna_somatic_small_variants.nf](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_somatic_small_variants/) |
