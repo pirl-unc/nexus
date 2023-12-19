@@ -70,7 +70,7 @@ workflow NOVEL_ISOFORM_DISCOVERY_ISOSEQ {
     main:
         runIsoseqCluster(
             input_bam_files_ch,
-            isoquant,
+            isoseq,
             output_dir
         )
     emit:
@@ -80,7 +80,7 @@ workflow NOVEL_ISOFORM_DISCOVERY_ISOSEQ {
 workflow {
     NOVEL_ISOFORM_DISCOVERY_ISOSEQ(
         input_bam_files_ch,
-        params.isoquant,
+        params.isoseq,
         params.output_dir
     )
 }
