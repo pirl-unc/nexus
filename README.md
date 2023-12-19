@@ -20,12 +20,8 @@ pip install nexus-<version>.tar.gz --verbose
 ## 02. Dependencies
 
 ```
-conda config --add channels defaults
-conda config --add channels bioconda
-conda config --add channels conda-forge
-conda config --set channel_priority strict
-conda install nextflow
 conda install pandas
+conda install nextflow==23.10.0
 conda install samtools==1.18
 conda install minimap2==2.22
 conda install bwa-mem2==2.2.1
@@ -38,7 +34,15 @@ conda install delly==1.1.8
 conda install bcftools==1.18
 conda install sambamba==1.0
 conda install samblaster==0.1.26
+conda install flair
+conda install isoquant
+conda install isoseq3
 pip install ultra-bioinformatics
+
+wget https://github.com/mozack/abra2/releases/download/v2.23/abra2-2.23.jar
+wget https://github.com/broadinstitute/picard/releases/download/3.1.1/picard.jar
+wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2
+tar -xvf strelka-2.9.10.centos6_x86_64.tar.bz2
 
 conda create -n py27 python=2.7
 conda activate py27
@@ -94,15 +98,20 @@ For more on this particular workflow, check out [here](/src/nexuslib/pipelines/a
 
 ## 04. Available workflows
 
-Here is a list of all available workflows for `v0.0.2`
+Here is a list of all available workflows for `v0.0.3`
 
-| Category       | Workflow                                                                                                               |
-|:---------------|:-----------------------------------------------------------------------------------------------------------------------|
-| Alignment      | [long_read_alignment_minimap2.nf](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/)                     |
-| Alignment      | [long_read_rna_alignment_ultra.nf](/src/nexuslib/pipelines/alignment/long_read_rna_alignment_ultra)                    |
-| Alignment      | [paired-end_read_dna_alignment_bwa-mem2.nf](/src/nexuslib/pipelines/alignment/paired-end_read_dna_alignment_bwa-mem2/) |
-| Utilities       | [sequencing_coverage.nf](/src/nexuslib/pipelines/utilities/sequencing_coverage/) |
-| Variant calling | [long_read_dna_small_variants.nf](/src/nexuslib/pipelines/variant_calling/long_read_dna_small_variants/)               |
-| Variant calling | [long_read_dna_structural_variants.nf](/src/nexuslib/pipelines/variant_calling/long_read_dna_structural_variants/)     |
-| Variant calling | [paired-end_read_dna_somatic_small_variants.nf](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_somatic_small_variants/) |
-| Variant calling | [paired-end_read_dna_somatic_structural_variants.nf](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_somatic_structural_variants/) |
+| Category                | Workflow                                                                                                                                       |
+|:------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|
+| Alignment               | [long_read_alignment_minimap2.nf](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/)                                             |
+| Alignment               | [long_read_rna_alignment_ultra.nf](/src/nexuslib/pipelines/alignment/long_read_rna_alignment_ultra)                                            |
+| Alignment               | [paired-end_read_dna_alignment_bwa-mem2.nf](/src/nexuslib/pipelines/alignment/paired-end_read_dna_alignment_bwa-mem2/)                         |
+| Novel isoform discovery | [novel_isoform_discovery_flair.nf](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_flair/)                             |
+| Novel isoform discovery | [novel_isoform_discovery_isoquant.nf](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_isoquant/)                       |
+| Novel isoform discovery | [novel_isoform_discovery_isoseq.nf](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_isoseq/)                           |
+| Preprocessing | [long_read_error_correction_ratatosk](/src/nexuslib/pipelines/preprocessing/long_read_error_correction_ratatosk/)                              |
+| Utilities               | [sequencing_coverage.nf](/src/nexuslib/pipelines/utilities/sequencing_coverage/)                                                               |
+| Utilities               | [fastq_to_unaligned_bam](/src/nexuslib/pipelines/utilities/fastq_to_unaligned_bam/)                                                            |
+| Variant calling         | [long_read_dna_small_variants.nf](/src/nexuslib/pipelines/variant_calling/long_read_dna_small_variants/)                                       |
+| Variant calling         | [long_read_dna_structural_variants.nf](/src/nexuslib/pipelines/variant_calling/long_read_dna_structural_variants/)                             |
+| Variant calling         | [paired-end_read_dna_somatic_small_variants.nf](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_somatic_small_variants/)           |
+| Variant calling         | [paired-end_read_dna_somatic_structural_variants.nf](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_somatic_structural_variants/) |

@@ -55,7 +55,6 @@ jobs:
         conda install nextflow==23.10.0
         conda install samtools==1.18
         conda install minimap2==2.22
-        pip install ultra-bioinformatics
         conda install bwa-mem2==2.2.1
         conda install gatk4==4.4.0.0
         conda install sniffles==2.2
@@ -69,6 +68,8 @@ jobs:
         conda install flair
         conda install isoquant
         conda install isoseq3
+        pip install ultra-bioinformatics
+        
         conda install pylint
         conda install coveralls
         conda install pytest
@@ -121,4 +122,4 @@ jobs:
       shell: bash -l {0}
       run: |
         shopt -s expand_aliases
-        pytest -s test/test_fastq_to_unaligned_bam.py
+        pytest -s test/test_novel_isoform_discovery_flair.py
