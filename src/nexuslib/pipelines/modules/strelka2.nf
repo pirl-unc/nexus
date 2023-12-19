@@ -7,7 +7,7 @@ process runStrelka2GermlineMode {
     debug true
 
    publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/",
         mode: 'copy'
     )
 
@@ -44,7 +44,7 @@ process runStrelka2SomaticMode {
     debug true
 
    publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/",
         mode: 'copy'
     )
 

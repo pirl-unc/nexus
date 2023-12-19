@@ -7,7 +7,7 @@ process runExactoConvert {
     debug true
 
    publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/",
         mode: 'copy'
     )
 
@@ -42,7 +42,7 @@ process runExactoRefineSingleSample {
     debug true
 
    publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/",
         mode: 'copy'
     )
 
@@ -81,7 +81,7 @@ process runExactoRefineSomaticSnvIndel {
     debug true
 
    publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/",
         mode: 'copy'
     )
 
@@ -118,7 +118,7 @@ process runExactoRefineSomaticSv {
     debug true
 
    publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/",
         mode: 'copy'
     )
 
@@ -155,7 +155,7 @@ process runExactoAnnotate {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}",
+        path: "${output_dir}/",
         mode: 'copy'
     )
 
@@ -215,7 +215,7 @@ process runExactoMergeVariants {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/",
         mode: 'copy'
     )
 
@@ -254,7 +254,7 @@ process runExactoMergeAnnotations {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/",
         mode: 'copy'
     )
 
@@ -289,7 +289,7 @@ process runExactoCallVariants {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/",
         mode: 'copy'
     )
 

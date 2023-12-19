@@ -7,7 +7,7 @@ process runDelly2SingleSample {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/",
         mode: 'symlink'
     )
 
@@ -43,7 +43,7 @@ process runDelly2TumorNormal {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/",
         mode: 'copy'
     )
 

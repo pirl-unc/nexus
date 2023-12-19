@@ -7,7 +7,7 @@ process runSalmonAlignmentMode {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/",
         mode: 'copy'
     )
 
@@ -40,7 +40,7 @@ process runSalmonPairedEndMappingMode {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/",
         mode: 'copy'
     )
 

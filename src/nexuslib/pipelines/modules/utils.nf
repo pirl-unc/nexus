@@ -3,7 +3,6 @@
 process copyBamFile {
 
     label 'copy_bam_file'
-
     debug true
 
     input:
@@ -15,17 +14,16 @@ process copyBamFile {
 
     script:
         """
-        echo "Copying $bam_file and $bam_bai_file into $output_dir/$sample_id/"
-        mkdir -p $output_dir/$sample_id/
-        cp --remove-destination $bam_file $output_dir/$sample_id/
-        cp --remove-destination $bam_bai_file $output_dir/$sample_id/
+        echo "Copying $bam_file and $bam_bai_file into $output_dir"
+        mkdir -p $output_dir
+        cp --remove-destination $bam_file $output_dir
+        cp --remove-destination $bam_bai_file $output_dir
         """
 }
 
 process copyVcfFile {
 
     label 'copy_vcf_file'
-
     debug true
 
     input:
@@ -37,8 +35,8 @@ process copyVcfFile {
 
     script:
         """
-        echo "Copying $vcf_file into $output_dir/$sample_id/"
-        mkdir -p $output_dir/$sample_id/
-        cp --remove-destination $vcf_file $output_dir/$sample_id/
+        echo "Copying $vcf_file into $output_dir"
+        mkdir -p $output_dir
+        cp --remove-destination $vcf_file $output_dir
         """
 }

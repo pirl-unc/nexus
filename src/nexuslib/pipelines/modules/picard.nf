@@ -7,7 +7,7 @@ process runPicardMergeVCFs {
     debug true
 
    publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/",
         mode: 'copy'
     )
 
@@ -31,5 +31,60 @@ process runPicardMergeVCFs {
         java -Xmx${task.java_max_mem.toGiga()}G -jar $picard MergeVcfs \
             \${vcf_files_params} \
             O=${sample_id}_${variant_calling_method}.vcf
+        """
+}
+
+process runPicardSingleEndFastqToSam {
+
+    label 'picard_fastqtosam'
+    tag "${sample_id}"
+    debug true
+
+    input:
+        tuple val(sample_id), path(fastq_file)
+        val(picard)
+        val(picard_params)
+        val(output_dir)
+
+    output:
+        tuple val(sample_id), path("${sample_id}.sam"), emit: f
+
+    script:
+        def picard_params_ = picard_params == true ? '' : picard_params
+
+        """
+        java -Xmx${task.java_max_mem.toGiga()}G -jar $picard FastqToSam \
+            F1=${fastq_file} \
+            SM=${sample_id} \
+            O=${sample_id}.sam \
+            $picard_params_
+        """
+}
+
+process runPicardPairedEndFastqToSam {
+
+    label 'picard_fastqtosam'
+    tag "${sample_id}"
+    debug true
+
+    input:
+        tuple val(sample_id), path(fastq_file_1), path(fastq_file_2)
+        val(picard)
+        val(picard_params)
+        val(output_dir)
+
+    output:
+        tuple val(sample_id), path("${sample_id}.sam"), emit: f
+
+    script:
+        def picard_params_ = picard_params == true ? '' : picard_params
+
+        """
+        java -Xmx${task.java_max_mem.toGiga()}G -jar $picard FastqToSam \
+            F1=${fastq_file_1} \
+            F2=${fastq_file_2} \
+            SM=${sample_id} \
+            O=${sample_id}.sam \
+            $picard_params_
         """
 }

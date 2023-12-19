@@ -82,7 +82,7 @@ Channel
     .set { input_bam_files_ch }
 
 // Step 5. Workflow
-workflow PACBIO_DNA_SMALL_VARIANTS {
+workflow LONG_READ_DNA_SMALL_VARIANTS {
     take:
         input_bam_files_ch             // channel: [val(sample_id), path(bam_file), path(bam_bai_file)]
         reference_genome_fasta_file
@@ -128,7 +128,7 @@ workflow PACBIO_DNA_SMALL_VARIANTS {
 }
 
 workflow {
-    PACBIO_DNA_SMALL_VARIANTS(
+    LONG_READ_DNA_SMALL_VARIANTS(
         input_bam_files_ch,
         params.reference_genome_fasta_file,
         params.containerization,

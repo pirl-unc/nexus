@@ -36,7 +36,7 @@ params.gatk4 = 'gatk'
 params.gatk4_mutect2_params = '--germline-resource /datastore/lbcfs/collaborations/pirl/seqdata/references/af-only-gnomad.hg38.vcf --panel-of-normals /datastore/lbcfs/collaborations/pirl/seqdata/references/1000g_pon.hg38.vcf '
 params.gatk4_getpileupsummaries_params = '-V /datastore/lbcfs/collaborations/pirl/seqdata/references/small_exac_common_3.hg38.vcf -L /datastore/lbcfs/collaborations/pirl/seqdata/references/small_exac_common_3.hg38.vcf '
 params.gatk4_chromosomes = 'chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM'
-params.picard = '/datastore/lbcfs/collaborations/pirl/share/apps/picard/v3.1.1/picard.jar'
+params.picard = '/datastore/lbcfs/collaborations/pirl/share/apps/picard/v2.27.5/picard.jar'
 params.strelka2 = '/datastore/lbcfs/collaborations/pirl/share/apps/strelka2/strelka-2.9.10.centos6_x86_64/bin/configureStrelkaSomaticWorkflow.py'
 params.strelka2_params = ' '
 params.containerization = 'singularity'
@@ -97,7 +97,7 @@ if (params.help) {
         --gatk4_chromosomes                 :   gatk4 chromosomes to parallelize (default:
                                                 chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM).
         --picard                            :   Picard path (default:
-                                                /datastore/lbcfs/collaborations/pirl/share/apps/picard/v3.1.1/picard.jar).
+                                                /datastore/lbcfs/collaborations/pirl/share/apps/picard/v2.27.5/picard.jar).
         --strelka2                          :   strelka2 configureStrelkaSomaticWorkflow.py path (default:
                                                 /datastore/lbcfs/collaborations/pirl/share/apps/strelka2/strelka-2.9.10.centos6_x86_64/bin/configureStrelkaSomaticWorkflow.py).
         --strelka2_params                   :   strelka2 parameters (default: ' ').

@@ -2,7 +2,7 @@
 
 process runSamtoolsSamToBam {
 
-    label 'samtools_sort'
+    label 'samtools_samtobam'
     tag "${sample_id}"
     debug true
 
@@ -128,7 +128,7 @@ process runSamtoolsCoverage {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/",
         mode: 'copy'
     )
 
