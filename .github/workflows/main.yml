@@ -122,4 +122,5 @@ jobs:
       shell: bash -l {0}
       run: |
         shopt -s expand_aliases
-        pytest -s test/test_novel_isoform_discovery_isoseq.py
+        chmod +x unittest_ci.sh
+        bash unittest_ci.sh
