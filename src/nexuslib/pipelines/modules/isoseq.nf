@@ -18,7 +18,7 @@ process runIsoseqCluster {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path({"${sample_id}_isoseq-clustered.bam"), path("${sample_id}_isoseq-clustered.bam.bai"), emit: f
+        tuple val(sample_id), path("${sample_id}_isoseq-clustered.bam"), path("${sample_id}_isoseq-clustered.bam.bai"), emit: f
 
     script:
         """
