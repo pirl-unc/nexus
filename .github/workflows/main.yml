@@ -122,4 +122,4 @@ jobs:
       shell: bash -l {0}
       run: |
         shopt -s expand_aliases
-        pytest -s test/test_novel_isoform_discovery_isoquant.py
+        pytest -s test/test_novel_isoform_discovery_isoseq.py

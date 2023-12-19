@@ -96,22 +96,22 @@ nexus run \
 
 For more on this particular workflow, check out [here](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/).
 
-## 04. Available workflows
+## 04. Documentation for Available Workflows
 
-Here is a list of all available workflows for `v0.0.3`
+A list of links to documentation for all available workflows in `v0.0.3` is provided below:
 
-| Category                | Workflow                                                                                                                                       |
-|:------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|
-| Alignment               | [long_read_alignment_minimap2.nf](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/)                                             |
-| Alignment               | [long_read_rna_alignment_ultra.nf](/src/nexuslib/pipelines/alignment/long_read_rna_alignment_ultra)                                            |
-| Alignment               | [paired-end_read_dna_alignment_bwa-mem2.nf](/src/nexuslib/pipelines/alignment/paired-end_read_dna_alignment_bwa-mem2/)                         |
-| Novel isoform discovery | [novel_isoform_discovery_flair.nf](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_flair/)                             |
-| Novel isoform discovery | [novel_isoform_discovery_isoquant.nf](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_isoquant/)                       |
-| Novel isoform discovery | [novel_isoform_discovery_isoseq.nf](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_isoseq/)                           |
-| Preprocessing | [long_read_error_correction_ratatosk.nf](/src/nexuslib/pipelines/preprocessing/long_read_error_correction_ratatosk/)                           |
-| Utilities               | [sequencing_coverage.nf](/src/nexuslib/pipelines/utilities/sequencing_coverage/)                                                               |
-| Utilities               | [fastq_to_unaligned_bam.nf](/src/nexuslib/pipelines/utilities/fastq_to_unaligned_bam/)                                                         |
-| Variant calling         | [long_read_dna_small_variants.nf](/src/nexuslib/pipelines/variant_calling/long_read_dna_small_variants/)                                       |
-| Variant calling         | [long_read_dna_structural_variants.nf](/src/nexuslib/pipelines/variant_calling/long_read_dna_structural_variants/)                             |
-| Variant calling         | [paired-end_read_dna_somatic_small_variants.nf](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_somatic_small_variants/)           |
-| Variant calling         | [paired-end_read_dna_somatic_structural_variants.nf](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_somatic_structural_variants/) |
+| Category                | Workflow                                                                                                                                           |
+|:------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------|
+| Alignment               | [**long_read_alignment_minimap2.nf**](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/)                                             |
+| Alignment               | [**long_read_rna_alignment_ultra.nf**](/src/nexuslib/pipelines/alignment/long_read_rna_alignment_ultra)                                            |
+| Alignment               | [**paired-end_read_dna_alignment_bwa-mem2.nf**](/src/nexuslib/pipelines/alignment/paired-end_read_dna_alignment_bwa-mem2/)                         |
+| Novel isoform discovery | [**novel_isoform_discovery_flair.nf**](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_flair/)                             |
+| Novel isoform discovery | [**novel_isoform_discovery_isoquant.nf**](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_isoquant/)                       |
+| Novel isoform discovery | [**novel_isoform_discovery_isoseq.nf**](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_isoseq/)                           |
+| Preprocessing           | [**long_read_error_correction_ratatosk.nf**](/src/nexuslib/pipelines/preprocessing/long_read_error_correction_ratatosk/)                           |
+| Utilities               | [**sequencing_coverage.nf**](/src/nexuslib/pipelines/utilities/sequencing_coverage/)                                                               |
+| Utilities               | [**fastq_to_unaligned_bam.nf**](/src/nexuslib/pipelines/utilities/fastq_to_unaligned_bam/)                                                         |
+| Variant calling         | [**long_read_dna_small_variants.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_small_variants/)                                       |
+| Variant calling         | [**long_read_dna_structural_variants.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_structural_variants/)                             |
+| Variant calling         | [**paired-end_read_dna_somatic_small_variants.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_somatic_small_variants/)           |
+| Variant calling         | [**paired-end_read_dna_somatic_structural_variants.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_somatic_structural_variants/) |
