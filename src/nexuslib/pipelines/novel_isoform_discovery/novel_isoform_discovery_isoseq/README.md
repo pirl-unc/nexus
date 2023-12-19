@@ -30,6 +30,7 @@ required arguments:
 
 optional arguments:
     --isoseq                        :   isoseq path (default: isoseq).
+    --samtools                      :   samtools path (default: samtools).
     --delete_work_dir               :   Delete work directory (default: false).
 ```
 

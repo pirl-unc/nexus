@@ -14,10 +14,11 @@ process runIsoseqCluster {
     input:
         tuple val(sample_id), path(bam_file)
         val(isoseq)
+        val(samtools)
         val(output_dir)
 
     output:
-        tuple val(sample_id), path({"${sample_id}_isoseq-clustered.bam"}), emit: f
+        tuple val(sample_id), path({"${sample_id}_isoseq-clustered.bam"), path("${sample_id}_isoseq-clustered.bam.bai"), emit: f
 
     script:
         """
@@ -26,5 +27,6 @@ process runIsoseqCluster {
             --num-threads ${task.cpus} \
             flnc.fofn \
             ${sample_id}_isoseq-clustered.bam
+        $samtools index -b ${sample_id}_isoseq-clustered.bam ${sample_id}_isoseq-clustered.bam.bai
         """
 }

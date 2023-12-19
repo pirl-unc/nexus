@@ -15,6 +15,7 @@ params.help = ''
 params.output_dir = ''
 // Optional arguments
 params.isoseq = 'isoseq'
+params.samtools = 'samtools'
 params.delete_work_dir = false
 
 // Step 3. Print inputs and help
@@ -40,6 +41,7 @@ if (params.help) {
 
     optional arguments:
         --isoseq                        :   isoseq path (default: isoseq).
+        --samtools                      :   samtools path (default: samtools).
         --delete_work_dir               :   Delete work directory (default: false).
     """.stripIndent()
     exit 0
@@ -48,6 +50,7 @@ if (params.help) {
         samples_tsv_file                :   ${params.samples_tsv_file}
         output_dir                      :   ${params.output_dir}
         isoseq                          :   ${params.isoseq}
+        samtools                        :   ${params.samtools}
         delete_work_dir                 :   ${params.delete_work_dir}
     """.stripIndent()
 }
@@ -66,11 +69,13 @@ workflow NOVEL_ISOFORM_DISCOVERY_ISOSEQ {
     take:
         input_bam_files_ch            // channel: [val(sample_id), path(bam_file)]
         isoseq
+        samtools
         output_dir
     main:
         runIsoseqCluster(
             input_bam_files_ch,
             isoseq,
+            samtools,
             output_dir
         )
     emit:
@@ -81,6 +86,7 @@ workflow {
     NOVEL_ISOFORM_DISCOVERY_ISOSEQ(
         input_bam_files_ch,
         params.isoseq,
+        params.samtools,
         params.output_dir
     )
 }
