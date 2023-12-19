@@ -41,6 +41,8 @@ if (params.help) {
     usage: nexus run --nf-workflow long_read_error_correction_ratatosk.nf [required] [optional] [--help]
 
     required arguments:
+        -c                                  :   Nextflow .config file.
+        -w                                  :   Nextflow work directory path.
         --samples_tsv_file                  :   TSV file with the following columns:
                                                 'sample_id', 'long_read_fastq_file', 'short_read_r1_fastq_file', 'short_read_r2_fastq_file'.
         --output_dir                        :   Directory to which output files will be copied.

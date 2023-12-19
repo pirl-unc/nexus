@@ -108,9 +108,9 @@ Here is a list of all available workflows for `v0.0.3`
 | Novel isoform discovery | [novel_isoform_discovery_flair.nf](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_flair/)                             |
 | Novel isoform discovery | [novel_isoform_discovery_isoquant.nf](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_isoquant/)                       |
 | Novel isoform discovery | [novel_isoform_discovery_isoseq.nf](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_isoseq/)                           |
-| Preprocessing | [long_read_error_correction_ratatosk](/src/nexuslib/pipelines/preprocessing/long_read_error_correction_ratatosk/)                              |
+| Preprocessing | [long_read_error_correction_ratatosk.nf](/src/nexuslib/pipelines/preprocessing/long_read_error_correction_ratatosk/)                           |
 | Utilities               | [sequencing_coverage.nf](/src/nexuslib/pipelines/utilities/sequencing_coverage/)                                                               |
-| Utilities               | [fastq_to_unaligned_bam](/src/nexuslib/pipelines/utilities/fastq_to_unaligned_bam/)                                                            |
+| Utilities               | [fastq_to_unaligned_bam.nf](/src/nexuslib/pipelines/utilities/fastq_to_unaligned_bam/)                                                         |
 | Variant calling         | [long_read_dna_small_variants.nf](/src/nexuslib/pipelines/variant_calling/long_read_dna_small_variants/)                                       |
 | Variant calling         | [long_read_dna_structural_variants.nf](/src/nexuslib/pipelines/variant_calling/long_read_dna_structural_variants/)                             |
 | Variant calling         | [paired-end_read_dna_somatic_small_variants.nf](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_somatic_small_variants/)           |
