@@ -1,5 +1,4 @@
 name: unittest_haplotyping
-run-name: unittest_haplotyping
 on:
   push:
     branches:
