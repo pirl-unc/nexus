@@ -1,4 +1,5 @@
-name: build
+name: unittest_alignment
+run-name: unittest_alignment
 on:
   push:
     branches:

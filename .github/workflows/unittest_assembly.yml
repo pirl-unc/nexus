@@ -1,4 +1,5 @@
-name: build
+name: unittest_assembly
+run-name: unittest_assembly
 on:
   push:
     branches:
