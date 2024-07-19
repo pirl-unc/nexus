@@ -70,5 +70,5 @@ jobs:
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        chmod +x scripts/unittests/unittest_alignment.sh
-        bash scripts/unittests/unittest_alignment.sh
+        chmod +x scripts/unittests/unittest_assembly.sh
+        bash scripts/unittests/unittest_assembly.sh
