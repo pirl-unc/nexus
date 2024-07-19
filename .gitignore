@@ -1,0 +1,15 @@
+**.DS_Store
+**.pyc
+.idea/
+releases/*
+playground/
+playground/*
+tmp/
+.nextflow/
+.nextflow.log*
+.coverage
+build/
+dist/
+src/nexus.egg-info/
+test/__pycache__/
+test/data/fasta/hg38_chr21-22.fa.gz.*

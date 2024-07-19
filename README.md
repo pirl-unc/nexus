@@ -1,1 +1,113 @@
-# nexus
+# Nexus
+
+**NEX**tflow's **U**ltimate **S**treamliner
+
+Command-line interface (CLI) for running bioinformatics workflows written in nextflow.
+
+[![build](https://github.com/pirl-unc/nexus/actions/workflows/main.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/main.yml)
+
+## 01. Installation
+
+Download the latest stable release [here](https://github.com/pirl-unc/nexus/releases)
+
+```
+conda create -n nexus python=3.10
+conda activate nexus
+pip install nexus-<version>.tar.gz --verbose
+```
+
+## 02. Dependencies
+
+* python (>=3.10)
+* nextflow (DSL 2)
+
+## 03. Usage
+
+### To view all available workflows
+```
+nexus avail
+```
+
+### To run a workflow
+```
+nexus run [-h] [--nf-workflow NF_WORKFLOW] [workflow-specific parameters]
+```
+
+### To view workflow-specific parameters
+```
+nexus run --nf-workflow [NF_WORKFLOW] --help
+```
+
+## 04. Example
+
+Long-read whole-genome sequencing `fastq.gz` alignment to a reference genome.
+
+| I/O    | Description                                                                  |
+|:-------|:-----------------------------------------------------------------------------|
+| Input  | `fastq.gz` file for each sample.<br/>                                        | 
+| Ouptut | MD-tagged and sorted `bam` and `bam.bai` files for each sample. |
+
+```
+nexus run --nf-workflow long_read_alignment_minimap2.nf \
+    -c NEXTFLOW_CONFIG_FILE \
+    -w WORK_DIR \
+    --samples_tsv_file SAMPLES_TSV_FILE \
+    --output_dir OUTPUT_DIR \
+    --reference_genome_fasta_file REFERENCE_GENOME_FASTA_FILE \
+    --reference_genome_fasta_fai_file REFERENCE_GENOME_FASTA_FAI_FILE \
+    --params_minimap2 '"-ax map-hifi --cs --eqx -Y -L"'
+```
+
+`NEXTFLOW_CONFIG_FILE` can be downloaded from [here](/nextflow/).
+
+`SAMPLES_TSV_FILE` is a tab-delimited file:
+
+| Header     | Description                  |
+| ---------- |------------------------------|
+| sample_id  | Sample ID                    |
+| fastq_file | Full path to `fastq.gz` file |
+
+For more on this particular workflow, check out [here](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/).
+
+## 04. Documentation for Available Workflows
+
+A list of links to documentation for all available workflows in `v0.1.0` is provided below:
+
+| Category                | Workflow                                                                                                                                              |
+|:------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Alignment               | [**long_read_alignment_minimap2.nf**](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/)                                                |
+| Alignment               | [**long_read_rna_alignment_ultra.nf**](/src/nexuslib/pipelines/alignment/long_read_rna_alignment_ultra)                                               |
+| Alignment               | [**paired-end_read_dna_alignment_bwa-mem2.nf**](/src/nexuslib/pipelines/alignment/paired-end_read_dna_alignment_bwa-mem2/)                            |
+| Alignment               | [**paired-end_read_rna_alignment_star.nf**](/src/nexuslib/pipelines/alignment/paired-end_read_rna_alignment_star/)                                    |
+| Assembly                | [**transcriptome_assembly_rnabloom2.nf**](/src/nexuslib/pipelines/assembly/transcriptome_assembly_rnabloom2/)                                         | 
+| Assembly                | [**transcriptome_assembly_stringtie2.nf**](/src/nexuslib/pipelines/assembly/transcriptome_assembly_stringtie2/)                                       |
+| Haplotyping             | [**long_read_dna_haplotyping_whatshap.nf**](/src/nexuslib/pipelines/haplotyping/long_read_dna_haplotyping_whatshap/)                                  | 
+| HLA typing              | [**paired-end_read_rna_hla_typing_arcashla.nf**](/src/nexuslib/pipelines/hla_typing/paired-end_read_rna_hla_typing_arcashla/)                         |
+| HLA typing              | [**paired-end_read_rna_hla_typing_hlaprofiler.nf**](/src/nexuslib/pipelines/hla_typing/paired-end_read_rna_hla_typing_hlaprofiler/)                   |
+| HLA typing              | [**paired-end_read_rna_hla_typing_seq2hla.nf**](/src/nexuslib/pipelines/hla_typing/paired-end_read_rna_hla_typing_seq2hla/)                           |
+| Novel isoform discovery | [**novel_isoform_discovery_flair.nf**](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_flair/)                                |
+| Novel isoform discovery | [**novel_isoform_discovery_isoquant.nf**](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_isoquant/)                          |
+| Novel isoform discovery | [**novel_isoform_discovery_isoseq.nf**](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_isoseq/)                              |
+| Quantification          | [**paired-end-read_rna_quantification_salmon_mapping.nf**](/src/nexuslib/pipelines/quantification/paired-end-read_rna_quantification_salmon_mapping/) |
+| Read error correction   | [**long_read_error_correction_ratatosk.nf**](/src/nexuslib/pipelines/read_error_correction/long_read_error_correction_ratatosk/)                      |
+| Utilities               | [**fastq_to_unaligned_bam.nf**](/src/nexuslib/pipelines/utilities/fastq_to_unaligned_bam/)                                                            |
+| Utilities               | [**fastqc.nf**](/src/nexuslib/pipelines/utilities/fastqc/)                                                                                            |
+| Utilities               | [**sequencing_coverage.nf**](/src/nexuslib/pipelines/utilities/sequencing_coverage/)                                                                  |
+| Variant calling         | [**long_read_dna_variant_calling_cutesv.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_cutesv/)                          |
+| Variant calling         | [**long_read_dna_variant_calling_deepvariant.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_deepvariant/)                |
+| Variant calling         | [**long_read_dna_variant_calling_pbsv.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_pbsv/)                              |
+| Variant calling         | [**long_read_dna_variant_calling_savana.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_savana/)                          |
+| Variant calling         | [**long_read_dna_variant_calling_severus.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_severus/)                        |
+| Variant calling         | [**long_read_dna_variant_calling_sniffles2.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_sniffles2/)                    |
+| Variant calling         | [**long_read_dna_variant_calling_svim.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_svim/)                              |
+| Variant calling         | [**long_read_dna_variant_calling_svisionpro.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_svisionpro/)                  |
+| Variant calling         | [**paired-end_read_dna_variant_calling_delly2.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_delly2/)              |
+| Variant calling         | [**paired-end_read_dna_variant_calling_gridss.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_gridss/)              |
+| Variant calling         | [**paired-end_read_dna_variant_calling_lumpy.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_lumpy/)                |
+| Variant calling         | [**paired-end_read_dna_variant_calling_manta.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_manta/)                |
+| Variant calling         | [**paired-end_read_dna_variant_calling_mutect2.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_mutect2/)            |
+| Variant calling         | [**paired-end_read_dna_variant_calling_sequenza.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_sequenza/)          |
+| Variant calling         | [**paired-end_read_dna_variant_calling_strelka2.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_strelka2/)          |
+| Variant calling         | [**paired-end_read_dna_variant_calling_svaba.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_svaba/)                |
+| Variant phasing         | [**long_read_dna_variant_phasing_hiphase.nf**](/src/nexuslib/pipelines/variant_phasing/long_read_dna_variant_phasing_hiphase/)                        |
+| Variant phasing         | [**long_read_dna_variant_phasing_whatshap.nf**](/src/nexuslib/pipelines/variant_phasing/long_read_dna_variant_phasing_whatshap/)                      |

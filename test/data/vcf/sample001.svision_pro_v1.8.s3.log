@@ -1,0 +1,12 @@
+2024-07-10 19:39:55,913 [INFO]    ****************** Start SVision-pro, version 1.8 ********************
+2024-07-10 19:39:55,915 [INFO]    Command: /opt/conda/bin/SVision-pro --target_path hg38_tp53_tumor_long_read_dna.bam --base_path hg38_tp53_normal_long_read_dna.bam --genome_path /Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fasta/hg38_chr17_1-8000000.fa --model_path /SVision-pro-1.8/src/pre_process/model_liteunet_1024_8_16_32_32_32.pth --out_path output/ --sample_name sample001 --process_num 2 --detect_mode somatic --preset hifi --min_supp 3 --min_mapq 20 --min_sv_size 30 --max_sv_size 1000000 --device cpu
+2024-07-10 19:39:55,917 [INFO]    ****************** Step1 collecting and plotting **********************
+2024-07-10 19:39:56,530 [INFO]    Collecting sample001 chr17_0_10000000, 5 candidate events found. Time cost 0s
+2024-07-10 19:39:56,574 [INFO]    Collecting Time Cost 0s
+2024-07-10 19:39:56,575 [INFO]    ****************** Step2 lite-Unet predicting **************************
+2024-07-10 19:39:57,679 [INFO]    Predicting sample001 chr17_0_10000000, 5 events pass lite-Unet module. Time cost: 1s
+2024-07-10 19:39:57,699 [INFO]    Predicting Time Cost 1s
+2024-07-10 19:39:57,700 [INFO]    ****************** Step3 Outputting to VCF ****************************
+2024-07-10 19:39:57,706 [INFO]    Outputting sample001 to /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_svisionpro/b0/dc0eb6d2b7b6fa53fe3dfe7d95a467/output/sample001.svision_pro_v1.8.s3.vcf. Time cost: 0s
+2024-07-10 19:39:57,720 [INFO]    ****************** Step4 Finish ***********************************
+2024-07-10 19:39:57,723 [INFO]    SVision-pro v1.8 successfully finished. Time Cost 1.853168s

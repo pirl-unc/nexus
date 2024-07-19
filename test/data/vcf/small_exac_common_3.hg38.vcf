@@ -1,0 +1,1150 @@
+##fileformat=VCFv4.2
+##ALT=<ID=NON_REF,Description="Represents any possible alternative allele at this location">
+##FILTER=<ID=AC_Adj0_Filter,Description="AC_Adj == 0">
+##FILTER=<ID=InbreedingCoeff_Filter,Description="InbreedingCoeff <= -0.2">
+##FILTER=<ID=LowQual,Description="Low quality">
+##FILTER=<ID=NewCut_Filter,Description="VQSLOD > -2.632 && InbreedingCoeff >-0.8">
+##FILTER=<ID=VQSRTrancheINDEL95.00to96.00,Description="Truth sensitivity tranche level for INDEL model at VQS Lod: 0.9503 <= x < 1.2168">
+##FILTER=<ID=VQSRTrancheINDEL96.00to97.00,Description="Truth sensitivity tranche level for INDEL model at VQS Lod: 0.7622 <= x < 0.9503">
+##FILTER=<ID=VQSRTrancheINDEL97.00to99.00,Description="Truth sensitivity tranche level for INDEL model at VQS Lod: 0.0426 <= x < 0.7622">
+##FILTER=<ID=VQSRTrancheINDEL99.00to99.50,Description="Truth sensitivity tranche level for INDEL model at VQS Lod: -0.8363 <= x < 0.0426">
+##FILTER=<ID=VQSRTrancheINDEL99.50to99.90,Description="Truth sensitivity tranche level for INDEL model at VQS Lod: -8.5421 <= x < -0.8363">
+##FILTER=<ID=VQSRTrancheINDEL99.90to99.95,Description="Truth sensitivity tranche level for INDEL model at VQS Lod: -18.4482 <= x < -8.5421">
+##FILTER=<ID=VQSRTrancheINDEL99.95to100.00+,Description="Truth sensitivity tranche level for INDEL model at VQS Lod < -37254.4742">
+##FILTER=<ID=VQSRTrancheINDEL99.95to100.00,Description="Truth sensitivity tranche level for INDEL model at VQS Lod: -37254.4742 <= x < -18.4482">
+##FILTER=<ID=VQSRTrancheSNP99.60to99.80,Description="Truth sensitivity tranche level for SNP model at VQS Lod: -4.9627 <= x < -1.8251">
+##FILTER=<ID=VQSRTrancheSNP99.80to99.90,Description="Truth sensitivity tranche level for SNP model at VQS Lod: -31.4709 <= x < -4.9627">
+##FILTER=<ID=VQSRTrancheSNP99.90to99.95,Description="Truth sensitivity tranche level for SNP model at VQS Lod: -170.3725 <= x < -31.4709">
+##FILTER=<ID=VQSRTrancheSNP99.95to100.00+,Description="Truth sensitivity tranche level for SNP model at VQS Lod < -39645.8352">
+##FILTER=<ID=VQSRTrancheSNP99.95to100.00,Description="Truth sensitivity tranche level for SNP model at VQS Lod: -39645.8352 <= x < -170.3725">
+##GATKCommandLine=<ID=ApplyRecalibration,Version=3.1-163-g4284d7a,Date="Fri Jun 06 05:42:47 EDT 2014",Epoch=1402047767783,CommandLineOptions="analysis_type=ApplyRecalibration input_file=[] showFullBamList=false read_buffer_size=null phone_home=AWS gatk_key=null tag=NA read_filter=[] intervals=[/seq/dax/macarthur_joint_calling/v2/scattered/temp_0001_of_1000/scattered.intervals] excludeIntervals=null interval_set_rule=UNION interval_merging=ALL interval_padding=0 reference_sequence=/seq/references/Homo_sapiens_assembly19/v1/Homo_sapiens_assembly19.fasta nonDeterministicRandomSeed=false disableDithering=false maxRuntime=-1 maxRuntimeUnits=MINUTES downsampling_type=BY_SAMPLE downsample_to_fraction=null downsample_to_coverage=1000 baq=OFF baqGapOpenPenalty=40.0 refactor_NDN_cigar_string=false fix_misencoded_quality_scores=false allow_potentially_misencoded_quality_scores=false useOriginalQualities=false defaultBaseQualities=-1 performanceLog=null BQSR=null quantize_quals=0 disable_indel_quals=false emit_original_quals=false preserve_qscores_less_than=6 globalQScorePrior=-1.0 validation_strictness=SILENT remove_program_records=false keep_program_records=false sample_rename_mapping_file=null unsafe=null disable_auto_index_creation_and_locking_when_reading_rods=true num_threads=1 num_cpu_threads_per_data_thread=1 num_io_threads=0 monitorThreadEfficiency=false num_bam_file_handles=null read_group_black_list=null pedigree=[] pedigreeString=[] pedigreeValidationType=STRICT allow_intervals_with_unindexed_bam=false generateShadowBCF=false variant_index_type=DYNAMIC_SEEK variant_index_parameter=-1 logging_level=INFO log_to_file=null help=false version=false input=[(RodBinding name=input source=/seq/dax/macarthur_joint_calling/v2/scattered/temp_0001_of_1000/genotypes.unfiltered.vcf.gz)] recal_file=(RodBinding name=recal_file source=/seq/dax/macarthur_joint_calling/v2/macarthur_joint_calling.indels.recal) tranches_file=/seq/dax/macarthur_joint_calling/v2/macarthur_joint_calling.indels.tranches out=org.broadinstitute.gatk.engine.io.stubs.VariantContextWriterStub no_cmdline_in_header=org.broadinstitute.gatk.engine.io.stubs.VariantContextWriterStub sites_only=org.broadinstitute.gatk.engine.io.stubs.VariantContextWriterStub bcf=org.broadinstitute.gatk.engine.io.stubs.VariantContextWriterStub ts_filter_level=95.0 lodCutoff=null ignore_filter=null excludeFiltered=false mode=INDEL filter_reads_with_N_cigar=false filter_mismatching_base_and_quals=false filter_bases_not_stored=false">
+##GATKCommandLine=<ID=SelectVariants,CommandLine="SelectVariants  --output iota_ncbi_small_exac_common_3_grch38.vcf.gz --variant epsilon_ncbi_small_exac_common_3_grch38.vcf --excludeIntervals refeditNOTINdbsnp.vcf --reference /Users/shlee/Documents/ref/hg38/Homo_sapiens_assembly38.fasta  --invertSelect false --excludeNonVariants false --excludeFiltered false --preserveAlleles false --removeUnusedAlternates false --restrictAllelesTo ALL --keepOriginalAC false --keepOriginalDP false --mendelianViolation false --invertMendelianViolation false --mendelianViolationQualThreshold 0.0 --select_random_fraction 0.0 --remove_fraction_genotypes 0.0 --fullyDecode false --maxIndelSize 2147483647 --minIndelSize 0 --maxFilteredGenotypes 2147483647 --minFilteredGenotypes 0 --maxFractionFilteredGenotypes 1.0 --minFractionFilteredGenotypes 0.0 --maxNOCALLnumber 2147483647 --maxNOCALLfraction 1.0 --setFilteredGtToNocall false --ALLOW_NONOVERLAPPING_COMMAND_LINE_SAMPLES false --SUPPRESS_REFERENCE_PATH false --interval_set_rule UNION --interval_padding 0 --interval_exclusion_padding 0 --readValidationStringency SILENT --secondsBetweenProgressUpdates 10.0 --disableSequenceDictionaryValidation false --createOutputBamIndex true --createOutputBamMD5 false --createOutputVariantIndex true --createOutputVariantMD5 false --lenient false --addOutputSAMProgramRecord true --addOutputVCFCommandLine true --cloudPrefetchBuffer 40 --cloudIndexPrefetchBuffer -1 --disableBamIndexCaching false --help false --version false --showHidden false --verbosity INFO --QUIET false --use_jdk_deflater false --use_jdk_inflater false --disableToolDefaultReadFilters false",Version=4.beta.3,Date="August 16, 2017 10:35:30 AM EDT">
+##GVCFBlock=minGQ=0(inclusive),maxGQ=5(exclusive)
+##INFO=<ID=AC,Number=A,Type=Integer,Description="Allele count in genotypes, for each ALT allele, in the same order as listed">
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency, for each ALT allele, in the same order as listed">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth; some reads may have been filtered">
+##INFO=<ID=REF_EDIT,Number=0,Type=Flag,Description="REF base modified during remapping due to either left shifting or difference in REF base between source and target assemblies.">
+##INFO=<ID=REMAP_ALIGN,Number=1,Type=String,Description="Alignment type used for remapping (FP=first pass, SP=second pass)">
+##LoF=Loss-of-function annotation (HC = High Confidence; LC = Low Confidence)
+##LoF_filter=Reason for LoF not being HC
+##LoF_flags=Possible warning flags for LoF
+##LoF_info=Info used for LoF annotation
+##NCBI_remap_align_date="2014-09-20 15:29:00"
+##NCBI_remap_align_parameters=<minratio=0.5,maxratio=2,multiloc=Y,mergefrag=N>
+##NCBI_remap_batch_id="85253"
+##NCBI_remap_run_date="2017-08-10T16:50:44"
+##NCBI_remap_source_assm="GCF_000001405.13"
+##NCBI_remap_target_assm="GCF_000001405.26"
+##VEP=v77 cache=/humgen/atgu1/fs03/konradk/vep/tin//homo_sapiens/77_GRCh37 db=.
+##contig=<ID=chr17,length=7843138,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*01:01:01:01,length=3503,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*01:01:01:02N,length=3291,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*01:01:38L,length=3374,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*01:02,length=3374,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*01:03,length=3503,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*01:04N,length=3136,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*01:09,length=3105,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*01:11N,length=3374,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*01:14,length=3095,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*01:16N,length=2985,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*01:20,length=3105,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:01:01:01,length=3517,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:01:01:02L,length=3287,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:01:01:03,length=3023,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:01:01:04,length=3516,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:02:01,length=2917,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:03:01,length=3517,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:03:03,length=3148,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:05:01,length=3517,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:06:01,length=3517,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:07:01,length=3517,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:10,length=3517,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:251,length=3517,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:259,length=2978,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:264,length=3002,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:265,length=3148,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:266,length=3084,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:269,length=3101,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:279,length=3103,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:32N,length=3517,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:376,length=3104,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:43N,length=3218,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:455,length=3118,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:48,length=3517,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:51,length=3109,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:533,length=3217,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:53N,length=3305,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:57,length=3054,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:60:01,length=3112,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:65,length=3387,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:68,length=3109,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:77,length=3371,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:81,length=3309,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:89,length=3371,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*02:95,length=3388,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*03:01:01:01,length=3502,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*03:01:01:02N,length=3373,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*03:01:01:03,length=3094,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*03:02:01,length=3502,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*03:11N,length=3404,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*03:21N,length=3095,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*03:36N,length=3142,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*11:01:01,length=3503,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*11:01:18,length=3503,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*11:02:01,length=3503,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*11:05,length=3373,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*11:110,length=2903,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*11:25,length=3073,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*11:50Q,length=3362,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*11:60,length=3241,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*11:69N,length=3500,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*11:74,length=3227,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*11:75,length=3184,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*11:77,length=3233,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*23:01:01,length=3502,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*23:09,length=3104,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*23:38N,length=3020,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:02:01:01,length=3502,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:02:01:02L,length=3502,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:02:01:03,length=3075,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:02:03Q,length=3247,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:02:10,length=3356,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:03:01,length=3502,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:07:01,length=3502,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:08,length=3502,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:09N,length=3502,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:10:01,length=3502,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:11N,length=3503,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:152,length=3176,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:20,length=3502,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:215,length=3116,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:61,length=3043,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*24:86N,length=3415,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*25:01:01,length=2917,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*26:01:01,length=3517,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*26:11N,length=3091,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*26:15,length=3217,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*26:50,length=3141,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*29:01:01:01,length=3518,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*29:01:01:02N,length=3303,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*29:02:01:01,length=3518,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*29:02:01:02,length=3518,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*29:46,length=3310,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*30:01:01,length=3503,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*30:02:01:01,length=2903,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*30:02:01:02,length=3374,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*30:04:01,length=3503,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*30:89,length=2903,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*31:01:02,length=3518,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*31:01:23,length=2918,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*31:04,length=2918,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*31:14N,length=3090,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*31:46,length=3075,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*32:01:01,length=3518,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*32:06,length=3389,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*33:01:01,length=3518,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*33:03:01,length=3518,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*33:07,length=3389,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*34:01:01,length=3517,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*34:02:01,length=3096,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*36:01,length=2903,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*43:01,length=3388,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*66:01:01,length=3517,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*66:17,length=3075,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*68:01:01:01,length=2930,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*68:01:01:02,length=3517,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*68:01:02:01,length=3517,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*68:01:02:02,length=3388,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*68:02:01:01,length=3517,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*68:02:01:02,length=3506,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*68:02:01:03,length=2909,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*68:02:02,length=2916,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*68:03:01,length=2917,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*68:08:01,length=3120,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*68:113,length=3070,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*68:17,length=3134,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*68:18N,length=3237,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*68:22,length=3119,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*68:71,length=3198,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*69:01,length=2917,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*74:01,length=2918,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*74:02:01:01,length=2918,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*74:02:01:02,length=3518,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*80:01:01:01,length=3263,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-A*80:01:01:02,length=3055,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*07:02:01,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*07:05:01,length=2676,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*07:06,length=2676,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*07:156,length=2967,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*07:33:01,length=3239,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*07:41,length=3266,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*07:44,length=3270,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*07:50,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*08:01:01,length=3322,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*08:08N,length=3035,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*08:132,length=2675,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*08:134,length=2959,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*08:19N,length=3322,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*08:20,length=3322,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*08:33,length=3322,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*08:79,length=2676,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*13:01:01,length=3324,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*13:02:01,length=3324,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*13:02:03,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*13:02:09,length=2919,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*13:08,length=3324,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*13:15,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*13:25,length=2689,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*14:01:01,length=3312,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*14:02:01,length=3312,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*14:07N,length=3255,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:01:01:01,length=3336,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:01:01:02N,length=1208,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:01:01:03,length=3026,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:02:01,length=3335,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:03:01,length=2689,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:04:01,length=3052,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:07:01,length=3336,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:108,length=3283,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:10:01,length=2689,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:11:01,length=3336,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:13:01,length=2688,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:16:01,length=2688,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:17:01:01,length=3051,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:17:01:02,length=3051,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:18:01,length=3336,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:220,length=2878,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:25:01,length=3335,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:27:01,length=2689,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:32:01,length=3336,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:42,length=3333,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:58,length=3336,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:66,length=2902,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:77,length=3336,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*15:83,length=3337,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*18:01:01:01,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*18:01:01:02,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*18:02,length=2686,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*18:03,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*18:17N,length=2979,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*18:26,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*18:94N,length=2970,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*27:04:01,length=3325,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*27:05:02,length=3325,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*27:05:18,length=3321,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*27:06,length=3325,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*27:07:01,length=2677,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*27:131,length=3325,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*27:24,length=2677,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*27:25,length=2677,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*27:32,length=3325,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*35:01:01:01,length=3327,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*35:01:01:02,length=3327,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*35:01:22,length=2806,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*35:02:01,length=3327,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*35:03:01,length=2689,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*35:05:01,length=2690,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*35:08:01,length=2689,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*35:14:02,length=3327,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*35:241,length=3042,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*35:41,length=3327,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*37:01:01,length=3324,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*37:01:05,length=2687,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*38:01:01,length=3312,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*38:02:01,length=3312,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*38:14,length=2738,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*39:01:01:01,length=3155,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*39:01:01:02L,length=3153,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*39:01:01:03,length=3312,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*39:01:03,length=3155,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*39:01:16,length=3155,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*39:01:21,length=3312,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*39:05:01,length=2675,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*39:06:02,length=2674,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*39:10:01,length=3027,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*39:13:02,length=3255,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*39:14,length=2765,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*39:34,length=3254,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*39:38Q,length=2675,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*40:01:01,length=2676,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*40:01:02,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*40:02:01,length=3258,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*40:03,length=2677,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*40:06:01:01,length=3325,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*40:06:01:02,length=3299,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*40:10:01,length=3304,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*40:150,length=2800,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*40:40,length=2677,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*40:72:01,length=3283,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*40:79,length=3257,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*41:01:01,length=3322,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*41:02:01,length=3322,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*42:01:01,length=3322,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*42:02,length=2675,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*42:08,length=3165,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:02:01:01,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:02:01:02S,length=3152,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:02:01:03,length=3152,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:02:17,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:02:27,length=2872,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:03:01,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:03:02,length=2676,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:04,length=3239,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:09,length=3317,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:138Q,length=3043,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:150,length=2676,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:23N,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:26,length=2804,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:46,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:49,length=3039,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*44:56N,length=2676,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*45:01:01,length=3338,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*45:04,length=3339,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*46:01:01,length=3336,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*46:01:05,length=2891,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*47:01:01:01,length=3041,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*47:01:01:02,length=3041,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*48:01:01,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*48:03:01,length=2676,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*48:04,length=2676,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*48:08,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*49:01:01,length=3340,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*49:32,length=3340,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*50:01:01,length=3340,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*51:01:01,length=3327,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*51:01:02,length=3043,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*51:02:01,length=3327,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*51:07:01,length=3327,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*51:42,length=2962,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*52:01:01:01,length=3327,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*52:01:01:02,length=3327,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*52:01:01:03,length=3327,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*52:01:02,length=3327,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*53:01:01,length=3327,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*53:11,length=3274,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*54:01:01,length=3332,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*54:18,length=2813,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*55:01:01,length=3332,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*55:01:03,length=3332,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*55:02:01,length=3333,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*55:12,length=3332,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*55:24,length=3332,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*55:48,length=2980,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*56:01:01,length=2688,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*56:03,length=2688,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*56:04,length=2688,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*57:01:01,length=3337,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*57:03:01,length=2689,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*57:06,length=3284,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*57:11,length=3306,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*57:29,length=3337,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*58:01:01,length=3336,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*58:31N,length=3004,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*59:01:01:01,length=3333,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*59:01:01:02,length=3332,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*67:01:01,length=3312,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*67:01:02,length=2675,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*67:02,length=3307,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*73:01,length=3323,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*78:01:01,length=3327,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*81:01,length=2676,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-B*82:02:01,length=3050,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*01:02:01,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*01:02:11,length=3057,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*01:02:29,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*01:02:30,length=3333,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*01:03,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*01:06,length=2895,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*01:08,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*01:14,length=2895,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*01:21,length=2895,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*01:30,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*01:40,length=2968,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*02:02:02:01,length=3347,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*02:02:02:02,length=3347,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*02:10,length=2893,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*02:11,length=3320,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*02:16:02,length=3029,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*02:69,length=2933,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*02:85,length=3347,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*02:86,length=3347,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*02:87,length=3064,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:02:01,length=2894,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:02:02:01,length=3348,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:02:02:02,length=2896,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:02:02:03,length=3348,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:03:01,length=3348,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:04:01:01,length=3348,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:04:01:02,length=3348,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:04:02,length=2877,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:04:04,length=2966,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:05,length=2894,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:06,length=2894,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:100,length=3034,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:13:01,length=3065,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:20N,length=3321,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:219,length=3070,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:261,length=3348,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:40:01,length=2894,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:41:02,length=3328,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:46,length=2997,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*03:61,length=2894,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*04:01:01:01,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*04:01:01:02,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*04:01:01:03,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*04:01:01:04,length=3012,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*04:01:01:05,length=2931,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*04:01:62,length=3329,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*04:03:01,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*04:06,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*04:09N,length=2991,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*04:128,length=3086,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*04:161,length=3237,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*04:177,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*04:70,length=3058,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*04:71,length=3086,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*05:01:01:01,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*05:01:01:02,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*05:08,length=3059,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*05:09:01,length=3322,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*05:93,length=2946,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*06:02:01:01,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*06:02:01:02,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*06:02:01:03,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*06:23,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*06:24,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*06:46N,length=2987,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:01:01:01,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:01:01:02,length=3093,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:01:02,length=3352,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:01:19,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:01:27,length=3195,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:01:45,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:02:01:01,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:02:01:02,length=3074,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:02:01:03,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:02:01:04,length=3353,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:02:01:05,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:02:05,length=2903,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:02:06,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:02:64,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:04:01,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:04:02,length=3343,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:06,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:149,length=3098,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:18,length=3353,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:19,length=3222,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:26,length=3069,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:30,length=2903,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:32N,length=3334,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:384,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:385,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:386,length=3183,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:391,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:392,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:49,length=2935,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:56:02,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:66,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*07:67,length=3354,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:01:01,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:01:03,length=2998,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:02:01:01,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:02:01:02,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:03:01,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:04:01,length=2895,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:112,length=3178,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:20,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:21,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:22,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:24,length=2895,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:27,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:36N,length=3097,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:40,length=2978,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:41,length=3019,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*08:62,length=3086,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*12:02:02,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*12:03:01:01,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*12:03:01:02,length=3348,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*12:08,length=3066,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*12:13,length=3058,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*12:19,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*12:22,length=2895,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*12:99,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*14:02:01,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*14:03,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*14:21N,length=3099,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*14:23,length=2976,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*15:02:01,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*15:05:01,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*15:05:02,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*15:13,length=2895,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*15:16,length=3066,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*15:17,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*15:96Q,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*16:01:01,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*16:02:01,length=2895,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*16:04:01,length=3349,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*17:01:01:01,length=3368,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*17:01:01:02,length=3368,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*17:01:01:03,length=3368,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*17:03,length=3197,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-C*18:01,length=3346,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*01:01:02,length=6489,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*01:02:01:01,length=6484,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*01:02:01:02,length=6485,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*01:02:01:03,length=6485,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*01:02:01:04,length=6492,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*01:03:01:01,length=6485,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*01:03:01:02,length=6492,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*01:04:01:01,length=6484,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*01:04:01:02,length=6485,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*01:05:01,length=6485,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*01:07,length=5959,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*01:10,length=5790,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*01:11,length=5926,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*02:01,length=6403,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*03:01:01,length=6437,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*03:02,length=6437,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*03:03:01,length=6437,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*04:01:02:01,length=5853,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*04:01:02:02,length=5666,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*04:02,length=6210,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*05:01:01:01,length=5806,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*05:01:01:02,length=6529,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*05:03,length=6121,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*05:05:01:01,length=6593,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*05:05:01:02,length=6597,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*05:05:01:03,length=6393,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*05:11,length=6589,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQA1*06:01:01,length=5878,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*02:01:01,length=7480,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*02:02:01,length=7471,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*03:01:01:01,length=7231,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*03:01:01:02,length=7230,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*03:01:01:03,length=7231,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*03:02:01,length=7126,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*03:03:02:01,length=7126,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*03:03:02:02,length=7126,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*03:03:02:03,length=6800,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*03:05:01,length=6934,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*05:01:01:01,length=7090,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*05:01:01:02,length=7090,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*05:03:01:01,length=7089,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*05:03:01:02,length=7089,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*06:01:01,length=7111,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*06:02:01,length=7102,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*06:03:01,length=7103,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DQB1*06:09:01,length=7102,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*01:01:01,length=10741,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*01:02:01,length=11229,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*03:01:01:01,length=13908,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*03:01:01:02,length=13426,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*04:03:01,length=15246,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*07:01:01:01,length=16110,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*07:01:01:02,length=16120,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*08:03:02,length=13562,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*09:21,length=16039,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*10:01:01,length=13501,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*11:01:01,length=13921,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*11:01:02,length=13931,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*11:04:01,length=13919,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*12:01:01,length=13404,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*12:17,length=11260,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*13:01:01,length=13935,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*13:02:01,length=13941,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*14:05:01,length=13933,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*14:54:01,length=13936,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*15:01:01:01,length=11080,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*15:01:01:02,length=11571,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*15:01:01:03,length=11056,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*15:01:01:04,length=11056,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*15:02:01,length=10313,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*15:03:01:01,length=11567,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*15:03:01:02,length=11569,assembly=Homo_sapiens_assembly38.fasta>
+##contig=<ID=HLA-DRB1*16:02:01,length=11005,assembly=Homo_sapiens_assembly38.fasta>
+##reference=file:///Users/shlee/Documents/ref/hg38/Homo_sapiens_assembly38.fasta
+##source=SelectVariants
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+chr17	137603	rs7951297	C	T	28469400	InbreedingCoeff_Filter	AF=0.302;REMAP_ALIGN=SP
+chr17	137637	rs61736219	G	A	11320000	PASS	AF=0.159;REMAP_ALIGN=SP
+chr17	138189	rs2294083	C	T	11968300	InbreedingCoeff_Filter	AF=0.215;REMAP_ALIGN=SP
+chr17	138416	rs2294080	G	A	7278520	PASS	AF=0.142;REMAP_ALIGN=SP
+chr17	138933	rs61997072	C	T	19980200	PASS	AF=0.144;REMAP_ALIGN=SP
+chr17	213892	rs117190076	G	A	5494640	PASS	AF=0.055;REMAP_ALIGN=FP
+chr17	215819	rs62057050	G	T	1487680	PASS	AF=0.108;REMAP_ALIGN=FP
+chr17	215841	rs7207457	C	T	2360870	PASS	AF=0.167;REMAP_ALIGN=FP
+chr17	219577	rs62059560	G	C	24161700	PASS	AF=0.269;REMAP_ALIGN=FP
+chr17	261904	rs56702013	G	A	78228.70	PASS	AF=0.229;REMAP_ALIGN=FP
+chr17	281725	rs12942829	C	A	51842900	PASS	AF=0.464;REMAP_ALIGN=FP
+chr17	331688	rs12947988	C	A	2069480	PASS	AF=0.222;REMAP_ALIGN=FP
+chr17	410351	rs7503725	G	T	6162990	PASS	AF=0.255;REMAP_ALIGN=FP
+chr17	410391	rs7502594	T	C	5792170	PASS	AF=0.247;REMAP_ALIGN=FP
+chr17	410508	rs4581766	G	A	2744590	PASS	AF=0.075;REMAP_ALIGN=FP
+chr17	413831	.	A	G	5676060	PASS	AF=0.090;REMAP_ALIGN=FP
+chr17	560603	rs741677	A	G	62954500	PASS	AF=0.458;REMAP_ALIGN=FP
+chr17	562535	rs2075443	G	A	65528900	PASS	AF=0.278;REMAP_ALIGN=FP
+chr17	600978	rs11247553	T	C	77962.40	PASS	AF=0.240;REMAP_ALIGN=FP
+chr17	601899	rs56807006	G	A	22790700	PASS	AF=0.088;REMAP_ALIGN=FP
+chr17	623667	rs16954056	G	T	16434000	PASS	AF=0.111;REMAP_ALIGN=FP
+chr17	697495	rs4968100	A	G	51741200	PASS	AF=0.186;REMAP_ALIGN=FP
+chr17	714753	rs35915949	C	T	9228830	PASS	AF=0.067;REMAP_ALIGN=FP
+chr17	737856	.	G	T	5075650	VQSRTrancheSNP99.90to99.95	AF=0.067;REMAP_ALIGN=FP
+chr17	740501	rs71357104	G	A	30389000	PASS	AF=0.127;REMAP_ALIGN=FP
+chr17	744917	rs1045481	G	A	20239900	PASS	AF=0.207;REMAP_ALIGN=FP
+chr17	745827	rs1062923	A	G	12379400	PASS	AF=0.127;REMAP_ALIGN=FP
+chr17	745992	rs3744741	C	T	22762100	PASS	AF=0.196;REMAP_ALIGN=FP
+chr17	746265	rs4968104	T	A	66067600	PASS	AF=0.208;REMAP_ALIGN=FP
+chr17	746966	rs3744742	C	T	31966600	PASS	AF=0.108;REMAP_ALIGN=FP
+chr17	747278	rs35696687	G	A	50898700	PASS	AF=0.127;REMAP_ALIGN=FP
+chr17	782400	rs2273454	G	T	26830400	PASS	AF=0.241;REMAP_ALIGN=FP
+chr17	782512	rs2249542	G	A	25966700	PASS	AF=0.211;REMAP_ALIGN=FP
+chr17	805291	rs2295478	T	C	7008040	PASS	AF=0.209;REMAP_ALIGN=FP
+chr17	822487	rs61197180	G	A	3990260	PASS	AF=0.058;REMAP_ALIGN=FP
+chr17	896885	rs77274853	C	T	1159250	PASS	AF=0.095;REMAP_ALIGN=FP
+chr17	909828	rs2940810	G	A	78576.40	PASS	AF=0.251;REMAP_ALIGN=FP
+chr17	909892	rs7218626	A	G	100434	PASS	AF=0.288;REMAP_ALIGN=FP
+chr17	999610	rs78236085	T	C	16910400	PASS	AF=0.067;REMAP_ALIGN=FP
+chr17	999629	rs12941159	A	G	51254800	PASS	AF=0.227;REMAP_ALIGN=FP
+chr17	1006211	rs2586306	A	T	14244600	PASS	AF=0.361;REMAP_ALIGN=FP
+chr17	1009674	rs12600864	G	A	34645700	PASS	AF=0.198;REMAP_ALIGN=FP
+chr17	1013206	rs9894835	G	A	46191900	PASS	AF=0.249;REMAP_ALIGN=FP
+chr17	1022430	rs2586251	G	A	223814	PASS	AF=0.124;REMAP_ALIGN=FP
+chr17	1022524	rs2663345	A	G	1009760	PASS	AF=0.218;REMAP_ALIGN=FP
+chr17	1031658	rs9903778	G	A	112009	PASS	AF=0.051;REMAP_ALIGN=FP
+chr17	1072590	rs77792616	G	A	6482690	PASS	AF=0.108;REMAP_ALIGN=FP
+chr17	1078799	rs79476823	G	A	1573890	PASS	AF=0.089;REMAP_ALIGN=FP
+chr17	1078800	rs2589476	A	G	1573860	PASS	AF=0.088;REMAP_ALIGN=FP
+chr17	1083502	rs2257468	A	G	94257600	PASS	AF=0.425;REMAP_ALIGN=FP
+chr17	1270800	rs3951819	A	G	1709710	PASS	AF=0.209;REMAP_ALIGN=FP
+chr17	1280044	.	C	T	15653800	PASS	AF=0.083;REMAP_ALIGN=FP
+chr17	1467248	rs2302458	C	A	6873920	PASS	AF=0.083;REMAP_ALIGN=FP
+chr17	1467794	rs8069059	T	C	6833680	PASS	AF=0.277;REMAP_ALIGN=FP
+chr17	1471209	rs2302456	C	T	12668700	PASS	AF=0.083;REMAP_ALIGN=FP
+chr17	1474649	rs2286873	A	G	157501000	PASS	AF=0.361;REMAP_ALIGN=FP
+chr17	1478227	rs45456691	T	C	34603300	PASS	AF=0.311;REMAP_ALIGN=FP
+chr17	1480599	rs12452780	G	A	16939400	PASS	AF=0.061;REMAP_ALIGN=FP
+chr17	1484178	rs11538156	C	T	13683900	PASS	AF=0.111;REMAP_ALIGN=FP
+chr17	1485679	rs111532225	C	T	217251	PASS	AF=0.091;REMAP_ALIGN=FP
+chr17	1492388	rs12941864	C	T	27185200	PASS	AF=0.480;REMAP_ALIGN=FP
+chr17	1506965	rs2240999	C	G	12401900	PASS	AF=0.108;REMAP_ALIGN=FP
+chr17	1507099	rs34308535	A	C	15693300	PASS	AF=0.109;REMAP_ALIGN=FP
+chr17	1521654	rs2277669	A	G	96519800	PASS	AF=0.497;REMAP_ALIGN=FP
+chr17	1553024	.	G	A	41448900	PASS	AF=0.075;REMAP_ALIGN=FP
+chr17	1585782	rs72820319	G	A	6358140	PASS	AF=0.092;REMAP_ALIGN=FP
+chr17	1591273	rs63598260	G	A	79367400	PASS	AF=0.432;REMAP_ALIGN=FP
+chr17	1635375	rs36108564	C	T	12984200	PASS	AF=0.102;REMAP_ALIGN=FP
+chr17	1636812	rs34849297	G	A	61953100	PASS	AF=0.107;REMAP_ALIGN=FP
+chr17	1651342	rs73289314	C	T	7248010	PASS	AF=0.052;REMAP_ALIGN=FP
+chr17	1651476	rs1802491	A	G	30916300	PASS	AF=0.113;REMAP_ALIGN=FP
+chr17	1656353	rs9889459	G	A	24698800	PASS	AF=0.075;REMAP_ALIGN=FP
+chr17	1662167	rs3814969	A	G	14780900	PASS	AF=0.082;REMAP_ALIGN=FP
+chr17	1673075	rs11078563	C	T	55763900	PASS	AF=0.217;REMAP_ALIGN=FP
+chr17	1675645	rs33965342	C	T	127538000	PASS	AF=0.213;REMAP_ALIGN=FP
+chr17	1677635	rs11078565	G	C	82697100	PASS	AF=0.217;REMAP_ALIGN=FP
+chr17	1678911	rs9902534	G	A	41190100	PASS	AF=0.185;REMAP_ALIGN=FP
+chr17	1681030	rs7503397	A	G	99949100	PASS	AF=0.217;REMAP_ALIGN=FP
+chr17	1681836	rs11559305	A	G	76400700	PASS	AF=0.187;REMAP_ALIGN=FP
+chr17	1709483	rs11078594	G	C	4682360	PASS	AF=0.181;REMAP_ALIGN=FP
+chr17	1726675	rs80035274	C	T	2518250	PASS	AF=0.119;REMAP_ALIGN=FP
+chr17	1726914	rs57207396	C	T	7630200	PASS	AF=0.219;REMAP_ALIGN=FP
+chr17	1727101	rs59643265	T	C	3688510	PASS	AF=0.219;REMAP_ALIGN=FP
+chr17	1727290	rs7221974	A	G	6620950	PASS	AF=0.221;REMAP_ALIGN=FP
+chr17	1727698	rs9912287	G	A	10376000	PASS	AF=0.240;REMAP_ALIGN=FP
+chr17	1730810	rs12150338	C	T	18628800	PASS	AF=0.114;REMAP_ALIGN=FP
+chr17	1732320	rs62090048	T	C	59818300	PASS	AF=0.284;REMAP_ALIGN=FP
+chr17	1733640	rs3809870	A	G	59269200	PASS	AF=0.271;REMAP_ALIGN=FP
+chr17	1733656	rs11657394	C	A	10219100	PASS	AF=0.059;REMAP_ALIGN=FP
+chr17	1734164	rs8065251	G	A	25419400	PASS	AF=0.241;REMAP_ALIGN=FP
+chr17	1737346	rs62090051	C	G	17692800	PASS	AF=0.236;REMAP_ALIGN=FP
+chr17	1737499	rs8077638	C	T	45109200	PASS	AF=0.240;REMAP_ALIGN=FP
+chr17	1745000	rs2070862	C	T	28038600	PASS	AF=0.206;REMAP_ALIGN=FP
+chr17	1745208	rs2070863	C	T	11732100	PASS	AF=0.197;REMAP_ALIGN=FP
+chr17	1754359	rs1057335	G	A	81783300	PASS	AF=0.216;REMAP_ALIGN=FP
+chr17	1769810	rs11658342	G	A	69132600	PASS	AF=0.306;REMAP_ALIGN=FP
+chr17	1771135	rs8074840	T	C	48838600	PASS	AF=0.316;REMAP_ALIGN=FP
+chr17	1771844	rs4274475	C	T	28010300	PASS	AF=0.310;REMAP_ALIGN=FP
+chr17	1772084	rs12103559	G	A	10057000	PASS	AF=0.077;REMAP_ALIGN=FP
+chr17	1775044	rs3891224	A	T	15555900	PASS	AF=0.085;REMAP_ALIGN=FP
+chr17	1781311	rs58337165	G	T	13500600	PASS	AF=0.077;REMAP_ALIGN=FP
+chr17	1787458	rs11549830	G	A	23348800	PASS	AF=0.313;REMAP_ALIGN=FP
+chr17	1800688	rs9913923	C	T	42740000	PASS	AF=0.106;REMAP_ALIGN=FP
+chr17	1801002	rs7224496	C	A	169190000	PASS	AF=0.385;REMAP_ALIGN=FP
+chr17	1804599	rs8072508	T	A	52676400	PASS	AF=0.293;REMAP_ALIGN=FP
+chr17	1853057	rs2287321	A	G	64530800	PASS	AF=0.436;REMAP_ALIGN=FP
+chr17	1879658	rs5030755	A	G	43722700	PASS	AF=0.074;REMAP_ALIGN=FP
+chr17	1879663	rs2230930	C	T	119995000	PASS	AF=0.222;REMAP_ALIGN=FP
+chr17	1880518	rs2277694	T	C	38339600	PASS	AF=0.212;REMAP_ALIGN=FP
+chr17	1888880	rs2270412	G	A	22606100	PASS	AF=0.208;REMAP_ALIGN=FP
+chr17	1891886	rs2230931	T	C	47747000	PASS	AF=0.234;REMAP_ALIGN=FP
+chr17	2036677	rs61753099	G	A	9499480	PASS	AF=0.058;REMAP_ALIGN=FP
+chr17	2036938	rs1131600	A	G	17712500	PASS	AF=0.153;REMAP_ALIGN=FP
+chr17	2040586	rs35394823	C	G	19324900	PASS	AF=0.080;REMAP_ALIGN=FP
+chr17	2057680	rs77393586	C	T	2763460	PASS	AF=0.109;REMAP_ALIGN=FP
+chr17	2065692	rs2232485	A	G	8098050	PASS	AF=0.103;REMAP_ALIGN=FP
+chr17	2173058	rs9898819	G	A	649169	PASS	AF=0.134;REMAP_ALIGN=FP
+chr17	2282806	rs749240	C	T	100605000	PASS	AF=0.371;REMAP_ALIGN=FP
+chr17	2299649	rs216196	T	C	63152200	PASS	AF=0.299;REMAP_ALIGN=FP
+chr17	2299731	rs1885987	T	G	142703000	PASS	AF=0.325;REMAP_ALIGN=FP
+chr17	2299873	rs216195	T	G	104263000	PASS	AF=0.339;REMAP_ALIGN=FP
+chr17	2299881	rs1885986	C	G	102787000	PASS	AF=0.293;REMAP_ALIGN=FP
+chr17	2333110	rs2281726	T	C	25988900	PASS	AF=0.142;REMAP_ALIGN=FP
+chr17	2361819	rs2429906	C	A	44890500	PASS	AF=0.377;REMAP_ALIGN=FP
+chr17	2363518	rs2003968	T	C	51349000	PASS	AF=0.495;REMAP_ALIGN=FP
+chr17	2365017	rs2248821	G	A	73805700	PASS	AF=0.498;REMAP_ALIGN=FP
+chr17	2365098	rs73296283	G	T	5436730	PASS	AF=0.052;REMAP_ALIGN=FP
+chr17	2365387	rs2429908	T	C	7658860	PASS	AF=0.370;REMAP_ALIGN=FP
+chr17	2372550	rs3213713	T	C	5153760	PASS	AF=0.119;REMAP_ALIGN=FP
+chr17	2379545	rs62067023	T	C	5340680	PASS	AF=0.079;REMAP_ALIGN=FP
+chr17	2394183	rs78101376	G	C	4712630	PASS	AF=0.051;REMAP_ALIGN=FP
+chr17	2395321	rs7213000	T	C	13098300	PASS	AF=0.108;REMAP_ALIGN=FP
+chr17	2415256	rs4613098	G	C	149231000	PASS	AF=0.335;REMAP_ALIGN=FP
+chr17	2475244	rs2028600	T	G	76425.40	PASS	AF=0.152;REMAP_ALIGN=FP
+chr17	2662005	rs8067353	T	A	129188	AC_Adj0_Filter	AF=0.372;REMAP_ALIGN=FP
+chr17	2681819	rs6628	C	T	20833900	PASS	AF=0.199;REMAP_ALIGN=FP
+chr17	2692670	rs2302199	G	A	37326700	PASS	AF=0.410;REMAP_ALIGN=FP
+chr17	2696892	rs11078312	G	A	9726210	PASS	AF=0.164;REMAP_ALIGN=FP
+chr17	2748047	rs9898615	G	T	3519230	PASS	AF=0.052;REMAP_ALIGN=FP
+chr17	2800470	rs11869022	C	G	12382700	PASS	AF=0.176;REMAP_ALIGN=FP
+chr17	2980294	rs17762452	C	A	60791800	PASS	AF=0.338;REMAP_ALIGN=FP
+chr17	2981251	rs7208690	A	G	18267600	PASS	AF=0.183;REMAP_ALIGN=FP
+chr17	3020639	rs11652061	T	C	5654100	PASS	AF=0.142;REMAP_ALIGN=FP
+chr17	3026098	rs55904912	G	A	50466100	PASS	AF=0.436;REMAP_ALIGN=FP
+chr17	3026380	rs12941934	T	C	16419500	PASS	AF=0.476;REMAP_ALIGN=FP
+chr17	3026929	rs4790114	T	C	7750520	PASS	AF=0.272;REMAP_ALIGN=FP
+chr17	3027045	rs4790115	G	A	17492300	PASS	AF=0.381;REMAP_ALIGN=FP
+chr17	3062621	.	A	T	6079590	InbreedingCoeff_Filter	AF=0.234;REMAP_ALIGN=FP
+chr17	3062635	.	G	A	4936390	InbreedingCoeff_Filter	AF=0.208;REMAP_ALIGN=FP
+chr17	3062651	rs182442561	C	T	5056480	InbreedingCoeff_Filter	AF=0.213;REMAP_ALIGN=FP
+chr17	3062684	.	A	G	8592500	InbreedingCoeff_Filter	AF=0.277;REMAP_ALIGN=FP
+chr17	3062770	.	G	C	2416000	VQSRTrancheSNP99.60to99.80	AF=0.083;REMAP_ALIGN=FP
+chr17	3062860	rs145256155	G	A	7138710	PASS	AF=0.074;REMAP_ALIGN=FP
+chr17	3062897	rs61752194	G	A	47780900	InbreedingCoeff_Filter	AF=0.306;REMAP_ALIGN=FP
+chr17	3063014	rs2855605	C	T	33670700	InbreedingCoeff_Filter	AF=0.305;REMAP_ALIGN=FP
+chr17	3063618	.	T	C	867678	PASS	AF=0.061;REMAP_ALIGN=FP
+chr17	3092278	rs4300683	G	A	29525200	PASS	AF=0.103;REMAP_ALIGN=FP
+chr17	3092700	rs769424	T	C	95010000	PASS	AF=0.185;REMAP_ALIGN=FP
+chr17	3092923	rs769423	C	T	20574400	PASS	AF=0.073;REMAP_ALIGN=FP
+chr17	3197508	rs2241094	C	A	24505100	PASS	AF=0.139;REMAP_ALIGN=FP
+chr17	3197533	rs2241093	T	C	89138300	PASS	AF=0.344;REMAP_ALIGN=FP
+chr17	3198284	rs2241091	G	T	119893000	PASS	AF=0.340;REMAP_ALIGN=FP
+chr17	3198296	rs2469791	C	T	75952200	PASS	AF=0.190;REMAP_ALIGN=FP
+chr17	3198397	rs12150427	G	T	126355000	PASS	AF=0.342;REMAP_ALIGN=FP
+chr17	3215755	rs4374201	C	T	35946400	PASS	AF=0.058;REMAP_ALIGN=FP
+chr17	3216003	rs4375699	G	A	19227600	PASS	AF=0.058;REMAP_ALIGN=FP
+chr17	3216103	rs769425	G	T	29503300	PASS	AF=0.099;REMAP_ALIGN=FP
+chr17	3216317	rs17762735	G	A	39824800	PASS	AF=0.087;REMAP_ALIGN=FP
+chr17	3216379	rs769426	A	G	84422500	PASS	AF=0.214;REMAP_ALIGN=FP
+chr17	3216473	rs769427	C	T	169911000	PASS	AF=0.421;REMAP_ALIGN=FP
+chr17	3216577	rs17174920	C	T	57281800	PASS	AF=0.429;REMAP_ALIGN=FP
+chr17	3240689	.	A	G	12610100	PASS	AF=0.202;REMAP_ALIGN=FP
+chr17	3278090	rs769434	C	T	37798000	PASS	AF=0.194;REMAP_ALIGN=FP
+chr17	3278261	rs2013809	A	G	34053100	PASS	AF=0.175;REMAP_ALIGN=FP
+chr17	3278368	rs9901356	G	C	31472200	PASS	AF=0.163;REMAP_ALIGN=FP
+chr17	3310396	rs61734050	T	C	33686800	PASS	AF=0.119;REMAP_ALIGN=FP
+chr17	3310568	rs9905086	C	G	32193300	PASS	AF=0.130;REMAP_ALIGN=FP
+chr17	3310668	rs9906179	A	G	28183400	PASS	AF=0.123;REMAP_ALIGN=FP
+chr17	3310812	rs9911226	C	A	63296200	PASS	AF=0.129;REMAP_ALIGN=FP
+chr17	3310834	rs9912090	A	G	65575800	PASS	AF=0.124;REMAP_ALIGN=FP
+chr17	3397640	rs769422	A	T	21530800	PASS	AF=0.100;REMAP_ALIGN=FP
+chr17	3398255	rs150988	G	A	105832000	PASS	AF=0.450;REMAP_ALIGN=FP
+chr17	3420961	rs769432	C	T	24903600	PASS	AF=0.453;REMAP_ALIGN=FP
+chr17	3421516	rs227787	A	G	75163200	PASS	AF=0.287;REMAP_ALIGN=FP
+chr17	3432868	rs11867612	T	C	64948300	PASS	AF=0.338;REMAP_ALIGN=FP
+chr17	3432966	rs61739591	A	G	83145300	PASS	AF=0.340;REMAP_ALIGN=FP
+chr17	3440225	rs17822627	T	C	61993900	PASS	AF=0.242;REMAP_ALIGN=FP
+chr17	3449000	rs1488689	A	G	148849000	PASS	AF=0.243;REMAP_ALIGN=FP
+chr17	3449015	rs11556563	T	C	204917000	PASS	AF=0.336;REMAP_ALIGN=FP
+chr17	3449037	rs1488690	C	T	111429000	PASS	AF=0.243;REMAP_ALIGN=FP
+chr17	3518783	rs12946883	G	A	39273900	PASS	AF=0.302;REMAP_ALIGN=FP
+chr17	3520926	rs72634011	A	G	20155300	PASS	AF=0.215;REMAP_ALIGN=FP
+chr17	3524148	rs62069862	A	G	194293000	PASS	AF=0.377;REMAP_ALIGN=FP
+chr17	3530249	rs4790510	A	G	18607900	PASS	AF=0.235;REMAP_ALIGN=FP
+chr17	3530255	rs4790511	A	C	18625200	PASS	AF=0.235;REMAP_ALIGN=FP
+chr17	3532786	rs395357	C	T	103293000	PASS	AF=0.427;REMAP_ALIGN=FP
+chr17	3546613	rs423431	T	C	1684100	PASS	AF=0.252;REMAP_ALIGN=FP
+chr17	3546713	rs390804	C	T	2122940	PASS	AF=0.235;REMAP_ALIGN=FP
+chr17	3546828	rs401478	T	C	169520	PASS	AF=0.111;REMAP_ALIGN=FP
+chr17	3546838	rs401464	T	C	168312	PASS	AF=0.111;REMAP_ALIGN=FP
+chr17	3573696	rs17706245	G	A	8275000	PASS	AF=0.053;REMAP_ALIGN=FP
+chr17	3577102	rs8078936	C	T	14531700	PASS	AF=0.286;REMAP_ALIGN=FP
+chr17	3577153	rs8065080	T	C	22300200	PASS	AF=0.333;REMAP_ALIGN=FP
+chr17	3583408	rs224534	G	A	27783100	PASS	AF=0.377;REMAP_ALIGN=FP
+chr17	3585950	rs161394	G	A	26559700	PASS	AF=0.250;REMAP_ALIGN=FP
+chr17	3592080	rs222749	G	A	5463850	PASS	AF=0.072;REMAP_ALIGN=FP
+chr17	3650361	rs2047855	A	G	836262	PASS	AF=0.061;REMAP_ALIGN=FP
+chr17	3655401	rs457419	A	G	104381000	PASS	AF=0.392;REMAP_ALIGN=FP
+chr17	3656529	rs1800528	G	A	25661200	PASS	AF=0.179;REMAP_ALIGN=FP
+chr17	3660669	rs2873624	C	G	66206100	PASS	AF=0.251;REMAP_ALIGN=FP
+chr17	3660774	rs760273	G	A	27373000	PASS	AF=0.210;REMAP_ALIGN=FP
+chr17	3660779	rs3826496	A	G	27376900	PASS	AF=0.210;REMAP_ALIGN=FP
+chr17	3689446	rs220487	T	C	16540300	PASS	AF=0.174;REMAP_ALIGN=FP
+chr17	3724546	rs220462	G	A	74236700	PASS	AF=0.305;REMAP_ALIGN=FP
+chr17	3724918	rs220461	T	C	62728800	PASS	AF=0.303;REMAP_ALIGN=FP
+chr17	3727947	rs2976230	A	G	51152100	PASS	AF=0.217;REMAP_ALIGN=FP
+chr17	3728179	rs7219600	C	G	98591100	PASS	AF=0.312;REMAP_ALIGN=FP
+chr17	3729542	rs1716	G	A	96092800	PASS	AF=0.317;REMAP_ALIGN=FP
+chr17	3732446	rs3744679	C	G	17819400	PASS	AF=0.073;REMAP_ALIGN=FP
+chr17	3732474	rs3744678	A	C	57562100	PASS	AF=0.252;REMAP_ALIGN=FP
+chr17	3751686	rs11652878	A	G	28172100	PASS	AF=0.123;REMAP_ALIGN=FP
+chr17	3862305	rs177985	C	G	5484360	PASS	AF=0.113;REMAP_ALIGN=FP
+chr17	3866063	rs2567875	G	A	14345400	PASS	AF=0.324;REMAP_ALIGN=FP
+chr17	3872554	rs7214723	T	C	70791000	PASS	AF=0.440;REMAP_ALIGN=FP
+chr17	3883508	rs737360	T	C	46807600	PASS	AF=0.224;REMAP_ALIGN=FP
+chr17	3897786	rs711174	C	T	24694500	PASS	AF=0.271;REMAP_ALIGN=FP
+chr17	3903370	rs7219732	T	A	17136300	PASS	AF=0.135;REMAP_ALIGN=FP
+chr17	3905203	rs12449598	A	G	50647400	PASS	AF=0.345;REMAP_ALIGN=FP
+chr17	3905419	rs2074988	T	C	43362100	PASS	AF=0.474;REMAP_ALIGN=FP
+chr17	3915708	rs11078475	T	C	8196640	PASS	AF=0.498;REMAP_ALIGN=FP
+chr17	3919632	rs56307755	C	T	2478350	PASS	AF=0.110;REMAP_ALIGN=FP
+chr17	3924792	rs1043246	C	G	2841940	PASS	AF=0.137;REMAP_ALIGN=FP
+chr17	3925408	rs887387	T	C	49841300	PASS	AF=0.347;REMAP_ALIGN=FP
+chr17	3927946	rs753960	C	T	16963200	PASS	AF=0.126;REMAP_ALIGN=FP
+chr17	3930269	rs12453032	G	A	4579870	PASS	AF=0.074;REMAP_ALIGN=FP
+chr17	3930446	rs10153291	G	A	15347600	PASS	AF=0.131;REMAP_ALIGN=FP
+chr17	3936391	rs1062683	G	A	56119700	PASS	AF=0.183;REMAP_ALIGN=FP
+chr17	3937634	rs3179783	A	G	18553200	PASS	AF=0.193;REMAP_ALIGN=FP
+chr17	3941691	rs17846890	A	C	25907700	PASS	AF=0.405;REMAP_ALIGN=FP
+chr17	3942633	rs17846889	A	G	87303700	PASS	AF=0.414;REMAP_ALIGN=FP
+chr17	3943381	rs71366582	C	T	80494000	PASS	AF=0.187;REMAP_ALIGN=FP
+chr17	3943508	rs758641	A	G	178987000	PASS	AF=0.401;REMAP_ALIGN=FP
+chr17	3944719	rs1800911	A	C	32474500	PASS	AF=0.393;REMAP_ALIGN=FP
+chr17	3964277	rs887384	A	G	494855	PASS	AF=0.087;REMAP_ALIGN=FP
+chr17	4013435	rs17175885	G	A	6565470	PASS	AF=0.089;REMAP_ALIGN=FP
+chr17	4013529	rs8075562	G	A	51914800	PASS	AF=0.197;REMAP_ALIGN=FP
+chr17	4016687	rs2676276	A	G	1082740	PASS	AF=0.257;REMAP_ALIGN=FP
+chr17	4018013	rs2247194	C	G	62217900	PASS	AF=0.431;REMAP_ALIGN=FP
+chr17	4019624	rs711178	A	G	76353300	PASS	AF=0.439;REMAP_ALIGN=FP
+chr17	4019821	rs2290437	G	A	24085800	PASS	AF=0.211;REMAP_ALIGN=FP
+chr17	4022816	rs711177	C	G	15717800	PASS	AF=0.103;REMAP_ALIGN=FP
+chr17	4032076	rs968114	G	C	47257500	PASS	AF=0.188;REMAP_ALIGN=FP
+chr17	4044239	rs1006954	G	A	33343500	PASS	AF=0.105;REMAP_ALIGN=FP
+chr17	4044350	rs781831	T	C	107910000	PASS	AF=0.451;REMAP_ALIGN=FP
+chr17	4049789	rs781853	T	C	119668000	PASS	AF=0.409;REMAP_ALIGN=FP
+chr17	4049808	rs781852	A	G	123107000	PASS	AF=0.413;REMAP_ALIGN=FP
+chr17	4058195	rs781839	C	T	20396200	PASS	AF=0.391;REMAP_ALIGN=FP
+chr17	4059156	rs9900661	A	G	26290700	PASS	AF=0.187;REMAP_ALIGN=FP
+chr17	4062770	rs781825	A	G	31280700	PASS	AF=0.411;REMAP_ALIGN=FP
+chr17	4062949	rs781824	G	A	6235150	PASS	AF=0.101;REMAP_ALIGN=FP
+chr17	4067114	rs9893302	C	T	8405730	PASS	AF=0.118;REMAP_ALIGN=FP
+chr17	4075237	rs34356467	G	T	36604000	PASS	AF=0.173;REMAP_ALIGN=FP
+chr17	4076613	rs8065054	G	A	7945200	PASS	AF=0.118;REMAP_ALIGN=FP
+chr17	4076655	rs7207986	G	A	15874300	PASS	AF=0.172;REMAP_ALIGN=FP
+chr17	4076688	rs8065185	G	A	12360600	PASS	AF=0.120;REMAP_ALIGN=FP
+chr17	4077024	rs897026	T	C	23738900	PASS	AF=0.429;REMAP_ALIGN=FP
+chr17	4077854	rs8074454	G	C	39676100	PASS	AF=0.296;REMAP_ALIGN=FP
+chr17	4077996	rs78806449	A	G	15476700	PASS	AF=0.088;REMAP_ALIGN=FP
+chr17	4088649	rs67005107	A	G	14021400	PASS	AF=0.165;REMAP_ALIGN=FP
+chr17	4090708	rs76563627	C	T	13881800	PASS	AF=0.086;REMAP_ALIGN=FP
+chr17	4095905	rs12947597	C	T	28164900	PASS	AF=0.160;REMAP_ALIGN=FP
+chr17	4102282	rs62071004	C	T	27059000	PASS	AF=0.120;REMAP_ALIGN=FP
+chr17	4104727	rs7222392	T	C	26710100	PASS	AF=0.120;REMAP_ALIGN=FP
+chr17	4112703	rs58625333	A	G	39097400	PASS	AF=0.264;REMAP_ALIGN=FP
+chr17	4123858	rs7214284	T	C	13300900	PASS	AF=0.122;REMAP_ALIGN=FP
+chr17	4179925	rs17764053	G	A	24000500	PASS	AF=0.092;REMAP_ALIGN=FP
+chr17	4242479	rs12944876	G	A	63871900	PASS	AF=0.356;REMAP_ALIGN=FP
+chr17	4433988	rs35751906	G	A	9967580	PASS	AF=0.144;REMAP_ALIGN=FP
+chr17	4434117	rs3809853	C	G	65089200	PASS	AF=0.225;REMAP_ALIGN=FP
+chr17	4446213	rs56005249	G	A	27869300	PASS	AF=0.146;REMAP_ALIGN=FP
+chr17	4448265	rs12450838	G	A	39643100	PASS	AF=0.361;REMAP_ALIGN=FP
+chr17	4449341	rs34457931	G	A	22161000	PASS	AF=0.122;REMAP_ALIGN=FP
+chr17	4453080	rs11655342	G	T	126495000	PASS	AF=0.351;REMAP_ALIGN=FP
+chr17	4487837	rs2291743	C	T	77567600	PASS	AF=0.239;REMAP_ALIGN=FP
+chr17	4487858	rs333122	A	G	70391000	PASS	AF=0.242;REMAP_ALIGN=FP
+chr17	4487906	rs2291742	A	G	24268400	PASS	AF=0.235;REMAP_ALIGN=FP
+chr17	4513343	rs9894697	G	A	40001200	PASS	AF=0.333;REMAP_ALIGN=FP
+chr17	4536220	rs9908450	G	T	40452100	PASS	AF=0.312;REMAP_ALIGN=FP
+chr17	4537612	rs34901192	A	G	15324000	PASS	AF=0.361;REMAP_ALIGN=FP
+chr17	4543162	rs751670	G	A	14666300	PASS	AF=0.190;REMAP_ALIGN=FP
+chr17	4544935	rs118012298	G	A	2488590	PASS	AF=0.053;REMAP_ALIGN=FP
+chr17	4551871	rs3816686	A	G	24557500	PASS	AF=0.242;REMAP_ALIGN=FP
+chr17	4554285	rs2306270	G	A	24150200	PASS	AF=0.142;REMAP_ALIGN=FP
+chr17	4554322	rs75997571	G	A	6507790	PASS	AF=0.068;REMAP_ALIGN=FP
+chr17	4558453	rs7215121	G	A	37152800	PASS	AF=0.423;REMAP_ALIGN=FP
+chr17	4560404	rs7216284	G	A	52100700	PASS	AF=0.236;REMAP_ALIGN=FP
+chr17	4592387	rs4790654	G	A	35729000	PASS	AF=0.170;REMAP_ALIGN=FP
+chr17	4592445	rs12449695	G	A	57234600	PASS	AF=0.335;REMAP_ALIGN=FP
+chr17	4595316	rs12103697	G	A	27815300	PASS	AF=0.232;REMAP_ALIGN=FP
+chr17	4595346	rs12939239	A	G	12703500	PASS	AF=0.155;REMAP_ALIGN=FP
+chr17	4597009	rs72634012	C	T	3757690	PASS	AF=0.178;REMAP_ALIGN=FP
+chr17	4632946	rs743646	T	C	21861000	PASS	AF=0.085;REMAP_ALIGN=FP
+chr17	4638265	rs3887815	G	A	491777	PASS	AF=0.083;REMAP_ALIGN=FP
+chr17	4639422	rs11078528	G	A	46097700	PASS	AF=0.296;REMAP_ALIGN=FP
+chr17	4639668	rs11568141	C	T	1810640	PASS	AF=0.058;REMAP_ALIGN=FP
+chr17	4671456	rs9436	T	A	26483300	PASS	AF=0.162;REMAP_ALIGN=FP
+chr17	4673325	rs55677157	C	T	8139770	PASS	AF=0.142;REMAP_ALIGN=FP
+chr17	4676006	rs55884013	G	A	18882500	PASS	AF=0.157;REMAP_ALIGN=FP
+chr17	4719256	rs28365160	A	G	28189800	PASS	AF=0.171;REMAP_ALIGN=FP
+chr17	4734591	rs1051009	G	A	126630000	PASS	AF=0.344;REMAP_ALIGN=FP
+chr17	4735268	rs2277680	G	A	63710900	PASS	AF=0.460;REMAP_ALIGN=FP
+chr17	4735442	rs1050998	A	G	72556200	PASS	AF=0.450;REMAP_ALIGN=FP
+chr17	4738927	rs2304973	G	A	11496000	PASS	AF=0.096;REMAP_ALIGN=FP
+chr17	4742029	rs3826517	T	C	116366000	PASS	AF=0.360;REMAP_ALIGN=FP
+chr17	4743749	rs58209386	C	T	13356200	PASS	AF=0.166;REMAP_ALIGN=FP
+chr17	4744967	rs58866259	T	G	18462200	PASS	AF=0.117;REMAP_ALIGN=FP
+chr17	4783119	rs3851	A	C	105898000	PASS	AF=0.421;REMAP_ALIGN=FP
+chr17	4785701	rs2279962	A	C	17092100	PASS	AF=0.395;REMAP_ALIGN=FP
+chr17	4786018	rs2279961	G	C	27527100	PASS	AF=0.105;REMAP_ALIGN=FP
+chr17	4789264	rs2304969	G	T	11099400	PASS	AF=0.223;REMAP_ALIGN=FP
+chr17	4789759	rs12951761	G	A	45058600	PASS	AF=0.451;REMAP_ALIGN=FP
+chr17	4796257	rs3169950	G	A	15312100	PASS	AF=0.341;REMAP_ALIGN=FP
+chr17	4797724	rs2304975	C	T	43241300	PASS	AF=0.150;REMAP_ALIGN=FP
+chr17	4809100	rs1132446	A	T	109457000	PASS	AF=0.269;REMAP_ALIGN=FP
+chr17	4809322	rs2286672	C	T	30334000	PASS	AF=0.147;REMAP_ALIGN=FP
+chr17	4817174	rs1052748	C	T	253557000	PASS	AF=0.392;REMAP_ALIGN=FP
+chr17	4818081	rs17854914	A	G	13884200	PASS	AF=0.111;REMAP_ALIGN=FP
+chr17	4818838	rs3764900	C	T	64609400	PASS	AF=0.268;REMAP_ALIGN=FP
+chr17	4819403	rs74476245	C	G	4329080	PASS	AF=0.060;REMAP_ALIGN=FP
+chr17	4819490	rs1052751	G	A	17170200	PASS	AF=0.142;REMAP_ALIGN=FP
+chr17	4821916	rs79836609	T	C	31019800	PASS	AF=0.167;REMAP_ALIGN=FP
+chr17	4822625	rs2875840	T	C	25994200	PASS	AF=0.236;REMAP_ALIGN=FP
+chr17	4833543	rs75987362	G	A	1606770	PASS	AF=0.085;REMAP_ALIGN=FP
+chr17	4884509	rs2302321	G	A	5773120	PASS	AF=0.074;REMAP_ALIGN=FP
+chr17	4886666	rs78767298	C	T	2778920	PASS	AF=0.069;REMAP_ALIGN=FP
+chr17	4892976	rs76133128	C	T	3758150	PASS	AF=0.072;REMAP_ALIGN=FP
+chr17	4892979	rs11556634	T	C	25458400	PASS	AF=0.443;REMAP_ALIGN=FP
+chr17	4892991	rs11556635	C	T	25846400	PASS	AF=0.435;REMAP_ALIGN=FP
+chr17	4894010	rs2302319	G	A	6804170	PASS	AF=0.143;REMAP_ALIGN=FP
+chr17	4896602	rs2302318	C	T	14082100	PASS	AF=0.140;REMAP_ALIGN=FP
+chr17	4899022	rs55681486	T	C	4633590	PASS	AF=0.072;REMAP_ALIGN=FP
+chr17	4899034	rs33978919	G	A	12623500	PASS	AF=0.146;REMAP_ALIGN=FP
+chr17	4899152	rs75492003	G	A	6747210	PASS	AF=0.142;REMAP_ALIGN=FP
+chr17	4899390	rs2075763	G	A	1004960	PASS	AF=0.051;REMAP_ALIGN=FP
+chr17	4900416	rs35400274	G	A	2952490	PASS	AF=0.142;REMAP_ALIGN=FP
+chr17	4900778	rs12942540	G	C	9795440	PASS	AF=0.140;REMAP_ALIGN=FP
+chr17	4902094	rs72835059	G	A	9083630	PASS	AF=0.074;REMAP_ALIGN=FP
+chr17	4932557	rs81663	A	T	29573200	PASS	AF=0.291;REMAP_ALIGN=FP
+chr17	4932600	rs2243093	T	C	32571200	PASS	AF=0.158;REMAP_ALIGN=FP
+chr17	4933086	rs6065	C	T	22679700	PASS	AF=0.098;REMAP_ALIGN=FP
+chr17	4933678	rs6067	A	G	31913900	PASS	AF=0.066;REMAP_ALIGN=FP
+chr17	4942473	rs238247	G	A	131223000	PASS	AF=0.476;REMAP_ALIGN=FP
+chr17	4945989	rs13204	G	A	10477300	PASS	AF=0.067;REMAP_ALIGN=FP
+chr17	4953285	rs238239	T	C	305237000	PASS	AF=0.460;REMAP_ALIGN=FP
+chr17	4959667	rs12451097	G	A	29088000	PASS	AF=0.102;REMAP_ALIGN=FP
+chr17	4959711	rs73343381	G	A	46968900	PASS	AF=0.103;REMAP_ALIGN=FP
+chr17	4972333	rs16942615	A	G	19992800	PASS	AF=0.084;REMAP_ALIGN=FP
+chr17	4973032	rs72835097	T	C	5960910	PASS	AF=0.073;REMAP_ALIGN=FP
+chr17	4973151	rs17633650	C	T	17729300	PASS	AF=0.092;REMAP_ALIGN=FP
+chr17	4977025	rs16954309	T	C	48768100	PASS	AF=0.187;REMAP_ALIGN=FP
+chr17	4979750	rs79255821	C	T	18911500	PASS	AF=0.059;REMAP_ALIGN=FP
+chr17	4980155	rs11078541	T	C	14244000	PASS	AF=0.091;REMAP_ALIGN=FP
+chr17	4988881	rs74744272	C	G	16179100	PASS	AF=0.094;REMAP_ALIGN=FP
+chr17	5000869	rs1004065	A	G	16241400	PASS	AF=0.069;REMAP_ALIGN=FP
+chr17	5001269	rs17707385	T	C	25101700	PASS	AF=0.084;REMAP_ALIGN=FP
+chr17	5003808	rs16954342	G	A	16964800	PASS	AF=0.076;REMAP_ALIGN=FP
+chr17	5004663	rs72838331	A	G	17092200	PASS	AF=0.086;REMAP_ALIGN=FP
+chr17	5004694	rs391271	A	G	12983800	PASS	AF=0.108;REMAP_ALIGN=FP
+chr17	5020689	rs346826	G	T	5656270	PASS	AF=0.060;REMAP_ALIGN=FP
+chr17	5020802	rs4790725	C	G	4420250	PASS	AF=0.074;REMAP_ALIGN=FP
+chr17	5033603	rs2304445	C	T	33277000	PASS	AF=0.247;REMAP_ALIGN=FP
+chr17	5111121	rs57461327	G	A	29748.60	PASS	AF=0.071;REMAP_ALIGN=FP
+chr17	5130473	rs7211125	C	A	10653600	PASS	AF=0.068;REMAP_ALIGN=FP
+chr17	5132362	rs111575757	G	T	31164900	PASS	AF=0.101;REMAP_ALIGN=FP
+chr17	5132866	rs73976312	G	A	28380500	InbreedingCoeff_Filter	AF=0.338;REMAP_ALIGN=FP
+chr17	5132896	rs75631218	G	A	34201700	InbreedingCoeff_Filter	AF=0.328;REMAP_ALIGN=FP
+chr17	5132910	rs80328123	A	C	46968900	InbreedingCoeff_Filter	AF=0.343;REMAP_ALIGN=FP
+chr17	5132915	.	T	G	46958900	InbreedingCoeff_Filter	AF=0.343;REMAP_ALIGN=FP
+chr17	5132919	rs114647990	C	T	46996500	InbreedingCoeff_Filter	AF=0.343;REMAP_ALIGN=FP
+chr17	5132929	rs72830922	C	G	46951000	InbreedingCoeff_Filter	AF=0.343;REMAP_ALIGN=FP
+chr17	5132979	rs78465432	C	A	92138600	InbreedingCoeff_Filter	AF=0.450;REMAP_ALIGN=FP
+chr17	5133034	rs72830923	A	G	36338500	InbreedingCoeff_Filter	AF=0.445;REMAP_ALIGN=FP
+chr17	5133838	.	T	C	2992290	InbreedingCoeff_Filter	AF=0.181;REMAP_ALIGN=FP
+chr17	5133986	rs114991387	T	C	13857700	PASS	AF=0.068;REMAP_ALIGN=FP
+chr17	5134018	.	A	G	3613260	InbreedingCoeff_Filter	AF=0.177;REMAP_ALIGN=FP
+chr17	5134041	.	C	T	4802930	InbreedingCoeff_Filter	AF=0.244;REMAP_ALIGN=FP
+chr17	5135264	rs117996405	C	A	2625330	VQSRTrancheSNP99.80to99.90	AF=0.081;REMAP_ALIGN=FP
+chr17	5135843	rs3213878	C	T	29038300	PASS	AF=0.101;REMAP_ALIGN=FP
+chr17	5138946	rs28645497	G	A	1991380	PASS	AF=0.111;REMAP_ALIGN=FP
+chr17	5139051	rs11870506	C	A	12653500	PASS	AF=0.276;REMAP_ALIGN=FP
+chr17	5139127	rs4080179	G	A	29629000	PASS	AF=0.297;REMAP_ALIGN=FP
+chr17	5139542	rs61745111	C	T	23227600	PASS	AF=0.102;REMAP_ALIGN=FP
+chr17	5141499	rs2304449	G	A	10087600	PASS	AF=0.069;REMAP_ALIGN=FP
+chr17	5141988	rs140256080	T	C	29543600	PASS	AF=0.093;REMAP_ALIGN=FP
+chr17	5148553	rs112209972	T	C	26630200	PASS	AF=0.102;REMAP_ALIGN=FP
+chr17	5169038	rs3816913	T	G	14471100	PASS	AF=0.102;REMAP_ALIGN=FP
+chr17	5170900	rs145160385	T	C	12009000	PASS	AF=0.066;REMAP_ALIGN=FP
+chr17	5182562	rs1730488	C	T	90470900	PASS	AF=0.178;REMAP_ALIGN=FP
+chr17	5183745	rs9908414	A	G	106947000	PASS	AF=0.354;REMAP_ALIGN=FP
+chr17	5221167	rs2439945	C	T	9098960	PASS	AF=0.137;REMAP_ALIGN=FP
+chr17	5223473	rs78015303	G	A	25023200	PASS	AF=0.076;REMAP_ALIGN=FP
+chr17	5361621	rs34594998	C	T	12318500	PASS	AF=0.081;REMAP_ALIGN=FP
+chr17	5368509	rs7213832	A	G	12476500	PASS	AF=0.085;REMAP_ALIGN=FP
+chr17	5377145	rs3026101	T	C	168501000	PASS	AF=0.357;REMAP_ALIGN=FP
+chr17	5381403	rs1143206	A	G	81106400	PASS	AF=0.474;REMAP_ALIGN=FP
+chr17	5386260	rs11209	A	G	218190000	PASS	AF=0.469;REMAP_ALIGN=FP
+chr17	5387361	rs739767	A	C	139622000	PASS	AF=0.473;REMAP_ALIGN=FP
+chr17	5387383	rs739768	G	A	161051000	PASS	AF=0.473;REMAP_ALIGN=FP
+chr17	5387504	rs748486	C	A	202952000	PASS	AF=0.473;REMAP_ALIGN=FP
+chr17	5391656	rs14231	T	A	80976600	PASS	AF=0.473;REMAP_ALIGN=FP
+chr17	5391681	rs2285748	A	G	31037500	PASS	AF=0.261;REMAP_ALIGN=FP
+chr17	5395000	rs1806240	C	T	70612300	PASS	AF=0.474;REMAP_ALIGN=FP
+chr17	5405057	rs2301739	C	T	26119800	PASS	AF=0.249;REMAP_ALIGN=FP
+chr17	5408951	rs929262	A	G	41223400	PASS	AF=0.470;REMAP_ALIGN=FP
+chr17	5414172	rs1806263	C	A	25854400	PASS	AF=0.350;REMAP_ALIGN=FP
+chr17	5416724	rs1806265	T	A	41406600	PASS	AF=0.477;REMAP_ALIGN=FP
+chr17	5418035	rs75669379	G	C	49574.10	PASS	AF=0.247;REMAP_ALIGN=FP
+chr17	5420311	rs9908179	A	G	37846200	PASS	AF=0.462;REMAP_ALIGN=FP
+chr17	5421268	rs4444392	C	T	18672700	PASS	AF=0.335;REMAP_ALIGN=FP
+chr17	5422769	rs1071648	C	T	61603400	PASS	AF=0.365;REMAP_ALIGN=FP
+chr17	5422825	rs12761	C	G	59912700	PASS	AF=0.365;REMAP_ALIGN=FP
+chr17	5422858	rs2189337	C	T	38887000	PASS	AF=0.364;REMAP_ALIGN=FP
+chr17	5425313	rs8080400	G	A	2679910	PASS	AF=0.355;REMAP_ALIGN=FP
+chr17	5425341	rs8067738	T	C	617491	InbreedingCoeff_Filter	AF=0.317;REMAP_ALIGN=FP
+chr17	5425342	.	T	C	30538.40	PASS	AF=0.053;REMAP_ALIGN=FP
+chr17	5425428	rs8067894	T	C	719080	PASS	AF=0.302;REMAP_ALIGN=FP
+chr17	5427259	rs61347766	T	C	39179.80	PASS	AF=0.089;REMAP_ALIGN=FP
+chr17	5431358	rs11650692	G	A	990405	PASS	AF=0.250;REMAP_ALIGN=FP
+chr17	5431380	rs60670077	G	A	403016	PASS	AF=0.089;REMAP_ALIGN=FP
+chr17	5431501	rs77658894	G	A	586196	InbreedingCoeff_Filter	AF=0.127;REMAP_ALIGN=FP
+chr17	5431514	.	G	A	1083570	InbreedingCoeff_Filter	AF=0.171;REMAP_ALIGN=FP
+chr17	5431516	.	C	A	1084470	InbreedingCoeff_Filter	AF=0.172;REMAP_ALIGN=FP
+chr17	5431530	rs72634034	G	A	2258580	PASS	AF=0.221;REMAP_ALIGN=FP
+chr17	5433817	rs2285747	G	C	44211300	PASS	AF=0.307;REMAP_ALIGN=FP
+chr17	5444256	rs2074438	G	A	30157400	PASS	AF=0.208;REMAP_ALIGN=FP
+chr17	5450757	rs3744714	C	T	77466100	PASS	AF=0.206;REMAP_ALIGN=FP
+chr17	5450884	rs11653658	G	C	28281100	PASS	AF=0.056;REMAP_ALIGN=FP
+chr17	5453593	rs16954697	C	T	38872700	PASS	AF=0.159;REMAP_ALIGN=FP
+chr17	5463627	rs8069315	G	A	23785700	PASS	AF=0.109;REMAP_ALIGN=FP
+chr17	5468939	rs28372907	G	A	1606920	PASS	AF=0.149;REMAP_ALIGN=FP
+chr17	5488841	rs929261	C	T	38956500	PASS	AF=0.267;REMAP_ALIGN=FP
+chr17	5500691	rs73973816	T	C	2922920	PASS	AF=0.056;REMAP_ALIGN=FP
+chr17	5500742	rs116516994	C	T	2597620	PASS	AF=0.096;REMAP_ALIGN=FP
+chr17	5500942	rs872569	G	C	3007860	PASS	AF=0.172;REMAP_ALIGN=FP
+chr17	5500950	rs55910638	C	T	1620240	PASS	AF=0.079;REMAP_ALIGN=FP
+chr17	5515479	rs2137722	G	A	10064200	PASS	AF=0.077;REMAP_ALIGN=FP
+chr17	5521056	rs12944976	G	A	20372300	PASS	AF=0.319;REMAP_ALIGN=FP
+chr17	5521757	rs11651270	T	C	106725000	PASS	AF=0.452;REMAP_ALIGN=FP
+chr17	5532943	rs2301582	C	T	49561600	PASS	AF=0.325;REMAP_ALIGN=FP
+chr17	5533866	rs35568355	C	T	46011200	PASS	AF=0.080;REMAP_ALIGN=FP
+chr17	5536877	rs7215856	T	C	12447500	PASS	AF=0.079;REMAP_ALIGN=FP
+chr17	5558920	rs61753142	C	T	10708500	PASS	AF=0.062;REMAP_ALIGN=FP
+chr17	5582047	rs12150220	A	T	35982500	PASS	AF=0.359;REMAP_ALIGN=FP
+chr17	6118059	.	A	G	4924870	VQSRTrancheSNP99.95to100.00	AF=0.110;REMAP_ALIGN=FP
+chr17	6426789	rs2292545	G	A	41411700	PASS	AF=0.252;REMAP_ALIGN=FP
+chr17	6427083	rs925615	A	G	11271800	PASS	AF=0.065;REMAP_ALIGN=FP
+chr17	6461561	rs73346359	T	C	16522200	PASS	AF=0.062;REMAP_ALIGN=FP
+chr17	6470417	rs11654175	C	T	60927100	PASS	AF=0.372;REMAP_ALIGN=FP
+chr17	6503563	rs3809835	C	T	36790400	PASS	AF=0.284;REMAP_ALIGN=FP
+chr17	6538056	rs28493751	G	A	9947940	PASS	AF=0.082;REMAP_ALIGN=FP
+chr17	6610009	rs2304977	G	A	129419000	PASS	AF=0.357;REMAP_ALIGN=FP
+chr17	6620978	rs9889363	T	A	48828100	PASS	AF=0.368;REMAP_ALIGN=FP
+chr17	6635035	rs2301873	G	A	94389600	PASS	AF=0.385;REMAP_ALIGN=FP
+chr17	6644446	rs11078641	G	C	17219900	PASS	AF=0.077;REMAP_ALIGN=FP
+chr17	6655449	rs8078913	C	T	917254	PASS	AF=0.301;REMAP_ALIGN=FP
+chr17	6694161	rs55698160	G	A	9897010	PASS	AF=0.073;REMAP_ALIGN=FP
+chr17	6695776	rs56224509	G	A	25893400	PASS	AF=0.064;REMAP_ALIGN=FP
+chr17	6704116	rs218678	G	A	2984630	PASS	AF=0.069;REMAP_ALIGN=FP
+chr17	6713208	rs62621831	G	A	7472260	PASS	AF=0.086;REMAP_ALIGN=FP
+chr17	6758265	rs4796550	T	C	34791800	PASS	AF=0.441;REMAP_ALIGN=FP
+chr17	6759001	rs67528158	G	T	288002	PASS	AF=0.085;REMAP_ALIGN=FP
+chr17	6759463	rs3752861	A	C	1143620	PASS	AF=0.098;REMAP_ALIGN=FP
+chr17	6760576	rs2271231	C	G	45331100	PASS	AF=0.396;REMAP_ALIGN=FP
+chr17	6779896	rs4796555	C	T	46483700	PASS	AF=0.265;REMAP_ALIGN=FP
+chr17	6780365	rs16956264	A	G	28529300	PASS	AF=0.146;REMAP_ALIGN=FP
+chr17	6786842	rs17853331	C	T	51895400	PASS	AF=0.256;REMAP_ALIGN=FP
+chr17	6786845	rs7213731	A	G	45252900	PASS	AF=0.182;REMAP_ALIGN=FP
+chr17	6787264	rs5016848	G	A	27974300	PASS	AF=0.252;REMAP_ALIGN=FP
+chr17	6800752	rs17804647	G	A	31702300	PASS	AF=0.087;REMAP_ALIGN=FP
+chr17	6800802	rs2271233	C	T	30098100	PASS	AF=0.066;REMAP_ALIGN=FP
+chr17	6812923	rs3744395	G	A	101951000	PASS	AF=0.228;REMAP_ALIGN=FP
+chr17	7001615	rs434473	A	G	236849000	PASS	AF=0.384;REMAP_ALIGN=FP
+chr17	7006519	rs2307214	A	G	24642900	PASS	AF=0.102;REMAP_ALIGN=FP
+chr17	7010333	rs312462	G	A	23962600	PASS	AF=0.115;REMAP_ALIGN=FP
+chr17	7016938	rs11078662	C	T	41230000	PASS	AF=0.102;REMAP_ALIGN=FP
+chr17	7038792	rs33979567	G	T	72900900	PASS	AF=0.195;REMAP_ALIGN=FP
+chr17	7042621	rs13342232	A	G	1787900	PASS	AF=0.060;REMAP_ALIGN=FP
+chr17	7042968	rs13342692	T	C	5466850	PASS	AF=0.075;REMAP_ALIGN=FP
+chr17	7075860	rs364569	A	G	90300200	PASS	AF=0.366;REMAP_ALIGN=FP
+chr17	7078078	rs90951	A	G	158411000	PASS	AF=0.394;REMAP_ALIGN=FP
+chr17	7107810	rs530779	C	T	44895100	PASS	AF=0.362;REMAP_ALIGN=FP
+chr17	7107825	rs62058755	G	A	53787300	PASS	AF=0.356;REMAP_ALIGN=FP
+chr17	7108754	rs2304980	G	T	71025200	PASS	AF=0.282;REMAP_ALIGN=FP
+chr17	7108758	rs2304979	C	T	71582300	PASS	AF=0.284;REMAP_ALIGN=FP
+chr17	7108760	rs2304978	C	T	71586300	PASS	AF=0.284;REMAP_ALIGN=FP
+chr17	7114101	rs10459916	G	A	59162400	PASS	AF=0.282;REMAP_ALIGN=FP
+chr17	7196492	rs17203281	G	A	58414500	PASS	AF=0.281;REMAP_ALIGN=FP
+chr17	7203156	rs408315	A	G	8558870	PASS	AF=0.057;REMAP_ALIGN=FP
+chr17	7230290	rs2074216	G	A	134501000	PASS	AF=0.350;REMAP_ALIGN=FP
+chr17	7235919	rs222851	G	A	322781000	PASS	AF=0.422;REMAP_ALIGN=FP
+chr17	7251263	rs3744399	T	C	10001400	PASS	AF=0.147;REMAP_ALIGN=FP
+chr17	7252542	rs2521988	G	A	16238900	PASS	AF=0.126;REMAP_ALIGN=FP
+chr17	7289936	rs3744405	G	A	51522500	PASS	AF=0.450;REMAP_ALIGN=FP
+chr17	7294314	rs8069533	A	G	362470	PASS	AF=0.207;REMAP_ALIGN=FP
+chr17	7310241	rs72840907	C	G	5861840	PASS	AF=0.210;REMAP_ALIGN=FP
+chr17	7310260	rs73977632	A	G	1847640	PASS	AF=0.084;REMAP_ALIGN=FP
+chr17	7313221	rs2270981	G	A	27276400	PASS	AF=0.068;REMAP_ALIGN=FP
+chr17	7314625	rs62059197	G	A	24121300	PASS	AF=0.082;REMAP_ALIGN=FP
+chr17	7317378	rs62059198	G	T	42236500	PASS	AF=0.254;REMAP_ALIGN=FP
+chr17	7318220	rs73977637	G	C	21225400	PASS	AF=0.072;REMAP_ALIGN=FP
+chr17	7321602	rs3809813	C	G	55515000	PASS	AF=0.193;REMAP_ALIGN=FP
+chr17	7321830	rs3809814	C	G	79930900	PASS	AF=0.462;REMAP_ALIGN=FP
+chr17	7323638	rs35776863	G	A	12981500	PASS	AF=0.137;REMAP_ALIGN=FP
+chr17	7326226	rs59200234	C	T	4604480	PASS	AF=0.072;REMAP_ALIGN=FP
+chr17	7327526	rs11655578	G	T	40581700	PASS	AF=0.184;REMAP_ALIGN=FP
+chr17	7327917	rs33998041	T	C	3349360	PASS	AF=0.162;REMAP_ALIGN=FP
+chr17	7342052	rs4796407	A	G	139126000	PASS	AF=0.372;REMAP_ALIGN=FP
+chr17	7342355	rs8069505	G	A	88208500	PASS	AF=0.315;REMAP_ALIGN=FP
+chr17	7343532	rs3809828	C	T	10924300	PASS	AF=0.064;REMAP_ALIGN=FP
+chr17	7350996	rs35985803	G	A	9753980	PASS	AF=0.070;REMAP_ALIGN=FP
+chr17	7351283	rs66687178	T	G	9970620	PASS	AF=0.151;REMAP_ALIGN=FP
+chr17	7355162	rs72840988	C	T	14094800	PASS	AF=0.296;REMAP_ALIGN=FP
+chr17	7356349	rs3744406	T	C	16018200	PASS	AF=0.080;REMAP_ALIGN=FP
+chr17	7382947	rs1554947	C	T	68124300	PASS	AF=0.359;REMAP_ALIGN=FP
+chr17	7384766	rs7223885	C	T	2979060	PASS	AF=0.095;REMAP_ALIGN=FP
+chr17	7387376	rs7220814	A	G	2654690	PASS	AF=0.061;REMAP_ALIGN=FP
+chr17	7387502	rs968580	T	C	18953700	PASS	AF=0.408;REMAP_ALIGN=FP
+chr17	7403408	rs17882626	A	G	74950500	PASS	AF=0.230;REMAP_ALIGN=FP
+chr17	7414742	rs78355381	T	C	40514900	PASS	AF=0.135;REMAP_ALIGN=FP
+chr17	7415616	rs12947017	C	T	115924000	PASS	AF=0.298;REMAP_ALIGN=FP
+chr17	7417748	rs62061175	C	T	1065680	PASS	AF=0.205;REMAP_ALIGN=FP
+chr17	7420585	rs73977668	G	A	12856800	PASS	AF=0.081;REMAP_ALIGN=FP
+chr17	7421469	rs33989543	G	A	8673360	PASS	AF=0.082;REMAP_ALIGN=FP
+chr17	7421533	rs34333422	C	G	7963140	PASS	AF=0.082;REMAP_ALIGN=FP
+chr17	7425815	rs72842820	G	A	116347000	PASS	AF=0.151;REMAP_ALIGN=FP
+chr17	7445306	rs17856697	A	G	24980100	PASS	AF=0.244;REMAP_ALIGN=FP
+chr17	7447656	rs2302765	T	C	39829700	PASS	AF=0.175;REMAP_ALIGN=FP
+chr17	7454545	rs7210231	C	A	24969800	PASS	AF=0.199;REMAP_ALIGN=FP
+chr17	7455958	rs2302763	T	C	20704000	PASS	AF=0.175;REMAP_ALIGN=FP
+chr17	7463300	rs34914463	T	C	4371460	PASS	AF=0.071;REMAP_ALIGN=FP
+chr17	7465792	.	T	G	2426420	VQSRTrancheSNP99.90to99.95	AF=0.110;REMAP_ALIGN=FP
+chr17	7482135	rs3760422	G	A	41670100	PASS	AF=0.183;REMAP_ALIGN=FP
+chr17	7496547	rs2301609	G	A	83884300	PASS	AF=0.197;REMAP_ALIGN=FP
+chr17	7497496	rs2228128	T	C	40552300	PASS	AF=0.199;REMAP_ALIGN=FP
+chr17	7498253	rs41554719	A	T	28871400	PASS	AF=0.241;REMAP_ALIGN=FP
+chr17	7502618	rs2071504	C	T	37388100	PASS	AF=0.180;REMAP_ALIGN=FP
+chr17	7508451	rs2228132	C	T	15410800	PASS	AF=0.187;REMAP_ALIGN=FP
+chr17	7509084	rs2228133	T	C	18519700	PASS	AF=0.102;REMAP_ALIGN=FP
+chr17	7550188	rs62059804	C	A	59112700	PASS	AF=0.190;REMAP_ALIGN=FP
+chr17	7557368	rs1128963	G	A	42094700	PASS	AF=0.345;REMAP_ALIGN=FP
+chr17	7559238	rs11552708	G	A	7993250	PASS	AF=0.127;REMAP_ALIGN=FP
+chr17	7574895	rs62059824	C	T	24137100	PASS	AF=0.087;REMAP_ALIGN=FP
+chr17	7575084	rs78414518	C	G	11299300	PASS	AF=0.072;REMAP_ALIGN=FP
+chr17	7575180	rs78553499	G	A	42097200	PASS	AF=0.136;REMAP_ALIGN=FP
+chr17	7580597	rs9896688	A	T	50303400	PASS	AF=0.136;REMAP_ALIGN=FP
+chr17	7581494	rs9901675	G	A	14498300	PASS	AF=0.058;REMAP_ALIGN=FP
+chr17	7588592	rs7211847	G	A	38052400	PASS	AF=0.353;REMAP_ALIGN=FP
+chr17	7596031	rs16956822	G	A	20238800	PASS	AF=0.080;REMAP_ALIGN=FP
+chr17	7601540	rs17643401	G	A	53006700	PASS	AF=0.165;REMAP_ALIGN=FP
+chr17	7626584	rs13894	G	A	14754700	PASS	AF=0.072;REMAP_ALIGN=FP
+chr17	7626829	rs858521	G	C	91186300	PASS	AF=0.358;REMAP_ALIGN=FP
+chr17	7626953	rs858520	C	T	92814600	PASS	AF=0.354;REMAP_ALIGN=FP
+chr17	7630399	rs6257	T	C	26647200	PASS	AF=0.098;REMAP_ALIGN=FP
+chr17	7633209	rs6259	G	A	24560700	PASS	AF=0.090;REMAP_ALIGN=FP
+chr17	7655719	rs55831773	C	T	25264500	PASS	AF=0.198;REMAP_ALIGN=FP
+chr17	7676301	rs17883323	G	T	20463000	PASS	AF=0.066;REMAP_ALIGN=FP
+chr17	7688850	rs2287499	C	G	64174300	PASS	AF=0.212;REMAP_ALIGN=FP
+chr17	7689242	rs2287498	C	T	29606100	PASS	AF=0.133;REMAP_ALIGN=FP
+chr17	7727187	rs11867551	T	C	39417400	PASS	AF=0.130;REMAP_ALIGN=FP
+chr17	7776841	rs62059684	G	A	27111900	PASS	AF=0.240;REMAP_ALIGN=FP
+chr17	7779287	rs17806045	C	T	18591800	PASS	AF=0.114;REMAP_ALIGN=FP
+chr17	7792109	rs73232360	C	T	6655440	PASS	AF=0.075;REMAP_ALIGN=FP
+chr17	7816773	rs11078708	G	C	25574600	PASS	AF=0.203;REMAP_ALIGN=FP
+chr17	7817540	rs872345	A	T	100493000	PASS	AF=0.218;REMAP_ALIGN=FP
+chr17	7817712	rs872346	G	A	65767800	PASS	AF=0.280;REMAP_ALIGN=FP
+chr17	7817913	rs9916791	T	C	86942000	PASS	AF=0.317;REMAP_ALIGN=FP
+chr17	7818503	rs1106826	G	T	32790500	PASS	AF=0.111;REMAP_ALIGN=FP
+chr17	7818613	rs10153304	G	A	24639600	PASS	AF=0.075;REMAP_ALIGN=FP
+chr17	7830252	.	T	G	2542800	InbreedingCoeff_Filter	AF=0.152;REMAP_ALIGN=FP
+chr17	7830515	rs34121753	A	G	93951500	PASS	AF=0.404;REMAP_ALIGN=FP
+chr17	7831745	rs57985356	T	G	21625500	PASS	AF=0.123;REMAP_ALIGN=FP
+chr17	7832616	rs61745181	G	A	41060300	PASS	AF=0.108;REMAP_ALIGN=FP

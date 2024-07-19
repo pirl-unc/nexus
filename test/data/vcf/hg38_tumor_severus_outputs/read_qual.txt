@@ -1,0 +1,3 @@
+Number of segments:PASS	300
+Total length of segments:
+PASS	2270580

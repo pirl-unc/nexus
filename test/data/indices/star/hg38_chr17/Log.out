@@ -1,0 +1,78 @@
+STAR version=2.7.11b
+STAR compilation time,server,dir=2024-03-19T08:41:07+0000 :/opt/conda/conda-bld/star_1710837244939/work/source
+##### Command Line:
+/home/jinseok/software/miniconda3/envs/nexus/bin/STAR-avx --runThreadN 2 --runMode genomeGenerate --genomeSAindexNbases 10 --genomeDir ../../../test/data/indices/star/hg38_chr17/ --genomeFastaFiles ../../../test/data/fasta/hg38_chr17_1-8000000.fa --sjdbGTFfile ../../../test/data/gtf/gencode_v41_tp53_annotation.gtf --sjdbOverhang 149
+##### Initial USER parameters from Command Line:
+###### All USER parameters from Command Line:
+runThreadN                    2     ~RE-DEFINED
+runMode                       genomeGenerate        ~RE-DEFINED
+genomeSAindexNbases           10     ~RE-DEFINED
+genomeDir                     ../../../test/data/indices/star/hg38_chr17/     ~RE-DEFINED
+genomeFastaFiles              ../../../test/data/fasta/hg38_chr17_1-8000000.fa        ~RE-DEFINED
+sjdbGTFfile                   ../../../test/data/gtf/gencode_v41_tp53_annotation.gtf     ~RE-DEFINED
+sjdbOverhang                  149     ~RE-DEFINED
+##### Finished reading parameters from all sources
+
+##### Final user re-defined parameters-----------------:
+runMode                           genomeGenerate   
+runThreadN                        2
+genomeDir                         ../../../test/data/indices/star/hg38_chr17/
+genomeFastaFiles                  ../../../test/data/fasta/hg38_chr17_1-8000000.fa   
+genomeSAindexNbases               10
+sjdbGTFfile                       ../../../test/data/gtf/gencode_v41_tp53_annotation.gtf
+sjdbOverhang                      149
+
+-------------------------------
+##### Final effective command line:
+/home/jinseok/software/miniconda3/envs/nexus/bin/STAR-avx   --runMode genomeGenerate      --runThreadN 2   --genomeDir ../../../test/data/indices/star/hg38_chr17/   --genomeFastaFiles ../../../test/data/fasta/hg38_chr17_1-8000000.fa      --genomeSAindexNbases 10   --sjdbGTFfile ../../../test/data/gtf/gencode_v41_tp53_annotation.gtf   --sjdbOverhang 149
+----------------------------------------
+
+Number of fastq files for each mate = 1
+ParametersSolo: --soloCellFilterType CellRanger2.2 filtering parameters:  3000 0.99 10
+Finished loading and checking parameters
+--genomeDir directory exists and will be overwritten: ../../../test/data/indices/star/hg38_chr17/
+Jul 18 21:37:24 ... starting to generate Genome files
+../../../test/data/fasta/hg38_chr17_1-8000000.fa : chr # 0  "chr17" chrStart: 0
+Chromosome sequence lengths: 
+chr17	7843138
+Genome sequence total length = 7843138
+Genome size with padding = 7864320
+Jul 18 21:37:25 ..... processing annotations GTF
+Processing pGe.sjdbGTFfile=../../../test/data/gtf/gencode_v41_tp53_annotation.gtf, found:
+		1688 transcripts
+		12330 exons (non-collapsed)
+		2687 collapsed junctions
+Total junctions: 2687
+Jul 18 21:37:25 ..... finished GTF processing
+
+Estimated genome size with padding and SJs: total=genome+SJ=306864320 = 7864320 + 299000000
+GstrandBit=32
+Number of SA indices: 15483244
+Jul 18 21:37:25 ... starting to sort Suffix Array. This may take a long time...
+Number of chunks: 1;   chunks size limit: 123865952 bytes
+Jul 18 21:37:25 ... sorting Suffix Array chunks and saving them to disk...
+Writing 123865952 bytes into ../../../test/data/indices/star/hg38_chr17//SA_0 ; empty space on disk = 657731368255488 bytes ... done
+Jul 18 21:37:36 ... loading chunks from disk, packing SA...
+Jul 18 21:37:37 ... finished generating suffix array
+Jul 18 21:37:37 ... generating Suffix Array index
+Jul 18 21:37:38 ... completed Suffix Array index
+Jul 18 21:37:38   Finished preparing junctions
+Jul 18 21:37:38 ..... inserting junctions into the genome indices
+Jul 18 21:37:40   Finished SA search: number of new junctions=2687, old junctions=0
+Jul 18 21:37:40   Finished sorting SA indicesL nInd=1601452
+Genome size with junctions=8667733  7864320   803413
+GstrandBit1=32   GstrandBit=32
+Jul 18 21:37:41   Finished inserting junction indices
+Jul 18 21:37:41   Finished SAi
+Jul 18 21:37:41 ..... finished inserting junctions into genome
+Jul 18 21:37:41 ... writing Genome to disk ...
+Writing 8667733 bytes into ../../../test/data/indices/star/hg38_chr17//Genome ; empty space on disk = 657732451368960 bytes ... done
+SA size in bytes: 70474374
+Jul 18 21:37:41 ... writing Suffix Array to disk ...
+Writing 70474374 bytes into ../../../test/data/indices/star/hg38_chr17//SA ; empty space on disk = 657732462444544 bytes ... done
+Jul 18 21:37:41 ... writing SAindex to disk
+Writing 8 bytes into ../../../test/data/indices/star/hg38_chr17//SAindex ; empty space on disk = 657732462444544 bytes ... done
+Writing 88 bytes into ../../../test/data/indices/star/hg38_chr17//SAindex ; empty space on disk = 657732462444544 bytes ... done
+Writing 6116691 bytes into ../../../test/data/indices/star/hg38_chr17//SAindex ; empty space on disk = 657732462444544 bytes ... done
+Jul 18 21:37:41 ..... finished successfully
+DONE: Genome generation, EXITING

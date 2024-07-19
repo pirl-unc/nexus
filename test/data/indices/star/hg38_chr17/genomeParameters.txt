@@ -1,0 +1,19 @@
+### /home/jinseok/software/miniconda3/envs/nexus/bin/STAR-avx   --runMode genomeGenerate      --runThreadN 2   --genomeDir ../../../test/data/indices/star/hg38_chr17/   --genomeFastaFiles ../../../test/data/fasta/hg38_chr17_1-8000000.fa      --genomeSAindexNbases 10   --sjdbGTFfile ../../../test/data/gtf/gencode_v41_tp53_annotation.gtf   --sjdbOverhang 149
+### GstrandBit 32
+versionGenome	2.7.4a
+genomeType	Full
+genomeFastaFiles	../../../test/data/fasta/hg38_chr17_1-8000000.fa 
+genomeSAindexNbases	10
+genomeChrBinNbits	18
+genomeSAsparseD	1
+genomeTransformType	None
+genomeTransformVCF	-
+sjdbOverhang	149
+sjdbFileChrStartEnd	- 
+sjdbGTFfile	../../../test/data/gtf/gencode_v41_tp53_annotation.gtf
+sjdbGTFchrPrefix	-
+sjdbGTFfeatureExon	exon
+sjdbGTFtagExonParentTranscript	transcript_id
+sjdbGTFtagExonParentGene	gene_id
+sjdbInsertSave	Basic
+genomeFileSizes	8667733 70474374

@@ -1,0 +1,32 @@
+[build-system]
+requires = [
+    "setuptools>=40.8.0",
+    "pandas>=2.0.0"
+]
+
+[project]
+name = "nexus"
+version = "0.1.0"
+description = "NEXflow's Ultimate Streamliner"
+requires-python = ">=3.10"
+readme = "README.md"
+keywords = [
+    "nextflow"
+]
+classifiers = [
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+nexuslib = ["pipelines/**/*.nf"]
+
+[project.scripts]
+nexus = "nexuslib.cli.cli_main:run"
+
