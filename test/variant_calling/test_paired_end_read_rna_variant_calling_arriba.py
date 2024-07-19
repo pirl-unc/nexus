@@ -10,7 +10,7 @@ def test_paired_end_read_rna_variant_calling_arriba():
     fastq_file_2 = get_data_path(name='fastq/hg38_tp53_tumor_paired-end_read_rna.r2.fastq.gz')
     reference_genome_fasta_file = get_data_path(name='fasta/hg38_chr17_1-8000000.fa')
     reference_genome_fasta_fai_file = get_data_path(name='fasta/hg38_chr17_1-8000000.fa.fai')
-    star_index = get_data_path(name='indices/star/hg38_chr17')
+    star_index = get_data_path(name='indices/star/hg38_chr17/')
     gtf_file = get_data_path(name='gtf/gencode_v41_tp53_annotation.gtf')
     protein_domains_gff3_file = get_data_path(name='indices/arriba/protein_domains_hg38_GRCh38_v2.4.0.gff3')
     temp_dir = os.getcwd() + '/tmp'
