@@ -4,7 +4,7 @@ from nexuslib.main import run_workflow
 from ..data import get_data_path
 
 
-def test_docker_novel_isoform_discovery_isoseq():
+def test_novel_isoform_discovery_isoseq():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
     long_read_tumor_rna_unaligned_bam_file = get_data_path(name='bam/hg38_tp53_tumor_long_read_rna_unaligned.bam')
     temp_dir = os.getcwd() + '/tmp'

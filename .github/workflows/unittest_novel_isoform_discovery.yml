@@ -1,4 +1,4 @@
-name: unittest_alignment
+name: unittest_novel_isoform_discovery
 on:
   push:
     branches:
@@ -66,11 +66,9 @@ jobs:
       run: |
         chmod +x lint.sh
         bash lint.sh
-        pwd
-        echo $PWD
 
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        chmod +x scripts/unittests/unittest_alignment.sh
-        bash scripts/unittests/unittest_alignment.sh
+        chmod +x scripts/unittests/unittest_novel_isoform_discovery.sh
+        bash scripts/unittests/unittest_novel_isoform_discovery.sh

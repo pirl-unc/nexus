@@ -4,7 +4,7 @@ from nexuslib.main import run_workflow
 from ..data import get_data_path
 
 
-def test_docker_read_error_correction_ratatosk():
+def test_read_error_correction_ratatosk():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
     long_read_tumor_dna_fastq_file = get_data_path(name='fastq/hg38_tp53_tumor_long_read_dna.fastq.gz')
     short_read_tumor_dna_fastq_r1_file = get_data_path(name='fastq/hg38_tp53_tumor_paired-end_read_dna.r1.fastq.gz')
