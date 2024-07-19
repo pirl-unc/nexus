@@ -71,4 +71,4 @@ jobs:
       shell: bash -l {0}
       run: |
         chmod +x unittest_ci.sh
-        bash unittest_ci.sh
+        bash unittest_alignment.sh
