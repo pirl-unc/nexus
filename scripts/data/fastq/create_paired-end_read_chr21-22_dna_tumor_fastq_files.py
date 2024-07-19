@@ -43,19 +43,20 @@ if __name__ == "__main__":
             haplotype_2_sequence[snp_position] = 'C'
 
         # Somatic mutations
-        haplotype_1_snv_positions = range(5001234,fasta.lengths[i],100000)
-        haplotype_2_snv_positions = range(5005678,fasta.lengths[i],120000)
+        haplotype_1_sequence = haplotype_1_sequence[0:20000000] + haplotype_1_sequence[30000000:]
+        haplotype_2_sequence = haplotype_2_sequence[0:20000000] + haplotype_2_sequence[30000000:]
+        haplotype_1_snv_positions = range(5001234,len(haplotype_1_sequence),100000)
+        haplotype_2_snv_positions = range(5005678,len(haplotype_2_sequence),120000)
         for snv_position in haplotype_1_snv_positions:
             haplotype_1_sequence[snv_position] = 'T'
         for snv_position in haplotype_2_snv_positions:
             haplotype_2_sequence[snv_position] = 'G'
 
-        for i in range(0, 50000):
+        for i in range(0, 60000):
             # Read ID
             # @<instrument>:<run number>:<flowcell ID>:<lane>:<tile>:<x-pos>:<y-pos> <read>:<is filtered>:<control number>:<sample number>
-            r1_read_id = '@A12345:001:ABCDEFGH1:1:1000:%i:2000 1:N:0:GACTGAGT+CACTATCA' % (i + 1)
-            r2_read_id = '@A12345:001:ABCDEFGH1:1:1000:%i:2000 2:N:0:GACTGAGT+CACTATCA' % (i + 1)
-
+            r1_read_id = '@A:001:ABC:1:10:%i:20 1:N:0:GA+CA' % (i + 1)
+            r2_read_id = '@A:001:ABC:1:10:%i:20 2:N:0:GA+CA' % (i + 1)
             while True:
                 if random.randint(0,1) == 0:
                     sequence = haplotype_1_sequence

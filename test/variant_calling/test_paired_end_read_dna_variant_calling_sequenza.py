@@ -27,9 +27,7 @@ def test_paired_end_read_dna_variant_calling_sequenza():
         'tumor_bam_file': [tumor_bam_file],
         'tumor_bam_bai_file': [tumor_bam_bai_file],
         'normal_bam_file': [normal_bam_file],
-        'normal_bam_bai_file': [normal_bam_bai_file],
-        'tumor_sample_id': ['tumor'],
-        'normal_sample_id': ['normal']
+        'normal_bam_bai_file': [normal_bam_bai_file]
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
     workflow_args = [
         '-c', nextflow_config_file,

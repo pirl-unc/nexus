@@ -69,7 +69,7 @@ nexus run --nf-workflow long_read_alignment_minimap2.nf \
 
 For more on this particular workflow, check out [here](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/).
 
-## 04. Documentation for Available Workflows
+## 05. Documentation for Available Workflows
 
 A list of links to documentation for all available workflows in `v0.1.0` is provided below:
 
@@ -93,21 +93,22 @@ A list of links to documentation for all available workflows in `v0.1.0` is prov
 | Utilities               | [**fastq_to_unaligned_bam.nf**](/src/nexuslib/pipelines/utilities/fastq_to_unaligned_bam/)                                                            |
 | Utilities               | [**fastqc.nf**](/src/nexuslib/pipelines/utilities/fastqc/)                                                                                            |
 | Utilities               | [**sequencing_coverage.nf**](/src/nexuslib/pipelines/utilities/sequencing_coverage/)                                                                  |
-| Variant calling         | [**long_read_dna_variant_calling_cutesv.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_cutesv/)                          |
-| Variant calling         | [**long_read_dna_variant_calling_deepvariant.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_deepvariant/)                |
-| Variant calling         | [**long_read_dna_variant_calling_pbsv.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_pbsv/)                              |
-| Variant calling         | [**long_read_dna_variant_calling_savana.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_savana/)                          |
-| Variant calling         | [**long_read_dna_variant_calling_severus.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_severus/)                        |
-| Variant calling         | [**long_read_dna_variant_calling_sniffles2.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_sniffles2/)                    |
-| Variant calling         | [**long_read_dna_variant_calling_svim.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_svim/)                              |
-| Variant calling         | [**long_read_dna_variant_calling_svisionpro.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_svisionpro/)                  |
-| Variant calling         | [**paired-end_read_dna_variant_calling_delly2.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_delly2/)              |
-| Variant calling         | [**paired-end_read_dna_variant_calling_gridss.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_gridss/)              |
-| Variant calling         | [**paired-end_read_dna_variant_calling_lumpy.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_lumpy/)                |
-| Variant calling         | [**paired-end_read_dna_variant_calling_manta.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_manta/)                |
-| Variant calling         | [**paired-end_read_dna_variant_calling_mutect2.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_mutect2/)            |
-| Variant calling         | [**paired-end_read_dna_variant_calling_sequenza.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_sequenza/)          |
-| Variant calling         | [**paired-end_read_dna_variant_calling_strelka2.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_strelka2/)          |
-| Variant calling         | [**paired-end_read_dna_variant_calling_svaba.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_svaba/)                |
-| Variant phasing         | [**long_read_dna_variant_phasing_hiphase.nf**](/src/nexuslib/pipelines/variant_phasing/long_read_dna_variant_phasing_hiphase/)                        |
-| Variant phasing         | [**long_read_dna_variant_phasing_whatshap.nf**](/src/nexuslib/pipelines/variant_phasing/long_read_dna_variant_phasing_whatshap/)                      |
+| Variant calling (DNA)   | [**long_read_dna_variant_calling_cutesv.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_cutesv/)                          |
+| Variant calling (DNA)   | [**long_read_dna_variant_calling_deepvariant.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_deepvariant/)                |
+| Variant calling (DNA)   | [**long_read_dna_variant_calling_pbsv.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_pbsv/)                              |
+| Variant calling (DNA)   | [**long_read_dna_variant_calling_savana.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_savana/)                          |
+| Variant calling (DNA)   | [**long_read_dna_variant_calling_severus.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_severus/)                        |
+| Variant calling (DNA)   | [**long_read_dna_variant_calling_sniffles2.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_sniffles2/)                    |
+| Variant calling (DNA)   | [**long_read_dna_variant_calling_svim.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_svim/)                              |
+| Variant calling (DNA)   | [**long_read_dna_variant_calling_svisionpro.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_svisionpro/)                  |
+| Variant calling (DNA)   | [**paired-end_read_dna_variant_calling_delly2.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_delly2/)              |
+| Variant calling (DNA)   | [**paired-end_read_dna_variant_calling_gridss.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_gridss/)              |
+| Variant calling (DNA)   | [**paired-end_read_dna_variant_calling_lumpy.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_lumpy/)                |
+| Variant calling (DNA)   | [**paired-end_read_dna_variant_calling_manta.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_manta/)                |
+| Variant calling (DNA)   | [**paired-end_read_dna_variant_calling_mutect2.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_mutect2/)            |
+| Variant calling (DNA)   | [**paired-end_read_dna_variant_calling_sequenza.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_sequenza/)          |
+| Variant calling (DNA)   | [**paired-end_read_dna_variant_calling_strelka2.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_strelka2/)          |
+| Variant calling (DNA)   | [**paired-end_read_dna_variant_calling_svaba.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_svaba/)                |
+| Variant calling (RNA)   | [**paired-end_read_rna_variant_calling_arriba.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_rna_variant_calling_arriba/)              |
+| Variant phasing (DNA)   | [**long_read_dna_variant_phasing_hiphase.nf**](/src/nexuslib/pipelines/variant_phasing/long_read_dna_variant_phasing_hiphase/)                        |
+| Variant phasing (DNA)   | [**long_read_dna_variant_phasing_whatshap.nf**](/src/nexuslib/pipelines/variant_phasing/long_read_dna_variant_phasing_whatshap/)                      |

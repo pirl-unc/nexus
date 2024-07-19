@@ -12,7 +12,7 @@ process runSequenzaUtilsBam2Seqz {
     )
 
     input:
-        tuple val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file), path(normal_bam_file), path(normal_bam_bai_file), val(tumor_sample_id), val(normal_sample_id)
+        tuple val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file), path(normal_bam_file), path(normal_bam_bai_file)
         path(reference_genome_fasta_file)
         path(reference_genome_wig_file)
         val(chromosomes)

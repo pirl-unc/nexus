@@ -11,7 +11,6 @@ def test_paired_end_read_dna_variant_calling_svaba():
     normal_bam_file = get_data_path(name='bam/hg38_tp53_normal_paired-end_read_dna.bam')
     normal_bam_bai_file = get_data_path(name='bam/hg38_tp53_normal_paired-end_read_dna.bam.bai')
     reference_genome_fasta_file = get_data_path(name='indices/svaba/hg38_chr17_1-8000000.fa')
-    reference_genome_dict_file = get_data_path(name='indices/svaba/hg38_chr17_1-8000000.dict')
     reference_genome_fasta_amb_file = get_data_path(name='indices/svaba/hg38_chr17_1-8000000.fa.amb')
     reference_genome_fasta_ann_file = get_data_path(name='indices/svaba/hg38_chr17_1-8000000.fa.ann')
     reference_genome_fasta_bwt_file = get_data_path(name='indices/svaba/hg38_chr17_1-8000000.fa.bwt')

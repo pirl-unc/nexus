@@ -10,7 +10,7 @@ bwa-mem2 index $FASTA_FILE
 gatk CreateSequenceDictionary -R $FASTA_FILE
 
 bwa-mem2 mem -t 4 \
-    -R "@RG\tID:synthetic001\tSM:sample001\tPL:ILMN\tLB:unknown\tPU:ILMN" \
+    -R "@RG\tID:sample001\tSM:sample001tumor\tPL:ILMN\tLB:unknown\tPU:ILMN" \
     $FASTA_FILE \
     $FASTQ_FILE_1 $FASTQ_FILE_2 > $SAM_FILE
 

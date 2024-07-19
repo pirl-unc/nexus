@@ -51,7 +51,6 @@ jobs:
         conda config --add channels bioconda
         conda config --add channels conda-forge
         conda config --set channel_priority strict
-        conda install pandas
         conda install nextflow==23.10.0
         conda install pylint
         conda install coveralls

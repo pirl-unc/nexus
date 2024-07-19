@@ -42,12 +42,11 @@ if __name__ == "__main__":
         for snp_position in haplotype_2_snp_positions:
             haplotype_2_sequence[snp_position] = 'C'
 
-        for i in range(0, 50000):
+        for i in range(0, 60000):
             # Read ID
             # @<instrument>:<run number>:<flowcell ID>:<lane>:<tile>:<x-pos>:<y-pos> <read>:<is filtered>:<control number>:<sample number>
-            r1_read_id = '@A12345:001:ABCDEFGH1:1:1000:%i:2000 1:N:0:GACTGAGT+CACTATCA' % (i + 1)
-            r2_read_id = '@A12345:001:ABCDEFGH1:1:1000:%i:2000 2:N:0:GACTGAGT+CACTATCA' % (i + 1)
-
+            r1_read_id = '@A:001:ABC:1:10:%i:20 1:N:0:GA+CA' % (i + 1)
+            r2_read_id = '@A:001:ABC:1:10:%i:20 2:N:0:GA+CA' % (i + 1)
             while True:
                 if random.randint(0,1) == 0:
                     sequence = haplotype_1_sequence

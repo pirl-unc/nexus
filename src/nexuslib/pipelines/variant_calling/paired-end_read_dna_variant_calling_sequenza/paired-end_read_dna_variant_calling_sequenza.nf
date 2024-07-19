@@ -58,7 +58,11 @@ if (params.help) {
 
     required arguments:
         --samples_tsv_file                  :   TSV file with the following columns:
-                                                'sample_id', 'tumor_bam_file', 'tumor_bam_bai_file', 'normal_bam_file', 'normal_bam_bai_file'
+                                                'sample_id',
+                                                'tumor_bam_file',
+                                                'tumor_bam_bai_file',
+                                                'normal_bam_file',
+                                                'normal_bam_bai_file'
         --output_dir                        :   Directory to which output files will be copied.
 
     optional arguments:
@@ -102,7 +106,7 @@ Channel
 // Step 5. Workflows
 workflow PAIRED_END_READ_DNA_VARIANT_CALLING_SEQUENZA {
     take:
-        input_bam_files_ch             // channel: [val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file), path(normal_bam_file), path(normal_bam_bai_file), val(tumor_sample_id), val(normal_sample_id)]
+        input_bam_files_ch             // channel: [val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file), path(normal_bam_file), path(normal_bam_bai_file)]
         output_dir
         reference_genome_fasta_file
         reference_genome_wig_file

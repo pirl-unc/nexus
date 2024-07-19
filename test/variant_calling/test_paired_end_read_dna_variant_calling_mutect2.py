@@ -30,8 +30,8 @@ def test_paired_end_read_dna_variant_calling_mutect2_human():
         'tumor_bam_bai_file': [tumor_bam_bai_file],
         'normal_bam_file': [normal_bam_file],
         'normal_bam_bai_file': [normal_bam_bai_file],
-        'tumor_sample_id': ['sample001'],
-        'normal_sample_id': ['sample001']
+        'tumor_sample_id': ['sample001tumor'],
+        'normal_sample_id': ['sample001normal']
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
     workflow_args = [
         '-c', nextflow_config_file,
@@ -76,8 +76,8 @@ def test_paired_end_read_dna_variant_calling_mutect2_nonhuman():
         'tumor_bam_bai_file': [tumor_bam_bai_file],
         'normal_bam_file': [normal_bam_file],
         'normal_bam_bai_file': [normal_bam_bai_file],
-        'tumor_sample_id': ['sample001'],
-        'normal_sample_id': ['sample001']
+        'tumor_sample_id': ['sample001tumor'],
+        'normal_sample_id': ['sample001normal']
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
     workflow_args = [
         '-c', nextflow_config_file,
