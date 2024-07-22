@@ -31,7 +31,7 @@ def test_long_read_dna_variant_calling_deepvariant_github():
         '--reference_genome_fasta_file', reference_genome_fasta_file,
         '--containerization', 'docker',
         '--deepvariant_input_path', '/home/runner/work/nexus/nexus/test/data/',
-        '--deepvariant_output_path', '/var/folders/',
+        '--deepvariant_output_path', '/home/runner/',
         '--output_dir', output_dir,
     ]
     run_workflow(workflow='long_read_dna_variant_calling_deepvariant.nf',
