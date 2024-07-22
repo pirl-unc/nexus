@@ -13,7 +13,7 @@ process runStar {
         val(output_dir)
 
     output:
-        tuple val(sample_id), emit: f
+        tuple val(sample_id), path("${sample_id}_star_aligned.bam"), path("${sample_id}_star_aligned.bam.bai"), emit: f
 
     script:
         """
@@ -22,5 +22,7 @@ process runStar {
             --readFilesIn $fastq_file_1 $fastq_file_2 \
             --genomeDir $star_index \
             $params_star
+        mv *.bam ${sample_id}_star_aligned.bam
+        samtools index -b ${sample_id}_star_aligned.bam
         """
 }
