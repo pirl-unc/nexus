@@ -1,4 +1,4 @@
-name: unittest_variant_calling_dna_long_reads
+name: unittest_alignment
 on:
   push:
     branches:
@@ -70,5 +70,5 @@ jobs:
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        chmod +x scripts/unittests/unittest_variant_calling_dna_long_reads.sh
-        bash scripts/unittests/unittest_variant_calling_dna_long_reads.sh
+        chmod +x scripts/unittests/unittest_alignment.sh
+        bash scripts/unittests/unittest_alignment.sh
