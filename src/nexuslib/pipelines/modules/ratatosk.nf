@@ -17,7 +17,6 @@ process runRatatoskCorrectFirstPass {
         """
         Ratatosk correct \
             -1 \
-            -v \
             -c ${task.cpus} \
             -l $long_read_fastq_file \
             -s $short_read_r1_fastq_file \
@@ -50,7 +49,6 @@ process runRatatoskCorrectSecondPass {
         """
         Ratatosk correct \
             -2 \
-            -v \
             -G \
             -c ${task.cpus} \
             -l $long_read_corrected_fastq_file \

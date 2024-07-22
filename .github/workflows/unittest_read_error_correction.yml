@@ -1,4 +1,4 @@
-name: unittest_variant_calling_rna_paired_end_reads
+name: unittest_read_error_correction
 on:
   push:
     branches:
@@ -14,17 +14,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-
-#    - name: Free disk space (Ubuntu)
-#      uses: jlumbroso/free-disk-space@main
-#      with:
-#        tool-cache: false
-#        android: true
-#        dotnet: true
-#        haskell: true
-#        large-packages: true
-#        docker-images: true
-#        swap-storage: true
 
     - name: Set up Miniconda
       uses: conda-incubator/setup-miniconda@v2
@@ -65,5 +54,5 @@ jobs:
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        chmod +x scripts/unittests/unittest_variant_calling_rna_paired_end_reads.sh
-        bash scripts/unittests/unittest_variant_calling_rna_paired_end_reads.sh
+        chmod +x scripts/unittests/unittest_read_error_correction.sh
+        bash scripts/unittests/unittest_read_error_correction.sh
