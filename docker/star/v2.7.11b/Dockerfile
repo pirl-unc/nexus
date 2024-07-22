@@ -27,6 +27,7 @@ RUN apt-get update --fix-missing && \
     autoconf \
     automake \
     unzip \
+    gzip \
     libcurl4-openssl-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -41,11 +42,11 @@ RUN wget https://github.com/samtools/samtools/releases/download/1.18/samtools-1.
     make install
 
 # Add samtools to PATH
-ENV PATH /samtools-1.18:$PATH
+ENV PATH=/samtools-1.18:$PATH
 
 # Install star
 RUN wget https://github.com/alexdobin/STAR/releases/download/2.7.11b/STAR_2.7.11b.zip && \
     unzip STAR_2.7.11b.zip
 
 # Add star to PATH
-ENV PATH /STAR_2.7.11b/Linux_x86_64_static:$PATH
+ENV PATH=/STAR_2.7.11b/Linux_x86_64_static:$PATH

@@ -72,3 +72,4 @@ jobs:
       run: |
         chmod +x scripts/unittests/unittest_alignment.sh
         bash scripts/unittests/unittest_alignment.sh
+        cat .nextflow.log
