@@ -21,7 +21,7 @@ process runStar {
             --runThreadN ${task.cpus} \
             --readFilesIn $fastq_file_1 $fastq_file_2 \
             --genomeDir $star_index \
-            --outFileNamePrefix ${sample_id}_star_ \
+            --outFileNamePrefix \${PWD}/${sample_id}_star_ \
             $params_star
         samtools index -b ${sample_id}_star_*.bam
         """

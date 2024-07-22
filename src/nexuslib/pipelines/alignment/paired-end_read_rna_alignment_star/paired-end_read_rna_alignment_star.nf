@@ -20,6 +20,12 @@ params.star_index = '/datastore/lbcfs/collaborations/pirl/seqdata/tool-resources
 params.params_star = '--readFilesCommand zcat --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --outSAMattributes Standard --twopassMode Basic'
 params.delete_work_dir = false
 
+if (params.params_star == true) {
+    params_star = ''
+} else {
+    params_star = params.params_star
+}
+
 // Step 3. Print inputs and help
 log.info """\
          ======================================================
@@ -52,7 +58,7 @@ if (params.help) {
         samples_tsv_file                :   ${params.samples_tsv_file}
         output_dir                      :   ${params.output_dir}
         star_index                      :   ${params.star_index}
-        params_star                     :   ${params.params_star}
+        params_star                     :   ${params_star}
         delete_work_dir                 :   ${params.delete_work_dir}
     """.stripIndent()
 }
@@ -94,7 +100,7 @@ workflow {
     PAIRED_END_RNA_READ_ALIGNMENT_STAR(
         input_fastq_files_ch,
         params.star_index,
-        params.params_star,
+        params_star,
         params.output_dir
     )
 }
