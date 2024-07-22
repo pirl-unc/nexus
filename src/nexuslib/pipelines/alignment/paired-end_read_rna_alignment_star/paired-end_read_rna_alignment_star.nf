@@ -87,13 +87,6 @@ workflow PAIRED_END_RNA_READ_ALIGNMENT_STAR {
             params_star,
             output_dir
         )
-        runStar.out.f.set{ copy_bam_file_input_ch }
-        copyBamFile(
-            copy_bam_file_input_ch,
-            output_dir
-        )
-    emit:
-        copyBamFile.out.f
 }
 
 workflow {
