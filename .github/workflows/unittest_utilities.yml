@@ -1,4 +1,4 @@
-name: unittest_read_error_correction
+name: unittest_utilities
 on:
   push:
     branches:
@@ -65,5 +65,5 @@ jobs:
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        chmod +x scripts/unittests/unittest_read_error_correction.sh
-        bash scripts/unittests/unittest_read_error_correction.sh
+        chmod +x scripts/unittests/unittest_utilities.sh
+        bash scripts/unittests/unittest_utilities.sh
