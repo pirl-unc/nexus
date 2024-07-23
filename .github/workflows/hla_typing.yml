@@ -1,4 +1,4 @@
-name: unittest_novel_isoform_discovery
+name: hla_typing
 on:
   push:
     branches:
@@ -65,5 +65,5 @@ jobs:
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        chmod +x scripts/unittests/unittest_novel_isoform_discovery.sh
-        bash scripts/unittests/unittest_novel_isoform_discovery.sh
+        chmod +x scripts/unittests/unittest_hla_typing.sh
+        bash scripts/unittests/unittest_hla_typing.sh

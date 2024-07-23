@@ -4,8 +4,6 @@
 
 Command-line interface (CLI) for running bioinformatics workflows written in nextflow.
 
-[![build](https://github.com/pirl-unc/nexus/actions/workflows/main.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/main.yml)
-
 ## 01. Installation
 
 Download the latest stable release [here](https://github.com/pirl-unc/nexus/releases)

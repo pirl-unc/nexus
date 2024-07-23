@@ -1,4 +1,4 @@
-name: unittest_variant_calling_dna_paired_end_reads
+name: haplotyping
 on:
   push:
     branches:
@@ -65,5 +65,5 @@ jobs:
     - name: Run unit tests
       shell: bash -l {0}
       run: |
-        chmod +x scripts/unittests/unittest_variant_calling_dna_paired_end_reads.sh
-        bash scripts/unittests/unittest_variant_calling_dna_paired_end_reads.sh
+        chmod +x scripts/unittests/unittest_haplotyping.sh
+        bash scripts/unittests/unittest_haplotyping.sh
