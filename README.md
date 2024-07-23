@@ -4,6 +4,19 @@
 
 Command-line interface (CLI) for running bioinformatics workflows written in nextflow.
 
+* [![alignment](https://github.com/pirl-unc/nexus/actions/workflows/alignment.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/alignment.yml)
+* [![assembly](https://github.com/pirl-unc/nexus/actions/workflows/assembly.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/assembly.yml)
+* [![haplotyping](https://github.com/pirl-unc/nexus/actions/workflows/haplotyping.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/haplotyping.yml)
+* [![hla_typing](https://github.com/pirl-unc/nexus/actions/workflows/hla_typing.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/hla_typing.yml)
+* [![novel_isoform_discovery](https://github.com/pirl-unc/nexus/actions/workflows/novel_isoform_discovery.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/novel_isoform_discovery.yml)
+* [![quantification](https://github.com/pirl-unc/nexus/actions/workflows/quantification.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/quantification.yml)
+* [![read_error_correction](https://github.com/pirl-unc/nexus/actions/workflows/read_error_correction.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/read_error_correction.yml)
+* [![utilities](https://github.com/pirl-unc/nexus/actions/workflows/utilities.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/utilities.yml)
+* [![variant_calling_dna_long_reads](https://github.com/pirl-unc/nexus/actions/workflows/variant_calling_dna_long_reads.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/variant_calling_dna_long_reads.yml)
+* [![variant_calling_dna_paired_end_reads](https://github.com/pirl-unc/nexus/actions/workflows/variant_calling_dna_paired_end_reads.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/variant_calling_dna_paired_end_reads.yml)
+* [![variant_calling_rna_paired_end_reads](https://github.com/pirl-unc/nexus/actions/workflows/variant_calling_rna_paired_end_reads.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/variant_calling_rna_paired_end_reads.yml)
+* [![variant_phasing_dna](https://github.com/pirl-unc/nexus/actions/workflows/variant_phasing_dna.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/variant_phasing_dna.yml)
+
 ## 01. Installation
 
 Download the latest stable release [here](https://github.com/pirl-unc/nexus/releases)
