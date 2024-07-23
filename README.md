@@ -110,3 +110,4 @@ A list of links to documentation for all available workflows in `v0.1.0` is prov
 | Variant calling (RNA)   | [**paired-end_read_rna_variant_calling_arriba.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_rna_variant_calling_arriba/)              |
 | Variant phasing (DNA)   | [**long_read_dna_variant_phasing_hiphase.nf**](/src/nexuslib/pipelines/variant_phasing/long_read_dna_variant_phasing_hiphase/)                        |
 | Variant phasing (DNA)   | [**long_read_dna_variant_phasing_whatshap.nf**](/src/nexuslib/pipelines/variant_phasing/long_read_dna_variant_phasing_whatshap/)                      |
+
