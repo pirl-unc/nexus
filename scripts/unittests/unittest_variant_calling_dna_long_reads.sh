@@ -3,7 +3,8 @@ pytest \
   --cov-report=term-missing \
   --cov=nexuslib \
   test/ \
-  -k "test_long_read_dna_variant_calling_cutesv or \
+  -k "test_long_read_dna_variant_calling_clairs or \
+      test_long_read_dna_variant_calling_cutesv or \
       test_long_read_dna_variant_calling_deepvariant_github or \
       test_long_read_dna_variant_calling_pbsv or \
       test_long_read_dna_variant_calling_savana or \

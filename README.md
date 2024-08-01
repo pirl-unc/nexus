@@ -24,6 +24,7 @@ Download the latest stable release [here](https://github.com/pirl-unc/nexus/rele
 ```
 conda create -n nexus python=3.10
 conda activate nexus
+conda install nextflow==23.10.0
 pip install nexus-<version>.tar.gz --verbose
 ```
 
@@ -82,7 +83,7 @@ For more on this particular workflow, check out [here](/src/nexuslib/pipelines/a
 
 ## 05. Documentation for Available Workflows
 
-A list of links to documentation for all available workflows in `v0.1.0` is provided below:
+A list of links to documentation for all available workflows in the latest version is provided below:
 
 | Category                | Workflow                                                                                                                                              |
 |:------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -104,6 +105,7 @@ A list of links to documentation for all available workflows in `v0.1.0` is prov
 | Utilities               | [**fastq_to_unaligned_bam.nf**](/src/nexuslib/pipelines/utilities/fastq_to_unaligned_bam/)                                                            |
 | Utilities               | [**fastqc.nf**](/src/nexuslib/pipelines/utilities/fastqc/)                                                                                            |
 | Utilities               | [**sequencing_coverage.nf**](/src/nexuslib/pipelines/utilities/sequencing_coverage/)                                                                  |
+| Variant calling (DNA)   | [**long_read_dna_variant_calling_clairs.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_clairs/)                          |
 | Variant calling (DNA)   | [**long_read_dna_variant_calling_cutesv.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_cutesv/)                          |
 | Variant calling (DNA)   | [**long_read_dna_variant_calling_deepvariant.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_deepvariant/)                |
 | Variant calling (DNA)   | [**long_read_dna_variant_calling_pbsv.nf**](/src/nexuslib/pipelines/variant_calling/long_read_dna_variant_calling_pbsv/)                              |
