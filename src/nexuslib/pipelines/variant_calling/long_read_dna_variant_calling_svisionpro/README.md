@@ -22,7 +22,9 @@ nexus run --nf-workflow long_read_dna_variant_calling_svisionpro.nf \
     --samples_tsv_file SAMPLES_TSV_FILE \
     --output_dir OUTPUT_DIR \
     --reference_genome_fasta_file REFERENCE_GENOME_FASTA_FILE \
-    --params_svisionpro '"--detect_mode somatic"' \
+    --reference_genome_fasta_fai_file REFERENCE_GENOME_FASTA_FAI_FILE \
+    --svisionpro_model_file SVISIONPRO_MODEL_FILE \
+    --params_svisionpro '"--detect_mode somatic --preset hifi --min_supp 3 --min_mapq 20 --min_sv_size 30 --max_sv_size 1000000 --device cpu --img_size 256"' \
     --params_svisionpro_extract '"--extract somatic --min_supp 3"'
 ```
 
@@ -42,7 +44,9 @@ required arguments:
 
 optional arguments:
     --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
-    --params_svisionpro                 :   SVision-pro parameters (default: '"--detect_mode somatic"').
+    --reference_genome_fasta_fai_file   :   Reference genome FASTA.FAI file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai).
+    --svisionpro_model_file             :   SVision-pro model file (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/svisionpro/SVision-pro-1.8/src/pre_process/model_liteunet_256_8_16_32_32_32.pth).
+    --params_svisionpro                 :   SVision-pro parameters (default: '"--detect_mode somatic --preset hifi --min_supp 3 --min_mapq 20 --min_sv_size 30 --max_sv_size 1000000 --device cpu --img_size 256"').
                                             Note that the parameters need to be wrapped in quotes.
     --params_svisionpro_extract         :   SVision-pro extract_op.py parameters (default: '"--extract somatic --min_supp 3"').
                                             Note that the parameters need to be wrapped in quotes.
@@ -66,6 +70,12 @@ optional arguments:
 
 `--reference_genome_fasta_file`
 * Reference genome FASTA files can be found in /datastore/lbcfs/collaborations/pirl/seqdata/references/ on LBG.
+
+`--reference_genome_fasta_fai_file`
+* Reference genome FASTA.FAI files can be found in /datastore/lbcfs/collaborations/pirl/seqdata/references/ on LBG.
+
+`--svisionpro_model_file`
+* Refer to the [SVision-pro documentation](https://github.com/songbowang125/SVision-pro).
 
 `--params_svisionpro`
 * Refer to the [SVision-pro documentation](https://github.com/songbowang125/SVision-pro).

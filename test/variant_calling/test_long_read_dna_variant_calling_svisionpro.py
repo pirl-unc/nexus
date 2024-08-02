@@ -11,6 +11,8 @@ def test_long_read_dna_variant_calling_svisionpro():
     normal_dna_bam_file = get_data_path(name='bam/hg38_tp53_normal_long_read_dna.bam')
     normal_dna_bam_bai_file = get_data_path(name='bam/hg38_tp53_normal_long_read_dna.bam.bai')
     reference_genome_fasta_file = get_data_path(name='fasta/hg38_chr17_1-8000000.fa')
+    reference_genome_fasta_fai_file = get_data_path(name='fasta/hg38_chr17_1-8000000.fa.fai')
+    svisionpro_model_file = get_data_path(name='indices/svisionpro/model_liteunet_256_8_16_32_32_32.pth')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_long_read_dna_variant_calling_svisionpro'
     work_dir = temp_dir + '/work/test_long_read_dna_variant_calling_svisionpro'
@@ -33,6 +35,8 @@ def test_long_read_dna_variant_calling_svisionpro():
         '-w', work_dir,
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--reference_genome_fasta_file', reference_genome_fasta_file,
+        '--reference_genome_fasta_fai_file', reference_genome_fasta_fai_file,
+        '--svisionpro_model_file', svisionpro_model_file,
         '--params_svisionpro', '"--detect_mode somatic --preset hifi --min_supp 3 --min_mapq 20 --min_sv_size 30 --max_sv_size 1000000 --device cpu"',
         '--params_svisionpro_extract', '"--extract somatic --min_supp 3"',
         '--output_dir', output_dir,
