@@ -36,6 +36,12 @@ RUN wget https://github.com/songbowang125/SVision-pro/archive/refs/tags/v1.8.tar
 RUN pip install v1.8.tar.gz
 RUN tar -xzf v1.8.tar.gz
 
+# Add extract_op.py to PATH
+RUN mkdir /opt/SVision-pro/
+RUN cp /SVision-pro-1.8/extract_op.py /opt/SVision-pro/extract_op.py
+RUN chmod +x /opt/SVision-pro/extract_op.py
+ENV PATH /opt/SVision-pro/:$PATH
+
 # Clean up to reduce Docker image size
 RUN conda clean -all
 RUN apt-get clean

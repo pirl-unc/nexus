@@ -34,6 +34,7 @@ def test_long_read_dna_variant_calling_svisionpro():
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--reference_genome_fasta_file', reference_genome_fasta_file,
         '--params_svisionpro', '"--detect_mode somatic --preset hifi --min_supp 3 --min_mapq 20 --min_sv_size 30 --max_sv_size 1000000 --device cpu"',
+        '--params_svisionpro_extract', '"--extract somatic --min_supp 3"',
         '--output_dir', output_dir,
     ]
     run_workflow(workflow='long_read_dna_variant_calling_svisionpro.nf',

@@ -13,8 +13,9 @@ process runSVisionPro {
 
     input:
         tuple val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file), path(normal_bam_file), path(normal_bam_bai_file)
-        val(reference_genome_fasta_file)
-        val(svisionpro_params)
+        path(reference_genome_fasta_file)
+        val(params_svisionpro)
+        val(params_svisionpro_extract)
         val(output_dir)
 
     output:
@@ -31,7 +32,12 @@ process runSVisionPro {
             --out_path output/ \
             --sample_name $sample_id \
             --process_num ${task.cpus} \
-            $svisionpro_params
+            $params_svisionpro
         mv output/* .
+        python /opt/SVision-pro/extract_op.py \
+            --input_vcf ${sample_id}*.vcf \
+            $params_svisionpro_extract
         """
 }
+
+
