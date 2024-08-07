@@ -23,7 +23,7 @@ nexus run --nf-workflow long_read_dna_variant_calling_clairs.nf \
     --output_dir OUTPUT_DIR \
     --reference_genome_fasta_file REFERENCE_GENOME_FASTA_FILE \
     --reference_genome_fasta_fai_file REFERENCE_GENOME_FASTA_FAI_FILE \
-    --params_clairs '"--platform hifi_revio"'
+    --params_clairs '"--platform hifi_revio --enable_indel_calling"'
 ```
 
 ### Usage
@@ -43,7 +43,7 @@ required arguments:
 optional arguments:
     --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
     --reference_genome_fasta_fai_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai).
-    --params_clairs                     :   ClairS parameters (default: '"--platform hifi_revio"').
+    --params_clairs                     :   ClairS parameters (default: '"--platform hifi_revio --enable_indel_calling"').
                                             Note that the parameters need to be wrapped in quotes.
     --delete_work_dir                   :   Delete work directory (default: false).
 ```

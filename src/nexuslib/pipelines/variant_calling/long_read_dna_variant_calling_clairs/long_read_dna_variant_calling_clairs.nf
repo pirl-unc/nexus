@@ -13,7 +13,7 @@ params.output_dir = ''
 // Optional arguments
 params.reference_genome_fasta_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa'
 params.reference_genome_fasta_fai_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai'
-params.params_clairs = '--platform hifi_revio'
+params.params_clairs = '--platform hifi_revio --enable_indel_calling'
 params.delete_work_dir = false
 
 if (params.params_clairs == true) {
@@ -45,7 +45,7 @@ if (params.help) {
     optional arguments:
         --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
         --reference_genome_fasta_fai_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai).
-        --params_clairs                     :   ClairS parameters (default: '"--platform hifi_revio"').
+        --params_clairs                     :   ClairS parameters (default: '"--platform hifi_revio --enable_indel_calling"').
                                                 Note that the parameters need to be wrapped in quotes.
         --delete_work_dir                   :   Delete work directory (default: false).
     """.stripIndent()
