@@ -1,0 +1,52 @@
+##fileformat=VCFv4.2
+##source=Sniffles2_2.3.3
+##command="/opt/conda/bin/sniffles --input sample002tumor_minimap2_mdtagged_sorted.bam --vcf sample002tumor_sniffles2.vcf --snf sample002tumor_sniffles2.snf --sample-id sample002tumor --reference hg38_chr17_1-8M_chr18_1-9M_hpv16.fa.gz --threads 2 --minsupport 3 --minsvlen 30 --mapq 20 --output-rnames"
+##fileDate="2024/08/15 06:09:52"
+##contig=<ID=chr17,length=7843138>
+##contig=<ID=chr18,length=8823530>
+##contig=<ID=hpv16,length=7904>
+##ALT=<ID=INS,Description="Insertion">
+##ALT=<ID=DEL,Description="Deletion">
+##ALT=<ID=DUP,Description="Duplication">
+##ALT=<ID=INV,Description="Inversion">
+##ALT=<ID=BND,Description="Breakend; Translocation">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype quality">
+##FORMAT=<ID=DR,Number=1,Type=Integer,Description="Number of reference reads">
+##FORMAT=<ID=DV,Number=1,Type=Integer,Description="Number of variant reads">
+##FORMAT=<ID=ID,Number=1,Type=String,Description="Individual sample SV ID for multi-sample output">
+##FILTER=<ID=PASS,Description="All filters passed">
+##FILTER=<ID=GT,Description="Genotype filter">
+##FILTER=<ID=SUPPORT_MIN,Description="Minimum read support filter">
+##FILTER=<ID=STDEV_POS,Description="SV Breakpoint standard deviation filter">
+##FILTER=<ID=STDEV_LEN,Description="SV length standard deviation filter">
+##FILTER=<ID=COV_MIN,Description="Minimum coverage filter">
+##FILTER=<ID=COV_CHANGE,Description="Coverage change filter">
+##FILTER=<ID=COV_CHANGE_FRAC,Description="Coverage fractional change filter">
+##FILTER=<ID=MOSAIC_AF,Description="Mosaic maximum allele frequency filter">
+##FILTER=<ID=ALN_NM,Description="Length adjusted mismatch filter">
+##FILTER=<ID=STRAND,Description="Strand support filter">
+##FILTER=<ID=SVLEN_MIN,Description="SV length filter">
+##INFO=<ID=PRECISE,Number=0,Type=Flag,Description="Structural variation with precise breakpoints">
+##INFO=<ID=IMPRECISE,Number=0,Type=Flag,Description="Structural variation with imprecise breakpoints">
+##INFO=<ID=MOSAIC,Number=0,Type=Flag,Description="Structural variation classified as putative mosaic">
+##INFO=<ID=SVLEN,Number=1,Type=Integer,Description="Length of structural variation">
+##INFO=<ID=SVTYPE,Number=1,Type=String,Description="Type of structural variation">
+##INFO=<ID=CHR2,Number=1,Type=String,Description="Mate chromsome for BND SVs">
+##INFO=<ID=SUPPORT,Number=1,Type=Integer,Description="Number of reads supporting the structural variation">
+##INFO=<ID=SUPPORT_INLINE,Number=1,Type=Integer,Description="Number of reads supporting an INS/DEL SV (non-split events only)">
+##INFO=<ID=SUPPORT_LONG,Number=1,Type=Integer,Description="Number of soft-clipped reads putatively supporting the long insertion SV">
+##INFO=<ID=END,Number=1,Type=Integer,Description="End position of structural variation">
+##INFO=<ID=STDEV_POS,Number=1,Type=Float,Description="Standard deviation of structural variation start position">
+##INFO=<ID=STDEV_LEN,Number=1,Type=Float,Description="Standard deviation of structural variation length">
+##INFO=<ID=COVERAGE,Number=.,Type=Float,Description="Coverages near upstream, start, center, end, downstream of structural variation">
+##INFO=<ID=STRAND,Number=1,Type=String,Description="Strands of supporting reads for structural variant">
+##INFO=<ID=AC,Number=.,Type=Integer,Description="Allele count, summed up over all samples">
+##INFO=<ID=SUPP_VEC,Number=1,Type=String,Description="List of read support for all samples">
+##INFO=<ID=CONSENSUS_SUPPORT,Number=1,Type=Integer,Description="Number of reads that support the generated insertion (INS) consensus sequence">
+##INFO=<ID=RNAMES,Number=.,Type=String,Description="Names of supporting reads (if enabled with --output-rnames)">
+##INFO=<ID=AF,Number=1,Type=Float,Description="Allele Frequency">
+##INFO=<ID=NM,Number=.,Type=Float,Description="Mean number of query alignment length adjusted mismatches of supporting reads">
+##INFO=<ID=PHASE,Number=.,Type=String,Description="Phasing information derived from supporting reads, represented as list of: HAPLOTYPE,PHASESET,HAPLOTYPE_SUPPORT,PHASESET_SUPPORT,HAPLOTYPE_FILTER,PHASESET_FILTER">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample002tumor
+chr17	4341674	Sniffles2.DEL.0S0	g	<DEL>	60	PASS	PRECISE;SVTYPE=DEL;SVLEN=-3335816;END=7677490;SUPPORT=60;RNAMES=m64012_303179_792261/41/ccs,m64012_154006_155963/44/ccs,m64012_615092_337767/54/ccs,m64012_431192_655682/4/ccs,m64012_214959_927740/13/ccs,m64012_594565_734778/33/ccs,m64012_801352_376662/48/ccs,m64012_811975_117002/36/ccs,m64012_293253_544411/46/ccs,m64012_877544_912088/59/ccs,m64012_391832_256604/14/ccs,m64012_866538_901634/56/ccs,m64012_603131_887105/32/ccs,m64012_173699_798027/58/ccs,m64012_865060_485665/2/ccs,m64012_121325_386783/37/ccs,m64012_482519_275240/22/ccs,m64012_134969_349371/52/ccs,m64012_830895_607157/31/ccs,m64012_156943_543026/7/ccs,m64012_698129_415250/35/ccs,m64012_376957_579958/16/ccs,m64012_432145_697243/21/ccs,m64012_157225_842828/15/ccs,m64012_920337_210320/28/ccs,m64012_892732_708188/40/ccs,m64012_419384_906760/30/ccs,m64012_508019_737898/51/ccs,m64012_799604_356990/11/ccs,m64012_596692_218063/25/ccs,m64012_957718_272299/20/ccs,m64012_911017_956571/24/ccs,m64012_795939_270160/26/ccs,m64012_763169_948877/60/ccs,m64012_291017_873487/5/ccs,m64012_846138_266111/50/ccs,m64012_140597_869430/6/ccs,m64012_131488_859234/8/ccs,m64012_580982_102197/10/ccs,m64012_410657_408625/43/ccs,m64012_326556_461205/19/ccs,m64012_922206_395264/53/ccs,m64012_136863_781081/27/ccs,m64012_667311_785292/49/ccs,m64012_402403_539335/55/ccs,m64012_349888_395642/1/ccs,m64012_692543_387879/3/ccs,m64012_394242_591181/12/ccs,m64012_107785_935392/42/ccs,m64012_708616_518343/34/ccs,m64012_711593_486376/45/ccs,m64012_862060_927442/18/ccs,m64012_764876_199844/57/ccs,m64012_475732_316654/47/ccs,m64012_715933_451254/17/ccs,m64012_604397_687480/29/ccs,m64012_463912_232768/38/ccs,m64012_365903_669401/39/ccs,m64012_744898_121762/9/ccs,m64012_570978_959890/23/ccs;COVERAGE=120,60,0,60,120;STRAND=-;AF=1.000;STDEV_LEN=0.000;STDEV_POS=0.000	GT:GQ:DR:DV	1/1:60:0:60

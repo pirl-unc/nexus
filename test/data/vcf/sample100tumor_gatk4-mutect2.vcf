@@ -1,0 +1,79 @@
+##fileformat=VCFv4.2
+##FILTER=<ID=FAIL,Description="Fail the site if all alleles fail but for different reasons.">
+##FILTER=<ID=PASS,Description="Site contains at least one allele that passes filters">
+##FILTER=<ID=base_qual,Description="alt median base quality">
+##FILTER=<ID=clustered_events,Description="Clustered events observed in the tumor">
+##FILTER=<ID=contamination,Description="contamination">
+##FILTER=<ID=duplicate,Description="evidence for alt allele is overrepresented by apparent duplicates">
+##FILTER=<ID=fragment,Description="abs(ref - alt) median fragment length">
+##FILTER=<ID=germline,Description="Evidence indicates this site is germline, not somatic">
+##FILTER=<ID=haplotype,Description="Variant near filtered variant on same haplotype.">
+##FILTER=<ID=low_allele_frac,Description="Allele fraction is below specified threshold">
+##FILTER=<ID=map_qual,Description="ref - alt median mapping quality">
+##FILTER=<ID=multiallelic,Description="Site filtered because too many alt alleles pass tumor LOD">
+##FILTER=<ID=n_ratio,Description="Ratio of N to alt exceeds specified ratio">
+##FILTER=<ID=normal_artifact,Description="artifact_in_normal">
+##FILTER=<ID=orientation,Description="orientation bias detected by the orientation bias mixture model">
+##FILTER=<ID=panel_of_normals,Description="Blacklisted site in panel of normals">
+##FILTER=<ID=position,Description="median distance of alt variants from end of reads">
+##FILTER=<ID=possible_numt,Description="Allele depth is below expected coverage of NuMT in autosome">
+##FILTER=<ID=slippage,Description="Site filtered due to contraction of short tandem repeat region">
+##FILTER=<ID=strand_bias,Description="Evidence for alt allele comes from one read direction only">
+##FILTER=<ID=strict_strand,Description="Evidence for alt allele is not represented in both directions">
+##FILTER=<ID=weak_evidence,Description="Mutation does not meet likelihood threshold">
+##FORMAT=<ID=AD,Number=R,Type=Integer,Description="Allelic depths for the ref and alt alleles in the order listed">
+##FORMAT=<ID=AF,Number=A,Type=Float,Description="Allele fractions of alternate alleles in the tumor">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth (reads with MQ=255 or with bad mates are filtered)">
+##FORMAT=<ID=F1R2,Number=R,Type=Integer,Description="Count of reads in F1R2 pair orientation supporting each allele">
+##FORMAT=<ID=F2R1,Number=R,Type=Integer,Description="Count of reads in F2R1 pair orientation supporting each allele">
+##FORMAT=<ID=FAD,Number=R,Type=Integer,Description="Count of fragments supporting each allele.">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=PGT,Number=1,Type=String,Description="Physical phasing haplotype information, describing how the alternate alleles are phased in relation to one another; will always be heterozygous and is not intended to describe called alleles">
+##FORMAT=<ID=PID,Number=1,Type=String,Description="Physical phasing ID information, where each unique ID within a given sample (but not across samples) connects records within a phasing group">
+##FORMAT=<ID=PL,Number=G,Type=Integer,Description="Normalized, Phred-scaled likelihoods for genotypes as defined in the VCF specification">
+##FORMAT=<ID=PS,Number=1,Type=Integer,Description="Phasing set (typically the position of the first variant in the set)">
+##FORMAT=<ID=SB,Number=4,Type=Integer,Description="Per-sample component statistics which comprise the Fisher's Exact Test to detect strand bias.">
+##GATKCommandLine=<ID=FilterMutectCalls,CommandLine="FilterMutectCalls --output sample100tumor_gatk4-mutect2_chr17_filtered.vcf --variant sample100tumor_gatk4-mutect2_chr17_unfiltered.vcf --reference hg38_chr17_1-8M.fa --threshold-strategy OPTIMAL_F_SCORE --f-score-beta 1.0 --false-discovery-rate 0.05 --initial-threshold 0.1 --mitochondria-mode false --microbial-mode false --max-events-in-region 2 --max-alt-allele-count 1 --unique-alt-read-count 0 --min-median-mapping-quality -1 --min-median-base-quality 20 --max-median-fragment-length-difference 10000 --min-median-read-position 1 --max-n-ratio Infinity --min-reads-per-strand 0 --min-allele-fraction 0.0 --contamination-estimate 0.0 --log-snv-prior -13.815510557964275 --log-indel-prior -16.11809565095832 --log-artifact-prior -2.302585092994046 --normal-p-value-threshold 0.001 --min-slippage-length 8 --pcr-slippage-rate 0.1 --distance-on-haplotype 100 --long-indel-length 5 --interval-set-rule UNION --interval-padding 0 --interval-exclusion-padding 0 --interval-merging-rule ALL --read-validation-stringency SILENT --seconds-between-progress-updates 10.0 --disable-sequence-dictionary-validation false --create-output-bam-index true --create-output-bam-md5 false --create-output-variant-index true --create-output-variant-md5 false --max-variants-per-shard 0 --lenient false --add-output-sam-program-record true --add-output-vcf-command-line true --cloud-prefetch-buffer 40 --cloud-index-prefetch-buffer -1 --disable-bam-index-caching false --sites-only-vcf-output false --help false --version false --showHidden false --verbosity INFO --QUIET false --use-jdk-deflater false --use-jdk-inflater false --gcs-max-retries 20 --gcs-project-for-requester-pays  --disable-tool-default-read-filters false",Version="4.4.0.0",Date="August 15, 2024 at 6:41:38 PM GMT">
+##INFO=<ID=AS_FilterStatus,Number=A,Type=String,Description="Filter status for each allele, as assessed by ApplyVQSR. Note that the VCF filter field will reflect the most lenient/sensitive status across all alleles.">
+##INFO=<ID=AS_SB_TABLE,Number=1,Type=String,Description="Allele-specific forward/reverse read counts for strand bias tests. Includes the reference and alleles separated by |.">
+##INFO=<ID=AS_UNIQ_ALT_READ_COUNT,Number=A,Type=Integer,Description="Number of reads with unique start and mate end positions for each alt at a variant site">
+##INFO=<ID=CONTQ,Number=1,Type=Float,Description="Phred-scaled qualities that alt allele are not due to contamination">
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth; some reads may have been filtered">
+##INFO=<ID=ECNT,Number=1,Type=Integer,Description="Number of events in this haplotype">
+##INFO=<ID=GERMQ,Number=1,Type=Integer,Description="Phred-scaled quality that alt alleles are not germline variants">
+##INFO=<ID=MBQ,Number=R,Type=Integer,Description="median base quality by allele">
+##INFO=<ID=MFRL,Number=R,Type=Integer,Description="median fragment length by allele">
+##INFO=<ID=MMQ,Number=R,Type=Integer,Description="median mapping quality by allele">
+##INFO=<ID=MPOS,Number=A,Type=Integer,Description="median distance from end of read">
+##INFO=<ID=NALOD,Number=A,Type=Float,Description="Negative log 10 odds of artifact in normal with same allele fraction as tumor">
+##INFO=<ID=NCount,Number=1,Type=Integer,Description="Count of N bases in the pileup">
+##INFO=<ID=NLOD,Number=A,Type=Float,Description="Normal log 10 likelihood ratio of diploid het or hom alt genotypes">
+##INFO=<ID=OCM,Number=1,Type=Integer,Description="Number of alt reads whose original alignment doesn't match the current contig.">
+##INFO=<ID=PON,Number=0,Type=Flag,Description="site found in panel of normals">
+##INFO=<ID=POPAF,Number=A,Type=Float,Description="negative log 10 population allele frequencies of alt alleles">
+##INFO=<ID=ROQ,Number=1,Type=Float,Description="Phred-scaled qualities that alt allele are not due to read orientation artifact">
+##INFO=<ID=RPA,Number=R,Type=Integer,Description="Number of times tandem repeat unit is repeated, for each allele (including reference)">
+##INFO=<ID=RU,Number=1,Type=String,Description="Tandem repeat unit (bases)">
+##INFO=<ID=SEQQ,Number=1,Type=Integer,Description="Phred-scaled quality that alt alleles are not sequencing errors">
+##INFO=<ID=STR,Number=0,Type=Flag,Description="Variant is a short tandem repeat">
+##INFO=<ID=STRANDQ,Number=1,Type=Integer,Description="Phred-scaled quality of strand bias artifact">
+##INFO=<ID=STRQ,Number=1,Type=Integer,Description="Phred-scaled quality that alt alleles in STRs are not polymerase slippage errors">
+##INFO=<ID=TLOD,Number=A,Type=Float,Description="Log 10 likelihood ratio score of variant existing versus not existing">
+##MutectVersion=2.2
+##contig=<ID=chr17,length=7843138>
+##filtering_status=These calls have been filtered by FilterMutectCalls to label false positives with a list of failed filters and true positives with PASS.
+##source=FilterMutectCalls
+##tumor_sample=sample100normal
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample100normal	sample100tumor
+chr17	7675193	.	G	GTCATACGTACGATACGATAGCTAGCTACGATGCATATAATCAGCTACAGATCACTAGCTC	.	PASS	AS_FilterStatus=SITE;AS_SB_TABLE=98,93|78,68;DP=337;ECNT=1;GERMQ=4;MBQ=46,39;MFRL=453,380;MMQ=60,60;MPOS=42;POPAF=7.30;TLOD=556.25	GT:AD:AF:DP:F1R2:F2R1:FAD:SB	0/1:164,0:5.972e-03:164:0,0:158,0:169,0:80,84,0,0	0/1:27,146:0.993:173:0,0:12,119:18,145:18,9,78,68
+chr17	7676194	.	C	CACGTACAGCTACAGCTACGACTAGCATATAGCTACAGCTACGATCACGTACATAGATAAA	.	germline	AS_FilterStatus=SITE;AS_SB_TABLE=98,106|88,71;DP=363;ECNT=1;GERMQ=4;MBQ=46,39;MFRL=439,391;MMQ=60,60;MPOS=34;POPAF=7.30;TLOD=606.88	GT:AD:AF:DP:F1R2:F2R1:FAD:SB	0/1:179,0:5.334e-03:179:0,0:172,0:189,0:87,92,0,0	0/1:25,159:0.994:184:0,0:13,125:23,156:11,14,88,71
+chr17	7677193	.	C	CAGCTAGCGCTTTTTTGTAGAGATATATATATAGGGGGCCCCGATCAGTAATCGTAACTAT	.	germline	AS_FilterStatus=SITE;AS_SB_TABLE=87,90|81,59;DP=317;ECNT=1;GERMQ=2;MBQ=46,39;MFRL=433,396;MMQ=60,60;MPOS=45;POPAF=7.30;TLOD=533.34	GT:AD:AF:DP:F1R2:F2R1:FAD:SB	0/1:154,0:6.173e-03:154:0,0:146,0:165,0:75,79,0,0	0/1:23,140:0.993:163:0,0:6,119:15,140:12,11,81,59
+chr17	7683193	.	CCGGGTTCAAGCAATTCTGCCTCAGCCTCCTGAGTAGCTGGGATTACAGGCAGGTGCCACCACACCGGCTGATTTTTGTATTTTTAGTAGAGATGGCGTT	C	.	PASS	AS_FilterStatus=SITE;AS_SB_TABLE=132,155|64,71;DP=422;ECNT=1;GERMQ=93;MBQ=46,38;MFRL=467,487;MMQ=60,60;MPOS=38;POPAF=7.30;TLOD=235.61	GT:AD:AF:DP:F1R2:F2R1:FAD:SB	0/1:287,7:3.574e-03:294:0,0:180,1:283,9:132,155,4,3	0/1:0,128:0.990:128:0,0:0,91:0,112:0,0,60,68
+chr17	7684292	.	TGCTAGAGGACTGCTTGAGCCCAGGGGTTCGAGGCTGCAGTAAGCCTTGATTGTGCCATTGTACTCTAGCCTGGGCAACAGTGTGAGTCCCTGTCTCAAA	T	.	PASS	AS_FilterStatus=SITE;AS_SB_TABLE=150,136|69,78;DP=433;ECNT=1;GERMQ=87;MBQ=46,38;MFRL=440,459;MMQ=60,60;MPOS=34;POPAF=7.30;TLOD=259.64	GT:AD:AF:DP:F1R2:F2R1:FAD:SB	0/1:286,3:3.616e-03:289:0,0:166,1:278,5:150,136,1,2	0/1:0,144:0.991:144:0,0:0,103:0,128:0,0,68,76
+chr17	7685391	.	ATGTCAGACAGTACATTGAAGGACAGAAGCCCGACAAAAATGAGCACATAATGTATGATTCCCCCCTTTTTTTTGAGACGGAGTTTCGTTCTTGTCGCCC	A	.	PASS	AS_FilterStatus=SITE;AS_SB_TABLE=0,0|138,148;DP=286;ECNT=1;GERMQ=76;MBQ=0,39;MFRL=0,454;MMQ=60,60;MPOS=39;POPAF=7.30;TLOD=751.74	GT:AD:AF:DP:F1R2:F2R1:FAD:SB	0/1:0,143:0.992:143:0,0:0,116:0,133:0,0,72,71	0/1:0,143:0.991:143:0,0:0,121:0,130:0,0,66,77
+chr17	7686991	.	T	A	.	PASS	AS_FilterStatus=SITE;AS_SB_TABLE=69,88|65,72;DP=301;ECNT=1;GERMQ=22;MBQ=46,36;MFRL=439,433;MMQ=60,60;MPOS=35;POPAF=7.30;TLOD=442.75	GT:AD:AF:DP:F1R2:F2R1:FAD:SB	0/1:157,0:6.242e-03:157:0,0:157,0:157,0:69,88,0,0	0/1:0,137:0.993:137:0,0:0,137:0,137:0,0,65,72
+chr17	7687091	.	A	G	.	PASS	AS_FilterStatus=SITE;AS_SB_TABLE=45,93|44,71;DP=261;ECNT=1;GERMQ=24;MBQ=46,37;MFRL=430,427;MMQ=60,60;MPOS=36;POPAF=7.30;TLOD=406.69	GT:AD:AF:DP:F1R2:F2R1:FAD:SB	0/1:138,0:7.082e-03:138:0,0:138,0:138,0:45,93,0,0	0/1:0,115:0.992:115:0,0:0,115:0,115:0,0,44,71
+chr17	7687191	.	C	T	.	PASS	AS_FilterStatus=SITE;AS_SB_TABLE=14,92|26,75;DP=214;ECNT=1;GERMQ=20;MBQ=46,32;MFRL=450,414;MMQ=60,60;MPOS=40;POPAF=7.30;TLOD=323.42	GT:AD:AF:DP:F1R2:F2R1:FAD:SB	0/1:106,0:9.083e-03:106:0,0:106,0:106,0:14,92,0,0	0/1:0,101:0.990:101:0,0:0,101:0,101:0,0,26,75
+chr17	7687291	.	C	T	.	PASS	AS_FilterStatus=SITE;AS_SB_TABLE=0,75|3,77;DP=158;ECNT=1;GERMQ=20;MBQ=46,32;MFRL=442,410;MMQ=60,60;MPOS=36;POPAF=7.30;TLOD=247.92	GT:AD:AF:DP:F1R2:F2R1:FAD:SB	0/1:75,0:0.013:75:0,0:75,0:75,0:0,75,0,0	0/1:0,80:0.988:80:0,0:0,80:0,80:0,0,3,77
+chr17	7687391	.	C	T	.	PASS	AS_FilterStatus=SITE;AS_SB_TABLE=0,49|0,53;DP=103;ECNT=1;GERMQ=21;MBQ=46,37;MFRL=438,420;MMQ=60,60;MPOS=50;POPAF=7.30;TLOD=189.80	GT:AD:AF:DP:F1R2:F2R1:FAD:SB	0/1:49,0:0.020:49:0,0:49,0:49,0:0,49,0,0	0/1:0,53:0.982:53:0,0:0,53:0,53:0,0,0,53

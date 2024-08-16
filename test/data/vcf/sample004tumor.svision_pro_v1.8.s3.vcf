@@ -1,0 +1,28 @@
+##fileformat=VCFv4.3
+##source=SVision v1.8
+##contig=<ID=chr17,length=7843138>
+##contig=<ID=chr18,length=8823530>
+##contig=<ID=hpv16,length=7904>
+##CHROM=<CHROM=XXX,Description="Chromosome ID">
+##POS=<POS=XXX,Description="Start position of the SV described in this region">
+##ID=<ID=XXX,Description="ID of the SV described in this region">
+##REF=<REF=N,Description="Ref's sequence in that region, default=N">
+##QUAL=<QUAL=XXX,Description="The SV quality of the SV described in this region">
+##ALT=<ID=SV,Description="Simple SVs">
+##ALT=<ID=CSV,Description="Complex or nested SVs">
+##FILTER=<ID=PASS,Description="Passed">
+##FILTER=<ID=POLY,Description="Polymorphic">
+##INFO=<ID=END,Number=1,Type=Integer,Description="End position of the SV described in this region">
+##INFO=<ID=IT,Number=1,Type=String,Description="Inheritype of the whole event ">
+##INFO=<ID=SVLEN,Number=1,Type=Integer,Description="Difference in length between REF and ALT alleles">
+##INFO=<ID=BKPS,Number=.,Type=String,Description="All breakpoints (length-start-end-insert) in this region.">
+##INFO=<ID=BKPSIT,Number=.,Type=String,Description="All breakpoints' inheritype in this region.">
+##INFO=<ID=SVTYPE,Number=1,Type=String,Description="CNN predicted SV type, containing INS, DEL, DUP, tDUP (tandem duplication) and INV">
+##INFO=<ID=SUPPORT,Number=1,Type=Integer,Description="SV support number in this region">
+##INFO=<ID=VAF,Number=1,Type=Float,Description="SV allele frequency in this region">
+##INFO=<ID=RNAMES,Number=.,Type=String,Description="SV support read names in this region">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=DR,Number=1,Type=String,Description="high-quality reference reads">
+##FORMAT=<ID=DV,Number=1,Type=String,Description="high-quality variant reads">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample004tumor_minimap2_mdtagged_sorted.bam	sample004normal_minimap2_mdtagged_sorted.bam
+chr17	7672389	0	N	CSV	.	PASS	END=7682491;SVLEN=20202;SVTYPE=INS+DEL;SUPPORT=60;VAF=0.5;BKPS=INS_10101_chr17_7672389_7672389_7672389,DEL_10101_chr17_7672390_7682491_7672390;BKPSIT=INS_NewCOMP,DEL_NewCOMP;RNAMES=m64012_552371_920803/4/ccs,m64012_848026_619817/8/ccs,m64012_586713_907196/41/ccs,m64012_456560_810844/24/ccs,m64012_350031_617436/43/ccs,m64012_567907_401281/55/ccs,m64012_434973_886859/49/ccs,m64012_986241_300113/22/ccs,m64012_871264_142774/23/ccs,m64012_626781_570260/57/ccs,m64012_391063_343672/37/ccs,m64012_233621_539945/42/ccs,m64012_483829_518238/33/ccs,m64012_313285_806380/9/ccs,m64012_618213_450283/51/ccs,m64012_726157_197258/29/ccs,m64012_179594_576996/38/ccs,m64012_809023_417227/48/ccs,m64012_422058_446038/11/ccs,m64012_238935_355249/56/ccs,m64012_328642_706755/46/ccs,m64012_241281_107742/30/ccs,m64012_658103_159598/20/ccs,m64012_677406_163449/27/ccs,m64012_482398_459250/36/ccs,m64012_884602_263549/18/ccs,m64012_758918_977561/52/ccs,m64012_323711_213456/6/ccs,m64012_704528_274266/32/ccs,m64012_371174_328321/50/ccs,m64012_215389_496467/7/ccs,m64012_954587_347365/1/ccs,m64012_152068_218105/10/ccs,m64012_394689_696854/17/ccs,m64012_182425_232555/19/ccs,m64012_921897_125830/14/ccs,m64012_879641_216234/53/ccs,m64012_973370_503995/16/ccs,m64012_741473_133800/34/ccs,m64012_735946_355713/40/ccs,m64012_308715_734696/5/ccs,m64012_725698_873110/25/ccs,m64012_169111_378478/39/ccs,m64012_526101_418571/21/ccs,m64012_970876_277720/31/ccs,m64012_397357_214020/2/ccs,m64012_337547_777783/60/ccs,m64012_625847_866303/12/ccs,m64012_995869_462950/59/ccs,m64012_220517_531682/58/ccs,m64012_975241_139901/47/ccs,m64012_316372_301646/15/ccs,m64012_357815_215866/44/ccs,m64012_955540_597367/3/ccs,m64012_508583_189218/54/ccs,m64012_514220_768029/26/ccs,m64012_309213_496586/28/ccs,m64012_360889_886053/45/ccs,m64012_178194_842388/13/ccs,m64012_172423_938034/35/ccs	GT:DR:DV	0/1:60:60	0/0:NA:NA

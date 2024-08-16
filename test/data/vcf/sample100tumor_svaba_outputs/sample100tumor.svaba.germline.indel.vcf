@@ -1,0 +1,39 @@
+##fileformat=VCFv4.2
+##fileDate=20240815
+##source=svaba(v1.2.0) run --reference-genome hg38_chr17_1-8M.fa --id-string sample100tumor --case-bam sample100tumor_fixmate_markeddup_recalibrated.bam --control-bam sample100normal_fixmate_markeddup_recalibrated.bam --threads 2 --hp --read-tracking 
+##reference=hg38_chr17_1-8M.fa
+##contig=<ID=chr17,length=7843138>
+##INFO=<ID=LOD,Number=1,Type=Float,Description="Log of the odds that variant is real vs artifact">
+##INFO=<ID=DBSNP,Number=0,Type=Flag,Description="Variant found in dbSNP">
+##INFO=<ID=BX,Number=.,Type=String,Description="Table of BX tag counts for supporting reads">
+##INFO=<ID=READNAMES,Number=.,Type=String,Description="IDs of ALT reads">
+##INFO=<ID=MAPQ,Number=1,Type=Integer,Description="Mapping quality (BWA-MEM) of the assembled contig">
+##INFO=<ID=SCTG,Number=1,Type=String,Description="Identifier for the contig assembled by svaba to make the indel call">
+##INFO=<ID=SPAN,Number=1,Type=Integer,Description="Size of the indel">
+##INFO=<ID=REPSEQ,Number=1,Type=String,Description="Repeat sequence near the variant">
+##INFO=<ID=PON,Number=1,Type=Integer,Description="Number of normal samples that have this indel present">
+##INFO=<ID=NM,Number=1,Type=Integer,Description="Number of mismatches of this alignment fragment to reference">
+##FILTER=<ID=REPVAR,Description="Multiple conflicting variants at a highly repetitive region">
+##FILTER=<ID=VLOWAF,Description="allelic fraction < 0.05">
+##FILTER=<ID=SINGLEBX,Description="Variant is supported by only a single BX tag (if run with 10X Genomics data)">
+##FILTER=<ID=PASS,Description="LOD score pass">
+##FILTER=<ID=SHORTALIGNMENT,Description="Matched (M) contig frag to left or right of indel < 20 bp">
+##FILTER=<ID=LOWMAPQ,Description="Assembly contig has less than MAPQ 10">
+##FILTER=<ID=MULTIMATCH,Description="Low MAPQ and this contig fragment maps well to multiple locations">
+##FILTER=<ID=LOWLOD,Description="LOD score is less than the cutoff">
+##FILTER=<ID=NONVAR,Description="0/0 is the most likely genotype">
+##FILTER=<ID=LOWAS,Description="Less than 80% of contig length is covered by a supporting read">
+##FORMAT=<ID=SL,Number=1,Type=Float,Description="Alignment-quality Scaled log-odds, where LO is LO * (MAPQ - 2*NM)/60">
+##FORMAT=<ID=LO,Number=1,Type=Float,Description="Log-odds that this variant is real vs artifact">
+##FORMAT=<ID=CR,Number=1,Type=Integer,Description="Number of cigar-supported reads for this variant">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Depth of coverage: Number of reads covering site.">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Most likely genotype">
+##FORMAT=<ID=AD,Number=1,Type=Integer,Description="Allele depth: Number of reads supporting the variant">
+##FORMAT=<ID=GQ,Number=1,Type=String,Description="Genotype quality (currently not supported. Always 0)">
+##FORMAT=<ID=LR,Number=1,Type=Float,Description="Log-odds that this variant is AF=0 vs AF>=0.5">
+##FORMAT=<ID=PL,Number=.,Type=Float,Description="Normalized likelihood of the current genotype">
+##FORMAT=<ID=SR,Number=1,Type=Integer,Description="Number of spanning reads for this variants">
+##SAMPLE=<ID=sample100tumor_fixmate_markeddup_recalibrated.bam>
+##SAMPLE=<ID=sample100normal_fixmate_markeddup_recalibrated.bam>
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample100normal_fixmate_markeddup_recalibrated.bam	sample100tumor_fixmate_markeddup_recalibrated.bam
+chr17	7685391	220334996	atgtcagacagtacattgaaggacagaagcccgacaaaaatgagcacataatgtatgattccccccttttttttgagacggagtttcgttcttgtcgccc	a	99	PASS	LOD=524.8;MAPQ=60;NM=0;SCTG=c_1_7668501_7693501_2C;SPAN=99	GT:AD:DP:GQ:PL:SR:CR:LR:LO	1/1:171:80:47.8:524.8,47.8,0:171:0:-524.8:524.8	1/1:167:88:46.6:511.6,46.6,0:167:0:-511.6:511.6

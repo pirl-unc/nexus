@@ -1,0 +1,1059 @@
+***************************** PARAMS ****************************
+    DBSNP Database file: 
+    Max cov to assemble: 100
+    Error correction mode: f
+    Subsample-rate for correction learning: 0.500000
+    ErrorRate: EXACT (0)
+    Num assembly rounds: 3
+    Num reads to sample: 2000000
+    Discordant read extract SD cutoff:  3.92
+    Discordant cluster std-dev cutoff:  3.92
+    Minimum number of reads for mate lookup 3
+    LOD cutoff (non-REF):            8
+    LOD cutoff (non-REF, at DBSNP):  6
+    LOD somatic cutoff:              6
+    LOD somatic cutoff (at DBSNP):   10
+    BWA-MEM params:
+      Gap open penalty: 32
+      Gap extension penalty: 1
+      Mismatch penalty: 18
+      Aligment bandwidth: 1000
+      Z-dropoff: 100
+      Clip 3 penalty: 5
+      Clip 5 penalty: 5
+      Reseed trigger: 1.5
+      Sequence match score: 2
+*****************************************************************
+
+BAM PARAMS FOR: n001--sample100normal_fixmate_markeddup_recalibrated.bam
+@@@ READ GROUP sample100normal Insert Size: 451.616(84.032) [0.025%,97.5%] [306,596], Mean Coverage: 159 Read Length: 150 Max MapQ:60
+ min_dscrd_size_for_variant 781
+BAM PARAMS FOR: t000--sample100tumor_fixmate_markeddup_recalibrated.bam
+@@@ READ GROUP A12345 Insert Size: 449.701(85.8305) [0.025%,97.5%] [302,600], Mean Coverage: 0 Read Length: 150 Max MapQ:60
+ min_dscrd_size_for_variant 786
+...min discordant-only variant size 786
+...found read length of 150. Min Overlap is 90
+...max read MAPQ detected: 60
+
+...calculated seed size for error rate of 0.000000 and read length 150 is 90
+...loading the human reference sequence for BWA
+...running on 321 chunks
+{"global" : {"duplicate" : false, "qcfail" : false}, "" : { "rules" : [{"isize" : [ 786,0], "rg" : "A12345"},{"isize" : [ 781,0], "rg" : "sample100normal"},{"rr" : true},{"ff" : true}, {"rf" : true}, {"ic" : true}, {"clip" : 5, "length" : 60}, {"ins" : true}, {"del" : true}, {"mapped": true , "mate_mapped" : false}, {"mate_mapped" : true, "mapped" : false}]}}
+----------ReadFilterCollection-------------
+--Include Region: WHOLE GENOME
+  Rule: Read Group: A12345 -- isize:NOT [0,786] -- Flag OFF: duplicate,qcfail
+  Rule: Read Group: sample100normal -- isize:NOT [0,781] -- Flag OFF: duplicate,qcfail
+  Rule: Flag ON: rr -- Flag OFF: duplicate,qcfail
+  Rule: Flag ON: ff -- Flag OFF: duplicate,qcfail
+  Rule: Flag ON: rf -- Flag OFF: duplicate,qcfail
+  Rule: Flag ON: ic -- Flag OFF: duplicate,qcfail
+  Rule: length:[60,MAX] -- clip:[5,MAX] -- Flag OFF: duplicate,qcfail
+  Rule: ins:[1,MAX] -- Flag OFF: duplicate,qcfail
+  Rule: del:[1,MAX] -- Flag OFF: duplicate,qcfail
+  Rule: Flag ON: mapped -- Flag OFF: duplicate,qcfail,mate_mapped
+  Rule: Flag ON: mate_mapped -- Flag OFF: duplicate,qcfail,mapped
+
+------------------------------------------
+--- Loaded non-read data. Starting detection pipeline
+Running region chr17:1-25,001(*) on thread 139896461391616
+Running region chr17:1-25,001(*) on thread 139896461391616
+Running region chr17:24,501-49,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+Running region chr17:49,001-74,001(*) on thread 139896461391616
+	Running region chr17:73,501-98,501(*) on thre
+unning region chr17:73,501-98,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+RRunning region chr17:122,501-147,501(*) on thread 139896452998912	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+read 139896452998912
+	Total of 0 bad mate regions for this thread
+
+RRunning region chr17:171,501-196,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+read 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:196,001-221,001(*) on th
+unning region chr17:196,001-221,001(*) on thread 139896452998912
+	Running region chr17:220,501-245,501(*) on th
+Running region chr17:245,001-270,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+read 139896452998912
+	Total of 0 bad mate regions for this thread
+
+RRunning region chr17:294,001-319,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+read 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:343,001-368,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+read 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:392,001-417,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+read 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:416,501-441,501(*) on th
+Running region chr17:441,001-466,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+read 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:490,001-515,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+read 139896452998912
+	Running region chr17:514,501-539,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+Running region chr17:539,001-564,001(*) on thread 139896452998912
+	Running region chr17:563,501-588,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:588,001-613,001(*) on th
+Running region chr17:612,501-637,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+read 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:637,001-662,001(*) on thread 139896452998912
+	Running region chr17:661,501-686,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+Running region chr17:686,001-711,001(*) on thread 139896452998912
+	Running region chr17:710,501-735,501(*) on th
+unning region chr17:710,501-735,501(*) on thread 139896461391616
+	Running region chr17:735,001-760,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:784,001-809,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+read 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+Running region chr17:808,501-833,501(*) on thread 139896452998912
+	Running region chr17:833,001-858,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:882,001-907,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+read 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:906,501-931,501(*) on th
+Running region chr17:931,001-956,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+read 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:980,001-1,005,001(*) on thread 13989645299891	Total of 0 bad mate regions for this thread
+thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+Running region chr17:1,004,501-1,029,501(*) on thread 139896452998912
+	Running region chr17:1,029,001-1,054,001(*) o
+Running region chr17:1,053,501-1,078,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:1,078,001-1,103,001(*) on thread 139896461391616
+	Running region chr17:1,102,501-1,127,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:1,127,001-1,152,001(*) o
+Running region chr17:1,151,501-1,176,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:1,176,001-1,201,001(*) o
+Running region chr17:1,200,501-1,225,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:1,225,001-1,250,001(*) o
+Running region chr17:1,249,501-1,274,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:1,298,501-1,323,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:1,323,001-1,348,001(*) o
+Running region chr17:1,347,501-1,372,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:1,372,001-1,397,001(*) o
+Running region chr17:1,396,501-1,421,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:1,421,001-1,446,001(*) o
+unning region chr17:1,421,001-1,446,001(*) on thread 139896452998912
+	Running region chr17:1,445,501-1,470,501(*) o
+Running region chr17:1,470,001-1,495,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Running region chr17:1,494,501-1,519,501(*) o
+Running region chr17:1,519,001-1,544,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+Running region chr17:1,543,501-1,568,501(*) on thread 139896452998912
+	Running region chr17:1,568,001-1,593,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:1,592,501-1,617,501(*) o
+Running region chr17:1,617,001-1,642,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Running region chr17:1,641,501-1,666,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:1,690,501-1,715,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:1,715,001-1,740,001(*) o
+Running region chr17:1,739,501-1,764,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:1,788,501-1,813,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:1,837,501-1,862,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:1,862,001-1,887,001(*) o
+Running region chr17:1,886,501-1,911,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:1,911,001-1,936,001(*) o
+Running region chr17:1,935,501-1,960,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Running region chr17:1,960,001-1,985,001(*) o
+unning region chr17:1,960,001-1,985,001(*) on thread 139896461391616
+	Running region chr17:1,984,501-2,009,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:2,033,501-2,058,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:2,058,001-2,083,001(*) o
+Running region chr17:2,082,501-2,107,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:2,131,501-2,156,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:2,156,001-2,181,001(*) o
+Running region chr17:2,180,501-2,205,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:2,229,501-2,254,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:2,254,001-2,279,001(*) o
+Running region chr17:2,278,501-2,303,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:2,327,501-2,352,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:2,352,001-2,377,001(*) o
+unning region chr17:2,352,001-2,377,001(*) on thread 139896452998912
+	Running region chr17:2,376,501-2,401,501(*) o
+unning region chr17:2,376,501-2,401,501(*) on thread 139896461391616
+	Running region chr17:2,401,001-2,426,001(*) o
+unning region chr17:2,401,001-2,426,001(*) on thread 139896452998912
+	Running region chr17:2,425,501-2,450,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:2,450,001-2,475,001(*) o
+Running region chr17:2,474,501-2,499,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:2,499,001-2,524,001(*) o
+Running region chr17:2,523,501-2,548,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:2,548,001-2,573,001(*) o
+unning region chr17:2,548,001-2,573,001(*) on thread 139896452998912
+	Running region chr17:2,572,501-2,597,501(*) o
+unning region chr17:2,572,501-2,597,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:2,597,001-2,622,001(*) on thread 139896452998912
+	Running region chr17:2,621,501-2,646,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:2,646,001-2,671,001(*) o
+Running region chr17:2,670,501-2,695,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Running region chr17:2,695,001-2,720,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:2,719,501-2,744,501(*) o
+Running region chr17:2,744,001-2,769,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+RRunning region chr17:2,793,001-2,818,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:2,842,001-2,867,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:2,891,001-2,916,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+RRunning region chr17:2,940,001-2,965,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:2,989,001-3,014,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:3,038,001-3,063,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+Running region chr17:3,062,501-3,087,501(*) on thread 139896452998912
+	Running region chr17:3,087,001-3,112,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+Running region chr17:3,111,501-3,136,501(*) on thread 139896452998912
+	Running region chr17:3,136,001-3,161,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:3,160,501-3,185,501(*) o
+unning region chr17:3,160,501-3,185,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+RRunning region chr17:3,209,501-3,234,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:3,234,001-3,259,001(*) o
+Running region chr17:3,258,501-3,283,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:3,307,501-3,332,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:3,356,501-3,381,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:3,381,001-3,406,001(*) on thread 139896452998912
+	Running region chr17:3,405,501-3,430,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:3,430,001-3,455,001(*) o
+Running region chr17:3,454,501-3,479,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:3,503,501-3,528,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:3,552,501-3,577,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Running region chr17:3,577,001-3,602,001(*) o
+Running region chr17:3,601,501-3,626,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Running region chr17:3,626,001-3,651,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:3,650,501-3,675,501(*) o
+Running region chr17:3,675,001-3,700,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:3,724,001-3,749,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:3,748,501-3,773,501(*) o
+Running region chr17:3,773,001-3,798,001(*) on thread 139896452998912
+Running region chr17:3,773,001-3,798,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:3,822,001-3,847,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:3,871,001-3,896,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:3,920,001-3,945,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+Running region chr17:3,944,501-3,969,501(*) on thread 139896461391616
+	Running region chr17:3,969,001-3,994,001(*) o
+Running region chr17:3,993,501-4,018,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Running region chr17:4,018,001-4,043,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+Running region chr17:4,042,501-4,067,501(*) on thread 139896461391616
+	Running region chr17:4,067,001-4,092,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:4,091,501-4,116,501(*) o
+Running region chr17:4,116,001-4,141,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Running region chr17:4,140,501-4,165,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:4,165,001-4,190,001(*) oRan chr17:  4,140,501-  4,165,501 | T:     2 N:     0 C:     0 | R: 14% M: 85% T:  0% C:  0% A:  0% P:  0% | CPU:    0m00s Wall:    0m00s
+Running region chr17:4,189,501-4,214,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Running region chr17:4,214,001-4,239,001(*) o
+Running region chr17:4,238,501-4,263,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:4,263,001-4,288,001(*) on thread 139896452998912
+	Running region chr17:4,287,501-4,312,501(*) o
+Running region chr17:4,312,001-4,337,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:4,336,501-4,361,501(*) on thread 139896461391616
+	Running region chr17:4,361,001-4,386,001(*) o
+unning region chr17:4,361,001-4,386,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:4,385,501-4,410,501(*) on thread 139896461391616
+	Running region chr17:4,410,001-4,435,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:4,434,501-4,459,501(*) o
+Running region chr17:4,459,001-4,484,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:4,483,501-4,508,501(*) on thread 139896461391616
+	Running region chr17:4,508,001-4,533,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:4,532,501-4,557,501(*) o
+Running region chr17:4,557,001-4,582,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:4,581,501-4,606,501(*) on thread 139896461391616
+	Running region chr17:4,606,001-4,631,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:4,630,501-4,655,501(*) o
+Running region chr17:4,655,001-4,680,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:4,679,501-4,704,501(*) on thread 139896461391616
+	Running region chr17:4,704,001-4,729,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:4,728,501-4,753,501(*) o
+Running region chr17:4,753,001-4,778,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:4,777,501-4,802,501(*) on thread 139896461391616
+	Running region chr17:4,802,001-4,827,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:4,826,501-4,851,501(*) o
+Running region chr17:4,851,001-4,876,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:4,900,001-4,925,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:4,949,001-4,974,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:4,998,001-5,023,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:5,047,001-5,072,001(*) on thread 139896461391616
+Running region chr17:5,047,001-5,072,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:5,096,001-5,121,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:5,145,001-5,170,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+	Total of 0 bad mate regions for this thread
+
+RRunning region chr17:5,194,001-5,219,001(*) on thread 139896461391616
+Running region chr17:5,194,001-5,219,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:5,243,001-5,268,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:5,292,001-5,317,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:5,341,001-5,366,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+	Total of 0 bad mate regions for this thread
+
+RRunning region chr17:5,390,001-5,415,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:5,439,001-5,464,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:5,488,001-5,513,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:5,537,001-5,562,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:5,586,001-5,611,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:5,635,001-5,660,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:5,684,001-5,709,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:5,708,501-5,733,501(*) o
+Running region chr17:5,733,001-5,758,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:5,757,501-5,782,501(*) on thread 139896461391616
+	Running region chr17:5,782,001-5,807,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:5,806,501-5,831,501(*) o
+
+unning region chr17:5,806,501-5,831,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:5,855,501-5,880,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:5,880,001-5,905,001(*) on thread 139896452998912
+	Running region chr17:5,904,501-5,929,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:5,929,001-5,954,001(*) o
+Running region chr17:5,953,501-5,978,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:5,978,001-6,003,001(*) on thread 139896452998912
+	Running region chr17:6,002,501-6,027,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,027,001-6,052,001(*) o
+Running region chr17:6,051,501-6,076,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+	Running region chr17:6,076,001-6,101,001(*) on thread 139896452998912
+	Running region chr17:6,100,501-6,125,501(*) o
+unning region chr17:6,100,501-6,125,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,125,001-6,150,001(*) on thread 139896452998912
+	Running region chr17:6,149,501-6,174,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,174,001-6,199,001(*) o
+Running region chr17:6,198,501-6,223,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,223,001-6,248,001(*) on thread 139896452998912
+	Running region chr17:6,247,501-6,272,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,272,001-6,297,001(*) o
+Running region chr17:6,296,501-6,321,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+RRunning region chr17:6,345,501-6,370,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,370,001-6,395,001(*) o
+Running region chr17:6,394,501-6,419,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+	Running region chr17:6,419,001-6,444,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896461391616
+
+RRunning region chr17:6,468,001-6,493,001(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+n thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+
+RRunning region chr17:6,517,001-6,542,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,541,501-6,566,501(*) o
+Running region chr17:6,566,001-6,591,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,590,501-6,615,501(*) on thread 139896461391616
+	Running region chr17:6,615,001-6,640,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,639,501-6,664,501(*) o
+Running region chr17:6,664,001-6,689,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,688,501-6,713,501(*) on thread 139896461391616
+	Running region chr17:6,713,001-6,738,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,737,501-6,762,501(*) o
+Running region chr17:6,762,001-6,787,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,786,501-6,811,501(*) on thread 139896461391616
+	Running region chr17:6,811,001-6,836,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,835,501-6,860,501(*) o
+Running region chr17:6,860,001-6,885,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,884,501-6,909,501(*) on thread 139896461391616
+	Running region chr17:6,909,001-6,934,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,933,501-6,958,501(*) o
+Running region chr17:6,958,001-6,983,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:6,982,501-7,007,501(*) on thread 139896461391616
+	Running region chr17:7,007,001-7,032,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,031,501-7,056,501(*) o
+Running region chr17:7,056,001-7,081,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,080,501-7,105,501(*) on thread 139896461391616
+	Running region chr17:7,105,001-7,130,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,129,501-7,154,501(*) o
+Running region chr17:7,154,001-7,179,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,178,501-7,203,501(*) on thread 139896461391616
+	Running region chr17:7,203,001-7,228,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,227,501-7,252,501(*) o
+Running region chr17:7,252,001-7,277,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,276,501-7,301,501(*) on thread 139896461391616
+	Running region chr17:7,301,001-7,326,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,325,501-7,350,501(*) o
+Running region chr17:7,350,001-7,375,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,374,501-7,399,501(*) on thread 139896461391616
+	Running region chr17:7,399,001-7,424,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,423,501-7,448,501(*) o
+Running region chr17:7,448,001-7,473,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,472,501-7,497,501(*) on thread 139896461391616
+	Running region chr17:7,497,001-7,522,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,521,501-7,546,501(*) o
+Running region chr17:7,546,001-7,571,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,570,501-7,595,501(*) on thread 139896461391616
+	Running region chr17:7,595,001-7,620,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,619,501-7,644,501(*) o
+Running region chr17:7,644,001-7,669,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Total of 0 bad mate regions for this thread
+n thread 139896452998912
+
+Running region chr17:7,668,501-7,693,501(*) on thread 139896461391616
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,693,001-7,718,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,717,501-7,742,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,742,001-7,767,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,766,501-7,791,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,791,001-7,816,001(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,815,501-7,840,501(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+Running region chr17:7,840,001-7,843,138(*) on thread 139896452998912
+	Total of 0 bad mate regions for this thread
+
+	Total of 0 bad mate regions for this thread
+...BFC attempted correct 1075 train: 20274 kcov: 144.577744 kmer: 17
+...assembled 6 contigs for c_1_7668501_7693501
+Ran chr17:  7,668,501-  7,693,501 | T:  1002 N:   208 C:     6 | R: 27% M:  0% T: 28% C:  9% A: 34% P:  0% | CPU:    0m01s Wall:    0m02s

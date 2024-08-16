@@ -1,0 +1,32 @@
+##fileformat=VCFv4.2
+##source=cuteSV-2.1.1
+##fileDate=2024-08-13 17:27:44 2-UTC
+##contig=<ID=chr17,length=7843138>
+##contig=<ID=chr18,length=8823530>
+##contig=<ID=hpv16,length=7904>
+##ALT=<ID=INS,Description="Insertion of novel sequence relative to the reference">
+##ALT=<ID=DEL,Description="Deletion relative to the reference">
+##ALT=<ID=DUP,Description="Region of elevated copy number relative to the reference">
+##ALT=<ID=INV,Description="Inversion of reference sequence">
+##ALT=<ID=BND,Description="Breakend of translocation">
+##INFO=<ID=PRECISE,Number=0,Type=Flag,Description="Precise structural variant">
+##INFO=<ID=IMPRECISE,Number=0,Type=Flag,Description="Imprecise structural variant">
+##INFO=<ID=SVTYPE,Number=1,Type=String,Description="Type of structural variant">
+##INFO=<ID=SVLEN,Number=1,Type=Integer,Description="Difference in length between REF and ALT alleles">
+##INFO=<ID=CHR2,Number=1,Type=String,Description="Chromosome for END coordinate in case of a translocation">
+##INFO=<ID=END,Number=1,Type=Integer,Description="End position of the variant described in this record">
+##INFO=<ID=CIPOS,Number=2,Type=Integer,Description="Confidence interval around POS for imprecise variants">
+##INFO=<ID=CILEN,Number=2,Type=Integer,Description="Confidence interval around inserted/deleted material between breakends">
+##INFO=<ID=RE,Number=1,Type=Integer,Description="Number of read support this record">
+##INFO=<ID=STRAND,Number=A,Type=String,Description="Strand orientation of the adjacency in BEDPE format (DEL:+-, DUP:-+, INV:++/--)">
+##INFO=<ID=RNAMES,Number=.,Type=String,Description="Supporting read names of SVs (comma separated)">
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency.">
+##FILTER=<ID=q5,Description="Quality below 5">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=DR,Number=1,Type=Integer,Description="# High-quality reference reads">
+##FORMAT=<ID=DV,Number=1,Type=Integer,Description="# High-quality variant reads">
+##FORMAT=<ID=PL,Number=G,Type=Integer,Description="# Phred-scaled genotype likelihoods rounded to the closest integer">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="# Genotype quality">
+##CommandLine="cuteSV --threads 2 --sample sample003tumor --max_cluster_bias_INS 1000 --diff_ratio_merging_INS 0.9 --max_cluster_bias_DEL 1000 --diff_ratio_merging_DEL 0.5 --min_support 3 --min_mapq 20 --min_size 30 --max_size -1 --report_readid --genotype sample003tumor_minimap2_mdtagged_sorted.bam hg38_chr17_1-8M_chr18_1-9M_hpv16.fa.gz sample003tumor_cutesv.vcf sample003tumor_cutesv_output/"
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample003tumor
+chr17	7677491	cuteSV.BND.0	A	[hpv16:1999[N	126.4	PASS	PRECISE;SVTYPE=BND;RE=60;RNAMES=m64012_789501_744065/7/ccs,m64012_955227_443045/26/ccs,m64012_685117_306896/34/ccs,m64012_910783_926515/15/ccs,m64012_183657_124263/55/ccs,m64012_761323_462864/36/ccs,m64012_658889_289696/35/ccs,m64012_162663_738614/50/ccs,m64012_143596_561322/16/ccs,m64012_527788_138992/17/ccs,m64012_418885_135451/3/ccs,m64012_214207_280090/5/ccs,m64012_532817_262167/12/ccs,m64012_614509_699676/27/ccs,m64012_744013_949448/59/ccs,m64012_981786_217144/57/ccs,m64012_980831_521616/19/ccs,m64012_288686_796034/22/ccs,m64012_620380_339598/44/ccs,m64012_778153_370156/14/ccs,m64012_452597_788936/25/ccs,m64012_865634_422023/18/ccs,m64012_909105_478301/52/ccs,m64012_929400_670544/28/ccs,m64012_937472_703714/29/ccs,m64012_258707_732331/45/ccs,m64012_904346_487615/20/ccs,m64012_933758_169454/56/ccs,m64012_979880_125534/31/ccs,m64012_325037_897695/58/ccs,m64012_120798_704504/9/ccs,m64012_562171_426137/32/ccs,m64012_166200_957928/51/ccs,m64012_845995_961602/21/ccs,m64012_669318_761924/33/ccs,m64012_724739_723621/1/ccs,m64012_541373_309559/23/ccs,m64012_525808_214289/37/ccs,m64012_722436_922939/46/ccs,m64012_270544_626234/49/ccs,m64012_508703_685460/10/ccs,m64012_932928_107254/48/ccs,m64012_542097_313235/13/ccs,m64012_954293_177021/43/ccs,m64012_370179_676430/41/ccs,m64012_570093_664356/54/ccs,m64012_285088_735236/24/ccs,m64012_604968_933608/2/ccs,m64012_488803_937413/6/ccs,m64012_238658_907358/47/ccs,m64012_505158_318235/42/ccs,m64012_502896_311320/30/ccs,m64012_478588_715947/53/ccs,m64012_733724_570026/4/ccs,m64012_412639_200367/11/ccs,m64012_669790_184686/60/ccs,m64012_743835_700368/8/ccs,m64012_852880_709382/40/ccs,m64012_313450_506553/39/ccs,m64012_835996_363958/38/ccs;AF=0.4	GT:DR:DV:PL:GQ	0/1:90:60:126,0,317:126

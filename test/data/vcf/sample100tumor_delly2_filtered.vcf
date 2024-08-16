@@ -1,0 +1,55 @@
+##fileformat=VCFv4.2
+##FILTER=<ID=PASS,Description="All filters passed">
+##fileDate=20240815
+##ALT=<ID=DEL,Description="Deletion">
+##ALT=<ID=DUP,Description="Duplication">
+##ALT=<ID=INV,Description="Inversion">
+##ALT=<ID=BND,Description="Translocation">
+##ALT=<ID=INS,Description="Insertion">
+##FILTER=<ID=LowQual,Description="Poor quality and insufficient number of PEs and SRs.">
+##INFO=<ID=CIEND,Number=2,Type=Integer,Description="PE confidence interval around END">
+##INFO=<ID=CIPOS,Number=2,Type=Integer,Description="PE confidence interval around POS">
+##INFO=<ID=CHR2,Number=1,Type=String,Description="Chromosome for POS2 coordinate in case of an inter-chromosomal translocation">
+##INFO=<ID=POS2,Number=1,Type=Integer,Description="Genomic position for CHR2 in case of an inter-chromosomal translocation">
+##INFO=<ID=END,Number=1,Type=Integer,Description="End position of the structural variant">
+##INFO=<ID=PE,Number=1,Type=Integer,Description="Paired-end support of the structural variant">
+##INFO=<ID=MAPQ,Number=1,Type=Integer,Description="Median mapping quality of paired-ends">
+##INFO=<ID=SRMAPQ,Number=1,Type=Integer,Description="Median mapping quality of split-reads">
+##INFO=<ID=SR,Number=1,Type=Integer,Description="Split-read support">
+##INFO=<ID=SRQ,Number=1,Type=Float,Description="Split-read consensus alignment quality">
+##INFO=<ID=CONSENSUS,Number=1,Type=String,Description="Split-read consensus sequence">
+##INFO=<ID=CONSBP,Number=1,Type=Integer,Description="Consensus SV breakpoint position">
+##INFO=<ID=CE,Number=1,Type=Float,Description="Consensus sequence entropy">
+##INFO=<ID=CT,Number=1,Type=String,Description="Paired-end signature induced connection type">
+##INFO=<ID=SVLEN,Number=1,Type=Integer,Description="Insertion length for SVTYPE=INS.">
+##INFO=<ID=IMPRECISE,Number=0,Type=Flag,Description="Imprecise structural variation">
+##INFO=<ID=PRECISE,Number=0,Type=Flag,Description="Precise structural variation">
+##INFO=<ID=SVTYPE,Number=1,Type=String,Description="Type of structural variant">
+##INFO=<ID=SVMETHOD,Number=1,Type=String,Description="Type of approach used to detect SV">
+##INFO=<ID=INSLEN,Number=1,Type=Integer,Description="Predicted length of the insertion">
+##INFO=<ID=HOMLEN,Number=1,Type=Integer,Description="Predicted microhomology length using a max. edit distance of 2">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GL,Number=G,Type=Float,Description="Log10-scaled genotype likelihoods for RR,RA,AA genotypes">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=FT,Number=1,Type=String,Description="Per-sample genotype filter">
+##FORMAT=<ID=RC,Number=1,Type=Integer,Description="Raw high-quality read counts or base counts for the SV">
+##FORMAT=<ID=RCL,Number=1,Type=Integer,Description="Raw high-quality read counts or base counts for the left control region">
+##FORMAT=<ID=RCR,Number=1,Type=Integer,Description="Raw high-quality read counts or base counts for the right control region">
+##FORMAT=<ID=RDCN,Number=1,Type=Integer,Description="Read-depth based copy-number estimate for autosomal sites">
+##FORMAT=<ID=DR,Number=1,Type=Integer,Description="# high-quality reference pairs">
+##FORMAT=<ID=DV,Number=1,Type=Integer,Description="# high-quality variant pairs">
+##FORMAT=<ID=RR,Number=1,Type=Integer,Description="# high-quality reference junction reads">
+##FORMAT=<ID=RV,Number=1,Type=Integer,Description="# high-quality variant junction reads">
+##reference=hg38_chr17_1-8M_chr18_1-9M_hpv16.fa.gz
+##contig=<ID=chr17,length=7843138>
+##contig=<ID=chr18,length=8823530>
+##INFO=<ID=RDRATIO,Number=1,Type=Float,Description="Read-depth ratio of tumor vs. normal.">
+##INFO=<ID=SOMATIC,Number=0,Type=Flag,Description="Somatic structural variant.">
+##bcftools_viewVersion=1.20+htslib-1.20
+##bcftools_viewCommand=view sample100tumor_delly2_filtered.bcf; Date=Thu Aug 15 18:01:11 2024
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample100tumor	sample100normal
+chr17	7675193	INS00000000	G	GTCATACGTACGATACGATAGCTAGCTACGATGCATATAATCAGCTACAGATCACTAGCTC	1200	PASS	PRECISE;SVTYPE=INS;SVMETHOD=EMBL.DELLYv1.2.6;END=7675193;SVLEN=60;PE=0;MAPQ=0;CT=NtoN;CIPOS=-4,4;CIEND=-4,4;SRMAPQ=60;INSLEN=60;HOMLEN=3;SR=20;SRQ=1;CONSENSUS=GCGCGGACGCGGGTGCCGGGCGGGGGTGTGGAATCAACCCACAGCTGCACAGGGCAGGTCATACGTACGATACGATAGCTAGCTACGATGCATATAATCAGCTACAGATCACTAGCTCTCTTGGCCAGTTGGCAAAACATCTTGTTGAGGGCAGGGGAGTACTGTAGGAAGAGGAAGGA;CE=1.96384;CONSBP=58;RDRATIO=1;SOMATIC	GT:GL:GQ:FT:RCL:RC:RCR:RDCN:DR:DV:RR:RV	1/1:-929.981,-74.6362,0:10000:PASS:83875:164626:80751:2:0:0:0:248	0/0:0,-39.4335,-602.599:10000:PASS:81926:161790:79864:2:0:0:131:0
+chr17	7676194	INS00000001	C	CACGTACAGCTACAGCTACGACTAGCATATAGCTACAGCTACGATCACGTACATAGATAAA	960	PASS	PRECISE;SVTYPE=INS;SVMETHOD=EMBL.DELLYv1.2.6;END=7676194;SVLEN=60;PE=0;MAPQ=0;CT=NtoN;CIPOS=-1,1;CIEND=-1,1;SRMAPQ=60;INSLEN=60;HOMLEN=0;SR=16;SRQ=1;CONSENSUS=TGCAGGGGCCACGGGGGGAGCAGCCTCTGGCATTCTGGGAGCTTCATCTGGACCACGTACAGCTACAGCTACGACTAGCATATAGCTACAGCTACGATCACGTACATAGATAAATGGGTCTTCAGTGAACCATTGTTCAATATCGTCCGGGGACAGCATCAAATCATCCATT;CE=1.99743;CONSBP=54;RDRATIO=1;SOMATIC	GT:GL:GQ:FT:RCL:RC:RCR:RDCN:DR:DV:RR:RV	1/1:-922.481,-74.0343,0:10000:PASS:78815:155164:76349:2:0:0:0:246	0/0:0,-45.4539,-694.598:10000:PASS:83249:169995:86746:2:0:0:151:0
+chr17	7677193	INS00000002	C	CAGCTAGCGCTTTTTTGTAGAGATATATATATAGGGGGCCCCGATCAGTAATCGTAACTAT	1200	PASS	PRECISE;SVTYPE=INS;SVMETHOD=EMBL.DELLYv1.2.6;END=7677193;SVLEN=60;PE=0;MAPQ=0;CT=NtoN;CIPOS=-1,1;CIEND=-1,1;SRMAPQ=60;INSLEN=60;HOMLEN=0;SR=20;SRQ=1;CONSENSUS=CATGTTGGCCAGGCTGGTCTCGAACTCCTTACTTCAGGTGATCGGCCCGCCTCAGCCTCAGCTAGCGCTTTTTTGTAGAGATATATATATAGGGGGCCCCGATCAGTAATCGTAACTATCTAAAGTGCCAAGATTACAGGTGTGAGCTACCGTGCCCTGCTCCCACCTCCTG;CE=1.99033;CONSBP=59;RDRATIO=1;SOMATIC	GT:GL:GQ:FT:RCL:RC:RCR:RDCN:DR:DV:RR:RV	1/1:-943.382,-75.2391,0:10000:PASS:72301:151113:78812:2:0:0:0:250	0/0:0,-36.1223,-551.999:10000:PASS:79801:158700:78899:2:0:0:120:0
+chr17	7683193	DEL00000003	CCGGGTTCAAGCAATTCTGCCTCAGCCTCCTGAGTAGCTGGGATTACAGGCAGGTGCCACCACACCGGCTGATTTTTGTATTTTTAGTAGAGATGGCGTT	C	1200	PASS	PRECISE;SVTYPE=DEL;SVMETHOD=EMBL.DELLYv1.2.6;END=7683292;PE=0;MAPQ=0;CT=3to5;CIPOS=-2,2;CIEND=-2,2;SRMAPQ=60;INSLEN=0;HOMLEN=1;SR=20;SRQ=1;CONSENSUS=TCAGGTGCCCACCACCATGCCCAGCTAATTTTTTTTTTTTTTTGAGATGAAGTCTTGCTCTGTCGCCCAGGCTGGAGTGCAGTGGCACGATCTTGGCTCACTGCAACCTCTGCCTCCTCACCACATTGGTCAGGCTGGTCTTGAACTCCTGACCTCGTGATCTGCCCACCTCGG;CE=1.95367;CONSBP=117;RDRATIO=0.00758908;SOMATIC	GT:GL:GQ:FT:RCL:RC:RCR:RDCN:DR:DV:RR:RV	1/1:-452.69,-36.415,0:10000:PASS:4941:79:5627:0:0:0:0:121	0/0:0,-40.3366,-616.399:10000:PASS:9264:16965:7959:2:0:0:134:0
+chr17	7684292	DEL00000004	TGCTAGAGGACTGCTTGAGCCCAGGGGTTCGAGGCTGCAGTAAGCCTTGATTGTGCCATTGTACTCTAGCCTGGGCAACAGTGTGAGTCCCTGTCTCAAA	T	1200	PASS	PRECISE;SVTYPE=DEL;SVMETHOD=EMBL.DELLYv1.2.6;END=7684391;PE=0;MAPQ=0;CT=3to5;CIPOS=-1,1;CIEND=-1,1;SRMAPQ=60;INSLEN=0;HOMLEN=0;SR=20;SRQ=1;CONSENSUS=AAAGCTTGAGGCCAGCAGTTTGAGACCAGCCTGGGCAACATAGTGAGATCCTGTCAATACAAAAAAATAAAATAGTTAGCTGGGTGTGGTGGAGTAATCCCAGCTACTCGTGAGGCTAATTAACAAAGAAAAAAAGAAAATAGCACTAAAATGGTAGCCCTATACTCCAACTG;CE=1.93649;CONSBP=117;RDRATIO=0.00750681;SOMATIC	GT:GL:GQ:FT:RCL:RC:RCR:RDCN:DR:DV:RR:RV	1/1:-497.791,-39.4259,0:10000:PASS:5413:80:5211:0:0:0:0:131	0/0:0,-42.4437,-648.598:10000:PASS:8474:17445:8917:2:0:0:141:0

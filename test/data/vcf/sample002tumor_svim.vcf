@@ -1,0 +1,34 @@
+##fileformat=VCFv4.2
+##fileDate=2024-08-15|03:11:10PM|UTC|+0000
+##source=SVIM-v2.0.0
+##contig=<ID=chr17,length=7843138>
+##contig=<ID=chr18,length=8823530>
+##contig=<ID=hpv16,length=7904>
+##ALT=<ID=DEL,Description="Deletion">
+##ALT=<ID=INV,Description="Inversion">
+##ALT=<ID=DUP,Description="Duplication">
+##ALT=<ID=DUP:TANDEM,Description="Tandem Duplication">
+##ALT=<ID=DUP:INT,Description="Interspersed Duplication">
+##ALT=<ID=INS,Description="Insertion">
+##ALT=<ID=BND,Description="Breakend">
+##INFO=<ID=SVTYPE,Number=1,Type=String,Description="Type of structural variant">
+##INFO=<ID=CUTPASTE,Number=0,Type=Flag,Description="Genomic origin of interspersed duplication seems to be deleted">
+##INFO=<ID=END,Number=1,Type=Integer,Description="End position of the variant described in this record">
+##INFO=<ID=SVLEN,Number=1,Type=Integer,Description="Difference in length between REF and ALT alleles">
+##INFO=<ID=SUPPORT,Number=1,Type=Integer,Description="Number of reads supporting this variant">
+##INFO=<ID=STD_SPAN,Number=1,Type=Float,Description="Standard deviation in span of merged SV signatures">
+##INFO=<ID=STD_POS,Number=1,Type=Float,Description="Standard deviation in position of merged SV signatures">
+##INFO=<ID=STD_POS1,Number=1,Type=Float,Description="Standard deviation of breakend 1 position">
+##INFO=<ID=STD_POS2,Number=1,Type=Float,Description="Standard deviation of breakend 2 position">
+##INFO=<ID=SEQS,Number=.,Type=String,Description="Insertion sequences from all supporting reads">
+##INFO=<ID=READS,Number=.,Type=String,Description="Names of all supporting reads">
+##INFO=<ID=ZMWS,Number=1,Type=Integer,Description="Number of supporting ZMWs (PacBio only)">
+##FILTER=<ID=hom_ref,Description="Genotype is homozygous reference">
+##FILTER=<ID=not_fully_covered,Description="Tandem duplication is not fully covered by a single read">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read depth">
+##FORMAT=<ID=AD,Number=R,Type=Integer,Description="Read depth for each allele">
+##FORMAT=<ID=CN,Number=1,Type=Integer,Description="Copy number of tandem duplication (e.g. 2 for one additional copy)">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample002tumor
+chr17	4341674	svim.BND.1	N	N[chr17:7677491[	75	PASS	SVTYPE=BND;SUPPORT=60;STD_POS1=.;STD_POS2=.;READS=m64012_349888_395642/1/ccs,m64012_865060_485665/2/ccs,m64012_692543_387879/3/ccs,m64012_431192_655682/4/ccs,m64012_291017_873487/5/ccs,m64012_140597_869430/6/ccs,m64012_156943_543026/7/ccs,m64012_131488_859234/8/ccs,m64012_744898_121762/9/ccs,m64012_580982_102197/10/ccs,m64012_799604_356990/11/ccs,m64012_394242_591181/12/ccs,m64012_214959_927740/13/ccs,m64012_391832_256604/14/ccs,m64012_157225_842828/15/ccs,m64012_376957_579958/16/ccs,m64012_715933_451254/17/ccs,m64012_862060_927442/18/ccs,m64012_326556_461205/19/ccs,m64012_957718_272299/20/ccs,m64012_432145_697243/21/ccs,m64012_482519_275240/22/ccs,m64012_570978_959890/23/ccs,m64012_911017_956571/24/ccs,m64012_596692_218063/25/ccs,m64012_795939_270160/26/ccs,m64012_136863_781081/27/ccs,m64012_920337_210320/28/ccs,m64012_604397_687480/29/ccs,m64012_419384_906760/30/ccs,m64012_830895_607157/31/ccs,m64012_603131_887105/32/ccs,m64012_594565_734778/33/ccs,m64012_708616_518343/34/ccs,m64012_698129_415250/35/ccs,m64012_811975_117002/36/ccs,m64012_121325_386783/37/ccs,m64012_463912_232768/38/ccs,m64012_365903_669401/39/ccs,m64012_892732_708188/40/ccs,m64012_303179_792261/41/ccs,m64012_107785_935392/42/ccs,m64012_410657_408625/43/ccs,m64012_154006_155963/44/ccs,m64012_711593_486376/45/ccs,m64012_293253_544411/46/ccs,m64012_475732_316654/47/ccs,m64012_801352_376662/48/ccs,m64012_667311_785292/49/ccs,m64012_846138_266111/50/ccs,m64012_508019_737898/51/ccs,m64012_134969_349371/52/ccs,m64012_922206_395264/53/ccs,m64012_615092_337767/54/ccs,m64012_402403_539335/55/ccs,m64012_866538_901634/56/ccs,m64012_764876_199844/57/ccs,m64012_173699_798027/58/ccs,m64012_877544_912088/59/ccs,m64012_763169_948877/60/ccs;ZMWS=60	GT:DP:AD	./.:.:.,.
+chr17	7677491	svim.BND.2	N	]chr17:4341674]N	75	PASS	SVTYPE=BND;SUPPORT=60;STD_POS1=.;STD_POS2=.;READS=m64012_349888_395642/1/ccs,m64012_865060_485665/2/ccs,m64012_692543_387879/3/ccs,m64012_431192_655682/4/ccs,m64012_291017_873487/5/ccs,m64012_140597_869430/6/ccs,m64012_156943_543026/7/ccs,m64012_131488_859234/8/ccs,m64012_744898_121762/9/ccs,m64012_580982_102197/10/ccs,m64012_799604_356990/11/ccs,m64012_394242_591181/12/ccs,m64012_214959_927740/13/ccs,m64012_391832_256604/14/ccs,m64012_157225_842828/15/ccs,m64012_376957_579958/16/ccs,m64012_715933_451254/17/ccs,m64012_862060_927442/18/ccs,m64012_326556_461205/19/ccs,m64012_957718_272299/20/ccs,m64012_432145_697243/21/ccs,m64012_482519_275240/22/ccs,m64012_570978_959890/23/ccs,m64012_911017_956571/24/ccs,m64012_596692_218063/25/ccs,m64012_795939_270160/26/ccs,m64012_136863_781081/27/ccs,m64012_920337_210320/28/ccs,m64012_604397_687480/29/ccs,m64012_419384_906760/30/ccs,m64012_830895_607157/31/ccs,m64012_603131_887105/32/ccs,m64012_594565_734778/33/ccs,m64012_708616_518343/34/ccs,m64012_698129_415250/35/ccs,m64012_811975_117002/36/ccs,m64012_121325_386783/37/ccs,m64012_463912_232768/38/ccs,m64012_365903_669401/39/ccs,m64012_892732_708188/40/ccs,m64012_303179_792261/41/ccs,m64012_107785_935392/42/ccs,m64012_410657_408625/43/ccs,m64012_154006_155963/44/ccs,m64012_711593_486376/45/ccs,m64012_293253_544411/46/ccs,m64012_475732_316654/47/ccs,m64012_801352_376662/48/ccs,m64012_667311_785292/49/ccs,m64012_846138_266111/50/ccs,m64012_508019_737898/51/ccs,m64012_134969_349371/52/ccs,m64012_922206_395264/53/ccs,m64012_615092_337767/54/ccs,m64012_402403_539335/55/ccs,m64012_866538_901634/56/ccs,m64012_764876_199844/57/ccs,m64012_173699_798027/58/ccs,m64012_877544_912088/59/ccs,m64012_763169_948877/60/ccs;ZMWS=60	GT:DP:AD	./.:.:.,.

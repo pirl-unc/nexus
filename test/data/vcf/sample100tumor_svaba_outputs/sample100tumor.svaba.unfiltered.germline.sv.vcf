@@ -1,0 +1,61 @@
+##fileformat=VCFv4.2
+##fileDate=20240815
+##source=svaba(v1.2.0) run --reference-genome hg38_chr17_1-8M.fa --id-string sample100tumor --case-bam sample100tumor_fixmate_markeddup_recalibrated.bam --control-bam sample100normal_fixmate_markeddup_recalibrated.bam --threads 2 --hp --read-tracking 
+##reference=hg38_chr17_1-8M.fa
+##contig=<ID=chr17,length=7843138>
+##INFO=<ID=SPAN,Number=1,Type=Integer,Description="Distance between the breakpoints. -1 for interchromosomal">
+##INFO=<ID=INSERTION,Number=1,Type=String,Description="Sequence insertion at the breakpoint.">
+##INFO=<ID=SCTG,Number=1,Type=String,Description="Identifier for the contig assembled by svaba to make the SV call">
+##INFO=<ID=EVDNC,Number=1,Type=String,Description="Evidence for variant. ASSMB assembly only, ASDIS assembly+discordant. DSCRD discordant only, TSI_L templated-sequence insertion (local, e.g. AB or BC of an ABC), TSI_G global (e.g. AC of ABC)">
+##INFO=<ID=BX,Number=.,Type=String,Description="Table of BX tag counts for supporting reads">
+##INFO=<ID=SVTYPE,Number=1,Type=String,Description="Type of structural variant">
+##INFO=<ID=NM,Number=1,Type=Integer,Description="Number of mismatches of this alignment fragment to reference">
+##INFO=<ID=SUBN,Number=1,Type=Integer,Description="Number of secondary alignments associated with this contig fragment">
+##INFO=<ID=DISC_MAPQ,Number=1,Type=Integer,Description="Mean mapping quality of discordant reads mapped here">
+##INFO=<ID=REPSEQ,Number=1,Type=String,Description="Repeat sequence near the event">
+##INFO=<ID=MATEID,Number=1,Type=String,Description="ID of mate breakends">
+##INFO=<ID=HOMSEQ,Number=1,Type=String,Description="Sequence of base pair identical micro-homology at event breakpoints. Plus strand sequence displayed.">
+##INFO=<ID=READNAMES,Number=.,Type=String,Description="IDs of ALT reads">
+##INFO=<ID=IMPRECISE,Number=0,Type=Flag,Description="Imprecise structural variation">
+##INFO=<ID=MAPQ,Number=1,Type=Integer,Description="Mapping quality (BWA-MEM) of this fragement of the contig (-1 if discordant only)">
+##INFO=<ID=MATEMAPQ,Number=1,Type=Integer,Description="Mapping quality of the partner fragment of the contig">
+##INFO=<ID=SECONDARY,Number=0,Type=Flag,Description="SV calls comes from a secondary alignment">
+##INFO=<ID=HOMLEN,Number=1,Type=Integer,Description="Length of base pair identical micro-homology at event breakpoints">
+##INFO=<ID=MATENM,Number=1,Type=Integer,Description="Number of mismatches of partner alignment fragment to reference">
+##INFO=<ID=NUMPARTS,Number=1,Type=Integer,Description="If detected with assembly, number of parts the contig maps to. Otherwise 0">
+##FILTER=<ID=LOWSPANDSCRD,Description="Discordant-only cluster is too small given isize distribution to call confidently">
+##FILTER=<ID=MULTIMATCH,Description="Low MAPQ and this contig fragment maps well to multiple locations">
+##FILTER=<ID=PASS,Description="Strong assembly support, strong discordant support, or combined support. Strong MAPQ">
+##FILTER=<ID=TOOSHORT,Description="Contig alignment for part of this rearrangement has <= 25bp match to reference">
+##FILTER=<ID=WEAKSUPPORTHIREP,Description="Fewer then 7 split reads for variant with >= 10 bases of repeat sequence (need to be more strict)">
+##FILTER=<ID=LOCALMATCH,Description="Contig realigned to assembly region without clipping">
+##FILTER=<ID=DUPREADS,Description="Contig built from what appear to be duplicate reads (split reads all same contig cov))">
+##FILTER=<ID=LOWSPLITSMALL,Description="Fewer than 4 split reads for small events ( < 1500 bp)">
+##FILTER=<ID=SIMPLESEQUENCE,Description="Major portion of one contig mapping falls in a simple sequence, as given by -R flag. Assembly-only filter">
+##FILTER=<ID=HIGHHOMOLOGY,Description="Contig realigns with > 25% of readlength of homology. High probaility of assembly/mapping artifact">
+##FILTER=<ID=WEAKDISC,Description="Fewer than 7 supporting discordant reads and no assembly support">
+##FILTER=<ID=COMPETEDISC,Description="Discordant cluster found with nearly same breakpoints, but different strands for DSCRD event">
+##FILTER=<ID=LOWSUPPORT,Description="Fewer than 2 split reads or < 4 total alt reads for ASDISC">
+##FILTER=<ID=NOLOCAL,Description="Contig realigned to region outside of local assembly region, and no disc support.">
+##FILTER=<ID=LOWSPAN,Description="Discordant read cluster (no split read support), and less than 10kb span and < 12 reads">
+##FILTER=<ID=LOWAS,Description="Alignment score of one end is less than 80% of contig length, or number of mismatch bases (NM) on one end is >= 10">
+##FILTER=<ID=NODISC,Description="Rearrangement was not detected independently by assembly">
+##FILTER=<ID=LOWQINVERSION,Description="Assembly-only inversion of span < 300 and < 6 split reads. Common artifact in Illumina data">
+##FILTER=<ID=LOWMATCHLEN,Description="Assembly contig has fewer than 40 bases mapping uniquely to a reference locus (<100 if complex mapping or ">
+##FILTER=<ID=SINGLEBX,Description="Variant is supported by only a single BX tag (if run with 10X Genomics data)">
+##FILTER=<ID=LOWMAPQDISC,Description="Both clusters of reads failed to achieve mean mapq of > 30 for DSCRD">
+##FILTER=<ID=LOWMAPQ,Description="Assembly contig has non 60/60 mapq and no discordant support">
+##FILTER=<ID=LOWICSUPPORT,Description="Less than 60bp of contig match on one end of an inter-chromosomal break">
+##FORMAT=<ID=SL,Number=1,Type=Float,Description="Alignment-quality Scaled log-odds, where LO is LO * (MAPQ - 2*NM)/60">
+##FORMAT=<ID=LO,Number=1,Type=Float,Description="Log-odds that this variant is real vs artifact">
+##FORMAT=<ID=DR,Number=1,Type=Integer,Description="Number of discordant-supported reads for this variant">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Depth of coverage: Number of reads covering site.">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Most likely genotype">
+##FORMAT=<ID=AD,Number=1,Type=Integer,Description="Allele depth: Number of reads supporting the variant">
+##FORMAT=<ID=GQ,Number=1,Type=String,Description="Genotype quality (currently not supported. Always 0)">
+##FORMAT=<ID=LR,Number=1,Type=Float,Description="Log-odds that this variant is REF vs AF=0.5">
+##FORMAT=<ID=PL,Number=.,Type=Float,Description="Normalized likelihood of the current genotype">
+##FORMAT=<ID=SR,Number=1,Type=Integer,Description="Number of spanning reads for this variants">
+##SAMPLE=<ID=sample100tumor_fixmate_markeddup_recalibrated.bam>
+##SAMPLE=<ID=sample100normal_fixmate_markeddup_recalibrated.bam>
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample100normal_fixmate_markeddup_recalibrated.bam	sample100tumor_fixmate_markeddup_recalibrated.bam

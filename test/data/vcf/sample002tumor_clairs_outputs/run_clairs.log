@@ -1,0 +1,549 @@
+
+[COMMAND] /opt/bin/run_clairs --tumor_bam_fn sample002tumor_minimap2_mdtagged_sorted.bam --normal_bam_fn sample002normal_minimap2_mdtagged_sorted.bam --ref_fn hg38_chr17_1-8M_chr18_1-9M.fa.gz --threads 2 --platform hifi_revio --output_dir /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs --enable_indel_calling 
+
+[INFO] --include_all_ctgs not enabled, use chr{1..22,X,Y} and {1..22,X,Y} by default
+[93m[WARNING] Contig name tumor provided but no mapped reads found in chr18 BAM, skip![0m
+[INFO] Call variants in contigs: chr17
+[INFO] Number of chunks for each contig: 2
+
+[INFO] CALLER VERSION: 0.3.0
+[INFO] NORMAL BAM FILE PATH: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002normal_minimap2_mdtagged_sorted.bam
+[INFO] TUMOR BAM FILE PATH: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_minimap2_mdtagged_sorted.bam
+[INFO] REFERENCE FILE PATH: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz
+[INFO] PLATFORM: hifi_revio
+[INFO] THREADS: 2
+[INFO] OUTPUT FOLDER: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs
+[INFO] OUTPUT VCF PATH: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/output.vcf.gz
+[INFO] PILEUP MODEL PATH: /opt/conda/envs/clairs/bin/clairs_models/hifi_revio/pileup.pkl
+[INFO] FULL-ALIGNMENT MODEL PATH: /opt/conda/envs/clairs/bin/clairs_models/hifi_revio/full_alignment.pkl
+[INFO] BED FILE PATH: None
+[INFO] GENOTYPING MODE VCF FILE PATH: None
+[INFO] HYBRID MODE VCF FILE PATH: None
+[INFO] REGION FOR CALLING: None
+[INFO] CONTIGS FOR CALLING: None
+[INFO] CONDA BINARY PREFIX: /opt/conda/envs/clairs
+[INFO] SAMTOOLS BINARY PATH: samtools
+[INFO] PYTHON BINARY PATH: python3
+[INFO] PYPY BINARY PATH: pypy3
+[INFO] PARALLEL BINARY PATH: parallel
+[INFO] LONGPHASE BINARY PATH: /opt/conda/envs/clairs/bin/longphase
+[INFO] CHUNK SIZE: 5000000
+[INFO] SNV MINIMUM AF: 0.05
+[INFO] INDEL MINIMUM AF: 0.05
+[INFO] INDEL PILEUP MODEL PATH: /opt/conda/envs/clairs/bin/clairs_models/hifi_revio/indel/pileup.pkl
+[INFO] INDEL FULL-ALIGNMENT MODEL PATH: /opt/conda/envs/clairs/bin/clairs_models/hifi_revio/indel/full_alignment.pkl
+[INFO] NORMAL VCF FILE PATH: None
+[INFO] DISABLE PHASING: False
+[INFO] ENABLE DRY RUN: False
+[INFO] ENABLE INDEL CALLING: True
+[INFO] ENABLE PRINTING REFERENCE CALLS: False
+[INFO] ENABLE PRINTING GERMLINE CALLS: False
+[INFO] ENABLE INCLUDING ALL CTGS FOR CALLING: False
+[INFO] ENABLE REMOVING INTERMEDIATE FILES: False
+
+[INFO] Call Germline Variants in Normal BAM using Clair3
+[INFO] RUN THE FOLLOWING COMMAND:
+( /opt/conda/envs/clairs/bin/run_clair3.sh --bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002normal_minimap2_mdtagged_sorted.bam --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --model_path /opt/conda/envs/clairs/bin/clairs_models/clair3_models/hifi_revio --platform hifi --threads 2 --output /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output --ctg_name=chr17 --samtools=samtools --pypy=pypy3 --python=python3 --min_coverage=8 --snp_min_af=0.15 --indel_min_af=0.2 --longphase_for_phasing  ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/clair3_log/1_CLAIR3_NORMAL.log
+
+[INFO] CLAIR3 VERSION: v1.0.7
+[INFO] BAM FILE PATH: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002normal_minimap2_mdtagged_sorted.bam
+[INFO] REFERENCE FILE PATH: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz
+[INFO] MODEL PATH: /opt/conda/envs/clairs/bin/clairs_models/clair3_models/hifi_revio
+[INFO] OUTPUT FOLDER: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output
+[INFO] PLATFORM: hifi
+[INFO] THREADS: 2
+[INFO] BED FILE PATH: EMPTY
+[INFO] VCF FILE PATH: EMPTY
+[INFO] CONTIGS: chr17
+[INFO] CONDA PREFIX: 
+[INFO] SAMTOOLS PATH: samtools
+[INFO] PYTHON PATH: python3
+[INFO] PYPY PATH: pypy3
+[INFO] PARALLEL PATH: parallel
+[INFO] WHATSHAP PATH: whatshap
+[INFO] LONGPHASE PATH: /opt/conda/envs/clairs/bin/longphase
+[INFO] CHUNK SIZE: 5000000
+[INFO] FULL ALIGN PROPORTION: 0.3
+[INFO] FULL ALIGN REFERENCE PROPORTION: 0.3
+[INFO] PHASING PROPORTION: 0.7
+[INFO] MINIMUM MQ: 5
+[INFO] MINIMUM COVERAGE: 8
+[INFO] SNP AF THRESHOLD: 0.15
+[INFO] INDEL AF THRESHOLD: 0.2
+[INFO] BASE ERROR IN GVCF: 0.001
+[INFO] GQ BIN SIZE IN GVCF: 5
+[INFO] ENABLE FILEUP ONLY CALLING: False
+[INFO] ENABLE FAST MODE CALLING: False
+[INFO] ENABLE CALLING SNP CANDIDATES ONLY: False
+[INFO] ENABLE PRINTING REFERENCE CALLS: False
+[INFO] ENABLE OUTPUT GVCF: False
+[INFO] ENABLE HAPLOID PRECISE MODE: False
+[INFO] ENABLE HAPLOID SENSITIVE MODE: False
+[INFO] ENABLE INCLUDE ALL CTGS CALLING: False
+[INFO] ENABLE NO PHASING FOR FULL ALIGNMENT: False
+[INFO] ENABLE REMOVING INTERMEDIATE FILES: False
+[INFO] ENABLE LONGPHASE FOR INTERMEDIATE VCF PHASING: True
+[INFO] ENABLE PHASING FINAL VCF OUTPUT USING WHATSHAP: False
+[INFO] ENABLE PHASING FINAL VCF OUTPUT USING LONGPHASE: False
+[INFO] ENABLE HAPLOTAGGING FINAL BAM: False
+[INFO] ENABLE LONG INDEL CALLING: False
+[INFO] ENABLE C_IMPLEMENT: True
+
++ /opt/conda/envs/clairs/bin/scripts/clair3_c_impl.sh --bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002normal_minimap2_mdtagged_sorted.bam --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --threads 2 --model_path /opt/conda/envs/clairs/bin/clairs_models/clair3_models/hifi_revio --platform hifi --output /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output --bed_fn=EMPTY --vcf_fn=EMPTY --ctg_name=chr17 --sample_name=SAMPLE --chunk_num=0 --chunk_size=5000000 --samtools=samtools --python=python3 --pypy=pypy3 --parallel=parallel --whatshap=whatshap --qual=2 --var_pct_full=0.3 --ref_pct_full=0.3 --var_pct_phasing=0.7 --snp_min_af=0.15 --indel_min_af=0.2 --min_mq=5 --min_coverage=8 --min_contig_size=0 --pileup_only=False --gvcf=False --base_err=0.001 --gq_bin_size=5 --fast_mode=False --call_snp_only=False --print_ref_calls=False --haploid_precise=False --haploid_sensitive=False --include_all_ctgs=False --no_phasing_for_fa=False --pileup_model_prefix=pileup --fa_model_prefix=full_alignment --remove_intermediate_dir=False --enable_phasing=False --enable_long_indel=False --keep_iupac_bases=False --use_gpu=False --longphase_for_phasing=True --longphase=/opt/conda/envs/clairs/bin/longphase --use_whatshap_for_intermediate_phasing=True --use_longphase_for_intermediate_phasing=True --use_whatshap_for_final_output_phasing=False --use_longphase_for_final_output_phasing=False --use_whatshap_for_final_output_haplotagging=False
+
+[INFO] Check environment variables
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output/log
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output/tmp/pileup_output
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output/tmp/merge_output
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output/tmp/phase_output
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output/tmp/gvcf_tmp_output
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output/tmp/full_alignment_output
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output/tmp/phase_output/phase_vcf
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output/tmp/phase_output/phase_bam
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output/tmp/full_alignment_output/candidate_bed
+[INFO] Call variant in contigs: chr17
+[INFO] Chunk number for each contig: 2
+[INFO] 1/7 Call variants using pileup model
+Calling variants ...
+[E::faidx_adjust_position] The sequence "chr17" was not found
+Total processed positions in chr17 (chunk 1/2) : 0
+Total time elapsed: 0.25 s
+[INFO] No vcf output for file /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_1.vcf, remove empty file
+Calling variants ...
+Total processed positions in chr17 (chunk 2/2) : 91
+Total time elapsed: 3.74 s
+
+real	0m11.015s
+user	0m7.100s
+sys	0m0.798s
+
+[INFO] 2/7 Select heterozygous SNP variants for Whatshap phasing and haplotagging
+[93m[WARNING] Cannot find any 0/1 variant in pileup output using variant quality cut-off proportion: 0.30000000000000004, total heterozygous variants: 0[0m
+[93m[WARNING] Set low variant quality score cut-off to 0.0[0m
+[INFO] Select heterozygous pileup variants exceeding phasing quality cutoff 0
+[INFO] Total heterozygous SNP positions selected: chr17: 0
+
+real	0m0.327s
+user	0m0.238s
+sys	0m0.052s
+
+[INFO] 3/7 Phase VCF file using LongPhase
+LongPhase Ver 1.7
+
+--- File Parameter --- 
+SNP File      : /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output/tmp/phase_output/phase_vcf/chr17.vcf
+SV  File      : 
+MOD File      : 
+REF File      : /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz
+Output Prefix : /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output/tmp/phase_output/phase_vcf/phased_chr17
+Generate Dot  : False
+BAM File      : /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002normal_minimap2_mdtagged_sorted.bam 
+
+--- Phasing Parameter --- 
+Seq Platform       : PB
+Phase Indel        : False
+Distance Threshold : 300000
+Connect Adjacent   : 20
+Edge Threshold     : 0.7
+Mapping Quality    : 1
+Variant Confidence : 0.75
+ReadTag Confidence : 0.65
+
+parsing VCF ... 0s
+parsing SV VCF ... 0s
+parsing Meth VCF ... 0s
+reading reference ... 0s
+
+parsing total:  0s
+merge results ... 0s
+writeResult SNP ... 0s
+
+total process: 0s
+
+real	0m0.203s
+user	0m0.103s
+sys	0m0.044s
+
+[INFO] 5/7 Select candidates for full-alignment calling
+[93m[WARNING] Cannot find any low-quality 0/0 reference calls in pileup output using reference quality cut-off proportion: 0.3, total reference calls: 0[0m
+[93m[WARNING] Set low reference quality score cut-off to 0.0[0m
+[INFO] Set variants quality cutoff 28.0
+[INFO] Set reference calls quality cutoff 0.0
+[INFO] Low quality reference calls to be processed in chr17: 0
+[INFO] Low quality variants to be processed in chr17: 26
+
+real	0m0.399s
+user	0m0.226s
+sys	0m0.066s
+
+[INFO] 6/7 Call low-quality variants using full-alignment model
+Calling variants ...
+Total processed positions in chr17 (chunk 1/1) : 26
+Total time elapsed: 1.82 s
+
+real	0m5.064s
+user	0m3.478s
+sys	0m0.441s
+
+[INFO] 7/7 Merge pileup VCF and full-alignment VCF
+[INFO] Pileup variants processed in chr17: 65
+[INFO] Full-alignment variants processed in chr17: 26
+
+real	0m0.400s
+user	0m0.239s
+sys	0m0.089s
+
+[INFO] Finish calling, output file: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output/merge_output.vcf.gz
+
+real	0m19.948s
+user	0m12.710s
+sys	0m1.877s
+
+[INFO] Call Germline Variant in Tumor BAM using Clair3
+[INFO] RUN THE FOLLOWING COMMAND:
+( /opt/conda/envs/clairs/bin/run_clair3.sh --bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_minimap2_mdtagged_sorted.bam --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --model_path /opt/conda/envs/clairs/bin/clairs_models/clair3_models/hifi_revio --platform hifi --threads 2 --output /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output --ctg_name=chr17 --samtools=samtools --pypy=pypy3 --python=python3 --min_coverage=8 --snp_min_af=0.15 --indel_min_af=0.2 --longphase_for_phasing  ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/clair3_log/2_CLAIR3_TUMOR.log
+
+[INFO] CLAIR3 VERSION: v1.0.7
+[INFO] BAM FILE PATH: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_minimap2_mdtagged_sorted.bam
+[INFO] REFERENCE FILE PATH: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz
+[INFO] MODEL PATH: /opt/conda/envs/clairs/bin/clairs_models/clair3_models/hifi_revio
+[INFO] OUTPUT FOLDER: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output
+[INFO] PLATFORM: hifi
+[INFO] THREADS: 2
+[INFO] BED FILE PATH: EMPTY
+[INFO] VCF FILE PATH: EMPTY
+[INFO] CONTIGS: chr17
+[INFO] CONDA PREFIX: 
+[INFO] SAMTOOLS PATH: samtools
+[INFO] PYTHON PATH: python3
+[INFO] PYPY PATH: pypy3
+[INFO] PARALLEL PATH: parallel
+[INFO] WHATSHAP PATH: whatshap
+[INFO] LONGPHASE PATH: /opt/conda/envs/clairs/bin/longphase
+[INFO] CHUNK SIZE: 5000000
+[INFO] FULL ALIGN PROPORTION: 0.3
+[INFO] FULL ALIGN REFERENCE PROPORTION: 0.3
+[INFO] PHASING PROPORTION: 0.7
+[INFO] MINIMUM MQ: 5
+[INFO] MINIMUM COVERAGE: 8
+[INFO] SNP AF THRESHOLD: 0.15
+[INFO] INDEL AF THRESHOLD: 0.2
+[INFO] BASE ERROR IN GVCF: 0.001
+[INFO] GQ BIN SIZE IN GVCF: 5
+[INFO] ENABLE FILEUP ONLY CALLING: False
+[INFO] ENABLE FAST MODE CALLING: False
+[INFO] ENABLE CALLING SNP CANDIDATES ONLY: False
+[INFO] ENABLE PRINTING REFERENCE CALLS: False
+[INFO] ENABLE OUTPUT GVCF: False
+[INFO] ENABLE HAPLOID PRECISE MODE: False
+[INFO] ENABLE HAPLOID SENSITIVE MODE: False
+[INFO] ENABLE INCLUDE ALL CTGS CALLING: False
+[INFO] ENABLE NO PHASING FOR FULL ALIGNMENT: False
+[INFO] ENABLE REMOVING INTERMEDIATE FILES: False
+[INFO] ENABLE LONGPHASE FOR INTERMEDIATE VCF PHASING: True
+[INFO] ENABLE PHASING FINAL VCF OUTPUT USING WHATSHAP: False
+[INFO] ENABLE PHASING FINAL VCF OUTPUT USING LONGPHASE: False
+[INFO] ENABLE HAPLOTAGGING FINAL BAM: False
+[INFO] ENABLE LONG INDEL CALLING: False
+[INFO] ENABLE C_IMPLEMENT: True
+
++ /opt/conda/envs/clairs/bin/scripts/clair3_c_impl.sh --bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_minimap2_mdtagged_sorted.bam --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --threads 2 --model_path /opt/conda/envs/clairs/bin/clairs_models/clair3_models/hifi_revio --platform hifi --output /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output --bed_fn=EMPTY --vcf_fn=EMPTY --ctg_name=chr17 --sample_name=SAMPLE --chunk_num=0 --chunk_size=5000000 --samtools=samtools --python=python3 --pypy=pypy3 --parallel=parallel --whatshap=whatshap --qual=2 --var_pct_full=0.3 --ref_pct_full=0.3 --var_pct_phasing=0.7 --snp_min_af=0.15 --indel_min_af=0.2 --min_mq=5 --min_coverage=8 --min_contig_size=0 --pileup_only=False --gvcf=False --base_err=0.001 --gq_bin_size=5 --fast_mode=False --call_snp_only=False --print_ref_calls=False --haploid_precise=False --haploid_sensitive=False --include_all_ctgs=False --no_phasing_for_fa=False --pileup_model_prefix=pileup --fa_model_prefix=full_alignment --remove_intermediate_dir=False --enable_phasing=False --enable_long_indel=False --keep_iupac_bases=False --use_gpu=False --longphase_for_phasing=True --longphase=/opt/conda/envs/clairs/bin/longphase --use_whatshap_for_intermediate_phasing=True --use_longphase_for_intermediate_phasing=True --use_whatshap_for_final_output_phasing=False --use_longphase_for_final_output_phasing=False --use_whatshap_for_final_output_haplotagging=False
+
+[INFO] Check environment variables
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/log
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/tmp/merge_output
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/tmp/phase_output
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/tmp/gvcf_tmp_output
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/tmp/full_alignment_output
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/tmp/phase_output/phase_vcf
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/tmp/phase_output/phase_bam
+[INFO] Create folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/tmp/full_alignment_output/candidate_bed
+[INFO] Call variant in contigs: chr17
+[INFO] Chunk number for each contig: 2
+[INFO] 1/7 Call variants using pileup model
+Calling variants ...
+Total processed positions in chr17 (chunk 1/2) : 0
+Total time elapsed: 0.11 s
+[INFO] No vcf output for file /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_1.vcf, remove empty file
+Calling variants ...
+Total processed positions in chr17 (chunk 2/2) : 91
+Total time elapsed: 4.24 s
+
+real	0m10.253s
+user	0m7.595s
+sys	0m0.721s
+
+[INFO] 2/7 Select heterozygous SNP variants for Whatshap phasing and haplotagging
+[93m[WARNING] Cannot find any 0/1 variant in pileup output using variant quality cut-off proportion: 0.30000000000000004, total heterozygous variants: 0[0m
+[93m[WARNING] Set low variant quality score cut-off to 0.0[0m
+[INFO] Select heterozygous pileup variants exceeding phasing quality cutoff 0
+[INFO] Total heterozygous SNP positions selected: chr17: 0
+
+real	0m0.297s
+user	0m0.212s
+sys	0m0.046s
+
+[INFO] 3/7 Phase VCF file using LongPhase
+LongPhase Ver 1.7
+
+--- File Parameter --- 
+SNP File      : /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/tmp/phase_output/phase_vcf/chr17.vcf
+SV  File      : 
+MOD File      : 
+REF File      : /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz
+Output Prefix : /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/tmp/phase_output/phase_vcf/phased_chr17
+Generate Dot  : False
+BAM File      : /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_minimap2_mdtagged_sorted.bam 
+
+--- Phasing Parameter --- 
+Seq Platform       : PB
+Phase Indel        : False
+Distance Threshold : 300000
+Connect Adjacent   : 20
+Edge Threshold     : 0.7
+Mapping Quality    : 1
+Variant Confidence : 0.75
+ReadTag Confidence : 0.65
+
+parsing VCF ... 0s
+parsing SV VCF ... 0s
+parsing Meth VCF ... 0s
+reading reference ... 0s
+
+parsing total:  0s
+merge results ... 0s
+writeResult SNP ... 0s
+
+total process: 0s
+
+real	0m0.203s
+user	0m0.104s
+sys	0m0.034s
+
+[INFO] 5/7 Select candidates for full-alignment calling
+[93m[WARNING] Cannot find any low-quality 0/0 reference calls in pileup output using reference quality cut-off proportion: 0.3, total reference calls: 0[0m
+[93m[WARNING] Set low reference quality score cut-off to 0.0[0m
+[INFO] Set variants quality cutoff 25.0
+[INFO] Set reference calls quality cutoff 0.0
+[INFO] Low quality reference calls to be processed in chr17: 0
+[INFO] Low quality variants to be processed in chr17: 26
+
+real	0m0.373s
+user	0m0.231s
+sys	0m0.058s
+
+[INFO] 6/7 Call low-quality variants using full-alignment model
+Calling variants ...
+Total processed positions in chr17 (chunk 1/1) : 26
+Total time elapsed: 1.81 s
+
+real	0m4.832s
+user	0m3.585s
+sys	0m0.402s
+
+[INFO] 7/7 Merge pileup VCF and full-alignment VCF
+[INFO] Pileup variants processed in chr17: 65
+[INFO] Full-alignment variants processed in chr17: 26
+
+real	0m0.499s
+user	0m0.256s
+sys	0m0.110s
+
+[INFO] Finish calling, output file: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/merge_output.vcf.gz
+
+real	0m18.604s
+user	0m13.173s
+sys	0m1.691s
+
+[INFO] Select Heterozygous SNP for Phasing
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/clair3_log/parallel_1_select_hetero_snp_for_phasing.log -j 2 pypy3 /opt/bin/clairs.py select_hetero_snp_for_phasing --tumor_vcf_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/merge_output.vcf.gz --normal_vcf_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_normal_output/merge_output.vcf.gz --output_folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/vcf --ctg_name {1} --use_heterozygous_snp_in_normal_sample_for_intermediate_phasing True --use_heterozygous_indel_for_intermediate_phasing True :::: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/CONTIGS ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/clair3_log/1_select_hetero_snp_for_phasing.log
+
+[INFO] Total HET SNP calls selected: chr17: 0, not found:0, not match:0, low_qual_count:0. Total normal:0 Total tumor:0, pro: 0.0
+[INFO] Total HET INDEL calls selected: chr17: Total:0, HET2HOM_REF:0, HET2HOM:0, HET2HET:0
+
+[INFO] Phase the Tumor BAM
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/clair3_log/parallel_4_phase_tumor.log -j 2 /opt/conda/envs/clairs/bin/longphase phase  -s /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/vcf/{1}.vcf -b /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_minimap2_mdtagged_sorted.bam -r /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz -t 2 --indels  -o /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/phased_output/tumor_phased_{1} --pb :::: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/CONTIGS && parallel -j 2 bgzip -f /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/phased_output/tumor_phased_{1}.vcf :::: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/CONTIGS ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/clair3_log/4_phase_tumor.log && parallel -j 2 tabix -f -p vcf /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/phased_output/tumor_phased_{1}.vcf.gz :::: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/CONTIGS
+
+LongPhase Ver 1.7
+
+--- File Parameter --- 
+SNP File      : /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/vcf/chr17.vcf
+SV  File      : 
+MOD File      : 
+REF File      : /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz
+Output Prefix : /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/phased_output/tumor_phased_chr17
+Generate Dot  : False
+BAM File      : /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_minimap2_mdtagged_sorted.bam 
+
+--- Phasing Parameter --- 
+Seq Platform       : PB
+Phase Indel        : True
+Distance Threshold : 300000
+Connect Adjacent   : 20
+Edge Threshold     : 0.7
+Mapping Quality    : 1
+Variant Confidence : 0.75
+ReadTag Confidence : 0.65
+
+parsing VCF ... 0s
+parsing SV VCF ... 0s
+parsing Meth VCF ... 0s
+reading reference ... 0s
+
+parsing total:  0s
+merge results ... 0s
+writeResult SNP ... 0s
+
+total process: 0s
+
+[INFO] Haplotag the Tumor BAM
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/clair3_log/parallel_5_haplotag_tumor.log -j 2 /opt/conda/envs/clairs/bin/longphase haplotag -o /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/phased_output/tumor_{1} --reference /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --region {1}  -s /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/phased_output/tumor_phased_{1}.vcf.gz -b /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_minimap2_mdtagged_sorted.bam :::: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/CONTIGS ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/clair3_log/5_tumor_haplotag.log && parallel -j 2 samtools index  -@2 /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/phased_output/tumor_{1}.bam :::: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/CONTIGS
+
+phased SNP file:   /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/phased_output/tumor_phased_chr17.vcf.gz
+phased SV file:    
+phased MOD file:   
+input bam file:    /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_minimap2_mdtagged_sorted.bam
+input ref file:    /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz
+output bam file:   /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/phased_output/tumor_chr17.bam
+number of threads: 1
+write log file:    false
+log file:          
+-------------------------------------------
+tag region:                    chr17
+filter mapping quality below:  1
+percentage threshold:          0.6
+tag supplementary:             false
+-------------------------------------------
+parsing SNP VCF ... 0s
+tag read start ...
+chr: chr17 ... 1s
+tag read 1s
+-------------------------------------------
+total process time:  1s
+total alignment:     240
+total supplementary: 60
+total secondary:     0
+total unmapped:      0
+total tag alignment: 0
+total untagged:      240
+
+[INFO] STEP 1: Extract Variant Candidates from Tumor and Normal BAMs
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/parallel_1_extract_tumor_candidates.log -C " " -j 2 pypy3 /opt/bin/clairs.py extract_pair_candidates --tumor_bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_minimap2_mdtagged_sorted.bam --normal_bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002normal_minimap2_mdtagged_sorted.bam --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --samtools samtools --snv_min_af 0.05 --indel_min_af 0.05 --chunk_id {2}  --chunk_num {3}  --ctg_name {1}  --platform hifi --min_coverage 4 --bed_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/split_beds/{1} --candidates_folder /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/candidates --output_depth True  --select_indel_candidates True --hybrid_mode_vcf_fn None --genotyping_mode_vcf_fn None :::: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/CHUNK_LIST ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/1_EC.log && pypy3 /opt/bin/clairs.py concat_files --input_dir /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/candidates --input_prefix CANDIDATES_FILE_ --output_fn CANDIDATES_FILES 
+
+[INFO] chr17 chunk 0/2: Total snv candidates found: 0, total indel candidates found: 0
+[INFO] chr17 chunk 1/2: Total snv candidates found: 0, total indel candidates found: 0
+[faidx] Truncated sequence: chr17:3920569-7844138
+
+[INFO] STEP 2: Pileup Model Calling
+[INFO] Create Paired Tensors
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/parallel_2-1_create_pair_tensor.log -j 2 pypy3 /opt/bin/clairs.py create_pair_tensor_pileup --normal_bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002normal_minimap2_mdtagged_sorted.bam --tumor_bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_minimap2_mdtagged_sorted.bam --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --ctg_name {1/.} --samtools samtools --candidates_bed_regions {1} --tensor_can_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/pileup_tensor_can/{1/}  --platform hifi :::: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/candidates/CANDIDATES_FILES ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/2-1_CPT.log
+
+
+[INFO] Pileup Model Prediction
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/parallel_2-2_predict.log -j 2 python3 /opt/bin/clairs.py predict --tensor_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/pileup_tensor_can/{1/}  --call_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/p_{1/}.vcf --chkpnt_fn /opt/conda/envs/clairs/bin/clairs_models/hifi_revio/pileup.pkl --use_gpu False --platform hifi --ctg_name {1/.} --pileup  :::: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/candidates/CANDIDATES_FILES ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/2-2_PREDICT.log
+
+
+[INFO] Merge Pileup VCFs
+[INFO] RUN THE FOLLOWING COMMAND:
+pypy3 /opt/bin/clairs.py sort_vcf --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --contigs_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/CONTIGS --input_dir /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output --vcf_fn_prefix p_ --output_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/pileup.vcf
+
+[INFO] Sorting VCFs...
+[93m[WARNING] No vcf file found with prefix:/Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/p_, output empty vcf file[0m
+
+[INFO] STEP 3: Full-alignment Model Calling
+[INFO] Create Full-alignment Paired Tensors
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/parallel_3-1_create_pair_tensor_fa.log -j 2 pypy3 /opt/bin/clairs.py create_pair_tensor --normal_bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002normal_minimap2_mdtagged_sorted.bam --tumor_bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/phased_output/tumor_{1/.}.bam --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --ctg_name {1/.} --samtools samtools --candidates_bed_regions {1} --tensor_can_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/fa_tensor_can/{1/}  --platform hifi :::: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/candidates/CANDIDATES_FILES ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/3-1_CPT.log
+
+
+[INFO] Full-alignment Model Prediction
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/parallel_3-2_predict.log -j 2 python3 /opt/bin/clairs.py predict --tensor_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/fa_tensor_can/{1/}  --call_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/fa_{1/}.vcf --chkpnt_fn /opt/conda/envs/clairs/bin/clairs_models/hifi_revio/full_alignment.pkl --use_gpu False --platform hifi --ctg_name {1/.} :::: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/candidates/CANDIDATES_FILES ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/3-2_PREDICT.log
+
+
+[INFO] Merge Full-alignment VCFs
+[INFO] RUN THE FOLLOWING COMMAND:
+pypy3 /opt/bin/clairs.py sort_vcf --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --contigs_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/CONTIGS --input_dir /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output --vcf_fn_prefix fa_ --output_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/full_alignment.vcf
+
+[INFO] Sorting VCFs...
+[93m[WARNING] No vcf file found with prefix:/Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/fa_, output empty vcf file[0m
+
+[INFO] STEP 4: Haplotype filtering
+[INFO] RUN THE FOLLOWING COMMAND:
+( pypy3 /opt/bin/clairs.py haplotype_filtering --tumor_bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/phased_output/tumor_ --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --germline_vcf_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/merge_output.vcf.gz --pileup_vcf_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/pileup.vcf --full_alignment_vcf_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/full_alignment.vcf --output_dir /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output --samtools samtools --pypy3 pypy3 --parallel parallel --threads 2 ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/4_HAP_FILTER.log
+
+Total input calls: 0, filtered by haplotype match 0
+
+[INFO] STEP 5: Merge and sort VCF
+[INFO] RUN THE FOLLOWING COMMAND:
+( pypy3 /opt/bin/clairs.py merge_vcf --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --pileup_vcf_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/pileup_filter.vcf --full_alignment_vcf_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/full_alignment_filter.vcf --output_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/output.vcf --platform hifi --qual 2 --sample_name SAMPLE --enable_indel_calling True --prefer_recall False --cmdline /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/CMD ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/5_MV.log
+
+[93m[WARNING] No vcf file found, please check the setting[0m
+[93m[WARNING] No variant found, please check the setting[0m
+[INFO] Full-alignment variants filtered by pileup:  0
+
+[INFO] STEP 6: Indel Pileup Model Calling
+[INFO] Create Paired Tensors
+[INFO] RUN THE FOLLOWING COMMAND:
+pypy3 /opt/bin/clairs.py concat_files --input_dir /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/candidates --input_prefix INDEL_CANDIDATES_FILE_ --output_fn INDEL_CANDIDATES_FILES  && ( parallel --joblog /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/parallel_6-1_create_pair_tensor_indel.log -j 2 pypy3 /opt/bin/clairs.py create_pair_tensor_pileup --normal_bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002normal_minimap2_mdtagged_sorted.bam --tumor_bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_minimap2_mdtagged_sorted.bam --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --ctg_name {1/.} --samtools samtools --candidates_bed_regions {1} --tensor_can_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/pileup_tensor_can/indel_{1/}  --platform hifi :::: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/candidates/INDEL_CANDIDATES_FILES ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/6-1_CPTI.log
+
+
+[INFO] Indel Pileup Model Prediction
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/parallel_6-2_predict_indel.log -j 2 python3 /opt/bin/clairs.py predict --tensor_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/pileup_tensor_can/indel_{1/}  --call_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/indel_p_{1/}.vcf --chkpnt_fn /opt/conda/envs/clairs/bin/clairs_models/hifi_revio/indel/pileup.pkl --use_gpu False --platform hifi --ctg_name {1/.} --pileup  --enable_indel_calling True  :::: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/candidates/INDEL_CANDIDATES_FILES ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/6-2_PREDICT_INDEL.log
+
+
+[INFO] Merge Pileup VCFs
+[INFO] RUN THE FOLLOWING COMMAND:
+pypy3 /opt/bin/clairs.py sort_vcf --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --contigs_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/CONTIGS --input_dir /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output --vcf_fn_prefix indel_p_ --output_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/indel_pileup.vcf
+
+[INFO] Sorting VCFs...
+[93m[WARNING] No vcf file found with prefix:/Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/indel_p_, output empty vcf file[0m
+
+[INFO] STEP 7: Indel Full-alignment Model Calling
+[INFO] Create Full-alignment Paired Tensors
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/parallel_7-1_create_pair_tensor_fa_indel.log -j 2 pypy3 /opt/bin/clairs.py create_pair_tensor --normal_bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002normal_minimap2_mdtagged_sorted.bam --tumor_bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/phased_output/tumor_{1/.}.bam --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --ctg_name {1/.} --samtools samtools --candidates_bed_regions {1} --tensor_can_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/fa_tensor_can/indel_{1/}  --platform hifi :::: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/candidates/INDEL_CANDIDATES_FILES ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/7-1_CPTI.log
+
+
+[INFO] Indel Full-alignment Model Prediction
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/parallel_7-2_predict.log -j 2 python3 /opt/bin/clairs.py predict --tensor_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/fa_tensor_can/indel_{1/}  --call_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/indel_fa_{1/}.vcf --chkpnt_fn /opt/conda/envs/clairs/bin/clairs_models/hifi_revio/indel/full_alignment.pkl --use_gpu False --platform hifi --ctg_name {1/.} --enable_indel_calling True  :::: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/candidates/INDEL_CANDIDATES_FILES ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/7-2_PREDICT_INDEL.log
+
+
+[INFO] Merge Full-alignment VCFs
+[INFO] RUN THE FOLLOWING COMMAND:
+pypy3 /opt/bin/clairs.py sort_vcf --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --contigs_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/CONTIGS --input_dir /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output --vcf_fn_prefix indel_fa_ --output_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/indel_full_alignment.vcf
+
+[INFO] Sorting VCFs...
+[93m[WARNING] No vcf file found with prefix:/Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/indel_fa_, output empty vcf file[0m
+
+[INFO] Indel Haplotype filtering
+[INFO] RUN THE FOLLOWING COMMAND:
+( pypy3 /opt/bin/clairs.py haplotype_filtering --tumor_bam_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/phased_output/tumor_ --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --germline_vcf_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/clair3_output/clair3_tumor_output/merge_output.vcf.gz --pileup_vcf_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/indel_pileup.vcf --full_alignment_vcf_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/indel_full_alignment.vcf --output_dir /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output --samtools samtools --pypy3 pypy3 --parallel parallel --threads 2 --is_indel  ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/8_INDEL_HAP_FILTER.log
+
+Total input calls: 0, filtered by haplotype match 0
+
+[INFO] STEP 8: Merge and sort Indel VCF
+[INFO] RUN THE FOLLOWING COMMAND:
+( pypy3 /opt/bin/clairs.py merge_vcf --ref_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/hg38_chr17_1-8M_chr18_1-9M.fa.gz --pileup_vcf_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/indel_pileup_filter.vcf --full_alignment_vcf_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/vcf_output/indel_full_alignment_filter.vcf --output_fn /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/indel.vcf --platform hifi --qual 2 --sample_name SAMPLE --enable_indel_calling True --indel_calling  --prefer_recall False --cmdline /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/tmp/CMD ) 2>&1 | tee /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/logs/8_MVI.log
+
+[93m[WARNING] No vcf file found, please check the setting[0m
+[93m[WARNING] No variant found, please check the setting[0m
+[INFO] Full-alignment variants filtered by pileup:  0
+
+[INFO] Total time elapsed: 0m58.00s
+
+[INFO] Finish calling, output file: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/output.vcf.gz
+
+[INFO] Finish calling, snv output file: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/snv.vcf.gz
+
+[INFO] Finish calling, indel output file: /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_clairs/3c/c481cd0d85ce1d5f59854e92a80055/sample002tumor_clairs_outputs/indel.vcf.gz
+

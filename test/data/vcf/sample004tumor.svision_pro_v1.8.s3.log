@@ -1,0 +1,16 @@
+2024-08-15 15:43:39,501 [INFO]    ****************** Start SVision-pro, version 1.8 ********************
+2024-08-15 15:43:39,503 [INFO]    Command: /opt/conda/bin/SVision-pro --target_path sample004tumor_minimap2_mdtagged_sorted.bam --base_path sample004normal_minimap2_mdtagged_sorted.bam --genome_path hg38_chr17_1-8M_chr18_1-9M_hpv16.fa.gz --model_path model_liteunet_256_8_16_32_32_32.pth --out_path sample004tumor_svisionpro_outputs/ --sample_name sample004tumor --process_num 2 --detect_mode somatic --preset hifi --min_supp 3 --min_mapq 20 --min_sv_size 30 --max_sv_size 1000000 --device cpu
+2024-08-15 15:43:39,503 [INFO]    ****************** Step1 collecting and plotting **********************
+2024-08-15 15:43:40,316 [INFO]    Collecting sample004tumor chr18_0_10000000, 0 candidate events found. Time cost 0s
+2024-08-15 15:43:40,463 [INFO]    Collecting sample004tumor hpv16_0_10000000, 0 candidate events found. Time cost 0s
+2024-08-15 15:43:43,670 [INFO]    Collecting sample004tumor chr17_0_10000000, 1 candidate events found. Time cost 3s
+2024-08-15 15:43:43,833 [INFO]    Collecting Time Cost 4s
+2024-08-15 15:43:43,834 [INFO]    ****************** Step2 lite-Unet predicting **************************
+2024-08-15 15:43:44,253 [INFO]    Predicting sample004tumor chr17_0_10000000, 1 events pass lite-Unet module. Time cost: 0s
+2024-08-15 15:43:44,262 [INFO]    Predicting sample004tumor chr18_0_10000000, 0 events pass lite-Unet module. Time cost: 0s
+2024-08-15 15:43:44,275 [INFO]    Predicting sample004tumor hpv16_0_10000000, 0 events pass lite-Unet module. Time cost: 0s
+2024-08-15 15:43:44,359 [INFO]    Predicting Time Cost 0s
+2024-08-15 15:43:44,360 [INFO]    ****************** Step3 Outputting to VCF ****************************
+2024-08-15 15:43:44,429 [INFO]    Outputting sample004tumor to /Users/leework/Documents/Research/projects/project_nexus/data/processed/work/long_read_dna_variant_calling_svisionpro/0d/4a8eeb23421d89a2ef1cc258c4e2a3/sample004tumor_svisionpro_outputs/sample004tumor.svision_pro_v1.8.s3.vcf. Time cost: 0s
+2024-08-15 15:43:44,450 [INFO]    ****************** Step4 Finish ***********************************
+2024-08-15 15:43:44,452 [INFO]    SVision-pro v1.8 successfully finished. Time Cost 4.957404s

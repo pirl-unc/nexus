@@ -1,0 +1,106 @@
+GraphBuildTime	0.0001h wall, 0.0001h user + 0.0000h system = 0.0001h CPU (91.95%)
+GraphMergeTime	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (0.00%)
+disjointSubgraphs	6
+nodes	6
+directedEdges	6
+selfEdges	6
+totalGraphEvidence	5059
+totalCleaned	0
+highestSearchCount	5
+isMaxSearchCount	0
+highestSearchDensity	0.00480769
+isMaxSearchDensity	0
+
+[Sample0]
+Source	/Users/leework/Documents/Research/projects/project_nexus/data/processed/work/paired-end_read_dna_variant_calling_manta/22/1cc811f41d3c10477372f91e967589/sample100normal_fixmate_markeddup_recalibrated.bam
+MinMapqFiltered	4	0.0002
+NotFiltered	19974	0.9998
+NotFilteredAndIgnored	19804	0.9913
+NotFilteredAndAnomalousPair	0	0.0000
+NotFilteredAndAnomalousPairRemotes	0	0.0000
+NotFilteredAndSplitRead	104	0.0052
+NotFilteredAndSplitReadInAnomalousPair	0	0.0000
+NotFilteredAndSplitReadSupplementarySegments	101	N/A
+NotFilteredAndLargeIndel	0	0.0000
+NotFilteredAndSemiAligned	66	0.0033
+EvidenceType_pair	0	0.0000
+EvidenceType_local_pair	23	0.0793
+EvidenceType_cigar	0	0.0000
+EvidenceType_softclip	0	0.0000
+EvidenceType_semialign	66	0.2276
+EvidenceType_shadow	0	0.0000
+EvidenceType_split_align	201	0.6931
+EvidenceType_unknown	0	0.0000
+ClosePairs	23
+
+[Sample1]
+Source	/Users/leework/Documents/Research/projects/project_nexus/data/processed/work/paired-end_read_dna_variant_calling_manta/22/1cc811f41d3c10477372f91e967589/sample100tumor_fixmate_markeddup_recalibrated.bam
+MinMapqFiltered	15	0.0008
+NotFiltered	19980	0.9992
+NotFilteredAndIgnored	18951	0.9478
+NotFilteredAndAnomalousPair	0	0.0000
+NotFilteredAndAnomalousPairRemotes	0	0.0000
+NotFilteredAndSplitRead	399	0.0200
+NotFilteredAndSplitReadInAnomalousPair	0	0.0000
+NotFilteredAndSplitReadSupplementarySegments	385	N/A
+NotFilteredAndLargeIndel	0	0.0000
+NotFilteredAndSemiAligned	630	0.0315
+EvidenceType_pair	0	0.0000
+EvidenceType_local_pair	38	0.0264
+EvidenceType_cigar	0	0.0000
+EvidenceType_softclip	0	0.0000
+EvidenceType_semialign	630	0.4384
+EvidenceType_shadow	0	0.0000
+EvidenceType_split_align	769	0.5351
+EvidenceType_unknown	0	0.0000
+ClosePairs	38
+
+NodeRegionSizequantile:
+0.25	40
+0.5	42
+0.75	785
+0.9	806
+0.95	806
+0.99	806
+NodeEdgeCount:
+0	0
+1	6
+2	0
+3	0
+4	0
+5	0
+6	0
+7	0
+8	0
+9+	0
+NodeObservationCount:
+0	0
+1	0
+2	0
+3	0
+4	0
+5	0
+6	0
+7	0
+8	0
+9	0
+10	0
+11	0
+12	0
+13	0
+14	0
+15	0
+16	0
+17	0
+18	0
+19	0
+20	0
+21	0
+22	0
+23	0
+24	0
+25	0
+26	0
+27	0
+28	0
+29+	6

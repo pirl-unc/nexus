@@ -1,0 +1,42 @@
+[2024-08-15 06:02:11] root: INFO: Starting Severus 1.1
+[2024-08-15 06:02:11] root: DEBUG: Cmd: /opt/conda/bin/severus --target-bam sample002tumor_minimap2_mdtagged_sorted.bam --control-bam sample002normal_minimap2_mdtagged_sorted.bam --phasing-vcf sample002normal_deepvariant.vcf --vntr-bed human_GRCh38_no_alt_analysis_set.trf.bed --threads 2 --out-dir sample002tumor_severus_outputs/ --min-support 3 --min-sv-size 30 --min-mapq 20 --output-read-ids --bp-cluster-size 50
+[2024-08-15 06:02:11] root: DEBUG: Python version: 3.8.13 | packaged by conda-forge | (default, Mar 25 2022, 06:04:10) 
+[GCC 10.3.0]
+[2024-08-15 06:02:11] root: INFO: Parsing reads from sample002tumor_minimap2_mdtagged_sorted.bam
+[2024-08-15 06:02:12] root: INFO: 	Total read length: 11915170
+[2024-08-15 06:02:12] root: INFO: 	Total aligned length: 11914991 (1.00)
+[2024-08-15 06:02:12] root: INFO: 	Read N50 / N90: 82417 / 82417
+[2024-08-15 06:02:12] root: INFO: 	Alignments N50 / N90: 82415 / 82415
+[2024-08-15 06:02:12] root: INFO: 	Read error rate (Q25 / Q50 / Q75): 0.0000 / 0.0000 / 0.0000
+[2024-08-15 06:02:12] root: INFO: 	Read mismatch rate (Q25 / Q50 / Q75): 0.0000 / 0.0000 / 0.0000
+[2024-08-15 06:02:12] root: INFO: Parsing reads from sample002normal_minimap2_mdtagged_sorted.bam
+[2024-08-15 06:02:12] root: INFO: 	Total read length: 6970150
+[2024-08-15 06:02:12] root: INFO: 	Total aligned length: 6970091 (1.00)
+[2024-08-15 06:02:12] root: INFO: 	Read N50 / N90: 97417 / 19070
+[2024-08-15 06:02:12] root: INFO: 	Alignments N50 / N90: 97417 / 19069
+[2024-08-15 06:02:12] root: INFO: 	Read error rate (Q25 / Q50 / Q75): 0.0000 / 0.0000 / 0.0000
+[2024-08-15 06:02:12] root: INFO: 	Read mismatch rate (Q25 / Q50 / Q75): 0.0000 / 0.0000 / 0.0000
+[2024-08-15 06:02:12] root: INFO: Computing read quality
+[2024-08-15 06:02:13] root: INFO: Annotating reads
+[2024-08-15 06:02:13] root: INFO: Computing coverage histogram
+[2024-08-15 06:02:13] root: INFO: 	Median coverage by PASS reads for sample002tumor_minimap2_mdtagged_sorted.bam (H1 / H2 / H0): 0.0 / 0.0 / 0.0
+[2024-08-15 06:02:13] root: INFO: 	Median coverage by PASS reads for sample002normal_minimap2_mdtagged_sorted.bam (H1 / H2 / H0): 0.0 / 0.0 / 0.0
+[2024-08-15 06:02:13] root: INFO: Extracting split alignments
+[2024-08-15 06:02:13] root: INFO: Extracting clipped reads
+[2024-08-15 06:02:13] root: INFO: Starting breakpoint detection
+[2024-08-15 06:02:13] root: INFO: Clustering unmapped insertions
+[2024-08-15 06:02:13] root: INFO: Starting compute_bp_coverage
+[2024-08-15 06:02:14] root: INFO: Filtering breakpoints
+[2024-08-15 06:02:14] root: INFO: Writing breakpoints
+[2024-08-15 06:02:14] root: INFO: Preparing outputs for all_SVs
+[2024-08-15 06:02:14] root: INFO: 	Computing segment coverage
+[2024-08-15 06:02:14] root: INFO: 	Total phased length: 0
+[2024-08-15 06:02:14] root: INFO: 	Phase blocks N50: 0
+[2024-08-15 06:02:14] root: INFO: 	Preparing graph
+[2024-08-15 06:02:14] root: INFO: 	Writing vcf
+[2024-08-15 06:02:14] root: INFO: Preparing outputs for somatic_SVs
+[2024-08-15 06:02:14] root: INFO: 	Computing segment coverage
+[2024-08-15 06:02:14] root: INFO: 	Total phased length: 0
+[2024-08-15 06:02:14] root: INFO: 	Phase blocks N50: 0
+[2024-08-15 06:02:14] root: INFO: 	Preparing graph
+[2024-08-15 06:02:14] root: INFO: 	Writing vcf

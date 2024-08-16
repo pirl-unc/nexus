@@ -1,0 +1,30 @@
+##fileformat=VCFv4.2
+##FILTER=<ID=PASS,Description="All filters passed">
+##FILTER=<ID=RefCall,Description="Genotyping model thinks this site is reference.">
+##FILTER=<ID=LowQual,Description="Confidence in this variant being real is below calling threshold.">
+##FILTER=<ID=NoCall,Description="Site has depth=0 resulting in no call.">
+##INFO=<ID=END,Number=1,Type=Integer,Description="End position (for use with symbolic alleles)">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Conditional genotype quality">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read depth">
+##FORMAT=<ID=MIN_DP,Number=1,Type=Integer,Description="Minimum DP observed within the GVCF block.">
+##FORMAT=<ID=AD,Number=R,Type=Integer,Description="Read depth for each allele">
+##FORMAT=<ID=VAF,Number=A,Type=Float,Description="Variant allele fractions.">
+##FORMAT=<ID=PL,Number=G,Type=Integer,Description="Phred-scaled genotype likelihoods rounded to the closest integer">
+##FORMAT=<ID=MED_DP,Number=1,Type=Integer,Description="Median DP observed within the GVCF block rounded to the nearest integer.">
+##DeepVariant_version=1.6.0
+##contig=<ID=chr17,length=7843138>
+##contig=<ID=chr18,length=8823530>
+##contig=<ID=hpv16,length=7904>
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample001tumor
+chr17	7675193	.	G	GTCATACGTACGATACGATAGCTAGCTACGATGCATATAATCAGCTACAGATCACTAGCTC	63.6	PASS	.	GT:GQ:DP:AD:VAF:PL	1/1:62:60:0,60:1:63,68,0
+chr17	7676194	.	C	CACGTACAGCTACAGCTACGACTAGCATATAGCTACAGCTACGATCACGTACATAGATAAA	61.9	PASS	.	GT:GQ:DP:AD:VAF:PL	1/1:59:60:0,60:1:61,62,0
+chr17	7677193	.	C	CAGCTAGCGCTTTTTTGTAGAGATATATATATAGGGGGCCCCGATCAGTAATCGTAACTAT	63.5	PASS	.	GT:GQ:DP:AD:VAF:PL	1/1:59:60:0,60:1:63,60,0
+chr17	7683193	.	CCGGGTTCAAGCAATTCTGCCTCAGCCTCCTGAGTAGCTGGGATTACAGGCAGGTGCCACCACACCGGCTGATTTTTGTATTTTTAGTAGAGATGGCGTT	C	1.1	RefCall	.	GT:GQ:DP:AD:VAF:PL	./.:7:60:0,60:1:0,26,5
+chr17	7684292	.	TGCTAGAGGACTGCTTGAGCCCAGGGGTTCGAGGCTGCAGTAAGCCTTGATTGTGCCATTGTACTCTAGCCTGGGCAACAGTGTGAGTCCCTGTCTCAAA	T	0.6	RefCall	.	GT:GQ:DP:AD:VAF:PL	./.:9:60:0,60:1:0,28,8
+chr17	7685391	.	ATGTCAGACAGTACATTGAAGGACAGAAGCCCGACAAAAATGAGCACATAATGTATGATTCCCCCCTTTTTTTTGAGACGGAGTTTCGTTCTTGTCGCCC	A	2	RefCall	.	GT:GQ:DP:AD:VAF:PL	./.:4:60:0,60:1:0,32,2
+chr17	7686991	.	T	A	69.2	PASS	.	GT:GQ:DP:AD:VAF:PL	1/1:65:60:0,60:1:69,67,0
+chr17	7687091	.	A	G	69	PASS	.	GT:GQ:DP:AD:VAF:PL	1/1:65:60:0,60:1:68,67,0
+chr17	7687191	.	C	T	65.7	PASS	.	GT:GQ:DP:AD:VAF:PL	1/1:60:60:0,60:1:65,62,0
+chr17	7687291	.	C	T	67.1	PASS	.	GT:GQ:DP:AD:VAF:PL	1/1:65:60:0,60:1:67,69,0
+chr17	7687391	.	C	T	65.7	PASS	.	GT:GQ:DP:AD:VAF:PL	1/1:61:60:0,60:1:65,62,0
