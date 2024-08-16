@@ -6,12 +6,12 @@ from ..data import get_data_path, get_alias_path
 
 def test_paired_end_read_dna_variant_calling_sequenza():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
-    tumor_bam_file = get_data_path(name='bam/hg38_chr21-22_tumor_paired_end_dna.bam')
-    tumor_bam_bai_file = get_data_path(name='bam/hg38_chr21-22_tumor_paired_end_dna.bam.bai')
-    normal_bam_file = get_data_path(name='bam/hg38_chr21-22_normal_paired_end_dna.bam')
-    normal_bam_bai_file = get_data_path(name='bam/hg38_chr21-22_normal_paired_end_dna.bam.bai')
-    reference_genome_fasta_file = get_data_path(name='fasta/hg38_chr21-22.fa.gz')
-    reference_genome_wig_file = get_data_path(name='indices/sequenza/hg38_chr21-22.gc50.wig.gz')
+    tumor_bam_file = get_data_path(name='bam/sample105tumor.bam')
+    tumor_bam_bai_file = get_data_path(name='bam/sample105tumor.bam.bai')
+    normal_bam_file = get_data_path(name='bam/sample105normal.bam')
+    normal_bam_bai_file = get_data_path(name='bam/sample105normal.bam.bai')
+    reference_genome_fasta_file = get_data_path(name='fasta/hg38_chr21_chr22.fa.gz')
+    reference_genome_wig_file = get_data_path(name='indices/sequenza/hg38_chr21_chr22.gc50.wig.gz')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_paired_end_read_dna_variant_calling_sequenza'
     work_dir = temp_dir + '/work/test_paired_end_read_dna_variant_calling_sequenza'
@@ -23,7 +23,7 @@ def test_paired_end_read_dna_variant_calling_sequenza():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     pd.DataFrame({
-        'sample_id': ['sample001'],
+        'sample_id': ['sample105tumor'],
         'tumor_bam_file': [tumor_bam_file],
         'tumor_bam_bai_file': [tumor_bam_bai_file],
         'normal_bam_file': [normal_bam_file],
@@ -36,7 +36,7 @@ def test_paired_end_read_dna_variant_calling_sequenza():
         '--reference_genome_fasta_file', reference_genome_fasta_file,
         '--reference_genome_wig_file', reference_genome_wig_file,
         '--chromosomes', '"chr21 chr22"',
-        '--params_sequenza_bam2seqz', '"-N 5 --qformat sanger"',
+        '--params_sequenza_bam2seqz', '"-N 10 --qformat sanger"',
         '--params_sequenza_seqzbinning', '"--window 50"',
         '--output_dir', output_dir,
     ]

@@ -13,8 +13,7 @@ process runSeverus {
 
     input:
         tuple val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file), path(normal_bam_file), path(normal_bam_bai_file), path(phased_vcf_file)
-        val(reference_genome_fasta_file)
-        val(vntr_bed_file)
+        path(vntr_bed_file)
         val(params_severus)
         val(output_dir)
 

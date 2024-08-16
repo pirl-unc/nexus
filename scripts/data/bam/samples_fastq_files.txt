@@ -1,0 +1,2 @@
+sample_id	fastq_file_1	fastq_file_2
+sample200tumor_unaligned	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample200tumor_long_read_rna.fastq.gz	

@@ -13,7 +13,8 @@ process runCuteSV {
 
     input:
         tuple val(sample_id), path(bam_file), path(bam_bai_file)
-        val(reference_genome_fasta_file)
+        path(reference_genome_fasta_file)
+        path(reference_genome_fasta_fai_file)
         val(params_cutesv)
         val(output_dir)
 

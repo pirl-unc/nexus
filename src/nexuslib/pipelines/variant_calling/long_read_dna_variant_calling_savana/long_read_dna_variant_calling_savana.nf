@@ -15,7 +15,7 @@ params.output_dir = ''
 params.reference_genome_fasta_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa'
 params.reference_genome_fasta_fai_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai'
 params.custom_params_file = '/datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/savana/savana_classification_parameters.json'
-params.params_savana_run = '--length 30 --mapq 20 --depth 3'
+params.params_savana_run = '--length 30 --mapq 20 --min_support 3'
 params.params_savana_classify = ''
 params.delete_work_dir = false
 
@@ -54,7 +54,7 @@ if (params.help) {
         --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
         --reference_genome_fasta_fai_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai).
         --custom_params_file                :   Savana classify --custom_params file (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/savana/savana_classification_parameters.json).
-        --params_savana_run                 :   Savana run parameters (default: '"--length 30 --mapq 20 --depth 3"').
+        --params_savana_run                 :   Savana run parameters (default: '"--length 30 --mapq 20 --min_support 3"').
                                                 Note that the parameters need to be wrapped in quotes.
         --params_savana_classify            :   Savana classify parameters (default: '""').
                                                 Note that the parameters need to be wrapped in quotes.

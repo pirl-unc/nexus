@@ -1,0 +1,2 @@
+sample_id	tumor_bam_file	tumor_bam_bai_file	normal_bam_file	normal_bam_bai_file
+sample105tumor	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/bam/sample105tumor.bam	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/bam/sample105tumor.bam.bai	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/bam/sample105normal.bam	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/bam/sample105normal.bam.bai

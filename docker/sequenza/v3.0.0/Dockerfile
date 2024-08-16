@@ -38,6 +38,7 @@ RUN wget https://cran.r-project.org/src/base/R-3/R-3.6.3.tar.gz && \
 
 # Add R to PATH
 ENV PATH /opt/R/R-3.6.3/bin:$PATH
+ENV LD_LIBRARY_PATH=/opt/R/R-3.6.3/lib:$LD_LIBRARY_PATH
 
 # Install sequenza
 RUN Rscript -e "install.packages('pbapply', repos = 'http://cloud.r-project.org', dependencies = TRUE)"

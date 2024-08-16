@@ -6,8 +6,8 @@ from ..data import get_data_path
 
 def test_transcriptome_assembly_rnabloom2():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
-    tumor_rna_fastq_file = get_data_path(name='fastq/hg38_tp53_tumor_long_read_rna.fastq.gz')
-    normal_rna_fastq_file = get_data_path(name='fastq/hg38_tp53_normal_long_read_rna.fastq.gz')
+    tumor_rna_fastq_file = get_data_path(name='fastq/sample200tumor_long_read_rna.fastq.gz')
+    normal_rna_fastq_file = get_data_path(name='fastq/sample200normal_long_read_rna.fastq.gz')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_transcriptome_assembly_rnabloom2'
     work_dir = temp_dir + '/work/test_transcriptome_assembly_rnabloom2'
@@ -19,7 +19,7 @@ def test_transcriptome_assembly_rnabloom2():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     pd.DataFrame({
-        'sample_id': ['tumor', 'normal'],
+        'sample_id': ['sample200tumor', 'sample200normal'],
         'fastq_file': [tumor_rna_fastq_file, normal_rna_fastq_file]
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
     workflow_args = [

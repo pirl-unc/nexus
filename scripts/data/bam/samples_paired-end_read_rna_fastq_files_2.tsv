@@ -1,0 +1,2 @@
+sample_id	fastq_file_1	fastq_file_2
+sample301tumor	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample301tumor_paired-end_read_rna.r1.fastq.gz	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample301tumor_paired-end_read_rna.r2.fastq.gz

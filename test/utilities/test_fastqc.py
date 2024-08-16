@@ -6,7 +6,7 @@ from ..data import get_data_path
 
 def test_fastqc_single_end_reads():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
-    long_read_tumor_dna_fastq_file = get_data_path(name='fastq/hg38_tp53_tumor_long_read_dna.fastq.gz')
+    long_read_tumor_dna_fastq_file = get_data_path(name='fastq/sample001tumor_long_read_dna.fastq.gz')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_fastqc'
     work_dir = temp_dir + '/work/test_fastqc'
@@ -18,7 +18,7 @@ def test_fastqc_single_end_reads():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     pd.DataFrame({
-        'sample_id': ['tumor-single-end'],
+        'sample_id': ['sample001tumor'],
         'fastq_file_1': [long_read_tumor_dna_fastq_file]
     }).to_csv(intermediate_dir + "/samples1.tsv", sep='\t', index=False)
     workflow_args = [
@@ -34,8 +34,8 @@ def test_fastqc_single_end_reads():
 
 def test_fastqc_paired_end_reads():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
-    dna_fastq_file_1 = get_data_path(name='fastq/hg38_tp53_tumor_paired-end_read_dna.r1.fastq.gz')
-    dna_fastq_file_2 = get_data_path(name='fastq/hg38_tp53_tumor_paired-end_read_dna.r2.fastq.gz')
+    dna_fastq_file_1 = get_data_path(name='fastq/sample100tumor_paired-end_read_dna.r1.fastq.gz')
+    dna_fastq_file_2 = get_data_path(name='fastq/sample100tumor_paired-end_read_dna.r2.fastq.gz')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_fastqc'
     work_dir = temp_dir + '/work/test_fastqc'
@@ -47,7 +47,7 @@ def test_fastqc_paired_end_reads():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     pd.DataFrame({
-        'sample_id': ['tumor-paired-end'],
+        'sample_id': ['sample001tumor'],
         'fastq_file_1': [dna_fastq_file_1],
         'fastq_file_2': [dna_fastq_file_2]
     }).to_csv(intermediate_dir + "/samples2.tsv", sep='\t', index=False)

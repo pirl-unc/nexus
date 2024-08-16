@@ -10,6 +10,7 @@ process runGatk4BaseRecalibrator {
         tuple val(sample_id), path(bam_file), path(bam_bai_file), val(chromosome)
         path(reference_genome_fasta_file)
         path(reference_genome_fasta_fai_file)
+        path(reference_genome_fasta_gzi_file)
         path(reference_genome_fasta_dict_file)
         val(known_sites_files_args)
 
@@ -63,6 +64,7 @@ process runGatk4ApplyBQSR {
         tuple val(sample_id), path(bam_file), path(data_table_file)
         path(reference_genome_fasta_file)
         path(reference_genome_fasta_fai_file)
+        path(reference_genome_fasta_gzi_file)
         path(reference_genome_fasta_dict_file)
 
     output:

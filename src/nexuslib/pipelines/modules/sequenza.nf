@@ -6,11 +6,6 @@ process runSequenzaUtilsBam2Seqz {
     tag "${sample_id}"
     debug true
 
-    publishDir(
-        path: "${output_dir}/",
-        mode: 'copy'
-    )
-
     input:
         tuple val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file), path(normal_bam_file), path(normal_bam_bai_file)
         path(reference_genome_fasta_file)
@@ -42,11 +37,6 @@ process mergeSequenzaSeqzFiles {
     tag "${sample_id}"
     debug true
 
-    publishDir(
-        path: "${output_dir}/",
-        mode: 'copy'
-    )
-
     input:
         tuple val(sample_id), path(seqz_gz_files), path(seqz_gz_tbi_files)
         val(output_dir)
@@ -68,11 +58,6 @@ process runSequenzaUtilsSeqzBinning {
     label 'sequenza'
     tag "${sample_id}"
     debug true
-
-    publishDir(
-        path: "${output_dir}/",
-        mode: 'copy'
-    )
 
     input:
         tuple val(sample_id), path(seqz_gz_file), path(seqz_gz_tbi_file)
@@ -113,7 +98,7 @@ process runSequenza {
 
     script:
         """
-        mkdir -p ${sample_id}_sequenza/
+        mkdir -p ${sample_id}_sequenza_outputs/
         Rscript /opt/sequenza/run_sequenza.R \
             --sample-id $sample_id \
             --small-seqz-file $small_seqz_gz_file \

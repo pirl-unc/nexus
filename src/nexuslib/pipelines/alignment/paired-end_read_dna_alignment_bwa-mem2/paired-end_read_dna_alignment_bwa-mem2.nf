@@ -24,12 +24,13 @@ params.samples_tsv_file = ''
 params.output_dir = ''
 // Optional arguments
 params.reference_genome_fasta_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa'
+params.reference_genome_fasta_fai_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai'
+params.reference_genome_fasta_gzi_file = ''
 params.reference_genome_fasta_dict_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.dict'
 params.reference_genome_fasta_0123_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.0123'
 params.reference_genome_fasta_amb_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.amb'
 params.reference_genome_fasta_ann_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.ann'
 params.reference_genome_fasta_bwt_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.bwt.2bit.64'
-params.reference_genome_fasta_fai_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai'
 params.reference_genome_fasta_pac_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.pac'
 params.abra2_targets_bed_file = '/datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/abra2/gencode-v41-annotation-abra2-exon-targets.bed'
 params.known_sites_files = '/datastore/lbcfs/collaborations/pirl/seqdata/references/dbsnp_146.hg38.vcf,/datastore/lbcfs/collaborations/pirl/seqdata/references/1000G_phase1.snps.high_confidence.hg38.vcf,/datastore/lbcfs/collaborations/pirl/seqdata/references/Mills_and_1000G_gold_standard.indels.hg38.vcf,/datastore/lbcfs/collaborations/pirl/seqdata/references/Homo_sapiens_assembly38.known_indels.vcf'
@@ -69,12 +70,13 @@ if (params.help) {
 
     optional arguments:
         --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
+        --reference_genome_fasta_fai_file   :   Reference genome FASTA.FAI file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai).
+        --reference_genome_fasta_gzi_file   :   Reference genome FASTA.GZ.GZI file (default: '').
         --reference_genome_fasta_dict_file  :   Reference genome DICT file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.dict).
         --reference_genome_fasta_0123_file  :   Reference genome FASTA.0123 file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.0123).
         --reference_genome_fasta_amb_file   :   Reference genome FASTA.AMB file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.amb).
         --reference_genome_fasta_ann_file   :   Reference genome FASTA.ANN file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.ann).
         --reference_genome_fasta_bwt_file   :   Reference genome FASTA.BWT file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.bwt.2bit.64).
-        --reference_genome_fasta_fai_file   :   Reference genome FASTA.FAI file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai).
         --reference_genome_fasta_pac_file   :   Reference genome FASTA.PAC file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.pac).
         --abra2_targets_bed_file            :   ABRA2 targets BED file (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/abra2/gencode-v41-annotation-abra2-exon-targets.bed).
         --known_sites_files                 :   GATK4 BaseRecalibrator --known-sites files
@@ -94,12 +96,13 @@ if (params.help) {
         samples_tsv_file                    :   ${params.samples_tsv_file}
         output_dir                          :   ${params.output_dir}
         reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
+        reference_genome_fasta_fai_file     :   ${params.reference_genome_fasta_fai_file}
+        reference_genome_fasta_gzi_file     :   ${params.reference_genome_fasta_gzi_file}
         reference_genome_fasta_dict_file    :   ${params.reference_genome_fasta_dict_file}
         reference_genome_fasta_0123_file    :   ${params.reference_genome_fasta_0123_file}
         reference_genome_fasta_amb_file     :   ${params.reference_genome_fasta_amb_file}
         reference_genome_fasta_ann_file     :   ${params.reference_genome_fasta_ann_file}
         reference_genome_fasta_bwt_file     :   ${params.reference_genome_fasta_bwt_file}
-        reference_genome_fasta_fai_file     :   ${params.reference_genome_fasta_fai_file}
         reference_genome_fasta_pac_file     :   ${params.reference_genome_fasta_pac_file}
         abra2_targets_bed_file              :   ${params.abra2_targets_bed_file}
         known_sites_files                   :   ${params.known_sites_files}
@@ -127,12 +130,13 @@ workflow PAIRED_END_DNA_READ_ALIGNMENT_BWA_MEM2 {
     take:
         input_fastq_files_ch
         reference_genome_fasta_file
+        reference_genome_fasta_fai_file
+        reference_genome_fasta_gzi_file
         reference_genome_fasta_dict_file
         reference_genome_fasta_0123_file
         reference_genome_fasta_amb_file
         reference_genome_fasta_ann_file
         reference_genome_fasta_bwt_file
-        reference_genome_fasta_fai_file
         reference_genome_fasta_pac_file
         abra2_targets_bed_file
         known_sites_files
@@ -201,6 +205,7 @@ workflow PAIRED_END_DNA_READ_ALIGNMENT_BWA_MEM2 {
             run_gatk4_base_calibrator_input_ch,
             reference_genome_fasta_file,
             reference_genome_fasta_fai_file,
+            reference_genome_fasta_gzi_file,
             reference_genome_fasta_dict_file,
             known_sites_files_args
         )
@@ -221,6 +226,7 @@ workflow PAIRED_END_DNA_READ_ALIGNMENT_BWA_MEM2 {
             run_gatk4_apply_bqsr_input_ch,
             reference_genome_fasta_file,
             reference_genome_fasta_fai_file,
+            reference_genome_fasta_gzi_file,
             reference_genome_fasta_dict_file
         )
         runGatk4ApplyBQSR.out.f.set{ copy_bam_file_input_ch }
@@ -236,12 +242,13 @@ workflow {
     PAIRED_END_DNA_READ_ALIGNMENT_BWA_MEM2(
         input_fastq_files_ch,
         params.reference_genome_fasta_file,
+        params.reference_genome_fasta_fai_file,
+        params.reference_genome_fasta_gzi_file,
         params.reference_genome_fasta_dict_file,
         params.reference_genome_fasta_0123_file,
         params.reference_genome_fasta_amb_file,
         params.reference_genome_fasta_ann_file,
         params.reference_genome_fasta_bwt_file,
-        params.reference_genome_fasta_fai_file,
         params.reference_genome_fasta_pac_file,
         params.abra2_targets_bed_file,
         params.known_sites_files,

@@ -16,6 +16,7 @@ params.samples_tsv_file = ''
 params.output_dir = ''
 // Optional arguments
 params.reference_genome_fasta_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa'
+params.reference_genome_fasta_fai_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai'
 params.params_svim = '--min_mapq 20 --min_sv_size 30 --insertion_sequences --read_names --zmws'
 params.delete_work_dir = false
 
@@ -40,26 +41,28 @@ if (params.help) {
     usage: nexus run --nf-workflow long_read_dna_variant_calling_svim.nf [required] [optional] [--help]
 
     required arguments:
-        -c                              :   Nextflow .config file.
-        -w                              :   Nextflow work directory path.
-        --samples_tsv_file              :   TSV file with the following columns:
-                                            'sample_id', 'bam_file', 'bam_bai_file'.
-        --output_dir                    :   Directory to which output files will be copied.
+        -c                                  :   Nextflow .config file.
+        -w                                  :   Nextflow work directory path.
+        --samples_tsv_file                  :   TSV file with the following columns:
+                                                'sample_id', 'bam_file', 'bam_bai_file'.
+        --output_dir                        :   Directory to which output files will be copied.
 
     optional arguments:
-        --reference_genome_fasta_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
-        --params_svim                   :   SVIM parameters (default: '"--min_mapq 20 --min_sv_size 30 --insertion_sequences --read_names --zmws"').
-                                            Note that the parameters need to be wrapped in quotes.
-        --delete_work_dir               :   Delete work directory (default: false).
+        --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
+        --reference_genome_fasta_fai_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai).
+        --params_svim                       :   SVIM parameters (default: '"--min_mapq 20 --min_sv_size 30 --insertion_sequences --read_names --zmws"').
+                                                Note that the parameters need to be wrapped in quotes.
+        --delete_work_dir                   :   Delete work directory (default: false).
     """.stripIndent()
     exit 0
 } else {
     log.info"""\
-        samples_tsv_file                :   ${params.samples_tsv_file}
-        output_dir                      :   ${params.output_dir}
-        reference_genome_fasta_file     :   ${params.reference_genome_fasta_file}
-        params_svim                     :   ${params_svim}
-        delete_work_dir                 :   ${params.delete_work_dir}
+        samples_tsv_file                    :   ${params.samples_tsv_file}
+        output_dir                          :   ${params.output_dir}
+        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
+        reference_genome_fasta_fai_file     :   ${params.reference_genome_fasta_fai_file}
+        params_svim                         :   ${params_svim}
+        delete_work_dir                     :   ${params.delete_work_dir}
     """.stripIndent()
 }
 
@@ -78,6 +81,7 @@ workflow LONG_READ_DNA_VARIANT_CALLING_SVIM {
     take:
         input_bam_files_ch             // channel: [val(sample_id), path(bam_file), path(bam_bai_file)]
         reference_genome_fasta_file
+        reference_genome_fasta_fai_file
         params_svim
         output_dir
 
@@ -85,6 +89,7 @@ workflow LONG_READ_DNA_VARIANT_CALLING_SVIM {
         runSvimAlignmentMode(
             input_bam_files_ch,
             reference_genome_fasta_file,
+            reference_genome_fasta_fai_file,
             params_svim,
             output_dir
         )
@@ -94,6 +99,7 @@ workflow {
     LONG_READ_DNA_VARIANT_CALLING_SVIM(
         input_bam_files_ch,
         params.reference_genome_fasta_file,
+        params.reference_genome_fasta_fai_file,
         params_svim,
         params.output_dir
     )

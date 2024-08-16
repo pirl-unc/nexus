@@ -4,10 +4,10 @@ Identifies somatic structural DNA variants in tumor and normal long-read DNA BAM
 
 ### Inputs / Outputs
 
-| I/O    | Description                                   |
-|:-------|:----------------------------------------------|
-| Input  | Tumor and normal `bam` files for each sample. | 
-| Output | `vcf` file for each sample.                   |
+| I/O    | Description                                                              |
+|:-------|:-------------------------------------------------------------------------|
+| Input  | Tumor `bam`, normal `bam`, and normal phased `vcf` files for each sample. | 
+| Output | `vcf` file for each sample.                                              |
 
 ### Dependencies
 
@@ -34,17 +34,17 @@ workflow:
 usage: nexus run --nf-workflow long_read_dna_variant_calling_severus.nf [required] [optional] [--help]
 
 required arguments:
-    -c                              :   Nextflow .config file.
-    -w                              :   Nextflow work directory path.
-    --samples_tsv_file              :   TSV file with the following columns:
-                                        'sample_id', 'tumor_bam_file', 'tumor_bam_bai_file', 'normal_bam_file', 'normal_bam_bai_file'.
-    --output_dir                    :   Directory to which output files will be copied.
+    -c                                  :   Nextflow .config file.
+    -w                                  :   Nextflow work directory path.
+    --samples_tsv_file                  :   TSV file with the following columns:
+                                            'sample_id', 'tumor_bam_file', 'tumor_bam_bai_file', 'normal_bam_file', 'normal_bam_bai_file', 'phased_vcf_file'.
+    --output_dir                        :   Directory to which output files will be copied.
 
 optional arguments:
-    --reference_genome_fasta_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
-    --params_severus                :   Severus parameters (default: '"--min-support 3 --min-sv-size 30 --min-mapq 20 --output-read-ids --bp-cluster-size 50"').
-                                        Note that the parameters need to be wrapped in quotes.
-    --delete_work_dir               :   Delete work directory (default: false).
+    --vntr_bed_file                     :   Tandem repeat regions BED file (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/severus/Severus-main/vntrs/human_GRCh38_no_alt_analysis_set.trf.bed).
+    --params_severus                    :   Severus parameters (default: '"--min-support 3 --min-sv-size 30 --min-mapq 20 --output-read-ids --bp-cluster-size 50"').
+                                            Note that the parameters need to be wrapped in quotes.
+    --delete_work_dir                   :   Delete work directory (default: false).
 ```
 
 ### Parameters
@@ -61,6 +61,7 @@ optional arguments:
 | tumor_bam_bai_file  | Full path to tumor `bam.bai` file  |
 | normal_bam_file     | Full path to normal `bam` file     |
 | normal_bam_bai_file | Full path to normal `bam.bai` file |
+| phased_vcf_file | Full path to normal phased `vcf` file |
 
 `--reference_genome_fasta_file`
 * Reference genome FASTA files can be found in /datastore/lbcfs/collaborations/pirl/seqdata/references/ on LBG.

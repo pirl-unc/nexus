@@ -12,4 +12,9 @@ build/
 dist/
 src/nexus.egg-info/
 test/__pycache__/
-test/data/fasta/hg38_chr21-22.fa.gz.*
+test/data/fasta/hg38_chr21_chr22.fa.gz.*
+test/data/fasta/hg38_chr6.fa
+test/data/indices/star/hg38_chr6/
+test/data/vcf/*clairs_outputs/logs/
+test/data/vcf/*clairs_outputs/tmp/
+test/data/vcf/*manta_outputs/workspace/

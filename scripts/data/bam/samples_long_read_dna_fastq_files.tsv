@@ -1,0 +1,11 @@
+sample_id	fastq_file
+sample001normal	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample001normal_long_read_dna.fastq.gz
+sample001tumor	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample001tumor_long_read_dna.fastq.gz
+sample002normal	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample002normal_long_read_dna.fastq.gz
+sample002tumor	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample002tumor_long_read_dna.fastq.gz
+sample003normal	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample003normal_long_read_dna.fastq.gz
+sample003tumor	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample003tumor_long_read_dna.fastq.gz
+sample004normal	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample004normal_long_read_dna.fastq.gz
+sample004tumor	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample004tumor_long_read_dna.fastq.gz
+sample005normal	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample005normal_long_read_dna.fastq.gz
+sample005tumor	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample005tumor_long_read_dna.fastq.gz

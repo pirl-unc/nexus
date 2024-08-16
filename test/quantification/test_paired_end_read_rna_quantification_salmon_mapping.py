@@ -6,8 +6,8 @@ from ..data import get_data_path, get_alias_path
 
 def test_paired_end_read_rna_quantification_salmon_mapping():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
-    paired_end_read_tumor_fastq_file_1 = get_data_path(name='fastq/hg38_tp53_tumor_paired-end_read_rna.r1.fastq.gz')
-    paired_end_read_tumor_fastq_file_2 = get_data_path(name='fastq/hg38_tp53_tumor_paired-end_read_rna.r2.fastq.gz')
+    paired_end_read_tumor_fastq_file_1 = get_data_path(name='fastq/sample301tumor_paired-end_read_rna.r1.fastq.gz')
+    paired_end_read_tumor_fastq_file_2 = get_data_path(name='fastq/sample301tumor_paired-end_read_rna.r2.fastq.gz')
     gtf_file = get_data_path(name='gtf/gencode_v41_tp53_annotation.gtf')
     fasta_file = get_data_path(name='fasta/hg38_tp53_rna.fa')
     temp_dir = os.getcwd() + '/tmp'
@@ -21,7 +21,7 @@ def test_paired_end_read_rna_quantification_salmon_mapping():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     pd.DataFrame({
-        'sample_id': ['tumor'],
+        'sample_id': ['sample301tumor'],
         'fastq_file_1': [paired_end_read_tumor_fastq_file_1],
         'fastq_file_2': [paired_end_read_tumor_fastq_file_2]
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)

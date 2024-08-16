@@ -1,4 +1,4 @@
-## paired_end_read_rna_alignment_star.nf
+## paired-end_read_rna_alignment_star.nf
 
 Aligns paired-end short DNA reads (Illumina) to a reference genome using [STAR](https://github.com/alexdobin/STAR).
 

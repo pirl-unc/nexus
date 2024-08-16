@@ -24,7 +24,7 @@ nexus run --nf-workflow long_read_dna_variant_calling_savana.nf \
     --reference_genome_fasta_file REFERENCE_GENOME_FASTA_FILE \
     --reference_genome_fasta_fai_file REFERENCE_GENOME_FASTA_FAI_FILE \
     --custom_params_file CUSTOM_PARAMS_FILE \
-    --params_savana_run '"--length 30 --mapq 20 --depth 3"' \
+    --params_savana_run '"--length 30 --mapq 20 --min_support 3"' \
     --params_savana_classify '""'
 ```
 
@@ -46,7 +46,7 @@ optional arguments:
     --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
     --reference_genome_fasta_fai_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai).
     --custom_params_file                :   Savana classify --custom_params file (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/savana/savana_classification_parameters.json).
-    --params_savana_run                 :   Savana run parameters (default: '"--length 30 --mapq 20 --depth 3"').
+    --params_savana_run                 :   Savana run parameters (default: '"--length 30 --mapq 20 --min_support 3"').
                                             Note that the parameters need to be wrapped in quotes.
     --params_savana_classify            :   Savana classify parameters (default: '""').
                                             Note that the parameters need to be wrapped in quotes.

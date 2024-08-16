@@ -23,7 +23,7 @@ nexus run --nf-workflow paired-end_read_dna_variant_calling_sequenza.nf \
     --samples_tsv_file SAMPLES_TSV_FILE \
     --output_dir OUTPUT_DIR \
     --reference_genome_fasta_file REFERENCE_GENOME_FASTA_FILE \
-    --reference_genome_wig_fai_file REFERENCE_GENOME_WIG_FILE \
+    --reference_genome_wig_file REFERENCE_GENOME_WIG_FILE \
     --assembly hg38 \
     --chromosomes 'chr1 chr2 chr3' \
     --params_sequenza_bam2seqz '"-N 20 --qformat sanger"' \

@@ -1,0 +1,3 @@
+sample_id	fastq_file_1	fastq_file_2
+sample105normal	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample105normal_paired-end_read_dna.r1.fastq.gz	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample105normal_paired-end_read_dna.r2.fastq.gz
+sample105tumor	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample105tumor_paired-end_read_dna.r1.fastq.gz	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/sample105tumor_paired-end_read_dna.r2.fastq.gz

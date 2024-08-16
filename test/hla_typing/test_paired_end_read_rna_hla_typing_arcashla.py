@@ -6,8 +6,8 @@ from ..data import get_data_path
 
 def test_paired_end_read_rna_hla_typing_arcashla():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
-    bam_file = get_data_path(name='bam/sample001_star_Aligned.sortedByCoord.out.bam')
-    bam_bai_file = get_data_path(name='bam/sample001_star_Aligned.sortedByCoord.out.bam.bai')
+    bam_file = get_data_path(name='bam/sample300normal_star.bam')
+    bam_bai_file = get_data_path(name='bam/sample300normal_star.bam.bai')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_paired_end_rna_hla_profiling_arcashla'
     work_dir = temp_dir + '/work/test_paired_end_rna_hla_profiling_arcashla'
@@ -19,7 +19,7 @@ def test_paired_end_read_rna_hla_typing_arcashla():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     pd.DataFrame({
-        'sample_id': ['sample001'],
+        'sample_id': ['sample001normal'],
         'bam_file': [bam_file],
         'bam_bai_file': [bam_bai_file]
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)

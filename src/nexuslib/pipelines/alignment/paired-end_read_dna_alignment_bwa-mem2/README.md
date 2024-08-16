@@ -1,4 +1,4 @@
-## paired_end_read_dna_alignment_bwa-mem2.nf
+## paired-end_read_dna_alignment_bwa-mem2.nf
 
 Aligns paired-end short DNA reads (Illumina) to a reference genome using [bwa-mem2](https://github.com/bwa-mem2/bwa-mem2).
 
@@ -25,12 +25,13 @@ nexus run --nf-workflow paired-end_read_dna_alignment_bwa-mem2.nf \
     --samples_tsv_file SAMPLES_TSV_FILE \
     --output_dir OUTPUT_DIR \
     --reference_genome_fasta_file REFERENCE_GENOME_FASTA_FILE \
+    --reference_genome_fasta_fai_file REFERENCE_GENOME_FASTA_FAI_FILE \
+    --reference_genome_fasta_gzi_file REFERENCE_GENOME_FASTA_GZI_FILE \
     --reference_genome_fasta_dict_file REFERENCE_GENOME_FASTA_DICT_FILE \
     --reference_genome_fasta_0123_file REFERENCE_GENOME_FASTA_0123_FILE \
     --reference_genome_fasta_amb_file REFERENCE_GENOME_FASTA_AMB_FILE \
     --reference_genome_fasta_ann_file REFERENCE_GENOME_FASTA_ANN_FILE \
     --reference_genome_fasta_bwt_file REFERENCE_GENOME_FASTA_BWT_FILE \
-    --reference_genome_fasta_fai_file REFERENCE_GENOME_FASTA_FAI_FILE \
     --reference_genome_fasta_pac_file REFERENCE_GENOME_FASTA_PAC_FILE \
     --abra2_targets_bed_file ABRA2_TARGETS_BED_FILE \
     --known_sites_files VCF_FILE1,VCF_FILE2 \
@@ -43,7 +44,7 @@ nexus run --nf-workflow paired-end_read_dna_alignment_bwa-mem2.nf \
 workflow:
     1. Align paired-end reads to a reference genome using bwa-mem2.
     2. Sort sam to bam files.
-    3. Perform local realignment using abra2.
+    3. (Optional) Perform local realignment using abra2.
     4. Add mate score tags using samtools.
     5. Mark PCR duplicates using samtools.
     6. Calculate base recalibration scores using gatk4.
@@ -60,12 +61,13 @@ required arguments:
 
 optional arguments:
     --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
+    --reference_genome_fasta_fai_file   :   Reference genome FASTA.FAI file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai).
+    --reference_genome_fasta_gzi_file   :   Reference genome FASTA.GZ.GZI file (default: '').
     --reference_genome_fasta_dict_file  :   Reference genome DICT file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.dict).
     --reference_genome_fasta_0123_file  :   Reference genome FASTA.0123 file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.0123).
     --reference_genome_fasta_amb_file   :   Reference genome FASTA.AMB file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.amb).
     --reference_genome_fasta_ann_file   :   Reference genome FASTA.ANN file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.ann).
     --reference_genome_fasta_bwt_file   :   Reference genome FASTA.BWT file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.bwt.2bit.64).
-    --reference_genome_fasta_fai_file   :   Reference genome FASTA.FAI file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai).
     --reference_genome_fasta_pac_file   :   Reference genome FASTA.PAC file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.pac).
     --abra2_targets_bed_file            :   ABRA2 targets BED file (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/abra2/gencode-v41-annotation-abra2-exon-targets.bed).
     --known_sites_files                 :   GATK4 BaseRecalibrator --known-sites files
@@ -76,6 +78,7 @@ optional arguments:
     --platform_tag                      :   Platform tag (default: 'illumina').
     --platform_unit_tag                 :   Platform unit tag (default: 'unknown').
     --library_tag                       :   Library tag (default: 'unknown').
+    --perform_local_indel_realignment   :   Perform local INDEL realignment (default: true).
     --delete_work_dir                   :   Delete work directory (default: false).
 ```
 

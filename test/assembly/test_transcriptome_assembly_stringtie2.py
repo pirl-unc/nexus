@@ -6,8 +6,8 @@ from ..data import get_data_path
 
 def test_transcriptome_assembly_stringtie2():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
-    bam_file = get_data_path(name='bam/hg38_tp53_tumor_rna_minimap2_mdtagged_sorted.bam')
-    bam_bai_file = get_data_path(name='bam/hg38_tp53_tumor_rna_minimap2_mdtagged_sorted.bam.bai')
+    bam_file = get_data_path(name='bam/sample200tumor_minimap2_mdtagged_sorted.bam')
+    bam_bai_file = get_data_path(name='bam/sample200tumor_minimap2_mdtagged_sorted.bam.bai')
     gtf_file = get_data_path(name='gtf/gencode_v41_tp53_annotation.gtf')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_transcriptome_assembly_stringtie2'
@@ -20,7 +20,7 @@ def test_transcriptome_assembly_stringtie2():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     pd.DataFrame({
-        'sample_id': ['tumor'],
+        'sample_id': ['sample200tumor'],
         'bam_file': [bam_file],
         'bam_bai_file': [bam_bai_file]
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)

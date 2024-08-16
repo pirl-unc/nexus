@@ -6,11 +6,12 @@ from ..data import get_data_path
 
 def test_long_read_dna_variant_calling_cutesv():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
-    tumor_dna_bam_file = get_data_path(name='bam/hg38_tp53_tumor_long_read_dna.bam')
-    tumor_dna_bam_bai_file = get_data_path(name='bam/hg38_tp53_tumor_long_read_dna.bam.bai')
-    normal_dna_bam_file = get_data_path(name='bam/hg38_tp53_normal_long_read_dna.bam')
-    normal_dna_bam_bai_file = get_data_path(name='bam/hg38_tp53_normal_long_read_dna.bam.bai')
-    reference_genome_fasta_file = get_data_path(name='fasta/hg38_chr17_1-8000000.fa')
+    tumor_dna_bam_file = get_data_path(name='bam/sample001tumor_minimap2_mdtagged_sorted.bam')
+    tumor_dna_bam_bai_file = get_data_path(name='bam/sample001tumor_minimap2_mdtagged_sorted.bam.bai')
+    normal_dna_bam_file = get_data_path(name='bam/sample001normal_minimap2_mdtagged_sorted.bam')
+    normal_dna_bam_bai_file = get_data_path(name='bam/sample001normal_minimap2_mdtagged_sorted.bam.bai')
+    reference_genome_fasta_file = get_data_path(name='fasta/hg38_chr17_1-8M_chr18_1-9M_hpv16.fa')
+    reference_genome_fasta_fai_file = get_data_path(name='fasta/hg38_chr17_1-8M_chr18_1-9M_hpv16.fa.fai')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_long_read_dna_variant_calling_cutesv'
     work_dir = temp_dir + '/work/test_long_read_dna_variant_calling_cutesv'
@@ -22,7 +23,7 @@ def test_long_read_dna_variant_calling_cutesv():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     pd.DataFrame({
-        'sample_id': ['tumor', 'normal'],
+        'sample_id': ['sample001tumor', 'sample001normal'],
         'bam_file': [tumor_dna_bam_file, normal_dna_bam_file],
         'bam_bai_file': [tumor_dna_bam_bai_file, normal_dna_bam_bai_file]
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
@@ -31,6 +32,7 @@ def test_long_read_dna_variant_calling_cutesv():
         '-w', work_dir,
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--reference_genome_fasta_file', reference_genome_fasta_file,
+        '--reference_genome_fasta_fai_file', reference_genome_fasta_fai_file,
         '--params_cutesv', '"--max_cluster_bias_INS 1000 --diff_ratio_merging_INS 0.9 --max_cluster_bias_DEL 1000 --diff_ratio_merging_DEL 0.5 --min_support 3 --min_mapq 20 --min_size 30 --max_size -1 --report_readid --genotype"',
         '--output_dir', output_dir,
     ]
