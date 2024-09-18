@@ -22,7 +22,6 @@ nexus run --nf-workflow paired-end_read_rna_quantification_salmon_mapping.nf \
     --samples_tsv_file SAMPLES_TSV_FILE \
     --output_dir OUTPUT_DIR \
     --reference_transcripts_fasta_file REFERENCE_TRANSCRIPTS_FASTA_FILE \
-    --gtf_file GTF_FILE \
     --params_salmon_index '"--gencode"' \
     --params_salmon_quant '"--libType IU --seqBias --gcBias --posBias"'
 ```
@@ -44,7 +43,6 @@ required arguments:
 
 optional arguments:
     --reference_transcripts_fasta_file      :   Reference transcripts FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/gencode.v41.transcripts.fa).
-    --gtf_file                              :   GTF file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/gencode.v41.annotation.gtf.gz).
     --params_salmon_index                   :   Salmon index parameters (default: '"--gencode"').
                                                 Note that the parameters need to be wrapped in quotes.
     --params_salmon_quant                   :   Salmon parameters (default: '"--libType IU --seqBias --gcBias --posBias"').
@@ -59,10 +57,6 @@ optional arguments:
 
 `--reference_transcripts_fasta_file`
 * Reference transcripts FASTA files can be found in 
-`/datastore/lbcfs/collaborations/pirl/seqdata/references/` on LBG.
-
-`--gtf_file`
-* Reference GTF files can be found in 
 `/datastore/lbcfs/collaborations/pirl/seqdata/references/` on LBG.
 
 `--params_salmon_index`

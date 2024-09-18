@@ -45,7 +45,6 @@ process runSalmonPairedEndMappingMode {
     input:
         tuple val(sample_id), path(fastq_file_1), path(fastq_file_2)
         path(reference_transcripts_fasta_file)
-        path(gtf_file)
         val(params_salmon_index)
         val(params_salmon_quant)
         val(output_dir)

@@ -8,7 +8,6 @@ def test_paired_end_read_rna_quantification_salmon_mapping():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
     paired_end_read_tumor_fastq_file_1 = get_data_path(name='fastq/sample301tumor_paired-end_read_rna.r1.fastq.gz')
     paired_end_read_tumor_fastq_file_2 = get_data_path(name='fastq/sample301tumor_paired-end_read_rna.r2.fastq.gz')
-    gtf_file = get_data_path(name='gtf/gencode_v41_tp53_annotation.gtf')
     fasta_file = get_data_path(name='fasta/hg38_tp53_rna.fa')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_paired_end_rna_quantification_salmon_mapping'
@@ -30,7 +29,6 @@ def test_paired_end_read_rna_quantification_salmon_mapping():
         '-w', work_dir,
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--reference_transcripts_fasta_file', fasta_file,
-        '--gtf_file', gtf_file,
         '--params_salmon_index', '"--gencode "',
         '--params_salmon_quant', '"--libType IU --seqBias --gcBias --posBias"',
         '--output_dir', output_dir

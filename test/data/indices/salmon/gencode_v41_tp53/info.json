@@ -1,0 +1,22 @@
+{
+    "index_version": 4,
+    "reference_gfa": [
+        "/home/jinseok/temp/salmon_temp/gencode_v41_tp53"
+    ],
+    "sampling_type": "dense",
+    "k": 31,
+    "num_kmers": 3813,
+    "num_contigs": 45,
+    "seq_length": 5163,
+    "have_ref_seq": true,
+    "have_edge_vec": false,
+    "SeqHash": "1e85776b0f201782bb88c3303cf386ec267b8cd5e3a2cbe4e13f58ce0d88804f",
+    "NameHash": "15e9bce6c1edb5a5f12050f5905b61cb2a3ce40dd51c5f120e3ce3d5d0336b2e",
+    "SeqHash512": "4c186bfcb742efbef3c196b14a3d3488926126eeb2a0ed90b9eecc93d03a4edfa1f926b38840c9cc7d1ccda3d81f3d2be56a814ad161922bd02bbc960327d239",
+    "NameHash512": "ce562c0b6d688fafe68fee163642ddfc8f96862fc83673e99ad4b9daa7d2287a2fb1a06e7021106cccfbf7dadccf6b1de899d68a8ee83e42417468a3bf255208",
+    "DecoySeqHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "DecoyNameHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "num_decoys": 0,
+    "first_decoy_index": 18446744073709551615,
+    "keep_duplicates": false
+}
