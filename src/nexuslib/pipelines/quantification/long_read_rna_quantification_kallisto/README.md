@@ -4,10 +4,10 @@ Quantify RNA abundance in long RNA reads using [Kallisto](https://github.com/pac
 
 ### Inputs / Outputs
 
-| I/O    | Description                      |
-|:-------|:---------------------------------|
-| Input  | `fastq.gz` file for each sample. | 
-| Output | Kallisto output files            |
+| I/O    | Description                                                           |
+|:-------|:----------------------------------------------------------------------|
+| Input  | `fastq.gz` file for each sample.                                      | 
+| Output | Kallisto output files including `abundance.tsv` file for each sample. |
 
 ### Dependencies
 

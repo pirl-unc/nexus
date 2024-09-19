@@ -85,25 +85,26 @@ For more on this particular workflow, check out [here](/src/nexuslib/pipelines/a
 
 A list of links to documentation for all available workflows in the latest version is provided below:
 
-| Category                | Workflow                                                                                                                            |
-|:------------------------|:------------------------------------------------------------------------------------------------------------------------------------|
-| Alignment               | [**long_read_alignment_minimap2.nf**](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/)                              |
-| Alignment               | [**long_read_rna_alignment_ultra.nf**](/src/nexuslib/pipelines/alignment/long_read_rna_alignment_ultra)                             |
-| Alignment               | [**paired-end_read_dna_alignment_bwa-mem2.nf**](/src/nexuslib/pipelines/alignment/paired-end_read_dna_alignment_bwa-mem2/)          |
-| Alignment               | [**paired-end_read_rna_alignment_star.nf**](/src/nexuslib/pipelines/alignment/paired-end_read_rna_alignment_star/)                  |
-| Assembly                | [**transcriptome_assembly_rnabloom2.nf**](/src/nexuslib/pipelines/assembly/transcriptome_assembly_rnabloom2/)                       | 
-| Assembly                | [**transcriptome_assembly_stringtie2.nf**](/src/nexuslib/pipelines/assembly/transcriptome_assembly_stringtie2/)                     |
-| Haplotyping             | [**long_read_dna_haplotyping_whatshap.nf**](/src/nexuslib/pipelines/haplotyping/long_read_dna_haplotyping_whatshap/)                | 
-| HLA typing              | [**paired-end_read_rna_hla_typing_arcashla.nf**](/src/nexuslib/pipelines/hla_typing/paired-end_read_rna_hla_typing_arcashla/)       |
-| HLA typing              | [**paired-end_read_rna_hla_typing_hlaprofiler.nf**](/src/nexuslib/pipelines/hla_typing/paired-end_read_rna_hla_typing_hlaprofiler/) |
-| HLA typing              | [**paired-end_read_rna_hla_typing_seq2hla.nf**](/src/nexuslib/pipelines/hla_typing/paired-end_read_rna_hla_typing_seq2hla/)         |
-| Novel isoform discovery | [**novel_isoform_discovery_flair.nf**](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_flair/)              |
-| Novel isoform discovery | [**novel_isoform_discovery_isoquant.nf**](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_isoquant/)        |
-| Novel isoform discovery | [**novel_isoform_discovery_isoseq.nf**](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_isoseq/)            |
-| Quantification          | [**long_read_rna_quantification_bambu.nf**](/src/nexuslib/pipelines/quantification/long_read_rna_quantification_bambu/)             |
-| Quantification          | [**long_read_rna_quantification_kallisto.nf**](/src/nexuslib/pipelines/quantification/long_read_rna_quantification_kallisto/)       |
-| Quantification          | [**long_read_rna_quantification_liqa.nf**](/src/nexuslib/pipelines/quantification/long_read_rna_quantification_liqa/)               |
-| Quantification          | [**paired-end-read_rna_quantification_salmon_mapping.nf**](/src/nexuslib/pipelines/quantification/paired-end-read_rna_quantification_salmon_mapping/) |
+| Category                | Workflow                                                                                                                                              |
+|:------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Alignment               | [**long_read_alignment_minimap2.nf**](/src/nexuslib/pipelines/alignment/long_read_alignment_minimap2/)                                                |
+| Alignment               | [**long_read_rna_alignment_ultra.nf**](/src/nexuslib/pipelines/alignment/long_read_rna_alignment_ultra)                                               |
+| Alignment               | [**paired-end_read_dna_alignment_bwa-mem2.nf**](/src/nexuslib/pipelines/alignment/paired-end_read_dna_alignment_bwa-mem2/)                            |
+| Alignment               | [**paired-end_read_rna_alignment_star.nf**](/src/nexuslib/pipelines/alignment/paired-end_read_rna_alignment_star/)                                    |
+| Assembly                | [**transcriptome_assembly_rnabloom2.nf**](/src/nexuslib/pipelines/assembly/transcriptome_assembly_rnabloom2/)                                         | 
+| Assembly                | [**transcriptome_assembly_stringtie2.nf**](/src/nexuslib/pipelines/assembly/transcriptome_assembly_stringtie2/)                                       |
+| Haplotyping             | [**long_read_dna_haplotyping_whatshap.nf**](/src/nexuslib/pipelines/haplotyping/long_read_dna_haplotyping_whatshap/)                                  | 
+| HLA typing              | [**paired-end_read_rna_hla_typing_arcashla.nf**](/src/nexuslib/pipelines/hla_typing/paired-end_read_rna_hla_typing_arcashla/)                         |
+| HLA typing              | [**paired-end_read_rna_hla_typing_hlaprofiler.nf**](/src/nexuslib/pipelines/hla_typing/paired-end_read_rna_hla_typing_hlaprofiler/)                   |
+| HLA typing              | [**paired-end_read_rna_hla_typing_seq2hla.nf**](/src/nexuslib/pipelines/hla_typing/paired-end_read_rna_hla_typing_seq2hla/)                           |
+| Novel isoform discovery | [**novel_isoform_discovery_flair.nf**](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_flair/)                                |
+| Novel isoform discovery | [**novel_isoform_discovery_isoquant.nf**](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_isoquant/)                          |
+| Novel isoform discovery | [**novel_isoform_discovery_isoseq.nf**](/src/nexuslib/pipelines/novel_isoform_discovery/novel_isoform_discovery_isoseq/)                              |
+| Quantification (RNA)    | [**long_read_rna_quantification_bambu.nf**](/src/nexuslib/pipelines/quantification/long_read_rna_quantification_bambu/)                               |
+| Quantification (RNA)    | [**long_read_rna_quantification_kallisto.nf**](/src/nexuslib/pipelines/quantification/long_read_rna_quantification_kallisto/)                         |
+| Quantification (RNA)    | [**long_read_rna_quantification_liqa.nf**](/src/nexuslib/pipelines/quantification/long_read_rna_quantification_liqa/)                                 |
+| Quantification (RNA)    | [**paired-end_read_rna_quantification_salmon_mapping.nf**](/src/nexuslib/pipelines/quantification/paired-end_read_rna_quantification_salmon_mapping/) |
+| Quantification (RNA)    | [**paired-end_read_rna_quantification_kallisto.nf**](/src/nexuslib/pipelines/quantification/paired-end_read_rna_quantification_kallisto/)             |
 | Read error correction   | [**long_read_error_correction_ratatosk.nf**](/src/nexuslib/pipelines/read_error_correction/long_read_error_correction_ratatosk/)                      |
 | Utilities               | [**fastq_to_unaligned_bam.nf**](/src/nexuslib/pipelines/utilities/fastq_to_unaligned_bam/)                                                            |
 | Utilities               | [**fastqc.nf**](/src/nexuslib/pipelines/utilities/fastqc/)                                                                                            |
