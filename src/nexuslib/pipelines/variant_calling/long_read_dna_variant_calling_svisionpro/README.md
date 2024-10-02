@@ -4,10 +4,10 @@ Identifies structural DNA variants in long-read DNA BAM files using [SVision-pro
 
 ### Inputs / Outputs
 
-| I/O    | Description                                   |
-|:-------|:----------------------------------------------|
-| Input  | Tumor and normal `bam` files for each sample. | 
-| Output | `vcf` file for each sample.                   |
+| I/O    | Description                                                |
+|:-------|:-----------------------------------------------------------|
+| Input  | Tumor and normal `bam` and `bam.bai` files for each sample. | 
+| Output | `vcf` file for each sample.                                |
 
 ### Dependencies
 
@@ -58,7 +58,8 @@ optional arguments:
 `-c`
 * Nextflow config file can be downloaded [here](https://github.com/pirl-unc/nexus/tree/main/nextflow)
 
-`--sample_tsv_file`
+`--samples_tsv_file`
+* A TSV (tab-separated values) file with the following headers:
 
 | Header              | Description                        |
 |---------------------|------------------------------------|

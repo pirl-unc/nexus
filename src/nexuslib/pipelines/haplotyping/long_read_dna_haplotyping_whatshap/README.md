@@ -57,16 +57,16 @@ optional arguments:
 `-c`
 * Nextflow `config` file can be downloaded [here](https://github.com/pirl-unc/nexus/tree/main/nextflow)
 
-`--sample_tsv_file`
+`--samples_tsv_file`
 * A TSV (tab-separated values) file with the following headers:
 
-| Header    | Description              |
-|-----------|--------------------------|
-| sample_id | Sample ID.               |
-| bam_file  | Full path to `bam` file. |
-| bam_bai_file | Full path to `bam.bai` file. |
-| phased_small_variants_vcf_file | Full path to `phased.vcf` file. |
-| phased_small_variants_vcf_tbi_file | Full path to `phased.vcf.tbi` file. |
+| Header    | Description                           |
+|-----------|---------------------------------------|
+| sample_id | Sample ID.                            |
+| bam_file  | Full path to `bam` file.              |
+| bam_bai_file | Full path to `bam.bai` file.          |
+| phased_small_variants_vcf_file | Full path to `phased.vcf` file.       |
+| phased_small_variants_vcf_tbi_file | Full path to `phased.vcf.tbi` file.   |
 
 `--reference_genome_fasta_file`
 * Reference genome FASTA files can be found in /datastore/lbcfs/collaborations/pirl/seqdata/references/ on LBG.

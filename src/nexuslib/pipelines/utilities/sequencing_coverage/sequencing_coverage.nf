@@ -36,7 +36,8 @@ if (params.help) {
     required arguments:
         -c                                  :   Nextflow .config file.
         -w                                  :   Nextflow work directory path.
-        --samples_tsv_file                  :   TSV file with the following columns: 'sample_id', 'bam_file', 'bam_bai_file'.
+        --samples_tsv_file                  :   TSV file with the following columns:
+                                                'sample_id', 'bam_file', 'bam_bai_file'.
         --output_dir                        :   Directory to which output files will be copied.
 
     optional arguments:

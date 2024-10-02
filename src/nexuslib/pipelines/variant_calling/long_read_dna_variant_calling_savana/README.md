@@ -1,17 +1,17 @@
 ## long_read_dna_variant_calling_savana.nf
 
-Identifies somatic structural DNA variants in tumor and normal long-read DNA BAM files using [savana](https://github.com/cortes-ciriano-lab/savana).
+Identifies somatic structural DNA variants in tumor and normal long-read DNA BAM files using [Savana](https://github.com/cortes-ciriano-lab/savana).
 
 ### Inputs / Outputs
 
-| I/O    | Description                                   |
-|:-------|:----------------------------------------------|
-| Input  | Tumor and normal `bam` files for each sample. | 
-| Output | `vcf` file for each sample.                   |
+| I/O    | Description                                                |
+|:-------|:-----------------------------------------------------------|
+| Input  | Tumor and normal `bam` and `bam.bai` files for each sample. | 
+| Output | `vcf` file for each sample.                                |
 
 ### Dependencies
 
-* `savana`
+* `Savana`
 
 ### Example
 
@@ -39,7 +39,8 @@ usage: nexus run --nf-workflow long_read_dna_variant_calling_savana.nf [required
 required arguments:
     -c                                  :   Nextflow .config file.
     -w                                  :   Nextflow work directory path.
-    --samples_tsv_file                  :   TSV file with the following columns: 'sample_id', 'tumor_bam_file', 'tumor_bam_bai_file', 'normal_bam_file', 'normal_bam_bai_file'.
+    --samples_tsv_file                  :   TSV file with the following columns: 
+                                            'sample_id', 'tumor_bam_file', 'tumor_bam_bai_file', 'normal_bam_file', 'normal_bam_bai_file'.
     --output_dir                        :   Directory to which output files will be copied.
 
 optional arguments:
@@ -58,7 +59,8 @@ optional arguments:
 `-c`
 * Nextflow config file can be downloaded [here](https://github.com/pirl-unc/nexus/tree/main/nextflow)
 
-`--sample_tsv_file`
+`--samples_tsv_file`
+* A TSV (tab-separated values) file with the following headers:
 
 | Header              | Description                        |
 |---------------------|------------------------------------|

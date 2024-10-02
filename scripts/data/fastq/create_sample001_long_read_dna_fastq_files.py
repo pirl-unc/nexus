@@ -65,6 +65,7 @@ if __name__ == "__main__":
     # Step 2. Normal
     sequence = fasta.fetch("NC_000017.11:c7687490-7668421", 0, fasta.lengths[0])
     sequence = list(str(sequence))
+    sequence = sequence[0:2000] + sequence[2099:]
     sequence = ''.join(sequence)
 
     create_fastq_file(

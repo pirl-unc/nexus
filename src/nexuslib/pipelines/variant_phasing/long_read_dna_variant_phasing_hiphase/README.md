@@ -4,10 +4,10 @@ Phases variants with long-read DNA BAM files using [HiPhase](https://github.com/
 
 ### Inputs / Outputs
 
-| I/O    | Description                                                |
-|:-------|:-----------------------------------------------------------|
-| Input  | `bam` file for each sample.                                | 
-| Output | HiPhase output files (phased VCF and BAM) for each sample. |
+| I/O    | Description                                                                                                                    |
+|:-------|:-------------------------------------------------------------------------------------------------------------------------------|
+| Input  | `bam`, `bam.bai`, small variants `vcf.gz`, `vcf.gz.tbi`, and structural variants `vcf.gz`, `vcf.gz.tbi` files for each sample. | 
+| Output | HiPhase output files (phased `vcf` and `bam`) for each sample.                                                                 |
 
 ### Dependencies
 
@@ -57,7 +57,8 @@ optional arguments:
 `-c`
 * Nextflow config file can be downloaded [here](https://github.com/pirl-unc/nexus/tree/main/nextflow)
 
-`--sample_tsv_file`
+`--samples_tsv_file`
+* A TSV (tab-separated values) file with the following headers:
 
 | Header                              | Description                                         |
 |-------------------------------------|-----------------------------------------------------|

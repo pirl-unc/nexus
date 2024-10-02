@@ -48,12 +48,11 @@ optional arguments:
 * Nextflow config file can be downloaded [here](https://github.com/pirl-unc/nexus/tree/main/nextflow)
 
 `--sample_tsv_file`
+* The `bam_file` must be an unaligned `bam` file. To generate unaligned `bam` files from `fastq` files, you can use [fastq_to_unaligned_bam.nf](/src/nexuslib/pipelines/utilities/fastq_to_unaligned_bam/) in `nexus`.
+* A TSV (tab-separated values) file with the following headers:
 
 | Header    | Description                        |
 |-----------|------------------------------------|
 | sample_id | Sample ID.                         |
 | bam_file  | Full path to unaligned `bam` file. |
 
-The `bam_file` must be an unaligned `bam` file. 
-To generate unaligned `bam` files from `fastq` files, 
-you can use [fastq_to_unaligned_bam.nf](/src/nexuslib/pipelines/utilities/fastq_to_unaligned_bam/) in `nexus`.

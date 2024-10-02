@@ -53,11 +53,12 @@ optional arguments:
 * Nextflow config file can be downloaded [here](https://github.com/pirl-unc/nexus/tree/main/nextflow)
 
 `--sample_tsv_file`
+* A TSV (tab-separated values) file with the following headers:
 
-| Header     | Description                             |
-| ---------- |-----------------------------------------|
-| sample_id  | Sample ID.                              |
-| long_read_fastq_file | Full path to long-read `fastq.gz` file. |
+| Header                   | Description                                 |
+|--------------------------|---------------------------------------------|
+| sample_id                | Sample ID.                                  |
+| long_read_fastq_file     | Full path to long-read `fastq.gz` file.     |
 | short_read_r1_fastq_file | Full path to short-read R1 `fastq.gz` file. |
 | short_read_r2_fastq_file | Full path to short-read R2 `fastq.gz` file. |
 

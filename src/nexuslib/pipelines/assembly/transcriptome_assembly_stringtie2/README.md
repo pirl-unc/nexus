@@ -52,6 +52,7 @@ optional arguments:
 * Nextflow config file can be downloaded [here](https://github.com/pirl-unc/nexus/tree/main/nextflow)
 
 `--sample_tsv_file`
+* A TSV (tab-separated values) file with the following headers:
 
 | Header       | Description                     |
 |--------------|---------------------------------|

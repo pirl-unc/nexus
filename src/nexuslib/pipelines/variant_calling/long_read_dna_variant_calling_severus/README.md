@@ -4,10 +4,10 @@ Identifies somatic structural DNA variants in tumor and normal long-read DNA BAM
 
 ### Inputs / Outputs
 
-| I/O    | Description                                                              |
-|:-------|:-------------------------------------------------------------------------|
-| Input  | Tumor `bam`, normal `bam`, and normal phased `vcf` files for each sample. | 
-| Output | `vcf` file for each sample.                                              |
+| I/O    | Description                                                                                |
+|:-------|:-------------------------------------------------------------------------------------------|
+| Input  | Tumor and normal `bam` and `bam.bai` as well as normal phased `vcf` files for each sample. | 
+| Output | `vcf` file for each sample.                                                                |
 
 ### Dependencies
 
@@ -52,7 +52,8 @@ optional arguments:
 `-c`
 * Nextflow config file can be downloaded [here](https://github.com/pirl-unc/nexus/tree/main/nextflow)
 
-`--sample_tsv_file`
+`--samples_tsv_file`
+* A TSV (tab-separated values) file with the following headers:
 
 | Header              | Description                        |
 |---------------------|------------------------------------|

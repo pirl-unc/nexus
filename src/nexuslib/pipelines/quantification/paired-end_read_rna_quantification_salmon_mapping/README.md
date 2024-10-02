@@ -55,6 +55,15 @@ optional arguments:
 `-c`
 * Nextflow config file can be downloaded [here](https://github.com/pirl-unc/nexus/tree/main/nextflow)
 
+`--samples_tsv_file`
+* A TSV (tab-separated values) file with the following headers:
+
+| Header       | Description                     |
+| ------------ |---------------------------------|
+| sample_id    | Sample ID.                      |
+| fastq_file_1 | Full path to R1 `fastq.gz` file |
+| fastq_file_2 | Full path to R2 `fastq.gz` file |
+
 `--reference_transcripts_fasta_file`
 * Reference transcripts FASTA files can be found in 
 `/datastore/lbcfs/collaborations/pirl/seqdata/references/` on LBG.
