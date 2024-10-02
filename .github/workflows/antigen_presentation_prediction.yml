@@ -1,4 +1,4 @@
-name: alignment
+name: antigen_presentation_prediction
 on:
   push:
     branches:
