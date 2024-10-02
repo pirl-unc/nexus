@@ -7,4 +7,5 @@ pytest \
       test_paired_end_read_rna_quantification_kallisto or \
       test_long_read_rna_quantification_bambu or \
       test_long_read_rna_quantification_kallisto or \
-      test_long_read_rna_quantification_liqa"
+      test_long_read_rna_quantification_liqa or \
+      test_long_read_rna_quantification_oarfish"

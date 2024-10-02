@@ -4,6 +4,7 @@ pytest \
   --cov=nexuslib \
   test/ \
   -k "test_paired_end_read_dna_variant_calling_delly2 or \
+      test_paired_end_read_dna_variant_calling_dysgu or \
       test_paired_end_read_dna_variant_calling_gridss or \
       test_paired_end_read_dna_variant_calling_lumpy or \
       test_paired_end_read_dna_variant_calling_manta or \
