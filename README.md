@@ -15,6 +15,7 @@ Command-line interface (CLI) for running bioinformatics workflows written in nex
 * [![utilities](https://github.com/pirl-unc/nexus/actions/workflows/utilities.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/utilities.yml)
 * [![variant_calling_dna_long_reads](https://github.com/pirl-unc/nexus/actions/workflows/variant_calling_dna_long_reads.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/variant_calling_dna_long_reads.yml)
 * [![variant_calling_dna_paired_end_reads](https://github.com/pirl-unc/nexus/actions/workflows/variant_calling_dna_paired_end_reads.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/variant_calling_dna_paired_end_reads.yml)
+* [![variant_calling_rna_long_reads](https://github.com/pirl-unc/nexus/actions/workflows/variant_calling_rna_long_reads.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/variant_calling_rna_long_reads.yml)
 * [![variant_calling_rna_paired_end_reads](https://github.com/pirl-unc/nexus/actions/workflows/variant_calling_rna_paired_end_reads.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/variant_calling_rna_paired_end_reads.yml)
 * [![variant_phasing_dna](https://github.com/pirl-unc/nexus/actions/workflows/variant_phasing_dna.yml/badge.svg)](https://github.com/pirl-unc/nexus/actions/workflows/variant_phasing_dna.yml)
 
@@ -25,7 +26,7 @@ Download the latest stable release [here](https://github.com/pirl-unc/nexus/rele
 ```
 conda create -n nexus python=3.10
 conda activate nexus
-conda install nextflow==23.10.0
+conda install bioconda::nextflow==23.10.0
 pip install nexus-<version>.tar.gz --verbose
 ```
 
@@ -132,6 +133,7 @@ A list of links to documentation for all available workflows in the latest versi
 | Variant calling (DNA)           | [**paired-end_read_dna_variant_calling_sequenza.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_sequenza/)             |
 | Variant calling (DNA)           | [**paired-end_read_dna_variant_calling_strelka2.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_strelka2/)             |
 | Variant calling (DNA)           | [**paired-end_read_dna_variant_calling_svaba.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_dna_variant_calling_svaba/)                   |
+| Variant calling (RNA)           | [**long_read_rna_variant_calling_de_souza.nf**](/src/nexuslib/pipelines/variant_calling/long_read_rna_variant_calling_de_souza/)                         |
 | Variant calling (RNA)           | [**paired-end_read_rna_variant_calling_arriba.nf**](/src/nexuslib/pipelines/variant_calling/paired-end_read_rna_variant_calling_arriba/)                 |
 | Variant phasing (DNA)           | [**long_read_dna_variant_phasing_hiphase.nf**](/src/nexuslib/pipelines/variant_phasing/long_read_dna_variant_phasing_hiphase/)                           |
 | Variant phasing (DNA)           | [**long_read_dna_variant_phasing_whatshap.nf**](/src/nexuslib/pipelines/variant_phasing/long_read_dna_variant_phasing_whatshap/)                         |

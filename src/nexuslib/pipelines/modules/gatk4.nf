@@ -256,3 +256,27 @@ process runGatk4Mutect2TumorOnly {
             $params_gatk4mutect2
         """
 }
+
+process runGatk4SplitNCigarReads {
+
+    label 'gatk4_splitncigarreads'
+    tag "${sample_id}"
+    debug true
+
+    input:
+        tuple val(sample_id), path(bam_file), path(bam_bai_file)
+        path(reference_genome_fasta_file)
+        path(reference_genome_fasta_fai_file)
+        path(reference_genome_fasta_dict_file)
+
+    output:
+        tuple val(sample_id), path("${bam_file.baseName}_gatk4_splitncigarreads.bam"), emit: f
+
+    script:
+        """
+        gatk --java-options "-Xmx${task.java_max_mem.toGiga()}G -XX:+UseParallelGC -XX:ParallelGCThreads=${task.cpus}" SplitNCigarReads \
+            -R ${reference_genome_fasta_file} \
+            -I ${bam_file} \
+            -O ${bam_file.baseName}_gatk4_splitncigarreads.bam
+        """
+}

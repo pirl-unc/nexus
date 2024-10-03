@@ -145,3 +145,25 @@ process runSamtoolsCoverage {
             --output ${bam_file.baseName}_samtools_coverage.txt
         """
 }
+
+process runSamtoolsFilter {
+
+    label 'samtools_filter'
+    tag "${sample_id}"
+    debug true
+
+    input:
+        tuple val(sample_id), path(bam_file), path(bam_bai_file)
+        val(params_samtools_view)
+
+    output:
+        tuple val(sample_id), path("${bam_file.baseName}_samtools_filtered.bam"), emit: f
+
+    script:
+        """
+        samtools view \
+            $params_samtools_view \
+            $bam_file \
+            --output ${bam_file.baseName}_samtools_filtered.bam
+        """
+}
