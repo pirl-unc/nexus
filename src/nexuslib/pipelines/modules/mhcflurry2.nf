@@ -23,6 +23,7 @@ process runMhcflurry2 {
         """
         mhcflurry-predict \
             --out ${sample_id}_mhcflurry2_outputs.csv \
+            --models /opt/mhcflurry2/models/ \
             $params_mhcflurry2_predict \
             $mhcflurry2_input_csv_file
         """

@@ -65,5 +65,9 @@ RUN pip install mhcgnomes==1.8.6
 RUN pip install mhcflurry
 RUN mhcflurry-downloads fetch
 
+# Make models available
+RUN mkdir -p /opt/mhcflurry2/models/
+RUN cp -r /root/.local/share/mhcflurry/4/2.2.0/models_class1_presentation/models/* /opt/mhcflurry2/models/
+
 # Clean up to reduce Docker image size
 RUN apt-get clean

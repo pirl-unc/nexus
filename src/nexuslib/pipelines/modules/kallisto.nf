@@ -20,14 +20,14 @@ process runKallistoQuantSingleEndReads {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_kallisto_output/"), emit: f
+        tuple val(sample_id), path("${sample_id}_kallisto_outputs/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_kallisto_output/
+        mkdir -p ${sample_id}_kallisto_outputs/
         kallisto quant \
             --index=$kallisto_index_file \
-            --output-dir=${sample_id}_kallisto_output/ \
+            --output-dir=${sample_id}_kallisto_outputs/ \
             --fragment-length=$params_kallisto_quant_fragment_length \
             --sd=$params_kallisto_quant_sd \
             --single \
@@ -55,14 +55,14 @@ process runKallistoQuantPairedEndReads {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_kallisto_output/"), emit: f
+        tuple val(sample_id), path("${sample_id}_kallisto_outputs/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_kallisto_output/
+        mkdir -p ${sample_id}_kallisto_outputs/
         kallisto quant \
             --index=$kallisto_index_file \
-            --output-dir=${sample_id}_kallisto_output/ \
+            --output-dir=${sample_id}_kallisto_outputs/ \
             --threads=${task.cpus} \
             $params_kallisto_quant \
             $fastq_file_1 $fastq_file_2
