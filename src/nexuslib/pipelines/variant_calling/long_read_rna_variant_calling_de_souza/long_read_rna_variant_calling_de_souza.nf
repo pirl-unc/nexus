@@ -64,9 +64,9 @@ log.info """\
 if (params.help) {
     log.info"""\
     workflow:
-        1. Run minimap2.
+        1. Align reads to the reference using minimap2.
         2. Filter, sort, and index using samtools.
-        3. Run GATK4.
+        3. Run GATK4 SplitNCigarReads.
         4. Perform flag correction.
         5. Index using samtools.
         6. Run DeepVariant.
