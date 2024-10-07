@@ -8,7 +8,7 @@ def test_paired_end_read_rna_quantification_kallisto():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
     paired_end_read_tumor_fastq_file_1 = get_data_path(name='fastq/sample301tumor_paired-end_read_rna.r1.fastq.gz')
     paired_end_read_tumor_fastq_file_2 = get_data_path(name='fastq/sample301tumor_paired-end_read_rna.r2.fastq.gz')
-    kallisto_index_file = get_data_path(name='indices/kallisto/kallisto_gencode_v41_tp53_index')
+    kallisto_index_file = get_data_path(name='indices/kallisto/kallisto_gencode_v41_tp53_index_k31.idx')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_paired_end_rna_quantification_kallisto'
     work_dir = temp_dir + '/work/test_paired_end_rna_quantification_kallisto'

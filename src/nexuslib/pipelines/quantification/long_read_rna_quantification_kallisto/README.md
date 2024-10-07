@@ -51,7 +51,7 @@ required arguments:
     --params_bustools_count                 :   Bustools count parameters (default: '"--cm -m"').
                                                 Note that the parameters need to be wrapped in quotes
                                                 and a space at the end of the string is necessary.
-    --params_kallisto_quanttcc              :   Kallisto quant-tcc parameters (default: '"-P PacBio"').
+    --params_kallisto_quanttcc              :   Kallisto quant-tcc parameters (default: '"-P PacBio --matrix-to-files"').
     --output_dir                            :   Directory to which output files will be copied.
 
 optional arguments:
