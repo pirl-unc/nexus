@@ -1,6 +1,7 @@
 #!/usr/bin/env nextflow
 
 process runKallistoQuantTccLongReads {
+
     label 'kallisto'
     tag "${sample_id}"
     debug true
@@ -39,6 +40,7 @@ process runKallistoQuantTccLongReads {
         bustools sort \
             -t ${task.cpus} \
             -o ${sample_id}_kallisto_outputs/sorted.bus \
+            -m ${task.bustools_memory.toGiga()}G \
             $params_bustools_sort \
             ${sample_id}_kallisto_outputs/output.bus
 
