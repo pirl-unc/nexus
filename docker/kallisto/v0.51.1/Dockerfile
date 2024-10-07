@@ -31,7 +31,11 @@ ENV PATH=/opt/conda/bin:$PATH
 RUN conda update -n base -c defaults conda
 
 # Install kallisto dependencies
+RUN conda config --set solver classic
+RUN conda config --add channels conda-forge
+RUN conda config --add channels bioconda
 RUN conda install -c conda-forge gcc_linux-64==14.1.0 hdf5==1.14.3
+RUN conda install -c bioconda bustools==0.44.0
 
 # Download, build, and install kallisto
 RUN wget https://github.com/pachterlab/kallisto/archive/refs/tags/v0.51.1.tar.gz && \
@@ -39,7 +43,7 @@ RUN wget https://github.com/pachterlab/kallisto/archive/refs/tags/v0.51.1.tar.gz
     cd kallisto-0.51.1 && \
     mkdir build && \
     cd build && \
-    cmake .. -DENABLE_AVX2=OFF -DCOMPILATION_ARCH=OFF && \
+    cmake .. -DENABLE_AVX2=OFF -DCOMPILATION_ARCH=OFF -DMAX_KMER_SIZE=64 && \
     make && \
     make install
 

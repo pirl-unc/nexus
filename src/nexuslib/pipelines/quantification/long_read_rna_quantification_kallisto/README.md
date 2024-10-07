@@ -21,17 +21,20 @@ nexus run --nf-workflow long_read_rna_quantification_kallisto.nf \
     -w WORK_DIR \
     --samples_tsv_file SAMPLES_TSV_FILE \
     --kallisto_index_file KALLISTO_INDEX_FILE \
+    --gtf_file GTF_FILE \
+    --t2g_file T2G_FILE \
     --output_dir OUTPUT_DIR \
-    --params_kallisto_quant_fragment_length PARAMS_KALLISTO_QUANT_FRAGMENTATION_LENGTH \
-    --params_kallisto_quant_sd PARAMS_KALLISTO_QUANT_SD \
-    --params_kallisto_quant PARAMS_KALLISTO_QUANT
+    --params_kallisto_bus PARAMS_KALLISTO_BUS \
+    --params_bustools_sort PARAMS_BUSTOOLS_SORT \
+    --params_bustools_count PARAMS_BUSTOOLS_COUNT \
+    --params_kallisto_quanttcc PARAMS_KALLISTO_QUANTTCC
 ```
 
 ### Usage
 
 ```
 workflow:
-    1. Quantify RNA in long-read FASTQ files using Kallisto.
+    1. Quantify RNA in long-read FASTQ files using Kallisto (quant-tcc).
 
 usage: nexus run --nf-workflow long_read_rna_quantification_kallisto.nf [required] [optional] [--help]
 
@@ -40,15 +43,19 @@ required arguments:
     -w                                      :   Nextflow work directory path.
     --samples_tsv_file                      :   TSV file with the following columns:
                                                 'sample_id', 'fastq_file'.
-    --kallisto_index_file                   :   Kallisto index file.
-    --params_kallisto_quant_fragment_length :   Kallisto quant '--fragment-length' parameter value (required for single-end reads).
-    --params_kallisto_quant_sd              :   Kallisto quant '--sd' parameter value (required for single-end reads).
+    --kallisto_index_file                   :   Kallisto index file (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/kallisto/v0.51.1/gencode_v41/kallisto_gencode_v41_index_k63.idx).
+    --gtf_file                              :   GTF file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/gencode.v41.annotation.gtf).
+    --t2g_file                              :   T2G file (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/kallisto/v0.51.1/gencode_v41/gencode_v41.t2g).
+    --params_kallisto_bus                   :   Kallisto bus parameters (default: '"-x bulk --threshold 0.8"').
+    --params_bustools_sort                  :   Bustools sort parameters (default: '""').
+    --params_bustools_count                 :   Bustools count parameters (default: '"--cm -m"').
+                                                Note that the parameters need to be wrapped in quotes
+                                                and a space at the end of the string is necessary.
+    --params_kallisto_quanttcc              :   Kallisto quant-tcc parameters (default: '"-P PacBio"').
     --output_dir                            :   Directory to which output files will be copied.
 
 optional arguments:
-    --params_kallisto_quant                 :   Kallisto quant parameters (default: '""').
-                                                Note that the parameters need to be wrapped in quotes.
-    --delete_work_dir                       :   Delete work directory (default: false).
+    --delete_work_dir                       :   Delete work directory (default: false).Z
 ```
 
 ### Parameters
@@ -68,13 +75,43 @@ optional arguments:
 * Kallisto index files can be found in 
 `/datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/kallisto/` on LBG.
 
-`--params_kallisto_quant`
-* Refer to the [Kallisto documentation](https://pachterlab.github.io/kallisto/manual.html).
-* The following parameters for `Kallisto` are already included in `nexus` module for `kallisto quant` and should not be specified:
-  * `--index`
-  * `--output-dir`
-  * `--single`
-  * `--threads`
-  * `--params_kallisto_quant_fragment_length`
-  * `--params_kallisto_quant_sd`
+`gtf_file`
+* GTF files can be found in 
+`/datastore/lbcfs/collaborations/pirl/seqdata/references/` on LBG.
 
+`t2g_file`
+* T2G files can be found in 
+`/datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/kallisto/` on LBG.
+
+`params_kallisto_bus`
+* Refer to the [Kallisto documentation](https://pachterlab.github.io/kallisto/manual.html).
+* The following parameters for `Kallisto` are already included in `nexus` module for `kallisto bus` and should not be specified:
+  * `-t`
+  * `--long`
+  * `-i`
+  * `-o`
+
+`params_bustools_sort`
+* Refer to the [Kallisto documentation](https://pachterlab.github.io/kallisto/manual.html).
+* The following parameters for `bustools` are already included in `nexus` module for `bustools sort` and should not be specified:
+  * `-t`
+  * `-o`
+
+`params_bustools_count`
+* Refer to the [Kallisto documentation](https://pachterlab.github.io/kallisto/manual.html).
+* The following parameters for `bustools` are already included in `nexus` module for `bustools count` and should not be specified:
+  * `-t`
+  * `-e`
+  * `-o`
+  * `-g`
+
+`--params_kallisto_quanttcc`
+* Refer to the [Kallisto documentation](https://pachterlab.github.io/kallisto/manual.html).
+* The following parameters for `Kallisto` are already included in `nexus` module for `kallisto quant-tcc` and should not be specified:
+  * `-t`
+  * `--long`
+  * `-f`
+  * `-i`
+  * `-e`
+  * `-o`
+  * `--gtf`
