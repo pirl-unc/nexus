@@ -58,6 +58,8 @@ optional arguments:
 | sample_id                 | Sample ID.                                |
 | mhcflurry2_input_csv_file | Full path to MHCflurry2 input `csv` file. |
 
+Each `mhcflurry2_input_csv_file` should have the following columns: `peptide` and `allele`.
+
 `--params_mhcflurry2_predict`
 * Refer to the [MHCflurry2 documentation](https://github.com/openvax/mhcflurry).
 * The following parameters for `mhcflurry-predict` are already included in `nexus` module and should not be specified:
