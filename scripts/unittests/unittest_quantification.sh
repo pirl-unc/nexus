@@ -8,4 +8,5 @@ pytest \
       test_long_read_rna_quantification_bambu or \
       test_long_read_rna_quantification_kallisto or \
       test_long_read_rna_quantification_liqa or \
-      test_long_read_rna_quantification_oarfish"
+      test_long_read_rna_quantification_oarfish or \
+      test_long_read_rna_quantification_transigner.py"
