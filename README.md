@@ -107,6 +107,7 @@ A list of links to documentation for all available workflows in the latest versi
 | Quantification (RNA)            | [**long_read_rna_quantification_kallisto.nf**](/src/nexuslib/pipelines/quantification/long_read_rna_quantification_kallisto/)                            |
 | Quantification (RNA)            | [**long_read_rna_quantification_liqa.nf**](/src/nexuslib/pipelines/quantification/long_read_rna_quantification_liqa/)                                    |
 | Quantification (RNA)            | [**long_read_rna_quantification_oarfish.nf**](/src/nexuslib/pipelines/quantification/long_read_rna_quantification_oarfish/)                              |
+| Quantification (RNA)            | [**long_read_rna_quantification_transigner.nf**](/src/nexuslib/pipelines/quantification/long_read_rna_quantification_transigner/)                        |
 | Quantification (RNA)            | [**paired-end_read_rna_quantification_salmon_mapping.nf**](/src/nexuslib/pipelines/quantification/paired-end_read_rna_quantification_salmon_mapping/)    |
 | Quantification (RNA)            | [**paired-end_read_rna_quantification_kallisto.nf**](/src/nexuslib/pipelines/quantification/paired-end_read_rna_quantification_kallisto/)                |
 | Read error correction           | [**long_read_error_correction_ratatosk.nf**](/src/nexuslib/pipelines/read_error_correction/long_read_error_correction_ratatosk/)                         |
