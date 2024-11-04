@@ -22,7 +22,7 @@ nexus run --nf-workflow long_read_rna_quantification_oarfish.nf \
     --samples_tsv_file SAMPLES_TSV_FILE \
     --reference_transcriptome_fasta_file REFERENCE_TRANSCRIPTOME_FASTA_FILE \
     --output_dir OUTPUT_DIR \
-    --params_oarfish '"--seq-tech pac-bio-hifi"'
+    --params_oarfish '"--seq-tech pac-bio-hifi "'
 ```
 
 ### Usage
@@ -40,7 +40,7 @@ required arguments:
                                                 'sample_id', 'fastq_file'.
     --reference_transcriptome_fasta_file    :   Reference transcriptome FASTA file
                                                 (default: '/datastore/lbcfs/collaborations/pirl/seqdata/references/gencode.v41.transcripts.fa').
-    --params_oarfish                        :   Oarfish parameters (default: '"--seq-tech pac-bio-hifi"').
+    --params_oarfish                        :   Oarfish parameters (default: '"--seq-tech pac-bio-hifi "').
                                                 Note that the parameters need to be wrapped in quotes
                                                 and a space at the end of the string is necessary.
     --output_dir                            :   Directory to which output files will be copied.

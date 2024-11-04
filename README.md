@@ -23,10 +23,11 @@ Command-line interface (CLI) for running bioinformatics workflows written in nex
 
 Download the latest stable release [here](https://github.com/pirl-unc/nexus/releases)
 
+Make sure to have `nextflow v24.10.0` and up:
 ```
 conda create -n nexus python=3.10
 conda activate nexus
-conda install bioconda::nextflow==23.10.0
+conda install bioconda::nextflow==24.10.0
 pip install nexus-<version>.tar.gz --verbose
 ```
 
