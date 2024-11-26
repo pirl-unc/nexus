@@ -21,6 +21,7 @@ nexus run --nf-workflow long_read_dna_variant_calling_savana.nf \
     -w WORK_DIR \
     --samples_tsv_file SAMPLES_TSV_FILE \
     --output_dir OUTPUT_DIR \
+    --contigs_file CONTIGS_FILE \
     --reference_genome_fasta_file REFERENCE_GENOME_FASTA_FILE \
     --reference_genome_fasta_fai_file REFERENCE_GENOME_FASTA_FAI_FILE \
     --custom_params_file CUSTOM_PARAMS_FILE \
@@ -41,6 +42,7 @@ required arguments:
     -w                                  :   Nextflow work directory path.
     --samples_tsv_file                  :   TSV file with the following columns: 
                                             'sample_id', 'tumor_bam_file', 'tumor_bam_bai_file', 'normal_bam_file', 'normal_bam_bai_file'.
+    --contigs_txt_file                  :   TXT file with each contig name (e.g. chr1) in a new line.
     --output_dir                        :   Directory to which output files will be copied.
 
 optional arguments:
@@ -70,6 +72,9 @@ optional arguments:
 | normal_bam_file     | Full path to normal `bam` file     |
 | normal_bam_bai_file | Full path to normal `bam.bai` file |
 
+`--contigs_file`
+* Savana `run` command `--contigs` file can be found in /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/savana/ on LBG.
+
 `--reference_genome_fasta_file`
 * Reference genome FASTA files can be found in /datastore/lbcfs/collaborations/pirl/seqdata/references/ on LBG.
 
@@ -77,7 +82,7 @@ optional arguments:
 * Reference genome FASTA.FAI files can be found in /datastore/lbcfs/collaborations/pirl/seqdata/references/ on LBG.
 
 `--custom_params_file`
-* Savana `classify` command `--custom_params` file can be found in /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/savana on LBG.
+* Savana `classify` command `--custom_params` file can be found in /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/savana/ on LBG.
 
 `--params_savana_run`
 * Refer to the [savana documentation](https://github.com/cortes-ciriano-lab/savana).
@@ -88,6 +93,7 @@ optional arguments:
   * `--threads`
   * `--outdir`
   * `--sample`
+  * `--contigs`
 
 `--params_savana_classify`
 * Refer to the [savana documentation](https://github.com/cortes-ciriano-lab/savana).

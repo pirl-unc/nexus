@@ -13,6 +13,7 @@ def test_long_read_dna_variant_calling_savana():
     reference_genome_fasta_file = get_data_path(name='fasta/hg38_chr17_1-8M_chr18_1-9M_hpv16.fa')
     reference_genome_fasta_fai_file = get_data_path(name='fasta/hg38_chr17_1-8M_chr18_1-9M_hpv16.fa.fai')
     savana_classification_configuration_file = get_data_path(name='indices/savana/savana_classification_parameters.json')
+    contigs_file = get_data_path(name='indices/savana/hg38_chr17_contig.txt')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_long_read_dna_variant_calling_savana'
     work_dir = temp_dir + '/work/test_long_read_dna_variant_calling_savana'
@@ -34,6 +35,7 @@ def test_long_read_dna_variant_calling_savana():
         '-c', nextflow_config_file,
         '-w', work_dir,
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
+        '--contigs_txt_file', contigs_file,
         '--reference_genome_fasta_file', reference_genome_fasta_file,
         '--reference_genome_fasta_fai_file', reference_genome_fasta_fai_file,
         '--custom_params_file', savana_classification_configuration_file,
