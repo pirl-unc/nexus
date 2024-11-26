@@ -42,7 +42,7 @@ required arguments:
     --output_dir                    :   Directory to which output files will be copied.
 
 optional arguments:
-    --star_index                    :   Reference genome STAR index (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/star/hg38_100bp_overhang/).
+    --star_index                    :   Reference genome STAR index (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/star/hg38_149bp_overhang/).
     --params_star                   :   STAR parameters (default: "--readFilesCommand zcat --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --outSAMattributes Standard --twopassMode Basic").
     --delete_work_dir               :   Delete work directory (default: false).
 ```

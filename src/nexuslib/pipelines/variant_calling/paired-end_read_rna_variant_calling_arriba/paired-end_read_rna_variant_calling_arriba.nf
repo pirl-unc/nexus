@@ -38,9 +38,9 @@ if (params.params_star == true) {
 
 // Step 3. Print inputs and help
 log.info """\
-         ==========================================================================
-         Identify fusion genes in paired-read RNA sequencing BAM files using Arriba
-         ==========================================================================
+         ===============================================================================
+         Identify fusion genes in paired-read RNA sequencing FASTQ.GZ files using Arriba
+         ===============================================================================
          """.stripIndent()
 
 if (params.help) {

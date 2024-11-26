@@ -10,6 +10,7 @@ include { runSavanaClassify } from '../../modules/savana'
 params.help = ''
 // Required arguments
 params.samples_tsv_file = ''
+params.contigs_file = ''
 params.output_dir = ''
 // Optional arguments
 params.reference_genome_fasta_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa'
@@ -48,6 +49,7 @@ if (params.help) {
         -c                                  :   Nextflow .config file.
         -w                                  :   Nextflow work directory path.
         --samples_tsv_file                  :   TSV file with the following columns: 'sample_id', 'tumor_bam_file', 'tumor_bam_bai_file', 'normal_bam_file', 'normal_bam_bai_file'.
+        --contigs_file                      :   Contigs file (list of chromosomes).
         --output_dir                        :   Directory to which output files will be copied.
 
     optional arguments:
@@ -65,6 +67,7 @@ if (params.help) {
     log.info"""\
         samples_tsv_file                    :   ${params.samples_tsv_file}
         output_dir                          :   ${params.output_dir}
+        contigs_file                        :   ${params.contigs_file}
         reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
         reference_genome_fasta_fai_file     :   ${params.reference_genome_fasta_fai_file}
         custom_params_file                  :   ${params.custom_params_file}
@@ -92,6 +95,7 @@ workflow LONG_READ_DNA_VARIANT_CALLING_SAVANA {
         input_bam_files_ch             // channel: [val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file), path(normal_bam_file), path(normal_bam_bai_file)]
         reference_genome_fasta_file
         reference_genome_fasta_fai_file
+        contigs_file
         custom_params_file
         params_savana_run
         params_savana_classify
@@ -102,6 +106,7 @@ workflow LONG_READ_DNA_VARIANT_CALLING_SAVANA {
             input_bam_files_ch,
             reference_genome_fasta_file,
             reference_genome_fasta_fai_file,
+            contigs_file,
             params_savana_run,
             output_dir
         )
@@ -118,6 +123,7 @@ workflow {
         input_bam_files_ch,
         params.reference_genome_fasta_file,
         params.reference_genome_fasta_fai_file,
+        params.contigs_file,
         params.custom_params_file,
         params_savana_run,
         params_savana_classify,

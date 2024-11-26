@@ -1,13 +1,13 @@
 ## paired-end_read_rna_variant_calling_arriba.nf
 
-Identifies fusion genes in paired-read RNA BAM files using [Arriba](https://arriba.readthedocs.io/en/latest/).
+Identifies fusion genes in paired-read RNA fastq.gz files using [Arriba](https://arriba.readthedocs.io/en/latest/).
 
 ### Inputs / Outputs
 
-| I/O    | Description                                                |
-|:-------|:-----------------------------------------------------------|
-| Input  | Tumor and normal `bam` and `bam.bai` files for each sample. | 
-| Output | `TSV` file for each sample.                                |
+| I/O    | Description                                             |
+|:-------|:--------------------------------------------------------|
+| Input  | RNA-seq `fastq.gz` files (R1 and R2) for each sample.   | 
+| Output | `TSV` file for each sample.                             |
 
 ### Dependencies
 
@@ -40,7 +40,7 @@ required arguments:
     -c                                  :   Nextflow .config file.
     -w                                  :   Nextflow work directory path.
     --samples_tsv_file                  :   TSV file with the following columns:
-                                            'sample_id', 'bam_file', 'bam_bai_file'.
+                                            'sample_id', 'fastq_file_1', 'fastq_file_2'.
     --output_dir                        :   Directory to which output files will be copied.
 
 optional arguments:
@@ -61,11 +61,11 @@ optional arguments:
 `--samples_tsv_file`
 * A TSV (tab-separated values) file with the following headers:
 
-| Header              | Description                              |
-|---------------------|------------------------------------------|
-| sample_id           | Sample ID                                |
-| bam_file            | Full path to STAR aligned `bam` file     |
-| bam_bai_file        | Full path to STAR aligned `bam.bai` file |
+| Header       | Description                             |
+|--------------|-----------------------------------------|
+| sample_id    | Sample ID                               |
+| fastq_file_1 | Full path to RNA-seq `fastq.gz` R1 file |
+| fastq_file_2 | Full path to RNA-seq `fastq.gz` R2 file |
 
 `--reference_genome_fasta_file`
 * Reference genome FASTA files can be found in /datastore/lbcfs/collaborations/pirl/seqdata/references/ on LBG.

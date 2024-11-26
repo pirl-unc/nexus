@@ -53,7 +53,7 @@ def run_nexus_avail_from_parsed_args(args):
     Runs Nexus 'avail' command using parameters from parsed arguments.
     """
     print("Available workflows:")
-    resources_path = resources.path('nexuslib', "pipelines")
+    resources_path = resources.files('nexuslib').joinpath("pipelines")
     workflows_dict = OrderedDict()
     nf_scripts = glob.glob("%s/**/*.nf" % resources_path, recursive=True)
     for nf_script in nf_scripts:

@@ -15,6 +15,7 @@ process runSavanaRun {
         tuple val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file), path(normal_bam_file), path(normal_bam_bai_file)
         path(reference_genome_fasta_file)
         path(reference_genome_fasta_fai_file)
+        path(contigs_file)
         val(params_savana_run)
         val(output_dir)
 
@@ -29,6 +30,7 @@ process runSavanaRun {
             -n $normal_bam_file \
             --ref $reference_genome_fasta_file \
             --ref_index $reference_genome_fasta_fai_file \
+            --contigs $contigs_file \
             --threads ${task.cpus} \
             --outdir ${sample_id}_savana_run_outputs/ \
             --sample $sample_id \

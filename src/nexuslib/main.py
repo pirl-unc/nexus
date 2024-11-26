@@ -39,7 +39,7 @@ def get_available_workflows():
     -------
     nf_scripts_paths    :   Dictionary (key = workflow name, value = path to nextflow script).
     """
-    resources_path = resources.path('nexuslib', "pipelines")
+    resources_path = resources.files('nexuslib').joinpath("pipelines")
     nf_scripts_paths = {}
     nf_scripts = glob.glob("%s/**/*.nf" % resources_path, recursive=True)
     for nf_script in nf_scripts:

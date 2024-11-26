@@ -25,6 +25,8 @@ RUN apt-get update && \
     libssl-dev \
     libbz2-dev \
     lzma-dev \
+    libbz2-dev \
+    liblz4-dev \
     liblzma-dev \
     libssl-dev \
     libpcre2-dev \
@@ -32,8 +34,11 @@ RUN apt-get update && \
     make \
     ncurses-dev \
     openssl \
+    pkg-config \
     tzdata  \
+    unzip \
     wget \
+    vim \
     zlib1g \
     zlib1g-dev && \
     apt-get clean && \
@@ -53,7 +58,13 @@ RUN conda update conda
 
 # Install oarfish
 RUN conda install -c conda-forge libgcc=13 openssl
-RUN conda install bioconda::oarfish==0.6.2
+RUN conda install -c conda-forge rust==1.81.0
+RUN wget https://github.com/COMBINE-lab/oarfish/archive/refs/heads/aln_prob_rob.zip && \
+    unzip aln_prob_rob.zip && \
+    cd oarfish-aln_prob_rob/ && \
+    cargo build --release
+
+ENV PATH /oarfish-aln_prob_rob/target/release:$PATH
 
 # Clean up to reduce Docker image size
 RUN apt-get clean

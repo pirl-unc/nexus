@@ -28,7 +28,7 @@ def test_long_read_rna_quantification_oarfish():
         '-w', work_dir,
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--reference_transcriptome_fasta_file', reference_transcriptome_fasta_file,
-        '--params_oarfish', '"--seq-tech pac-bio-hifi "',
+        '--params_oarfish', '"--seq-tech pac-bio-hifi --write-assignment-probs"',
         '--output_dir', output_dir
     ]
     run_workflow(workflow='long_read_rna_quantification_oarfish.nf',
