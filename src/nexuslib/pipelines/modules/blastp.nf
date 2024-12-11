@@ -2,7 +2,7 @@
 
 process runBlastp {
 
-    label 'blastp'
+    label 'blast'
     tag "${sample_id}"
     debug true
 
