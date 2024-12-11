@@ -94,6 +94,7 @@ A list of links to documentation for all available workflows in the latest versi
 | Alignment                       | [**long_read_rna_alignment_ultra.nf**](/src/nexuslib/pipelines/alignment/long_read_rna_alignment_ultra)                                                  |
 | Alignment                       | [**paired-end_read_dna_alignment_bwa-mem2.nf**](/src/nexuslib/pipelines/alignment/paired-end_read_dna_alignment_bwa-mem2/)                               |
 | Alignment                       | [**paired-end_read_rna_alignment_star.nf**](/src/nexuslib/pipelines/alignment/paired-end_read_rna_alignment_star/)                                       |
+| Alignment                       | [**peptide_alignment_blastp.nf**](/src/nexuslib/pipelines/alignment/peptide_alignment_blastp/)                                                           |
 | Antigen presentation prediction | [**antigen_presentation_prediction_mhcflurry2.nf**](/src/nexuslib/pipelines/antigen_presentation_prediction/antigen_presentation_prediction_mhcflurry2/) |
 | Assembly                        | [**transcriptome_assembly_rnabloom2.nf**](/src/nexuslib/pipelines/assembly/transcriptome_assembly_rnabloom2/)                                            | 
 | Assembly                        | [**transcriptome_assembly_stringtie2.nf**](/src/nexuslib/pipelines/assembly/transcriptome_assembly_stringtie2/)                                          |
