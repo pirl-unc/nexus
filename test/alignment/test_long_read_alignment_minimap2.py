@@ -30,6 +30,7 @@ def test_long_read_alignment_minimap2_dna():
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--reference_genome_fasta_file', reference_genome_fasta_file,
         '--reference_genome_fasta_fai_file', reference_genome_fasta_fai_file,
+        '--params_minimap2', '"-ax map-hifi --cs --eqx -Y -L --secondary=no"',
         '--platform_tag', 'pacbio',
         '--output_dir', output_dir
     ]
@@ -63,11 +64,10 @@ def test_long_read_alignment_minimap2_rna():
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--reference_genome_fasta_file', reference_genome_fasta_file,
         '--reference_genome_fasta_fai_file', reference_genome_fasta_fai_file,
-        '--params_minimap2', '"-ax splice:hq -uf --cs --eqx -Y -L"',
+        '--params_minimap2', '"-ax splice:hq -uf --cs --eqx -Y -L --secondary=no"',
         '--platform_tag', 'pacbio',
         '--output_dir', output_dir
     ]
     run_workflow(workflow='long_read_alignment_minimap2.nf',
                  nextflow='nextflow',
                  workflow_args=workflow_args)
-

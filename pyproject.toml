@@ -5,7 +5,7 @@ requires = [
 
 [project]
 name = "nexus"
-version = "0.1.14"
+version = "0.1.15"
 description = "NEXflow's Ultimate Streamliner"
 requires-python = ">=3.10"
 readme = "README.md"

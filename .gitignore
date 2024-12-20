@@ -18,3 +18,4 @@ test/data/indices/star/hg38_chr6/
 test/data/vcf/*clairs_outputs/logs/
 test/data/vcf/*clairs_outputs/tmp/
 test/data/vcf/*manta_outputs/workspace/
+test/data/fastq/sample999tumor_long_read_rna.fastq.gz
