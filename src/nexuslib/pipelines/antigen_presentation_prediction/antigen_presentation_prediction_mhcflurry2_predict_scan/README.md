@@ -1,4 +1,4 @@
-## antigen_presentation_prediction_mhcflurry2.nf
+## antigen_presentation_prediction_mhcflurry2_predict_scan.nf
 
 Predict antigen presentation using [MHCflurry 2.0](https://github.com/openvax/mhcflurry).
 
@@ -15,11 +15,12 @@ Predict antigen presentation using [MHCflurry 2.0](https://github.com/openvax/mh
 
 ### Example
 ```
-nexus run --nf-workflow antigen_presentation_prediction_mhcflurry2.nf \
+nexus run --nf-workflow antigen_presentation_prediction_mhcflurry2_predict_scan.nf \
     -c NEXTFLOW_CONFIG_FILE \
     -w WORK_DIR \
     --samples_tsv_file SAMPLES_TSV_FILE \
     --output_dir OUTPUT_DIR \
+    --alleles ALLELES \
     --params_mhcflurry2_predict '""' \
 ```
 
@@ -27,9 +28,9 @@ nexus run --nf-workflow antigen_presentation_prediction_mhcflurry2.nf \
 
 ```
 workflow:
-    1. Run mhcflurry-predict command.
+    1. Run mhcflurry-predict-scan command.
 
-usage: nexus run --nf-workflow antigen_presentation_prediction_mhcflurry2.nf [required] [optional] [--help]
+usage: nexus run --nf-workflow antigen_presentation_prediction_mhcflurry2_predict_scan.nf [required] [optional] [--help]
 
 required arguments:
     -c                                  :   Nextflow .config file.
@@ -37,10 +38,11 @@ required arguments:
     --samples_tsv_file                  :   TSV file with the following columns:
                                             'sample_id',
                                             'mhcflurry2_input_csv_file'.
+    --alleles                           :   Alleles to predict.
     --output_dir                        :   Directory to which output files will be copied.
 
 optional arguments:
-    --params_mhcflurry2_predict         :   mhcflurry-predict parameters (default: '""').
+    --params_mhcflurry2_predict_scan    :   mhcflurry-predict-scan parameters (default: '""').
                                             Note that the parameters need to be wrapped in quotes.
     --delete_work_dir                   :   Delete work directory (default: false).
 ```
@@ -58,9 +60,11 @@ optional arguments:
 | sample_id                 | Sample ID.                                |
 | mhcflurry2_input_csv_file | Full path to MHCflurry2 input `csv` file. |
 
-Each `mhcflurry2_input_csv_file` should have the following columns: `peptide` and `allele`.
+Each `mhcflurry2_input_csv_file` should have the following columns: `sequence_id` and `sequence`.
 
-`--params_mhcflurry2_predict`
+`--params_mhcflurry2_predict_scan`
 * Refer to the [MHCflurry2 documentation](https://github.com/openvax/mhcflurry).
-* The following parameters for `mhcflurry-predict` are already included in `nexus` module and should not be specified:
+* The following parameters for `mhcflurry-predict-scan` are already included in `nexus` module and should not be specified:
   * `--out`
+  * `--models`
+  * `--alleles`

@@ -12,7 +12,7 @@ process runStringTie2 {
     )
 
     input:
-        tuple val(sample_id), path(bam_file)
+        tuple val(sample_id), path(bam_file), path(bam_bai_file)
         path(gtf_file)
         val(params_stringtie2)
         val(output_dir)

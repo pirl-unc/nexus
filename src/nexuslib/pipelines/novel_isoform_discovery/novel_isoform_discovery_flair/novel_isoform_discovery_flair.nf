@@ -18,7 +18,8 @@ params.samples_tsv_file = ''
 params.output_dir = ''
 // Optional arguments
 params.reference_genome_fasta_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa'
-params.gtf_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/gencode.v41.annotation.gtf'
+params.reference_genome_fasta_fai_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai'
+params.reference_genes_gtf_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/gencode.v41.annotation.gtf'
 params.params_flair_align = ''
 params.params_flair_correct = ''
 params.params_flair_collapse = ''
@@ -41,34 +42,36 @@ if (params.help) {
     usage: nexus run --nf-workflow novel_isoform_discovery_flair.nf [required] [optional] [--help]
 
     required arguments:
-        -c                              :   Nextflow .config file.
-        -w                              :   Nextflow work directory path.
-        --samples_tsv_file              :   TSV file with the following columns:
-                                            'sample_id', 'fastq_file'.
-        --output_dir                    :   Directory to which output files will be copied.
+        -c                                  :   Nextflow .config file.
+        -w                                  :   Nextflow work directory path.
+        --samples_tsv_file                  :   TSV file with the following columns:
+                                                'sample_id', 'fastq_file'.
+        --output_dir                        :   Directory to which output files will be copied.
 
     optional arguments:
-        --reference_genome_fasta_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
-        --gtf_file                      :   Reference transcriptome GTF file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/gencode.v41.annotation.gtf).
-        --params_flair_align            :   flair 'align' parameters (default: '""').
-                                            Note that the parameters need to be wrapped in quotes.
-        --params_flair_correct          :   flair 'correct' parameters (default: '""').
-                                            Note that the parameters need to be wrapped in quotes.
-        --params_flair_collapse         :   flair 'collapse' parameters (default: '" "').
-                                            Note that the parameters need to be wrapped in quotes.
-        --delete_work_dir               :   Delete work directory (default: false).
+        --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
+        --reference_genome_fasta_fai_file   :   Reference genome FASTA.FAI file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai).
+        --reference_genes_gtf_file          :   Reference genes GTF file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/gencode.v41.annotation.gtf).
+        --params_flair_align                :   Flair 'align' parameters (default: '""').
+                                                Note that the parameters need to be wrapped in quotes.
+        --params_flair_correct              :   Flair 'correct' parameters (default: '""').
+                                                Note that the parameters need to be wrapped in quotes.
+        --params_flair_collapse             :   Flair 'collapse' parameters (default: '" "').
+                                                Note that the parameters need to be wrapped in quotes.
+        --delete_work_dir                   :   Delete work directory (default: false).
     """.stripIndent()
     exit 0
 } else {
     log.info"""\
-        samples_tsv_file                :   ${params.samples_tsv_file}
-        output_dir                      :   ${params.output_dir}
-        reference_genome_fasta_file     :   ${params.reference_genome_fasta_file}
-        gtf_file                        :   ${params.gtf_file}
-        params_flair_align              :   ${params.params_flair_align}
-        params_flair_correct            :   ${params.params_flair_correct}
-        params_flair_collapse           :   ${params.params_flair_collapse}
-        delete_work_dir                 :   ${params.delete_work_dir}
+        samples_tsv_file                    :   ${params.samples_tsv_file}
+        output_dir                          :   ${params.output_dir}
+        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
+        reference_genome_fasta_fai_file     :   ${params.reference_genome_fasta_fai_file}
+        reference_genes_gtf_file            :   ${params.reference_genes_gtf_file}
+        params_flair_align                  :   ${params.params_flair_align}
+        params_flair_correct                :   ${params.params_flair_correct}
+        params_flair_collapse               :   ${params.params_flair_collapse}
+        delete_work_dir                     :   ${params.delete_work_dir}
     """.stripIndent()
 }
 
@@ -86,7 +89,8 @@ workflow NOVEL_ISOFORM_DISCOVERY_FLAIR {
     take:
         input_fastq_files_ch            // channel: [val(sample_id), path(fastq_file)]
         reference_genome_fasta_file
-        gtf_file
+        reference_genome_fasta_fai_file
+        reference_genes_gtf_file
         params_flair_align
         params_flair_correct
         params_flair_collapse
@@ -96,13 +100,15 @@ workflow NOVEL_ISOFORM_DISCOVERY_FLAIR {
         runFlairAlign(
             run_flair_align_input_ch,
             reference_genome_fasta_file,
+            reference_genome_fasta_fai_file,
             params_flair_align,
             output_dir
         )
         runFlairCorrect(
             runFlairAlign.out.f,
             reference_genome_fasta_file,
-            gtf_file,
+            reference_genome_fasta_fai_file,
+            reference_genes_gtf_file,
             params_flair_correct,
             output_dir
         )
@@ -113,7 +119,8 @@ workflow NOVEL_ISOFORM_DISCOVERY_FLAIR {
         runFlairCollapse(
             run_flair_collapse_input_ch,
             reference_genome_fasta_file,
-            gtf_file,
+            reference_genome_fasta_fai_file,
+            reference_genes_gtf_file,
             params_flair_collapse,
             output_dir
         )
@@ -125,7 +132,8 @@ workflow {
     NOVEL_ISOFORM_DISCOVERY_FLAIR(
         input_fastq_files_ch,
         params.reference_genome_fasta_file,
-        params.gtf_file,
+        params.reference_genome_fasta_fai_file,
+        params.reference_genes_gtf_file,
         params.params_flair_align,
         params.params_flair_correct,
         params.params_flair_collapse,

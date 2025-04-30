@@ -15,7 +15,8 @@ params.help = ''
 params.samples_tsv_file = ''
 params.output_dir = ''
 // Optional arguments
-params.reference_proteome_fasta_file = '/datastore/lbcfs/collaborations/pirl/seqdata/references/gencode.v41.pc_translations.fa'
+params.blastdb_dir = '/datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/blast/'
+params.blastdb_name = 'nr'
 params.params_blastp = ''
 params.delete_work_dir = false
 
@@ -35,7 +36,7 @@ log.info """\
 if (params.help) {
     log.info"""\
     workflow:
-        1. Align peptide sequences (fasta.gz files) to a reference proteome using Blastp.
+        1. Blast peptide sequences (fasta or fasta.gz files) using Blastp.
 
     usage: nexus run --nf-workflow peptide_alignment_blastp.nf [required] [optional] [--help]
 
@@ -47,7 +48,8 @@ if (params.help) {
         --output_dir                        :   Directory to which output files will be copied.
 
     optional arguments:
-        --reference_proteome_fasta_file     :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/gencode.v41.pc_translations.fa).
+        --blastdb_dir                       :   Local Blast database path (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/blast/).
+        --blastdb_name                      :   Local Blast database name (default: 'nr').
         --params_blastp                     :   Blastp parameters (default: '""').
                                                 Note that the parameters need to be wrapped in quotes
                                                 and a space at the end of the string is necessary.
@@ -58,7 +60,8 @@ if (params.help) {
     log.info"""\
         samples_tsv_file                    :   ${params.samples_tsv_file}
         output_dir                          :   ${params.output_dir}
-        reference_proteome_fasta_file       :   ${params.reference_proteome_fasta_file}
+        blastdb_dir                         :   ${params.blastdb_dir}
+        blastdb_name                        :   ${params.blastdb_name}
         params_blastp                       :   ${params_blastp}
         delete_work_dir                     :   ${params.delete_work_dir}
     """.stripIndent()
@@ -77,13 +80,15 @@ Channel
 workflow PEPTIDE_ALIGNMENT_BLASTP {
     take:
         input_fasta_files_ch            // channel: [val(sample_id), path(fasta_file)]
-        reference_proteome_fasta_file
+        blastdb_dir
+        blastdb_name
         params_blastp
         output_dir
     main:
         runBlastp(
             input_fasta_files_ch,
-            reference_proteome_fasta_file,
+            blastdb_dir,
+            blastdb_name,
             params_blastp,
             output_dir
         )
@@ -94,7 +99,8 @@ workflow PEPTIDE_ALIGNMENT_BLASTP {
 workflow {
     PEPTIDE_ALIGNMENT_BLASTP(
         input_fasta_files_ch,
-        params.reference_proteome_fasta_file,
+        params.blastdb_dir,
+        params.blastdb_name,
         params_blastp,
         params.output_dir
     )

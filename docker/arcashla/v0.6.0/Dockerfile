@@ -12,8 +12,8 @@ RUN apt-get update --fix-missing && \
     libbz2-dev lzma-dev liblzma-dev libssl-dev autoconf automake libcurl4-openssl-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
- \
-    # Download and Install Miniconda
+
+# Download and Install Miniconda
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py310_24.1.2-0-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh

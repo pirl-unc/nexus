@@ -19,9 +19,47 @@ process runSamtoolsSamToBam {
         """
 }
 
+process runSamtoolsSamToBamCustomReference {
+
+    label 'samtools_samtobam_custom_reference'
+    tag "${sample_id}"
+    debug true
+
+    input:
+        tuple val(sample_id), path(sam_file), path(reference_genome_fasta_file), path(reference_genome_fasta_fai_file)
+
+    output:
+        tuple val(sample_id), path("${sam_file.baseName}.bam"), path("${sam_file.baseName}.bam.bai"), path(reference_genome_fasta_file), path(reference_genome_fasta_fai_file), emit: f
+
+    script:
+        """
+        samtools sort -@ ${task.cpus} -m ${task.samtools_memory.toGiga()}G -O bam -o ${sam_file.baseName}.bam $sam_file
+        samtools index -@ ${task.cpus} -b ${sam_file.baseName}.bam ${sam_file.baseName}.bam.bai
+        """
+}
+
 process runSamtoolsSort {
 
     label 'samtools_sort'
+    tag "${sample_id}"
+    debug true
+
+    input:
+        tuple val(sample_id), path(bam_file), path(bam_bai_file)
+
+    output:
+        tuple val(sample_id), path("${bam_file.baseName}_sorted.bam"), path("${bam_file.baseName}_sorted.bam.bai"), emit: f
+
+    script:
+        """
+        samtools sort -@ ${task.cpus} -m ${task.samtools_memory.toGiga()}G -O bam -o ${bam_file.baseName}_sorted.bam $bam_file
+        samtools index -@ ${task.cpus} -b ${bam_file.baseName}_sorted.bam ${bam_file.baseName}_sorted.bam.bai
+        """
+}
+
+process runSamtoolsSortCustomReference {
+
+    label 'samtools_sort_custom_reference'
     tag "${sample_id}"
     debug true
 
@@ -66,6 +104,25 @@ process runSamtoolsCalmd {
         tuple val(sample_id), path(bam_file), path(bam_bai_file)
         path(reference_genome_fasta_file)
         path(reference_genome_fasta_fai_file)
+
+    output:
+        tuple val(sample_id), path("${bam_file.baseName}_mdtagged.bam"), path("${bam_file.baseName}_mdtagged.bam.bai"), emit: f
+
+    script:
+        """
+        samtools calmd -@ ${task.cpus} -b $bam_file $reference_genome_fasta_file > ${bam_file.baseName}_mdtagged.bam
+        samtools index -@ ${task.cpus} -b ${bam_file.baseName}_mdtagged.bam ${bam_file.baseName}_mdtagged.bam.bai
+        """
+}
+
+process runSamtoolsCalmdCustomReference {
+
+    label 'samtools_calmd_custom_reference'
+    tag "${sample_id}"
+    debug true
+
+    input:
+        tuple val(sample_id), path(bam_file), path(bam_bai_file), path(reference_genome_fasta_file), path(reference_genome_fasta_fai_file)
 
     output:
         tuple val(sample_id), path("${bam_file.baseName}_mdtagged.bam"), path("${bam_file.baseName}_mdtagged.bam.bai"), emit: f

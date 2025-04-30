@@ -31,21 +31,21 @@ if (params.help) {
     usage: nexus run --nf-workflow novel_isoform_discovery_isoseq.nf [required] [optional] [--help]
 
     required arguments:
-        -c                              :   Nextflow .config file.
-        -w                              :   Nextflow work directory path.
-        --samples_tsv_file              :   TSV file with the following columns:
-                                            'sample_id', 'bam_file'.
-        --output_dir                    :   Directory to which output files will be copied.
+        -c                      :   Nextflow .config file.
+        -w                      :   Nextflow work directory path.
+        --samples_tsv_file      :   TSV file with the following columns:
+                                    'sample_id', 'bam_file'.
+        --output_dir            :   Directory to which output files will be copied.
 
     optional arguments:
-        --delete_work_dir               :   Delete work directory (default: false).
+        --delete_work_dir       :   Delete work directory (default: false).
     """.stripIndent()
     exit 0
 } else {
     log.info"""\
-        samples_tsv_file                :   ${params.samples_tsv_file}
-        output_dir                      :   ${params.output_dir}
-        delete_work_dir                 :   ${params.delete_work_dir}
+        samples_tsv_file        :   ${params.samples_tsv_file}
+        output_dir              :   ${params.output_dir}
+        delete_work_dir         :   ${params.delete_work_dir}
     """.stripIndent()
 }
 

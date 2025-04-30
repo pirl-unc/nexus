@@ -1,6 +1,6 @@
 ## peptide_alignment_blastp.nf
 
-Align peptide sequences to a reference proteome using [blastp](https://blast.ncbi.nlm.nih.gov/doc/blast-help/).
+Query peptide sequences using [blastp](https://blast.ncbi.nlm.nih.gov/doc/blast-help/).
 
 ### Inputs / Outputs
 
@@ -15,12 +15,13 @@ Align peptide sequences to a reference proteome using [blastp](https://blast.ncb
 
 ### Example
 ```
-nexus run --nf-workflow peptide_alignment_minimap2.nf \
+nexus run --nf-workflow peptide_alignment_blastp.nf \
     -c NEXTFLOW_CONFIG_FILE \
     -w WORK_DIR \
     --samples_tsv_file SAMPLES_TSV_FILE \
     --output_dir OUTPUT_DIR \
-    --reference_proteome_fasta_file REFERENCE_PROTEOME_FASTA_FILE \
+    --blastdb_dir BLASTDB_DIR \
+    --blastdb_name BLASTDB_NAME \
     --params_blastp '""'
 ```
 
@@ -28,7 +29,7 @@ nexus run --nf-workflow peptide_alignment_minimap2.nf \
 
 ```
 workflow:
-    1. Align peptide sequences (fasta.gz files) to a reference proteome using Blastp.
+    1. Blast peptide sequences (fasta or fasta.gz files) using Blastp.
 
 usage: nexus run --nf-workflow peptide_alignment_blastp.nf [required] [optional] [--help]
 
@@ -40,7 +41,8 @@ required arguments:
     --output_dir                        :   Directory to which output files will be copied.
 
 optional arguments:
-    --reference_proteome_fasta_file     :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/gencode.v41.pc_translations.fa).
+    --blastdb_dir                       :   Local Blast database path (default: /datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/blast/).
+    --blastdb_name                      :   Local Blast database name (default: 'nr').
     --params_blastp                     :   Blastp parameters (default: '""').
                                             Note that the parameters need to be wrapped in quotes
                                             and a space at the end of the string is necessary.
@@ -55,13 +57,20 @@ optional arguments:
 `--samples_tsv_file`
 * A TSV (tab-separated values) file with the following headers:
 
-| Header     | Description                   |
-|------------|-------------------------------|
-| sample_id  | Sample ID.                    |
-| fasta_file | Full path to `fasta.gz` file. |
+| Header     | Description                               |
+|------------|-------------------------------------------|
+| sample_id  | Sample ID.                                |
+| fasta_file | Full path to `fastq` or `fasta.gz` file.  |
 
-`--reference_proteome_fasta_file`
-* Reference proteome FASTA files can be found in /datastore/lbcfs/collaborations/pirl/seqdata/references/ on LBG.
+`--blastdb_dir`
+* Local Blast database path (`/datastore/lbcfs/collaborations/pirl/seqdata/tool-resources/blast/` on LBG).
+* The database can be downloaded by: 
+  * `update_blastdb.pl --source gcp --decompress nr --num_threads 16`
+
+`--blastdb_name`
+* Local Blast database name (`nr` on LBG).
+* The database can be downloaded by: 
+  * `update_blastdb.pl --source gcp --decompress nr --num_threads 16`
 
 `--params_blastp`
 * Refer to the [blastp documentation](https://blast.ncbi.nlm.nih.gov/doc/blast-help/).

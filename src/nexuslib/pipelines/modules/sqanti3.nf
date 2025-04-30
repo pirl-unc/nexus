@@ -1,0 +1,94 @@
+#!/usr/bin/env nextflow
+
+process runSqanti3FastqMode {
+
+    label 'sqanti3'
+    tag "${sample_id}"
+    debug true
+
+    publishDir(
+        path: "${output_dir}/",
+        mode: 'copy'
+    )
+
+    input:
+        tuple val(sample_id), path(fastq_file)
+        path(reference_genome_fasta_file)
+        path(reference_genome_fasta_fai_file)
+        path(reference_genes_gtf_file)
+        val(params_sqanti3_qc)
+        val(params_sqanti3_filter)
+        val(output_dir)
+
+    output:
+        tuple val(sample_id), path("${sample_id}_sqanti3_outputs/"), emit: f
+
+    script:
+        """
+        mkdir -p ${sample_id}_sqanti3_outputs/
+        mkdir -p ${sample_id}_sqanti3_outputs/qc/
+        mkdir -p ${sample_id}_sqanti3_outputs/filter/
+
+        sqanti3_qc.py \
+            --fasta \
+            -t ${task.cpus} \
+            -o ${sample_id} \
+            -d ${sample_id}_sqanti3_outputs/qc/ \
+            $params_sqanti3_qc \
+            $fastq_file \
+            $reference_genes_gtf_file \
+            $reference_genome_fasta_file
+
+        sqanti3_filter.py \
+           $params_sqanti3_filter \
+           --output ${sample_id} \
+           --dir ${sample_id}_sqanti3_outputs/filter/ \
+           ${sample_id}_sqanti3_outputs/qc/${sample_id}_classification.txt
+        """
+}
+
+process runSqanti3GtfMode {
+
+    label 'sqanti3'
+    tag "${sample_id}"
+    debug true
+
+    publishDir(
+        path: "${output_dir}/",
+        mode: 'copy'
+    )
+
+    input:
+        tuple val(sample_id), path(gtf_file)
+        path(reference_genome_fasta_file)
+        path(reference_genome_fasta_fai_file)
+        path(reference_genes_gtf_file)
+        val(params_sqanti3_qc)
+        val(params_sqanti3_filter)
+        val(output_dir)
+
+    output:
+        tuple val(sample_id), path("${sample_id}_sqanti3_outputs/"), emit: f
+
+    script:
+        """
+        mkdir -p ${sample_id}_sqanti3_outputs/
+        mkdir -p ${sample_id}_sqanti3_outputs/qc/
+        mkdir -p ${sample_id}_sqanti3_outputs/filter/
+
+        sqanti3_qc.py \
+            $gtf_file \
+            $reference_genes_gtf_file \
+            $reference_genome_fasta_file \
+            -t ${task.cpus} \
+            -o ${sample_id} \
+            -d ${sample_id}_sqanti3_outputs/qc/ \
+            $params_sqanti3_qc
+
+        sqanti3_filter.py \
+           $params_sqanti3_filter \
+           --output ${sample_id} \
+           --dir ${sample_id}_sqanti3_outputs/filter/ \
+           ${sample_id}_sqanti3_outputs/qc/${sample_id}_classification.txt
+        """
+}

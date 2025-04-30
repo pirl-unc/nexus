@@ -6,8 +6,9 @@ from ..data import get_data_path
 
 def test_peptide_alignment_blastp():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
-    peptides_fasta_file = get_data_path(name='fasta/hg38_tp53_sampled_peptides.fa')
-    reference_proteome_fasta_file = get_data_path(name='fasta/gencode_v41_tp53_translations.fa')
+    peptides_fasta_file = get_data_path(name='fasta/hg38_tp53_sampled_peptides.fa.gz')
+    blastdb_dir = get_data_path(name='indices/blast/')
+    blastdb_name = 'blastpdb'
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_peptide_alignment_blastp'
     work_dir = temp_dir + '/work/test_peptide_alignment_blastp'
@@ -26,7 +27,8 @@ def test_peptide_alignment_blastp():
         '-c', nextflow_config_file,
         '-w', work_dir,
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
-        '--reference_proteome_fasta_file', reference_proteome_fasta_file,
+        '--blastdb_dir', blastdb_dir,
+        '--blastdb_name', blastdb_name,
         '--output_dir', output_dir
     ]
     run_workflow(workflow='peptide_alignment_blastp.nf',

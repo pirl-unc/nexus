@@ -4,13 +4,14 @@ from nexuslib.main import run_workflow
 from ..data import get_data_path
 
 
-def test_antigen_presentation_prediction_mhcflurry2():
+def test_peptide_alignment_diamond_blastp():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
-    csv_file = get_data_path(name='csv/sample900_mhcflurry2_input.csv')
+    peptides_fasta_file = get_data_path(name='fasta/hg38_tp53_sampled_peptides.fa')
+    database_file = get_data_path(name='indices/diamond/gencode_v41_tp53_translations.dmnd')
     temp_dir = os.getcwd() + '/tmp'
-    intermediate_dir = temp_dir + '/intermediate/test_antigen_presentation_prediction_mhcflurry2'
-    work_dir = temp_dir + '/work/test_antigen_presentation_prediction_mhcflurry2'
-    output_dir = temp_dir + '/outputs/test_antigen_presentation_prediction_mhcflurry2'
+    intermediate_dir = temp_dir + '/intermediate/test_peptide_alignment_diamond_blastp'
+    work_dir = temp_dir + '/work/test_peptide_alignment_diamond_blastp'
+    output_dir = temp_dir + '/outputs/test_peptide_alignment_diamond_blastp'
     if not os.path.exists(intermediate_dir):
         os.makedirs(intermediate_dir)
     if not os.path.exists(work_dir):
@@ -18,16 +19,17 @@ def test_antigen_presentation_prediction_mhcflurry2():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     pd.DataFrame({
-        'sample_id': ['sample900'],
-        'mhcflurry2_input_csv_file': [csv_file]
+        'sample_id': ['sample300tumor'],
+        'fasta_file': [peptides_fasta_file]
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
     workflow_args = [
         '-c', nextflow_config_file,
         '-w', work_dir,
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
+        '--database_file', database_file,
         '--output_dir', output_dir
     ]
-    run_workflow(workflow='antigen_presentation_prediction_mhcflurry2.nf',
+    run_workflow(workflow='peptide_alignment_diamond_blastp.nf',
                  nextflow='nextflow',
                  workflow_args=workflow_args)
 

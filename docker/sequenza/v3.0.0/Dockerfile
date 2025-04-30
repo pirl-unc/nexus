@@ -6,10 +6,31 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Install necessary packages for Miniconda installation
 RUN apt-get update --fix-missing && \
-    apt-get install -y --no-install-recommends wget curl git bzip2 ca-certificates  \
-    libpcre3 libpcre3-dev libssl-dev zlib1g zlib1g-dev gfortran openssl \
-    make build-essential cmake libncurses-dev ncurses-dev \
-    libbz2-dev lzma-dev liblzma-dev libssl-dev autoconf automake libcurl4-openssl-dev && \
+    apt-get install -y --no-install-recommends  \
+    autoconf  \
+    automake  \
+    build-essential \
+    bzip2 \
+    ca-certificates \
+    cmake  \
+    curl \
+    gfortran  \
+    git \
+    libbz2-dev \
+    libcurl4-openssl-dev \
+    liblzma-dev  \
+    libncurses-dev \
+    libpcre3 \
+    libpcre3-dev \
+    libssl-dev  \
+    libssl-dev  \
+    lzma-dev  \
+    make  \
+    ncurses-dev \
+    openssl \
+    wget \
+    zlib1g  \
+    zlib1g-dev  && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

@@ -8,7 +8,8 @@ def test_novel_isoform_discovery_flair():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
     long_read_tumor_rna_fastq_file = get_data_path(name='fastq/sample200tumor_long_read_rna.fastq.gz')
     reference_genome_fasta_file = get_data_path(name='fasta/hg38_chr17_1-8M.fa')
-    gtf_file = get_data_path(name='gtf/gencode_v41_tp53_annotation.gtf')
+    reference_genome_fasta_fai_file = get_data_path(name='fasta/hg38_chr17_1-8M.fa.fai')
+    reference_genes_gtf_file = get_data_path(name='gtf/gencode_v41_tp53_annotation.gtf')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_novel_isoform_discovery_flair'
     work_dir = temp_dir + '/work/test_novel_isoform_discovery_flair'
@@ -28,7 +29,8 @@ def test_novel_isoform_discovery_flair():
         '-w', work_dir,
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--reference_genome_fasta_file', reference_genome_fasta_file,
-        '--gtf_file', gtf_file,
+        '--reference_genome_fasta_fai_file', reference_genome_fasta_fai_file,
+        '--reference_genes_gtf_file', reference_genes_gtf_file,
         '--output_dir', output_dir
     ]
     run_workflow(workflow='novel_isoform_discovery_flair.nf',

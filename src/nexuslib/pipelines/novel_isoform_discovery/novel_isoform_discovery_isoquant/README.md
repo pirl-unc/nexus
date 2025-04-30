@@ -4,10 +4,10 @@ Discovers novel isoforms using [IsoQuant](https://github.com/ablab/IsoQuant).
 
 ### Inputs / Outputs
 
-| I/O    | Description                                                                                                     |
-|:-------|:----------------------------------------------------------------------------------------------------------------|
-| Input  | `fastq.gz` file for each sample.                                                                                | 
-| Output | IsoQuant output files including `transcript_models.gtf` and `transcript_model_reads.tsv` files for each sample. |
+| I/O    | Description                            |
+|:-------|:---------------------------------------|
+| Input  | `fastq.gz` file for each sample.       | 
+| Output | IsoQuant output files for each sample. |
 
 ### Dependencies
 
@@ -22,7 +22,8 @@ nexus run --nf-workflow novel_isoform_discovery_isoquant.nf \
     --samples_tsv_file SAMPLES_TSV_FILE \
     --output_dir OUTPUT_DIR \
     --reference_genome_fasta_file REFERENCE_GENOME_FASTA_FILE \
-    --gtf_file GTF_FILE \
+    --reference_genome_fasta_fai_file REFERENCE_GENOME_FASTA_FAI_FILE \
+    --reference_genes_gtf_file REFERENCE_GENES_GTF_FILE \
     --params_isoquant '"--data_type pacbio_ccs --sqanti_output --high_memory --complete_genedb"'
 ```
 
@@ -35,18 +36,19 @@ workflow:
 usage: nexus run --nf-workflow novel_isoform_discovery_isoquant.nf [required] [optional] [--help]
 
 required arguments:
-    -c                              :   Nextflow .config file.
-    -w                              :   Nextflow work directory path.
-    --samples_tsv_file              :   TSV file with the following columns:
-                                        'sample_id', 'fastq_file'.
-    --output_dir                    :   Directory to which output files will be copied.
+    -c                                  :   Nextflow .config file.
+    -w                                  :   Nextflow work directory path.
+    --samples_tsv_file                  :   TSV file with the following columns:
+                                            'sample_id', 'fastq_file'.
+    --output_dir                        :   Directory to which output files will be copied.
 
 optional arguments:
-    --reference_genome_fasta_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
-    --gtf_file                      :   GTF file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/gencode.v41.annotation.gtf).
-    --params_isoquant               :   isoquant parameters (default: '"--data_type pacbio_ccs --sqanti_output --high_memory --complete_genedb"').
-                                        Note that the parameters need to be wrapped in quotes.
-    --delete_work_dir               :   Delete work directory (default: false).
+    --reference_genome_fasta_file       :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa).
+    --reference_genome_fasta_fai_file   :   Reference genome FASTA file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/hg38.fa.fai).
+    --reference_genes_gtf_file          :   Reference genes GTF file (default: /datastore/lbcfs/collaborations/pirl/seqdata/references/gencode.v41.annotation.gtf).
+    --params_isoquant                   :   isoquant parameters (default: '"--data_type pacbio_ccs --sqanti_output --high_memory --complete_genedb"').
+                                            Note that the parameters need to be wrapped in quotes.
+    --delete_work_dir                   :   Delete work directory (default: false).
 ```
 
 ### Parameters
@@ -66,7 +68,11 @@ optional arguments:
 * Reference genome FASTA files can be found in 
 `/datastore/lbcfs/collaborations/pirl/seqdata/references/` on LBG.
 
-`--gtf_file`
+`--reference_genome_fasta_fai_file`
+* Reference genome FASTA.FAI files can be found in 
+`/datastore/lbcfs/collaborations/pirl/seqdata/references/` on LBG.
+
+`--reference_genes_gtf_file`
 * Reference GTF files can be found in 
 `/datastore/lbcfs/collaborations/pirl/seqdata/references/` on LBG.
 

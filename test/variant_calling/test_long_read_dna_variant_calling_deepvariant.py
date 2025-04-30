@@ -64,6 +64,7 @@ def test_long_read_dna_variant_calling_deepvariant_local():
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--reference_genome_fasta_file', reference_genome_fasta_file,
         '--containerization', 'docker',
+        '--deepvariant_bin_version', '1.6.1',
         '--deepvariant_input_path', '/Users/leework/Documents/Research/projects/project_nexus/',
         '--deepvariant_output_path', '/var/folders/',
         '--output_dir', output_dir,
