@@ -4,16 +4,16 @@ from nexuslib.main import run_workflow
 from ..data import get_data_path
 
 
-def test_long_read_alignment_custom_reference_minimap2_dna():
+def test_long_read_alignment_minimap2_custom_reference_dna():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
     long_read_tumor_dna_fastq_file = get_data_path(name='fastq/sample001tumor_long_read_dna.fastq.gz')
     long_read_normal_dna_fastq_file = get_data_path(name='fastq/sample001normal_long_read_dna.fastq.gz')
     reference_genome_fasta_file = get_data_path(name='fasta/hg38_chr17_1-8M.fa')
     reference_genome_fasta_fai_file = get_data_path(name='fasta/hg38_chr17_1-8M.fa.fai')
     temp_dir = os.getcwd() + '/tmp'
-    intermediate_dir = temp_dir + '/intermediate/test_long_read_dna_alignment_custom_reference_minimap2'
-    work_dir = temp_dir + '/work/test_long_read_dna_alignment_custom_reference_minimap2'
-    output_dir = temp_dir + '/outputs/test_long_read_dna_alignment_custom_reference_minimap2'
+    intermediate_dir = temp_dir + '/intermediate/test_long_read_dna_alignment_minimap2_custom_reference'
+    work_dir = temp_dir + '/work/test_long_read_dna_alignment_minimap2_custom_reference'
+    output_dir = temp_dir + '/outputs/test_long_read_dna_alignment_minimap2_custom_reference'
     if not os.path.exists(intermediate_dir):
         os.makedirs(intermediate_dir)
     if not os.path.exists(work_dir):
@@ -34,20 +34,20 @@ def test_long_read_alignment_custom_reference_minimap2_dna():
         '--platform_tag', 'pacbio',
         '--output_dir', output_dir
     ]
-    run_workflow(workflow='long_read_alignment_custom_reference_minimap2.nf',
+    run_workflow(workflow='long_read_alignment_minimap2_custom_reference.nf',
                  nextflow='nextflow',
                  workflow_args=workflow_args)
 
 
-def test_long_read_alignment_custom_reference_minimap2_rna():
+def test_long_read_alignment_minimap2_custom_reference_rna():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
     long_read_tumor_rna_fastq_file = get_data_path(name='fastq/sample200tumor_long_read_rna.fastq.gz')
     reference_genome_fasta_file = get_data_path(name='fasta/hg38_chr17_1-8M.fa')
     reference_genome_fasta_fai_file = get_data_path(name='fasta/hg38_chr17_1-8M.fa.fai')
     temp_dir = os.getcwd() + '/tmp'
-    intermediate_dir = temp_dir + '/intermediate/test_long_read_rna_alignment_custom_reference_minimap2'
-    work_dir = temp_dir + '/work/test_long_read_rna_alignment_custom_reference_minimap2'
-    output_dir = temp_dir + '/outputs/test_long_read_rna_alignment_custom_reference_minimap2'
+    intermediate_dir = temp_dir + '/intermediate/test_long_read_rna_alignment_minimap2_custom_reference'
+    work_dir = temp_dir + '/work/test_long_read_rna_alignment_minimap2_custom_reference'
+    output_dir = temp_dir + '/outputs/test_long_read_rna_alignment_minimap2_custom_reference'
     if not os.path.exists(intermediate_dir):
         os.makedirs(intermediate_dir)
     if not os.path.exists(work_dir):
@@ -68,6 +68,6 @@ def test_long_read_alignment_custom_reference_minimap2_rna():
         '--platform_tag', 'pacbio',
         '--output_dir', output_dir
     ]
-    run_workflow(workflow='long_read_alignment_custom_reference_minimap2.nf',
+    run_workflow(workflow='long_read_alignment_minimap2_custom_reference.nf',
                  nextflow='nextflow',
                  workflow_args=workflow_args)

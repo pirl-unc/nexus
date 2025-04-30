@@ -8,6 +8,7 @@ def test_novel_isoform_discovery_isoquant():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
     long_read_tumor_rna_fastq_file = get_data_path(name='fastq/sample200tumor_long_read_rna.fastq.gz')
     reference_genome_fasta_file = get_data_path(name='fasta/hg38_chr17_1-8M.fa')
+    reference_genome_fasta_fai_file = get_data_path(name='fasta/hg38_chr17_1-8M.fa.fai')
     gtf_file = get_data_path(name='gtf/gencode_v41_tp53_annotation.gtf')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_novel_isoform_discovery_isoquant'
@@ -28,7 +29,8 @@ def test_novel_isoform_discovery_isoquant():
         '-w', work_dir,
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--reference_genome_fasta_file', reference_genome_fasta_file,
-        '--gtf_file', gtf_file,
+        '--reference_genome_fasta_fai_file', reference_genome_fasta_fai_file,
+        '--reference_genes_gtf_file', gtf_file,
         '--params_isoquant', '"--data_type pacbio_ccs --complete_genedb --high_memory"',
         '--output_dir', output_dir
     ]

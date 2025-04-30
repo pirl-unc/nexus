@@ -30,7 +30,7 @@ process runMinimap2 {
 
 process runMinimap2CustomReference {
 
-    label 'minimap2_custom_reference'
+    label 'minimap2'
     tag "${sample_id}"
     debug true
 
