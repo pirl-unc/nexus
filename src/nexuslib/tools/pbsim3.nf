@@ -96,7 +96,7 @@ process runPbsim3RNA {
    output:
         tuple val(sample_id), path("${sample_id}_pbsim3.bam"), path("${sample_id}_pbsim3.maf.gz"), emit: f
 
-    script:
+   script:
         """
         pbsim \
             --method ${params_pbsim3_mode} \

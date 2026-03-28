@@ -115,7 +115,7 @@ workflow SEQUENCING_SIMULATION_PBSIM3_DNA {
         )
 
     emit:
-        runPbsim3DNA.out.f
+        runPbsim3DNA.out.merged_bam
 }
 
 // ------------------------------------------------------------

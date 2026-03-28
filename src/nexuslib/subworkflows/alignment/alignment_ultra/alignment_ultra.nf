@@ -9,12 +9,14 @@ nextflow.enable.dsl=2
 // ------------------------------------------------------------
 // Step 1. Import Nextflow modules
 // ------------------------------------------------------------
-include { runSamtoolsFaidx }    from '../../../tools/samtools'
-include { runUltraIndex }       from '../../../tools/ultra'
-include { runUltra }            from '../../../tools/ultra'
-include { runSamtoolsCalmd }    from '../../../tools/samtools'
-include { runSamtoolsSort }     from '../../../tools/samtools'
-include { copyBamFile }         from '../../../tools/utils'
+include { runSamtoolsFaidx }                       from '../../../tools/samtools'
+include { runUltraIndex }                          from '../../../tools/ultra'
+include { runUltra }                               from '../../../tools/ultra'
+include { runSamtoolsCalmd }                       from '../../../tools/samtools'
+include { runSamtoolsSort }                        from '../../../tools/samtools'
+include { copyBamFile }                            from '../../../tools/utils'
+include { decompressFile as decompressFasta }      from '../../../tools/utils'
+include { decompressFile as decompressGtf }        from '../../../tools/utils'
 
 // ------------------------------------------------------------
 // Step 2. Input parameters
@@ -110,16 +112,20 @@ workflow ALIGNMENT_ULTRA {
         output_dir
 
     main:
-        // Step 1. Index reference genome FASTA file
-        runSamtoolsFaidx(reference_genome_fasta_file)
+        // Step 1. Decompress reference files
+        decompressFasta(reference_genome_fasta_file)
+        decompressGtf(reference_genes_gtf_file)
+
+        // Step 2. Index reference genome FASTA file
+        runSamtoolsFaidx(decompressFasta.out.f)
         fasta_file          = runSamtoolsFaidx.out.fasta
         fasta_fai_file      = runSamtoolsFaidx.out.fai_file
         fasta_gzi_file      = runSamtoolsFaidx.out.gzi_file
 
-        // Step 2. Create uLTRA index
+        // Step 3. Create uLTRA index
         runUltraIndex(
-            reference_genome_fasta_file,
-            reference_genes_gtf_file,
+            decompressFasta.out.f,
+            decompressGtf.out.f,
             params_ultra_index
         )
 
