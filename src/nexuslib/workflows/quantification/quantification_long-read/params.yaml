@@ -1,0 +1,104 @@
+# =============================================================================
+# params.yaml — quantification_long-read
+#
+# Usage:
+#   nextflow run quantification_long-read.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with columns:
+#   sample_id
+#   bam_file               (required for bambu, liqa)
+#   bam_bai_file           (required for bambu, liqa)
+#   fastq_file             (required for kallisto, oarfish, transigner)
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+# Reference genome FASTA file (required for bambu)
+reference_genome_fasta_file: ""
+
+# Reference genes GTF file (required for bambu, kallisto, liqa)
+reference_genes_gtf_file: ""
+
+# Reference transcripts FASTA file (required for kallisto, oarfish, transigner)
+reference_transcripts_fasta_file: ""
+
+
+# -----------------------------------------------------------------------------
+# Optional — general
+# -----------------------------------------------------------------------------
+
+# Methods to run. Comma-separated list or 'all'.
+# Allowed values:
+#   all, bambu, kallisto, liqa, oarfish, transigner
+methods: "all"
+
+
+# -----------------------------------------------------------------------------
+# Bambu
+# No additional configuration required beyond reference files.
+# -----------------------------------------------------------------------------
+bambu: {}
+
+
+# -----------------------------------------------------------------------------
+# Kallisto (long-read mode)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+kallisto:
+  # Extra CLI arguments passed directly to kallisto index.
+  index_extra_args: "-k 63"
+
+  # Extra CLI arguments passed directly to kallisto bus.
+  bus_extra_args: "-x bulk --threshold 0.8"
+
+  # Extra CLI arguments passed directly to bustools sort.
+  bustools_sort_extra_args: ""
+
+  # Extra CLI arguments passed directly to bustools count.
+  bustools_count_extra_args: "--cm -m"
+
+  # Extra CLI arguments passed directly to kallisto quant-tcc.
+  quanttcc_extra_args: "-P PacBio --matrix-to-files"
+
+
+# -----------------------------------------------------------------------------
+# LIQA
+# Optional arguments.
+# -----------------------------------------------------------------------------
+liqa:
+  # Extra CLI arguments passed directly to liqa quantify.
+  extra_args: "-max_distance 20 -f_weight 1"
+
+
+# -----------------------------------------------------------------------------
+# Oarfish
+# Optional arguments.
+# -----------------------------------------------------------------------------
+oarfish:
+  # Extra CLI arguments passed directly to oarfish.
+  extra_args: "--seq-tech pac-bio-hifi"
+
+
+# -----------------------------------------------------------------------------
+# TranSigner
+# Optional arguments.
+# -----------------------------------------------------------------------------
+transigner:
+  # Extra CLI arguments passed directly to transigner align.
+  align_extra_args: ""
+
+  # Extra CLI arguments passed directly to transigner prefilter.
+  prefilter_extra_args: ""
+
+  # Extra CLI arguments passed directly to transigner em.
+  em_extra_args: ""

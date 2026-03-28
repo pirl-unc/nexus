@@ -1,0 +1,20 @@
+# Test 3: SV callers — Savana, Severus, SVision-pro
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+methods: "savana,severus,svisionpro"
+
+savana:
+  contigs_txt_file: ""
+  custom_params_file: ""
+  run_extra_args: "--length 1 --mapq 0 --min_support 1"
+  classify_extra_args: ""
+
+severus:
+  vntr_bed_file: ""
+  extra_args: ""
+
+svisionpro:
+  model_file: ""
+  extra_args: ""
+  extract_extra_args: ""

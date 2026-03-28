@@ -27,15 +27,20 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 # Update PATH environment variable
 ENV PATH=/opt/conda/bin:$PATH
 
+# Accept conda Terms of Service
+RUN conda config --set channel_priority strict && \
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main && \
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
+
 # Update conda
 RUN conda update -n base -c defaults conda
 
 # Install kallisto dependencies
-RUN conda config --set solver classic
+RUN conda install -n base conda-libmamba-solver -y
+RUN conda config --set solver libmamba
 RUN conda config --add channels conda-forge
 RUN conda config --add channels bioconda
-RUN conda install -c conda-forge gcc_linux-64==14.1.0 hdf5==1.14.3
-RUN conda install -c bioconda bustools==0.44.0
+RUN conda install -c conda-forge -c bioconda gcc_linux-64==14.1.0 hdf5==1.14.3 bustools==0.44.0
 
 # Download, build, and install kallisto
 RUN wget https://github.com/pachterlab/kallisto/archive/refs/tags/v0.51.1.tar.gz && \
@@ -46,6 +51,9 @@ RUN wget https://github.com/pachterlab/kallisto/archive/refs/tags/v0.51.1.tar.gz
     cmake .. -DENABLE_AVX2=OFF -DCOMPILATION_ARCH=OFF -DMAX_KMER_SIZE=64 && \
     make && \
     make install
+
+COPY t2g.py /usr/local/bin/t2g.py
+RUN chmod +x /usr/local/bin/t2g.py
 
 # Clean up to reduce Docker image size
 RUN conda clean --all

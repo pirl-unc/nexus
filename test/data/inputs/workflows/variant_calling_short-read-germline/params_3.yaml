@@ -1,0 +1,17 @@
+# Test 3: DeepVariant + Octopus
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+methods: "deepvariant,octopus"
+
+deepvariant:
+  input_path: ""
+  output_path: ""
+  containerization: "docker"
+  model_type: "WGS"
+  bin_path: "/opt/deepvariant/bin/run_deepvariant"
+  bin_version: "1.9.0"
+
+octopus:
+  regions_txt_file: ""
+  extra_args: "--min-mapping-quality 0 --min-supporting-reads 1"

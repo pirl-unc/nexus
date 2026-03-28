@@ -1,0 +1,10 @@
+# Test 1: arcasHLA, HLAProfiler, seq2HLA
+samples_tsv_file: ""
+output_dir: ""
+methods: "all"
+
+hlaprofiler:
+  extra_args: "-allele_refinement all -if"
+
+seq2hla:
+  extra_args: ""

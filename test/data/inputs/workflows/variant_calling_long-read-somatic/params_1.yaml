@@ -1,0 +1,16 @@
+# Test 1: SNV/indel callers — ClairS, DeepSomatic
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+methods: "clairs,deepsomatic"
+
+clairs:
+  extra_args: "--platform hifi_revio --enable_indel_calling"
+
+deepsomatic:
+  input_path: ""
+  output_path: ""
+  containerization: "docker"
+  model_type: "PACBIO"
+  bin_path: "run_deepsomatic"
+  bin_version: "1.9.0"

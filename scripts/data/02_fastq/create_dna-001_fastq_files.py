@@ -1,0 +1,58 @@
+import os
+import sys
+import pysam
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '')))
+from common import *
+
+
+if __name__ == "__main__":
+    # Step 1. Load genome data
+    fasta = pysam.FastaFile("../../../test/data/fasta/GRCh38.p14.genome.chr17.fa.gz")
+
+    # Step 2. Fetch TP53 (chr17:7668421-7687490) sequence
+    chromosome = 'chr17'
+    start = 7668421
+    end = 7687490
+    length = end - start + 1
+    sequence_normal = str(fasta.fetch(chromosome, start - 1, end))
+
+    # Step 3. Create a somatic SNV at position 7675118 (T>C)
+    reference_position = 7675118
+    local_position = length - (end - reference_position) - 1
+    sequence_tumor = sequence_normal
+    assert sequence_tumor[local_position] == 'T'
+    sequence_tumor = sequence_tumor[:local_position] + 'C' + sequence_tumor[local_position+1:]
+
+    # Step 4. Create FASTQ files
+    create_long_read_fastq_file(
+        sequences=[sequence_tumor, sequence_normal],
+        output_fastq_file='../../../test/data/fastq/nexus-dna-001-tumor_long_read.fastq.gz',
+        num_reads=[10,10],
+        read_length=20000,
+        stranded=False
+    )
+    create_long_read_fastq_file(
+        sequences=[sequence_normal],
+        output_fastq_file='../../../test/data/fastq/nexus-dna-001-normal_long_read.fastq.gz',
+        num_reads=[20],
+        read_length=20000,
+        stranded=False
+    )
+    create_paired_end_fastq_files(
+        sequences=[sequence_tumor, sequence_normal],
+        output_r1_fastq_file='../../../test/data/fastq/nexus-dna-001-tumor_paired-end_read_r1.fastq.gz',
+        output_r2_fastq_file = '../../../test/data/fastq/nexus-dna-001-tumor_paired-end_read_r2.fastq.gz',
+        num_reads=[1000,1000],
+        read_length=151,
+        min_insert_size=300,
+        max_insert_size=600
+    )
+    create_paired_end_fastq_files(
+        sequences=[sequence_normal],
+        output_r1_fastq_file='../../../test/data/fastq/nexus-dna-001-normal_paired-end_read_r1.fastq.gz',
+        output_r2_fastq_file = '../../../test/data/fastq/nexus-dna-001-normal_paired-end_read_r2.fastq.gz',
+        num_reads=[2000],
+        read_length=151,
+        min_insert_size=300,
+        max_insert_size=600
+    )

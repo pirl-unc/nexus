@@ -1,0 +1,36 @@
+group:	/Users/leework/Documents/Research/projects/project_nexus/data/processed/work/variant_calling_manta/35/8be3399f55030627caa4393b7702d8/nexus-dna-003-normal-paired-end-read_fixmate_markeddup_recalibrated.bam
+fragment length observations:	7756
+fragment length quantiles:
+0.01	302
+0.05	314
+0.1	330
+0.25	373
+0.5	447
+0.75	524
+0.9	569
+0.95	585
+0.99	598
+Total sampled reads:	20000
+Total sampled paired reads:	20000
+Total sampled unpaired reads:	0
+Total sampled paired reads with low MAPQ:	0
+Total sampled high-confidence read pairs passing all filters:	7756
+
+group:	/Users/leework/Documents/Research/projects/project_nexus/data/processed/work/variant_calling_manta/35/8be3399f55030627caa4393b7702d8/nexus-dna-003-tumor-paired-end-read_fixmate_markeddup_recalibrated.bam
+fragment length observations:	7690
+fragment length quantiles:
+0.01	302
+0.05	314
+0.1	329
+0.25	372
+0.5	449
+0.75	524
+0.9	569
+0.95	585
+0.99	598
+Total sampled reads:	20003
+Total sampled paired reads:	20003
+Total sampled unpaired reads:	0
+Total sampled paired reads with low MAPQ:	0
+Total sampled high-confidence read pairs passing all filters:	7693
+

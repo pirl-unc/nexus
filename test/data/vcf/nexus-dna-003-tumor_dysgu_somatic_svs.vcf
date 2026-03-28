@@ -1,0 +1,102 @@
+##fileformat=VCFv4.2
+##FILTER=<ID=PASS,Description="All filters passed">
+##source=DYSGU
+##FILTER=<ID=lowProb,Description="Probability below threshold set with --thresholds">
+##INFO=<ID=SVTYPE,Number=1,Type=String,Description="Type of structural variant">
+##INFO=<ID=SVLEN,Number=1,Type=Integer,Description="Difference in length between REF and ALT alleles">
+##INFO=<ID=END,Number=1,Type=Integer,Description="End position of the variant described in this record">
+##INFO=<ID=CHR2,Number=1,Type=String,Description="Chromosome for END coordinate in case of a translocation">
+##INFO=<ID=CHR2_POS,Number=1,Type=Integer,Description="Chromosome position for END coordinate in case of a translocation">
+##INFO=<ID=GRP,Number=1,Type=Integer,Description="Group id for complex SVs">
+##INFO=<ID=NGRP,Number=1,Type=Integer,Description="Number of SVs in group">
+##INFO=<ID=RT,Number=1,Type=String,Description="Type of input reads, 1=paired-end, 2=pacbio, 3=nanopore">
+##INFO=<ID=CT,Number=1,Type=String,Description="Paired-end signature induced connection type">
+##INFO=<ID=CIPOS95,Number=1,Type=Integer,Description="Confidence interval size (95%) around POS for imprecise variants">
+##INFO=<ID=CIEND95,Number=1,Type=Integer,Description="Confidence interval size (95%) around END for imprecise variants">
+##INFO=<ID=SVMETHOD,Number=1,Type=String,Description="Type of approach used to detect SV">
+##INFO=<ID=KIND,Number=1,Type=String,Description="Kind of join with respect to input regions">
+##INFO=<ID=SU,Number=1,Type=Integer,Description="Number of pieces of evidence supporting the variant across all samples">
+##INFO=<ID=WR,Number=1,Type=Integer,Description="Number of reads that have SV within-read">
+##INFO=<ID=PE,Number=1,Type=Integer,Description="Number of paired-end reads supporting the variant across all samples">
+##INFO=<ID=SR,Number=1,Type=Integer,Description="Number of supplementary reads supporting the variant across all samples">
+##INFO=<ID=SC,Number=1,Type=Integer,Description="Number of soft-clip reads supporting the variant across all samples">
+##INFO=<ID=BND,Number=1,Type=Integer,Description="Number of break-end alignments supporting the variant">
+##INFO=<ID=CONTIGA,Number=1,Type=String,Description="Contig from CHROM POS">
+##INFO=<ID=CONTIGB,Number=1,Type=String,Description="Contig from CHR2 END">
+##INFO=<ID=GC,Number=1,Type=Float,Description="GC% of assembled contigs">
+##INFO=<ID=REP,Number=1,Type=Float,Description="Repeat score for contigs aligned bases">
+##INFO=<ID=REPSC,Number=1,Type=Float,Description="Repeat score for contigs soft-clipped bases">
+##INFO=<ID=LPREC,Number=1,Type=Integer,Description="SV length precise=1, inferred=0">
+##INFO=<ID=NEXP,Number=1,Type=Integer,Description="Number of expanded repeat bases at break">
+##INFO=<ID=STRIDE,Number=1,Type=Integer,Description="Repeat expansion stride or period">
+##INFO=<ID=EXPSEQ,Number=1,Type=String,Description="Expansion sequence">
+##INFO=<ID=RPOLY,Number=1,Type=Integer,Description="Number of reference polymer bases">
+##INFO=<ID=OL,Number=1,Type=Integer,Description="Query overlap in bp">
+##INFO=<ID=SVINSSEQ,Number=.,Type=String,Description="Sequence of insertion">
+##INFO=<ID=LEFT_SVINSSEQ,Number=.,Type=String,Description="Known left side of insertion for an insertion of unknown length">
+##INFO=<ID=RIGHT_SVINSSEQ,Number=.,Type=String,Description="Known right side of insertion for an insertion of unknown length">
+##INFO=<ID=MeanPROB,Number=1,Type=Float,Description="Mean probability of event being true across samples">
+##INFO=<ID=MaxPROB,Number=1,Type=Float,Description="Max probability of event being true across samples">
+##ALT=<ID=DEL,Description="Deletion">
+##ALT=<ID=DUP,Description="Duplication">
+##ALT=<ID=INV,Description="Inversion">
+##ALT=<ID=TRA,Description="Translocation">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GQ,Number=1,Type=Float,Description="Genotype quality phred scaled">
+##FORMAT=<ID=PSET,Number=1,Type=Integer,Description="Phase-set ID for phased SVs">
+##FORMAT=<ID=HP,Number=1,Type=String,Description="Phased read support HP1[|HP2|...HPn]_unphased. Leading underscore (e.g. _4) indicates all reads unphased. No underscore implies no unphased reads">
+##FORMAT=<ID=AF,Number=1,Type=Float,Description="Allele frequency">
+##FORMAT=<ID=NMP,Number=1,Type=Float,Description="Mean edit distance for primary alignments supporting the variant">
+##FORMAT=<ID=NMS,Number=1,Type=Float,Description="Mean edit distance for supplementary alignments supporting the variant">
+##FORMAT=<ID=NMB,Number=1,Type=Float,Description="Mean basic, edit distance. Gaps >= 30 bp are ignored">
+##FORMAT=<ID=MAPQP,Number=1,Type=Float,Description="Mean MAPQ for primary reads supporting the variant">
+##FORMAT=<ID=MAPQS,Number=1,Type=Float,Description="Mean MAPQ for supplementary reads supporting the variant">
+##FORMAT=<ID=NP,Number=1,Type=Integer,Description="Number of alignments in normal-pair orientation supporting the variant">
+##FORMAT=<ID=MAS,Number=1,Type=Integer,Description="Maximum alignment score of supplementary reads supporting the variant">
+##FORMAT=<ID=SU,Number=1,Type=Integer,Description="Number of pieces of evidence supporting the variant">
+##FORMAT=<ID=WR,Number=1,Type=Integer,Description="Number of reads that have SV within-read">
+##FORMAT=<ID=PE,Number=1,Type=Integer,Description="Number of paired reads supporting the variant">
+##FORMAT=<ID=SR,Number=1,Type=Integer,Description="Number of supplementary alignments supporting the variant">
+##FORMAT=<ID=SC,Number=1,Type=Integer,Description="Number of soft-clipped alignments supporting the variant">
+##FORMAT=<ID=BND,Number=1,Type=Integer,Description="Number of break-end alignments supporting the variant">
+##FORMAT=<ID=SQC,Number=1,Type=Float,Description="Soft-clip quality value correlation between reads">
+##FORMAT=<ID=SCW,Number=1,Type=Float,Description="Soft-clip quality weight value">
+##FORMAT=<ID=SQR,Number=1,Type=Float,Description="Soft-clip base-quality ratio wrt to aligned bases">
+##FORMAT=<ID=BE,Number=1,Type=Integer,Description="Block edge metric">
+##FORMAT=<ID=COV,Number=1,Type=Float,Description="Mean read coverage +/- 10kb around break site at A or B">
+##FORMAT=<ID=MCOV,Number=1,Type=Float,Description="Maximum read coverage +/- 10kb around break site at A or B">
+##FORMAT=<ID=LNK,Number=1,Type=Integer,Description="Contig A and contig B overlap">
+##FORMAT=<ID=NEIGH,Number=1,Type=Integer,Description="Number of other break points within 1 bp of break site">
+##FORMAT=<ID=NEIGH10,Number=1,Type=Integer,Description="Number of other break points within 10 kp of break site">
+##FORMAT=<ID=RB,Number=1,Type=Integer,Description="Number of reference bases in contigs">
+##FORMAT=<ID=PS,Number=1,Type=Integer,Description="Number of reads on plus strand">
+##FORMAT=<ID=MS,Number=1,Type=Integer,Description="Number of reads on minus strand">
+##FORMAT=<ID=SBT,Number=1,Type=Float,Description="Strand-bias, one-sided binomial test p-value">
+##FORMAT=<ID=NG,Number=1,Type=Float,Description="Mean number of small gaps < 30 bp">
+##FORMAT=<ID=NSA,Number=1,Type=Float,Description="Mean number of SA tags per read">
+##FORMAT=<ID=NXA,Number=1,Type=Float,Description="Mean number of XA tags per read">
+##FORMAT=<ID=NMU,Number=1,Type=Float,Description="Mean number of mates unmapped per read">
+##FORMAT=<ID=NDC,Number=1,Type=Integer,Description="Number of double-clips, alignments with left and right clips">
+##FORMAT=<ID=RMS,Number=1,Type=Integer,Description="Remapping score">
+##FORMAT=<ID=RED,Number=1,Type=Integer,Description="Remapping edit distance">
+##FORMAT=<ID=BCC,Number=1,Type=Integer,Description="Bad soft-clip count within +/- 500 bp">
+##FORMAT=<ID=FCC,Number=1,Type=Float,Description="Fold-coverage change for SVs">
+##FORMAT=<ID=STL,Number=1,Type=Integer,Description="N reads with small TLEN below 0.05% of distribution">
+##FORMAT=<ID=RAS,Number=1,Type=Integer,Description="Reverse soft-clip to alignment score">
+##FORMAT=<ID=FAS,Number=1,Type=Integer,Description="Forward soft-clip to alignment score">
+##FORMAT=<ID=ICN,Number=1,Type=Float,Description="Inner copy number">
+##FORMAT=<ID=OCN,Number=1,Type=Float,Description="Outer copy number">
+##FORMAT=<ID=CMP,Number=1,Type=Float,Description="Compression ratio of contigs">
+##FORMAT=<ID=RR,Number=1,Type=Float,Description="Repeat score for reference">
+##FORMAT=<ID=JIT,Number=1,Type=Float,Description="SV length jitter">
+##FORMAT=<ID=PROB,Number=1,Type=Float,Description="Probability of event being true">
+##contig=<ID=chr17,length=8000000>
+##command="/opt/conda/bin/dysgu run --out-format vcf --procs 2 --mode pe --min-support 3 --min-size 10 --mq 20 GRCh38.p14.genome.chr17_1-8M.fa.gz nexus-dna-003-tumor_dysgu_run_tumor_temp/ nexus-dna-003-tumor-paired-end-read_fixmate_markeddup_recalibrated.bam"
+##FILTER=<ID=normalOverlap,Description="SV overlap in a normal vcf">
+##FILTER=<ID=normal,Description="SV has read support in a normal alignment file">
+##FILTER=<ID=lowSupport,Description="Not enough supporting evidence / too many nuisance reads">
+##FILTER=<ID=lowMapQ,Description="Mean MapQ below threshold">
+##FILTER=<ID=highDivergence,Description="Too many mismatches or small gaps in reads">
+##command="/opt/conda/bin/dysgu filter --normal-vcf nexus-dna-002-tumor-paired-end-read_fixmate_markeddup_recalibrated.vcf --procs 2 --support-fraction 0.05 --min-mapq 20 nexus-dna-003-tumor-paired-end-read_fixmate_markeddup_recalibrated.vcf nexus-dna-002-tumor-paired-end-read_fixmate_markeddup_recalibrated.bam"
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	nexus-dna-003-tumor-paired-end-read
+chr17	7675119	3	GCTTGTAGATGGCCATGGCGCGGACGCGGG	G	18	PASS	SVMETHOD=DYSGUv1.8.5;SVTYPE=DEL;END=7675149;CHR2=chr17;GRP=3;NGRP=1;CT=3to5;CIPOS95=0;CIEND95=0;SVLEN=30;KIND=extra-regional;GC=61.21;NEXP=0;STRIDE=0;EXPSEQ;RPOLY=10;OL=0;SU=119;WR=48;PE=6;SR=3;SC=17;BND=0;LPREC=1;RT=pe	GT:GQ:PSET:HP:AF:MAPQP:MAPQS:SU:WR:PE:SR:SC:BND:NMB:COV:NEIGH10:PS:MS:RMS:RED:BCC:FCC:ICN:OCN:PROB	0/1:200:-1:-1:0.38:60:60:119:48:6:3:17:0:0:133.59:1:36:32:0:0:50:0.495:0.491:0.991:0.879

@@ -1,0 +1,8 @@
+# Test 1: rMATS
+samples_tsv_file: ""
+output_dir: ""
+reference_genes_gtf_file: ""
+methods: "rmats"
+
+rmats:
+  extra_args: "-t paired --libType fr-unstranded --readLength 151 --mil 10 --novelSS --statoff"

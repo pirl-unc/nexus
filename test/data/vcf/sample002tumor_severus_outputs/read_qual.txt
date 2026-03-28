@@ -1,5 +1,0 @@
-Number of segments:FAIL	238
-PASS	120
-Total length of segments:
-FAIL	13940182
-PASS	4944900

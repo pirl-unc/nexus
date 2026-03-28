@@ -1,0 +1,217 @@
+STAR version=2.7.11b
+STAR compilation time,server,dir=2024-01-25T16:12:02-05:00 :/home/dobin/data/STAR/STARcode/STAR.master/source
+STAR git: On branch master ; commit a72e5fa27331108f524211d667949dc5ff4072e8 ; diff files: CHANGES.md README.md doc/STARmanual.pdf extras/doc-latex/STARmanual.tex extras/doc-latex/parametersDefault.tex extras/docker/Dockerfile source/VERSION 
+##### Command Line:
+STAR --runThreadN 2 --readFilesIn nexus-rna-103-tumor_paired-end_read_r1.fastq.gz nexus-rna-103-tumor_paired-end_read_r2.fastq.gz --genomeDir star_index --outFileNamePrefix nexus-rna-103-tumor-paired-end-read_star_outputs/nexus-rna-103-tumor-paired-end-read_star_ --genomeLoad NoSharedMemory --readFilesCommand zcat --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --outSAMattributes Standard --twopassMode Basic --chimSegmentMin 10 --chimOutType WithinBAM SoftClip Junctions --chimMultimapNmax 20 --chimOutJunctionFormat 0
+##### Initial USER parameters from Command Line:
+outFileNamePrefix                 nexus-rna-103-tumor-paired-end-read_star_outputs/nexus-rna-103-tumor-paired-end-read_star_
+###### All USER parameters from Command Line:
+runThreadN                    2     ~RE-DEFINED
+readFilesIn                   nexus-rna-103-tumor_paired-end_read_r1.fastq.gz   nexus-rna-103-tumor_paired-end_read_r2.fastq.gz        ~RE-DEFINED
+genomeDir                     star_index     ~RE-DEFINED
+outFileNamePrefix             nexus-rna-103-tumor-paired-end-read_star_outputs/nexus-rna-103-tumor-paired-end-read_star_     ~RE-DEFINED
+genomeLoad                    NoSharedMemory     ~RE-DEFINED
+readFilesCommand              zcat        ~RE-DEFINED
+outSAMtype                    BAM   SortedByCoordinate        ~RE-DEFINED
+outSAMunmapped                Within        ~RE-DEFINED
+outSAMattributes              Standard        ~RE-DEFINED
+twopassMode                   Basic     ~RE-DEFINED
+chimSegmentMin                10     ~RE-DEFINED
+chimOutType                   WithinBAM   SoftClip   Junctions        ~RE-DEFINED
+chimMultimapNmax              20     ~RE-DEFINED
+chimOutJunctionFormat         0        ~RE-DEFINED
+##### Finished reading parameters from all sources
+
+##### Final user re-defined parameters-----------------:
+runThreadN                        2
+genomeDir                         star_index
+genomeLoad                        NoSharedMemory
+readFilesIn                       nexus-rna-103-tumor_paired-end_read_r1.fastq.gz   nexus-rna-103-tumor_paired-end_read_r2.fastq.gz   
+readFilesCommand                  zcat   
+outFileNamePrefix                 nexus-rna-103-tumor-paired-end-read_star_outputs/nexus-rna-103-tumor-paired-end-read_star_
+outSAMtype                        BAM   SortedByCoordinate   
+outSAMattributes                  Standard   
+outSAMunmapped                    Within   
+chimSegmentMin                    10
+chimOutType                       WithinBAM   SoftClip   Junctions   
+chimMultimapNmax                  20
+chimOutJunctionFormat             0   
+twopassMode                       Basic
+
+-------------------------------
+##### Final effective command line:
+STAR   --runThreadN 2   --genomeDir star_index   --genomeLoad NoSharedMemory   --readFilesIn nexus-rna-103-tumor_paired-end_read_r1.fastq.gz   nexus-rna-103-tumor_paired-end_read_r2.fastq.gz      --readFilesCommand zcat      --outFileNamePrefix nexus-rna-103-tumor-paired-end-read_star_outputs/nexus-rna-103-tumor-paired-end-read_star_   --outSAMtype BAM   SortedByCoordinate      --outSAMattributes Standard      --outSAMunmapped Within      --chimSegmentMin 10   --chimOutType WithinBAM   SoftClip   Junctions      --chimMultimapNmax 20   --chimOutJunctionFormat 0      --twopassMode Basic
+----------------------------------------
+
+Number of fastq files for each mate = 1
+
+   Input read files for mate 1 :
+-rw-r--r-- 1 root root 94318 Mar 24 03:05 nexus-rna-103-tumor_paired-end_read_r1.fastq.gz
+
+   readsCommandsFile:
+exec > "nexus-rna-103-tumor-paired-end-read_star_outputs/nexus-rna-103-tumor-paired-end-read_star__STARtmp/tmp.fifo.read1"
+echo FILE 0
+zcat      "nexus-rna-103-tumor_paired-end_read_r1.fastq.gz"
+
+
+   Input read files for mate 2 :
+-rw-r--r-- 1 root root 92303 Mar 24 03:05 nexus-rna-103-tumor_paired-end_read_r2.fastq.gz
+
+   readsCommandsFile:
+exec > "nexus-rna-103-tumor-paired-end-read_star_outputs/nexus-rna-103-tumor-paired-end-read_star__STARtmp/tmp.fifo.read2"
+echo FILE 0
+zcat      "nexus-rna-103-tumor_paired-end_read_r2.fastq.gz"
+
+ParametersSolo: --soloCellFilterType CellRanger2.2 filtering parameters:  3000 0.99 10
+WARNING: --limitBAMsortRAM=0, will use genome size as RAM limit for BAM sorting
+Finished loading and checking parameters
+Reading genome generation parameters:
+### STAR   --runMode genomeGenerate      --runThreadN 2   --genomeDir star_index/   --genomeFastaFiles GRCh38.p14.genome.chr17.fa      --genomeSAindexNbases 10   --sjdbGTFfile gencode.v45.chr_patch_hapl_scaff.annotation.chr17.gtf   --sjdbOverhang 150
+### GstrandBit=32
+versionGenome                 2.7.4a     ~RE-DEFINED
+genomeType                    Full     ~RE-DEFINED
+genomeFastaFiles              GRCh38.p14.genome.chr17.fa        ~RE-DEFINED
+genomeSAindexNbases           10     ~RE-DEFINED
+genomeChrBinNbits             18     ~RE-DEFINED
+genomeSAsparseD               1     ~RE-DEFINED
+genomeTransformType           None     ~RE-DEFINED
+genomeTransformVCF            -     ~RE-DEFINED
+sjdbOverhang                  150     ~RE-DEFINED
+sjdbFileChrStartEnd           -        ~RE-DEFINED
+sjdbGTFfile                   gencode.v45.chr_patch_hapl_scaff.annotation.chr17.gtf     ~RE-DEFINED
+sjdbGTFchrPrefix              -     ~RE-DEFINED
+sjdbGTFfeatureExon            exon     ~RE-DEFINED
+sjdbGTFtagExonParentTranscripttranscript_id     ~RE-DEFINED
+sjdbGTFtagExonParentGene      gene_id     ~RE-DEFINED
+sjdbInsertSave                Basic     ~RE-DEFINED
+genomeFileSizes               90117737   739643061        ~RE-DEFINED
+Genome version is compatible with current STAR
+Number of real (reference) chromosomes= 1
+1	chr17	83257441	0
+--sjdbOverhang = 150 taken from the generated genome
+Started loading the genome: Wed Mar 25 22:25:54 2026
+
+Genome: size given as a parameter = 90117737
+SA: size given as a parameter = 739643061
+SAindex: size given as a parameter = 1
+Read from SAindex: pGe.gSAindexNbases=10  nSAi=1398100
+nGenome=90117737;  nSAbyte=739643061
+GstrandBit=32   SA number of indices=179307408
+Shared memory is not used for genomes. Allocated a private copy of the genome.
+Genome file size: 90117737 bytes; state: good=1 eof=0 fail=0 bad=0
+Loading Genome ... done! state: good=1 eof=0 fail=0 bad=0; loaded 90117737 bytes
+SA file size: 739643061 bytes; state: good=1 eof=0 fail=0 bad=0
+Loading SA ... done! state: good=1 eof=0 fail=0 bad=0; loaded 739643061 bytes
+Loading SAindex ... done: 6116787 bytes
+Finished loading the genome: Wed Mar 25 22:25:55 2026
+
+Processing splice junctions database sjdbN=22445,   pGe.sjdbOverhang=150 
+alignIntronMax=alignMatesGapMax=0, the max intron size will be approximately determined by (2^winBinNbits)*winAnchorDistNbins=589824
+Created thread # 1
+Starting to map file # 0
+mate 1:   nexus-rna-103-tumor_paired-end_read_r1.fastq.gz
+mate 2:   nexus-rna-103-tumor_paired-end_read_r2.fastq.gz
+Thread #1 end of input stream, nextChar=-1
+Completed: thread #0
+Completed: thread #1
+Joined thread # 1
+Mar 25 22:25:56   Loaded database junctions from the generated genome star_index//sjdbList.out.tab: 22445 total junctions
+
+Mar 25 22:25:56   Loaded database junctions from the 1st pass file: nexus-rna-103-tumor-paired-end-read_star_outputs/nexus-rna-103-tumor-paired-end-read_star__STARpass1//SJ.out.tab: 22449 total junctions
+
+Mar 25 22:25:56   Finished preparing junctions
+Mar 25 22:25:56 ..... inserting junctions into the genome indices
+Mar 25 22:25:56   Finished SA search: number of new junctions=0, old junctions=22445
+Mar 25 22:25:56   Finished sorting SA indicesL nInd=0
+Genome size with junctions=90117737  83361792   6755945
+GstrandBit1=32   GstrandBit=32
+Mar 25 22:25:59   Finished inserting junction indices
+Mar 25 22:25:59   Finished SAi
+Mar 25 22:25:59 ..... finished inserting junctions into genome
+
+   Input read files for mate 1 :
+-rw-r--r-- 1 root root 94318 Mar 24 03:05 nexus-rna-103-tumor_paired-end_read_r1.fastq.gz
+
+   readsCommandsFile:
+exec > "nexus-rna-103-tumor-paired-end-read_star_outputs/nexus-rna-103-tumor-paired-end-read_star__STARtmp/tmp.fifo.read1"
+echo FILE 0
+zcat      "nexus-rna-103-tumor_paired-end_read_r1.fastq.gz"
+
+
+   Input read files for mate 2 :
+-rw-r--r-- 1 root root 92303 Mar 24 03:05 nexus-rna-103-tumor_paired-end_read_r2.fastq.gz
+
+   readsCommandsFile:
+exec > "nexus-rna-103-tumor-paired-end-read_star_outputs/nexus-rna-103-tumor-paired-end-read_star__STARtmp/tmp.fifo.read2"
+echo FILE 0
+zcat      "nexus-rna-103-tumor_paired-end_read_r2.fastq.gz"
+
+WARNING --chimOutType=WithinBAM, therefore STAR will output NM attribute
+Opening the file: nexus-rna-103-tumor-paired-end-read_star_outputs/nexus-rna-103-tumor-paired-end-read_star__STARtmp//Chimeric.out.junction.thread0 ... ok
+Opening the file: nexus-rna-103-tumor-paired-end-read_star_outputs/nexus-rna-103-tumor-paired-end-read_star__STARtmp//Chimeric.out.junction.thread1 ... ok
+Created thread # 1
+Starting to map file # 0
+mate 1:   nexus-rna-103-tumor_paired-end_read_r1.fastq.gz
+mate 2:   nexus-rna-103-tumor_paired-end_read_r2.fastq.gz
+Thread #1 end of input stream, nextChar=-1
+Completed: thread #0
+BAM sorting: 4008 mapped reads
+BAM sorting bins genomic start loci:
+1	0	7439594
+2	0	7439684
+3	0	7439756
+4	0	7441474
+5	0	7441530
+6	0	7441577
+7	0	7441813
+8	0	7441857
+9	0	7442610
+10	0	7442653
+11	0	7442696
+12	0	7442740
+13	0	7442786
+14	0	7443119
+15	0	7443153
+16	0	7443186
+17	0	7443232
+18	0	7443279
+19	0	7443324
+20	0	7443363
+21	0	7443407
+22	0	7443448
+23	0	7443502
+24	0	7443542
+25	0	7443591
+26	0	7443635
+27	0	7443681
+28	0	7443728
+29	0	7443775
+30	0	7443811
+31	0	7443861
+32	0	7443908
+33	0	7443951
+34	0	7443998
+35	0	7444046
+36	0	7444086
+37	0	7444123
+38	0	7444167
+39	0	7444201
+40	0	7444257
+41	0	7444298
+42	0	7444339
+43	0	7444383
+44	0	7444424
+45	0	7444476
+46	0	7444530
+47	0	7444598
+48	0	7444672
+Completed: thread #1
+Joined thread # 1
+Mar 25 22:26:00 ..... finished mapping
+RAM after mapping:
+VmPeak:	 4265236 kB; VmSize:	 4199700 kB; VmHWM:	 1986372 kB; VmRSS:	 1952212 kB; 
+RAM after freeing genome index memory:
+VmPeak:	 4265236 kB; VmSize:	  664412 kB; VmHWM:	 1986372 kB; VmRSS:	  412920 kB; 
+Mar 25 22:26:00 ..... started sorting BAM
+Max memory needed for sorting = 40718
+ALL DONE!

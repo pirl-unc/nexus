@@ -1,0 +1,13 @@
+# Test 2: SV callers — Delly2, Dysgu, nanomonsv
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+methods: "delly2,nanomonsv"
+
+delly2:
+  exclude_tsv_file: ""
+  extra_args: "--mapqual 0 --technology pb"
+
+nanomonsv:
+  parse_extra_args: ""
+  get_extra_args: ""

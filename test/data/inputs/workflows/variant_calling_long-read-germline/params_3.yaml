@@ -1,0 +1,17 @@
+# Test 3: DeepVariant + HiFiCNV (HiFiCNV uses DeepVariant VCF output)
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+methods: "deepvariant,hificnv"
+
+deepvariant:
+  input_path: ""
+  output_path: ""
+  containerization: "docker"
+  model_type: "PACBIO"
+  bin_path: "/opt/deepvariant/bin/run_deepvariant"
+  bin_version: "1.9.0"
+
+hificnv:
+  exclude_bed_file: ""
+  extra_args: ""

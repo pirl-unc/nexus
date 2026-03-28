@@ -1,0 +1,1 @@
+-long nexus-rna-002-tumor_long_read.fastq.gz --threads 2 --outdir nexus-rna-002-tumor_rnabloom2_output/ --qual 20 --qual-avg 20 --mincov 3 -ntcard -savebf -chimera -lrpb

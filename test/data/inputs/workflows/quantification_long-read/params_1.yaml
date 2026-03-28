@@ -1,0 +1,12 @@
+# Test 1: BAM-based — Bambu, LIQA
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+reference_genes_gtf_file: ""
+reference_transcripts_fasta_file: ""
+methods: "bambu,liqa"
+
+bambu: {}
+
+liqa:
+  extra_args: "-max_distance 20 -f_weight 1"

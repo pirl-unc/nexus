@@ -1,0 +1,22 @@
+{
+  "version": "1.2",
+  "dbname": "blastpdb",
+  "dbtype": "Protein",
+  "db-version": 5,
+  "description": "../../../test/data/fasta/gencode.v45.transcripts.tp53.fa",
+  "number-of-letters": 57064,
+  "number-of-sequences": 27,
+  "last-updated": "2025-09-05T13:46:00",
+  "number-of-volumes": 1,
+  "bytes-total": 99573,
+  "bytes-to-cache": 57444,
+  "files": [
+    "blastpdb.pdb",
+    "blastpdb.phr",
+    "blastpdb.pin",
+    "blastpdb.pot",
+    "blastpdb.psq",
+    "blastpdb.ptf",
+    "blastpdb.pto"
+  ]
+}

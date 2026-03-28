@@ -1,0 +1,17 @@
+# Test 1: SNV callers — Clair3, Longshot, NanoCaller, NanoVar
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+methods: "clair3,longshot,nanocaller,nanovar"
+
+clair3:
+  extra_args: "--model_path=/opt/models/hifi_sequel2/ --platform=hifi --min_coverage=1"
+
+longshot:
+  extra_args: ""
+
+nanocaller:
+  extra_args: "--preset ont --mode all --sequencing ont --phase --enable_whatshap"
+
+nanovar:
+  extra_args: "--data_type ont"

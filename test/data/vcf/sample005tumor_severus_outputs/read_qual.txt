@@ -1,3 +1,0 @@
-Number of segments:FAIL	298
-Total length of segments:
-FAIL	15144322

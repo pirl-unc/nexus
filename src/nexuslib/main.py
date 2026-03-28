@@ -33,28 +33,29 @@ def get_alias_path(executable_name: str):
 
 def get_available_workflows():
     """
-    Fetches all available workflows.
+    Fetches all available workflows. Scans both 'subworkflows' (single-tool workflows) and 'workflows'.
+    Process definitions in 'tools' are excluded.
 
     Returns
     -------
     nf_scripts_paths    :   Dictionary (key = workflow name, value = path to nextflow script).
     """
-    resources_path = resources.files('nexuslib').joinpath("pipelines")
     nf_scripts_paths = {}
-    nf_scripts = glob.glob("%s/**/*.nf" % resources_path, recursive=True)
-    for nf_script in nf_scripts:
-        nf_script_dir = nf_script.replace(str(resources_path), '')
-        nf_script_dirs = nf_script_dir.split('/')
-        if nf_script_dirs[1] == 'modules':
-            continue
-        workflow_name = os.path.basename(nf_script)
-        nf_scripts_paths[workflow_name] = nf_script
+    base_path = resources.files('nexuslib')
+    for directory in ('subworkflows', 'workflows'):
+        search_path = base_path.joinpath(directory)
+        nf_scripts = glob.glob("%s/**/*.nf" % search_path, recursive=True)
+        for nf_script in nf_scripts:
+            workflow_name = os.path.basename(nf_script)
+            nf_scripts_paths[workflow_name] = nf_script
     return nf_scripts_paths
 
 
-def run_workflow(workflow: str,
-                 nextflow: str,
-                 workflow_args: List[str]):
+def run_workflow(
+        workflow: str,
+        nextflow: str,
+        workflow_args: List[str]
+):
     """
     Runs a workflow.
 
@@ -65,30 +66,32 @@ def run_workflow(workflow: str,
     workflow_args   :   List of workflow specific arguments.
     """
     nf_scripts_paths = get_available_workflows()
-    if workflow in nf_scripts_paths:
-        if nextflow == 'nextflow':
-            nextflow = get_alias_path(executable_name='nextflow')
-        command = [nextflow, 'run', nf_scripts_paths[workflow], '-resume'] + workflow_args
-        print(' '.join(command))
-        process = subprocess.Popen(
-            ' '.join(command),
-            shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            bufsize=1,
-            executable='/bin/bash'
-        )
-        while True:
-            output = process.stdout.readline()
-            if output == '' and process.poll() is not None:
-                break
-            if output:
-                print(output.replace('\n',''))
-        return_code = process.wait()
-        if return_code == 0:
-            print("Nextflow returned zero (ran successfully).")
-        else:
-            raise Exception('Nextflow returned non-zero exit code: %i' % return_code)
+    if workflow not in nf_scripts_paths:
+        raise Exception(f"{workflow} is not available.")
+
+    if nextflow == "nextflow":
+        nextflow = get_alias_path(executable_name="nextflow")
+
+    command = [nextflow, "run", nf_scripts_paths[workflow], "-resume"] + workflow_args
+
+    print(' '.join(command), flush=True)
+
+    process = subprocess.Popen(
+        ' '.join(command),
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        bufsize=1,
+        executable='/bin/bash'
+    )
+
+    for line in process.stdout:
+        print(line, end="", flush=True)
+
+    return_code = process.wait()
+
+    if return_code == 0:
+        print("Nextflow returned zero (ran successfully).", flush=True)
     else:
-        raise Exception('%s is not available.' % workflow)
+        raise Exception('Nextflow returned non-zero exit code: %i' % return_code)

@@ -1,0 +1,136 @@
+# =============================================================================
+# params.yaml — isoform_characterization_long-read
+#
+# Usage:
+#   nextflow run isoform_characterization_long-read.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with columns:
+#   sample_id
+#   bam_file               (required for ESPRESSO, IsoTools, TALON)
+#   bam_bai_file           (required for ESPRESSO, IsoTools, TALON)
+#   fastq_file             (required for FLAIR, IsoQuant, Mandalorion)
+#   fasta_file             (required for SQANTI3-fasta)
+#   gtf_file               (required for SQANTI3-gtf)
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+# Reference genome FASTA file
+reference_genome_fasta_file: ""
+
+# Reference genes GTF file
+reference_genes_gtf_file: ""
+
+
+# -----------------------------------------------------------------------------
+# Optional — general
+# -----------------------------------------------------------------------------
+
+# Methods to run. Comma-separated list or 'all'.
+# Allowed values:
+#   all, espresso, flair, isoquant, isotools, mandalorion,
+#   sqanti3-fasta, sqanti3-gtf, talon
+methods: "all"
+
+
+# -----------------------------------------------------------------------------
+# ESPRESSO
+# Optional arguments.
+# -----------------------------------------------------------------------------
+espresso:
+  # Extra CLI arguments passed directly to ESPRESSO_S.pl.
+  s_extra_args: ""
+
+  # Extra CLI arguments passed directly to ESPRESSO_C.pl.
+  c_extra_args: ""
+
+  # Extra CLI arguments passed directly to ESPRESSO_Q.pl.
+  q_extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# FLAIR
+# Optional arguments.
+# -----------------------------------------------------------------------------
+flair:
+  # Extra CLI arguments passed directly to flair align.
+  align_extra_args: ""
+
+  # Extra CLI arguments passed directly to flair correct.
+  correct_extra_args: ""
+
+  # Extra CLI arguments passed directly to flair collapse.
+  collapse_extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# IsoQuant
+# Optional arguments.
+# -----------------------------------------------------------------------------
+isoquant:
+  # Extra CLI arguments passed directly to isoquant.
+  extra_args: "--data_type pacbio_ccs --sqanti_output --high_memory --complete_genedb"
+
+
+# -----------------------------------------------------------------------------
+# IsoTools
+# Optional arguments.
+# -----------------------------------------------------------------------------
+isotools:
+  # Extra CLI arguments passed directly to isotools.
+  extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# Mandalorion
+# Optional arguments.
+# -----------------------------------------------------------------------------
+mandalorion:
+  # Extra CLI arguments passed directly to Mandalorion.
+  extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# SQANTI3 (FASTA mode)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+sqanti3_fasta:
+  # Extra CLI arguments passed directly to sqanti3_qc.py.
+  qc_extra_args: "--aligner_choice minimap2 --report skip --force_id_ignore"
+
+  # Extra CLI arguments passed directly to sqanti3_filter.py.
+  filter_extra_args: "ml --skip_report"
+
+
+# -----------------------------------------------------------------------------
+# SQANTI3 (GTF mode)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+sqanti3_gtf:
+  # Extra CLI arguments passed directly to sqanti3_qc.py.
+  qc_extra_args: "--report skip"
+
+  # Extra CLI arguments passed directly to sqanti3_filter.py.
+  filter_extra_args: "ml --skip_report"
+
+
+# -----------------------------------------------------------------------------
+# TALON
+# Optional arguments.
+# -----------------------------------------------------------------------------
+talon:
+  # Extra CLI arguments passed directly to talon_initialize_database.
+  initdb_extra_args: ""
+
+  # Extra CLI arguments passed directly to talon.
+  extra_args: "--create_novel_spliced_genes"

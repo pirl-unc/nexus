@@ -1,0 +1,22 @@
+# Test 2: FASTQ-based — Kallisto, Oarfish, TranSigner
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+reference_genes_gtf_file: ""
+reference_transcripts_fasta_file: ""
+methods: "kallisto,oarfish,transigner"
+
+kallisto:
+  index_extra_args: "-k 63"
+  bus_extra_args: "-x bulk --threshold 0.8"
+  bustools_sort_extra_args: ""
+  bustools_count_extra_args: "--cm -m"
+  quanttcc_extra_args: "-P PacBio --matrix-to-files"
+
+oarfish:
+  extra_args: "--seq-tech pac-bio-hifi"
+
+transigner:
+  align_extra_args: ""
+  prefilter_extra_args: ""
+  em_extra_args: ""

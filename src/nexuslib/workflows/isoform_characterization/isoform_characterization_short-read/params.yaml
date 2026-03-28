@@ -1,0 +1,45 @@
+# =============================================================================
+# params.yaml — isoform_characterization_short-read
+#
+# Usage:
+#   nextflow run isoform_characterization_short-read.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with columns:
+#   sample_id
+#   bam_file
+#   bam_bai_file
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+# Reference genes GTF file
+reference_genes_gtf_file: ""
+
+
+# -----------------------------------------------------------------------------
+# Optional — general
+# -----------------------------------------------------------------------------
+
+# Methods to run. Comma-separated list or 'all'.
+# Allowed values:
+#   all, rmats
+methods: "all"
+
+
+# -----------------------------------------------------------------------------
+# rMATS
+# Optional arguments.
+# -----------------------------------------------------------------------------
+rmats:
+  # Extra CLI arguments passed directly to rmats.py.
+  extra_args: "-t paired --libType fr-unstranded --readLength 151"

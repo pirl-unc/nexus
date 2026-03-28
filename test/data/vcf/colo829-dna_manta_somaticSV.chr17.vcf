@@ -1,0 +1,58 @@
+##fileformat=VCFv4.1
+##FILTER=<ID=PASS,Description="All filters passed">
+##fileDate=20250726
+##source=GenerateSVCandidates 1.6.0
+##reference=file:///datastore/nextgenout5/share/labs/rubinsteyn_lab/public/pirl/members/jinseok/projects/project_exacto/data/processed/work/paired-end_read_dna_variant_calling_manta/a9/d3e8650b594967c40298d3e7c1cdec/hg38.fa
+##contig=<ID=chr17,length=83257441>
+##INFO=<ID=IMPRECISE,Number=0,Type=Flag,Description="Imprecise structural variation">
+##INFO=<ID=SVTYPE,Number=1,Type=String,Description="Type of structural variant">
+##INFO=<ID=SVLEN,Number=.,Type=Integer,Description="Difference in length between REF and ALT alleles">
+##INFO=<ID=END,Number=1,Type=Integer,Description="End position of the variant described in this record">
+##INFO=<ID=CIPOS,Number=2,Type=Integer,Description="Confidence interval around POS">
+##INFO=<ID=CIEND,Number=2,Type=Integer,Description="Confidence interval around END">
+##INFO=<ID=CIGAR,Number=A,Type=String,Description="CIGAR alignment for each alternate indel allele">
+##INFO=<ID=MATEID,Number=.,Type=String,Description="ID of mate breakend">
+##INFO=<ID=EVENT,Number=1,Type=String,Description="ID of event associated to breakend">
+##INFO=<ID=HOMLEN,Number=.,Type=Integer,Description="Length of base pair identical homology at event breakpoints">
+##INFO=<ID=HOMSEQ,Number=.,Type=String,Description="Sequence of base pair identical homology at event breakpoints">
+##INFO=<ID=SVINSLEN,Number=.,Type=Integer,Description="Length of insertion">
+##INFO=<ID=SVINSSEQ,Number=.,Type=String,Description="Sequence of insertion">
+##INFO=<ID=LEFT_SVINSSEQ,Number=.,Type=String,Description="Known left side of insertion for an insertion of unknown length">
+##INFO=<ID=RIGHT_SVINSSEQ,Number=.,Type=String,Description="Known right side of insertion for an insertion of unknown length">
+##INFO=<ID=BND_DEPTH,Number=1,Type=Integer,Description="Read depth at local translocation breakend">
+##INFO=<ID=MATE_BND_DEPTH,Number=1,Type=Integer,Description="Read depth at remote translocation mate breakend">
+##INFO=<ID=SOMATIC,Number=0,Type=Flag,Description="Somatic mutation">
+##INFO=<ID=SOMATICSCORE,Number=1,Type=Integer,Description="Somatic variant quality score">
+##INFO=<ID=JUNCTION_SOMATICSCORE,Number=1,Type=Integer,Description="If the SV junctino is part of an EVENT (ie. a multi-adjacency variant), this field provides the SOMATICSCORE value for the adjacency in question only">
+##FORMAT=<ID=PR,Number=.,Type=Integer,Description="Spanning paired-read support for the ref and alt alleles in the order listed">
+##FORMAT=<ID=SR,Number=.,Type=Integer,Description="Split reads for the ref and alt alleles in the order listed, for reads where P(allele|read)>0.999">
+##FILTER=<ID=MaxDepth,Description="Normal sample site depth is greater than 3x the median chromosome depth near one or both variant breakends">
+##FILTER=<ID=MinSomaticScore,Description="Somatic score is less than 30">
+##FILTER=<ID=MaxMQ0Frac,Description="For a small variant (<1000 bases) in the normal sample, the fraction of reads with MAPQ0 around either breakend exceeds 0.4">
+##ALT=<ID=DEL,Description="Deletion">
+##ALT=<ID=INS,Description="Insertion">
+##ALT=<ID=DUP:TANDEM,Description="Tandem Duplication">
+##cmdline=/manta-1.6.0.centos6_x86_64/bin/configManta.py --tumorBam colo829-dna-illumina_fixmate_markeddup_recalibrated.bam --normalBam colo829bl-dna-illumina_fixmate_markeddup_recalibrated.bam --referenceFasta hg38.fa --runDir colo829-dna-illumina_manta_outputs/
+##bcftools_viewVersion=1.6+htslib-1.6
+##bcftools_viewCommand=view -h colo829-dna_manta_somaticSV.vcf.gz; Date=Thu Aug 21 12:14:46 2025
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	colo829bl-dna-illumina	colo829-dna-illumina
+chr17	7156389	MantaBND:2:31034:31054:0:0:0:0	T	]chr9:134254487]T	.	MinSomaticScore	SVTYPE=BND;MATEID=MantaBND:2:31034:31054:0:0:0:1;IMPRECISE;CIPOS=-253,253;EVENT=MantaBND:2:31034:31054:0:0:0:0;SOMATIC;SOMATICSCORE=0;JUNCTION_SOMATICSCORE=10;BND_DEPTH=43;MATE_BND_DEPTH=32	PR	45,0	119,7
+chr17	7156942	MantaBND:2:31034:31054:1:0:0:0	G	G[chr9:134254254[	.	MinSomaticScore	SVTYPE=BND;MATEID=MantaBND:2:31034:31054:1:0:0:1;IMPRECISE;CIPOS=-253,254;EVENT=MantaBND:2:31034:31054:0:0:0:0;SOMATIC;SOMATICSCORE=0;JUNCTION_SOMATICSCORE=0;BND_DEPTH=50;MATE_BND_DEPTH=38	PR	46,1	130,4
+chr17	11046672	MantaBND:2:20268:20269:0:0:0:0	C	C]chr17:13334174]	.	MinSomaticScore	SVTYPE=BND;MATEID=MantaBND:2:20268:20269:0:0:0:1;IMPRECISE;CIPOS=-286,287;SOMATIC;SOMATICSCORE=19;BND_DEPTH=38;MATE_BND_DEPTH=47	PR	72,0	181,7
+chr17	13334174	MantaBND:2:20268:20269:0:0:0:1	T	T]chr17:11046672]	.	MinSomaticScore	SVTYPE=BND;MATEID=MantaBND:2:20268:20269:0:0:0:0;IMPRECISE;CIPOS=-275,275;SOMATIC;SOMATICSCORE=19;BND_DEPTH=47;MATE_BND_DEPTH=38	PR	72,0	181,7
+chr17	15750140	MantaBND:2:20329:20330:0:0:0:0	T	T]chr17:18635080]	.	MinSomaticScore	SVTYPE=BND;MATEID=MantaBND:2:20329:20330:0:0:0:1;IMPRECISE;CIPOS=-373,374;SOMATIC;SOMATICSCORE=19;BND_DEPTH=32;MATE_BND_DEPTH=40	PR	68,1	147,8
+chr17	18635080	MantaBND:2:20329:20330:0:0:0:1	T	T]chr17:15750140]	.	MinSomaticScore	SVTYPE=BND;MATEID=MantaBND:2:20329:20330:0:0:0:0;IMPRECISE;CIPOS=-273,274;SOMATIC;SOMATICSCORE=19;BND_DEPTH=40;MATE_BND_DEPTH=32	PR	68,1	147,8
+chr17	21306936	MantaBND:96011:0:1:1:0:0:1	C	[chr17:21780943[C	.	PASS	SVTYPE=BND;MATEID=MantaBND:96011:0:1:1:0:0:0;IMPRECISE;CIPOS=-320,320;EVENT=MantaBND:96011:0:1:0:0:0:0;SOMATIC;SOMATICSCORE=34;JUNCTION_SOMATICSCORE=0;BND_DEPTH=55;MATE_BND_DEPTH=54	PR	91,0	234,4
+chr17	21307400	MantaBND:96011:0:1:0:0:0:0	A	A]chr17:21780482]	.	PASS	SVTYPE=BND;MATEID=MantaBND:96011:0:1:0:0:0:1;IMPRECISE;CIPOS=-232,232;EVENT=MantaBND:96011:0:1:0:0:0:0;SOMATIC;SOMATICSCORE=34;JUNCTION_SOMATICSCORE=0;BND_DEPTH=44;MATE_BND_DEPTH=37	PR	81,0	268,3
+chr17	21332986	MantaBND:96036:0:1:1:0:0:1	A	[chr17:21754948[A	.	MinSomaticScore	SVTYPE=BND;MATEID=MantaBND:96036:0:1:1:0:0:0;IMPRECISE;CIPOS=-444,444;SOMATIC;SOMATICSCORE=11;BND_DEPTH=77;MATE_BND_DEPTH=45	PR	90,1	216,11
+chr17	21754948	MantaBND:96036:0:1:1:0:0:0	C	[chr17:21332986[C	.	MinSomaticScore	SVTYPE=BND;MATEID=MantaBND:96036:0:1:1:0:0:1;IMPRECISE;CIPOS=-648,648;SOMATIC;SOMATICSCORE=11;BND_DEPTH=45;MATE_BND_DEPTH=77	PR	90,1	216,11
+chr17	21780482	MantaBND:96011:0:1:0:0:0:1	G	G]chr17:21307400]	.	PASS	SVTYPE=BND;MATEID=MantaBND:96011:0:1:0:0:0:0;IMPRECISE;CIPOS=-240,240;EVENT=MantaBND:96011:0:1:0:0:0:0;SOMATIC;SOMATICSCORE=34;JUNCTION_SOMATICSCORE=0;BND_DEPTH=37;MATE_BND_DEPTH=44	PR	81,0	268,3
+chr17	21780943	MantaBND:96011:0:1:1:0:0:0	A	[chr17:21306936[A	.	PASS	SVTYPE=BND;MATEID=MantaBND:96011:0:1:1:0:0:1;IMPRECISE;CIPOS=-243,244;EVENT=MantaBND:96011:0:1:0:0:0:0;SOMATIC;SOMATICSCORE=34;JUNCTION_SOMATICSCORE=0;BND_DEPTH=54;MATE_BND_DEPTH=55	PR	91,0	234,4
+chr17	21849504	MantaDUP:TANDEM:2:4504:20524:1:0:0	G	<DUP:TANDEM>	.	MaxDepth;MinSomaticScore	END=26780666;SVTYPE=DUP;SVLEN=4931162;IMPRECISE;CIPOS=-446,447;CIEND=-393,394;SOMATIC;SOMATICSCORE=23	PR	143,1	455,21
+chr17	21851295	MantaDUP:TANDEM:2:263:4504:2:0:0	A	<DUP:TANDEM>	.	MinSomaticScore	END=21892994;SVTYPE=DUP;SVLEN=41699;IMPRECISE;CIPOS=-369,370;CIEND=-260,260;SOMATIC;SOMATICSCORE=15	PR	17,0	78,6
+chr17	22150705	MantaBND:65187:0:1:5:0:0:0	A	[chr13:63036209[A	.	PASS	SVTYPE=BND;MATEID=MantaBND:65187:0:1:5:0:0:1;IMPRECISE;CIPOS=-257,257;SOMATIC;SOMATICSCORE=52;BND_DEPTH=67;MATE_BND_DEPTH=100	PR	147,0	457,19
+chr17	26643516	MantaDEL:2:21607:21640:1:0:0	N	<DEL>	.	MinSomaticScore	END=26644950;SVTYPE=DEL;SVLEN=-1434;IMPRECISE;CIPOS=-285,286;CIEND=-185,186;SOMATIC;SOMATICSCORE=13	PR	29,0	97,5
+chr17	26737645	MantaBND:11066:22:23:0:0:0:0	C	]chr22:16662406]C	.	MinSomaticScore	SVTYPE=BND;MATEID=MantaBND:11066:22:23:0:0:0:1;IMPRECISE;CIPOS=-228,229;SOMATIC;SOMATICSCORE=18;BND_DEPTH=57;MATE_BND_DEPTH=59	PR	110,1	320,10
+chr17	29659763	MantaDEL:96629:0:0:0:0:0	TGTGATCTGCCTGCCTTGGCCTCCCAAAGTGCTGGGATTACAGGCGTGAGCCACTGCGCCTGGCCAGACATTTTATATATATTTTTTGAGACGGAGTCTCGCTCTATCGCCAAGGTGGAGTGCAGTGACGTGATCTTGGCTCACTGCAATCTCCACCTCCTGGGTTCAAGTGATTCTTCTGCCTCAGCCTCCCGAGTAGCTGGGATTACAGGCACGCACCATCATACCCAGCTAATTTTTGTATTTTTAGTAGAGATGGGTTTCACCATGTTGGCCAGGATGGTCTCAATTTCCTGACCTC	T	.	MinSomaticScore	END=29660063;SVTYPE=DEL;SVLEN=-300;CIGAR=1M300D;CIPOS=0,53;HOMLEN=53;HOMSEQ=GTGATCTGCCTGCCTTGGCCTCCCAAAGTGCTGGGATTACAGGCGTGAGCCAC;SOMATIC;SOMATICSCORE=16	PR:SR	38,5:20,2	102,9:64,22
+chr17	63886968	MantaDUP:TANDEM:99487:1:2:0:0:0	C	<DUP:TANDEM>	.	MinSomaticScore	END=63901816;SVTYPE=DUP;SVLEN=14848;IMPRECISE;CIPOS=-552,553;CIEND=-277,278;SOMATIC;SOMATICSCORE=11	PR	72,1	172,9
+chr17	82359511	MantaDEL:101672:0:0:0:0:0	TCCCTCAGGTTCCCTCAGTTTCCCTCAGGTTCCCTCAGTTTCCCTCAAGTTTCCCTCAGTTTC	TT	.	PASS	END=82359573;SVTYPE=DEL;SVLEN=-62;CIGAR=1M1I62D;SOMATIC;SOMATICSCORE=33	PR:SR	3,0:15,0	13,0:51,13

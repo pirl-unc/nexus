@@ -1,0 +1,2 @@
+sample_id	bam_file	bam_bai_file
+nexus-rna-103-tumor	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/bam/nexus-rna-103-tumor-paired-end-read_star_outputs/nexus-rna-103-tumor-paired-end-read_star_Aligned.sortedByCoord.out.bam	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/bam/nexus-rna-103-tumor-paired-end-read_star_outputs/nexus-rna-103-tumor-paired-end-read_star_Aligned.sortedByCoord.out.bam.bai

@@ -1,0 +1,53 @@
+# =============================================================================
+# params.yaml — hla_typing_short-read
+#
+# Usage:
+#   nextflow run hla_typing_short-read.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with columns:
+#   sample_id
+#   bam_file               (required for arcasHLA)
+#   bam_bai_file           (required for arcasHLA)
+#   fastq_file_1           (required for HLAProfiler, seq2HLA)
+#   fastq_file_2           (required for HLAProfiler, seq2HLA)
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+
+# -----------------------------------------------------------------------------
+# Optional — general
+# -----------------------------------------------------------------------------
+
+# Methods to run. Comma-separated list or 'all'.
+# Allowed values:
+#   all, arcashla, hlaprofiler, seq2hla
+methods: "all"
+
+
+# -----------------------------------------------------------------------------
+# HLAProfiler
+# Optional arguments.
+# -----------------------------------------------------------------------------
+hlaprofiler:
+  # Extra CLI arguments passed directly to HLAProfiler predict.
+  extra_args: "-allele_refinement all -if"
+
+
+# -----------------------------------------------------------------------------
+# seq2HLA
+# Optional arguments.
+# -----------------------------------------------------------------------------
+seq2hla:
+  # Extra CLI arguments passed directly to seq2HLA.
+  extra_args: ""

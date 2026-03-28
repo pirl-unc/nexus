@@ -1,0 +1,26 @@
+# Test 2: SV callers — CuteSV, Delly2, Dysgu, PBSV, Sniffles2, SVIM
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+methods: "cutesv,delly2,dysgu,pbsv,sniffles2,svim"
+
+cutesv:
+  extra_args: "--max_cluster_bias_INS 1000 --diff_ratio_merging_INS 0.9 --max_cluster_bias_DEL 1000 --diff_ratio_merging_DEL 0.5 --min_support 1 --min_mapq 0 --min_size 30 --max_size -1 --report_readid --genotype"
+
+delly2:
+  exclude_tsv_file: ""
+  extra_args: "--mapqual 0 --technology pb"
+
+dysgu:
+  run_extra_args: "--mode pacbio-revio --min-support 1 --min-size 30 --mq 0"
+  filter_extra_args: "--support-fraction 0.05 --min-mapq 0 --pass-prob 0.2"
+
+pbsv:
+  discover_extra_args: "--ccs --min-gap-comp-id-perc 97 --min-mapq 0"
+  call_extra_args: "--ccs --call-min-reads-per-strand-all-samples 0 --call-min-read-perc-one-sample 10 --call-min-reads-all-samples 1 --call-min-reads-one-sample 1"
+
+sniffles2:
+  extra_args: "--minsupport 1 --minsvlen 30 --mapq 0 --output-rnames"
+
+svim:
+  extra_args: "--min_mapq 0 --min_sv_size 30 --insertion_sequences --read_names --zmws"

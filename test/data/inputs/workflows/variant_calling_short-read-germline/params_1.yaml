@@ -1,0 +1,26 @@
+# Test 1: SNV/indel callers — Clair3, Delly2, HaplotypeCaller, Manta, Pindel, Strelka2
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+methods: "clair3,delly2,haplotypecaller,manta,pindel,strelka2"
+
+clair3:
+  extra_args: "--model_path=/opt/models/ilmn/ --platform=ilmn --min_coverage=1"
+
+delly2:
+  exclude_tsv_file: ""
+  extra_args: "--map-qual 0"
+
+haplotypecaller:
+  extra_args: ""
+  chromosomes: "chr17"
+
+manta:
+  config_extra_args: ""
+  run_extra_args: ""
+
+pindel:
+  extra_args: ""
+
+strelka2:
+  extra_args: ""

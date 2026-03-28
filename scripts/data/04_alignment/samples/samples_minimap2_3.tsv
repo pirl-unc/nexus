@@ -1,0 +1,8 @@
+sample_id	fastq_file
+nexus-rna-001-tumor-long-read	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/nexus-rna-001-tumor_long_read.fastq.gz
+nexus-rna-002-tumor-long-read	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/nexus-rna-002-tumor_long_read.fastq.gz
+nexus-rna-003-tumor-long-read	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/nexus-rna-003-tumor_long_read.fastq.gz
+nexus-rna-004-tumor-long-read	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/nexus-rna-004-tumor_long_read.fastq.gz
+nexus-rna-101-tumor-long-read	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/nexus-rna-101-tumor_long_read.fastq.gz
+nexus-rna-102-tumor-long-read	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/nexus-rna-102-tumor_long_read.fastq.gz
+nexus-rna-103-tumor-long-read	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/nexus-rna-103-tumor_long_read.fastq.gz

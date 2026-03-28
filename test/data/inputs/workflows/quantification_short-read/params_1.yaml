@@ -1,0 +1,14 @@
+# Test 1: Kallisto and Salmon (paired-end)
+samples_tsv_file: ""
+output_dir: ""
+reference_transcripts_fasta_file: ""
+methods: "kallisto,salmon"
+
+
+kallisto:
+  quant_extra_args: ""
+
+
+salmon:
+  index_extra_args: "--gencode"
+  quant_extra_args: "--libType IU --seqBias --gcBias --posBias"

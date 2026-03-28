@@ -1,0 +1,77 @@
+# =============================================================================
+# params.yaml — peptide_prediction_mopepgen-gencode
+#
+# Usage:
+#   nextflow run peptide_prediction_mopepgen-gencode.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with columns:
+#   sample_id               (required)
+#   *_vcf_file              (any column ending in _vcf_file is auto-discovered
+#                            as a VEP-based VCF input; the prefix becomes the
+#                            variant source label, e.g. mutect2_vcf_file -> mutect2)
+#   reditools2_tsv_file     (optional, use 'NA' or empty to skip)
+#   arriba_tsv_file         (optional, use 'NA' or empty to skip)
+#   rmats_output_dir        (optional, use 'NA' or empty to skip)
+#   circexplorer2_bed_file  (optional, use 'NA' or empty to skip)
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+# Reference genome FASTA file (GENCODE)
+reference_genome_fasta_file: ""
+
+# Reference genes GTF file (GENCODE)
+reference_genes_gtf_file: ""
+
+# Reference proteome FASTA file (GENCODE)
+reference_proteome_fasta_file: ""
+
+
+# -----------------------------------------------------------------------------
+# VEP
+# -----------------------------------------------------------------------------
+vep:
+  # VEP cache directory
+  dir: ""
+
+  # Extra CLI arguments passed directly to VEP.
+  extra_args: "--species homo_sapiens --offline --cache --assembly GRCh38 --distance 0"
+
+  # Extra CLI arguments passed directly to filter_vep.
+  filter_extra_args: "--filter Source = GENCODE"
+
+  # Reference source label used by VEP custom annotation and moPepGen.
+  reference_source: "GENCODE"
+
+
+# -----------------------------------------------------------------------------
+# moPepGen
+# -----------------------------------------------------------------------------
+mopepgen:
+  # Extra CLI arguments passed directly to moPepGen parseVEP.
+  parsevep_extra_args: "--skip-failed"
+
+  # Extra CLI arguments passed directly to moPepGen parseREDItools.
+  parsereditools_extra_args: ""
+
+  # Extra CLI arguments passed directly to moPepGen parseArriba.
+  parsearriba_extra_args: "--skip-failed"
+
+  # Extra CLI arguments passed directly to moPepGen parseRMATS.
+  parsermats_extra_args: ""
+
+  # Extra CLI arguments passed directly to moPepGen parseCIRCexplorer.
+  parsecircexplorer2_extra_args: "--skip-failed"
+
+  # Extra CLI arguments passed directly to moPepGen callVariant.
+  callvariant_extra_args: ""

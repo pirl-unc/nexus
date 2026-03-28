@@ -46,29 +46,18 @@ ENV PATH /opt/conda/lib:$PATH
 # Test conda installation by updating conda
 RUN conda update conda
 
-# Install R
-RUN wget https://cran.r-project.org/src/base/R-3/R-3.6.3.tar.gz && \
-    tar -xf R-3.6.3.tar.gz && \
-    cd R-3.6.3/ && \
-    ./configure \
-        --prefix=/opt/R/R-3.6.3 \
-        --with-readline=no \
-        --with-x=no && \
-    make && \
-    make install
+# Install R 3.6
+RUN apt-get update && \
+    apt-get install -y software-properties-common dirmngr && \
+    wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc && \
+    add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/" && \
+    apt-get update && \
+    apt-get install -y r-base=3.6* r-base-dev=3.6* && \
+    apt-get clean
 
-# Add R to PATH
-ENV PATH /opt/R/R-3.6.3/bin:$PATH
-ENV LD_LIBRARY_PATH=/opt/R/R-3.6.3/lib:$LD_LIBRARY_PATH
+# Install Sequenza
+RUN Rscript -e "options(repos = c(CRAN = 'https://packagemanager.rstudio.com/cran/2020-04-01')); install.packages(c('readr', 'pbapply', 'squash', 'optparse', 'seqminer', 'BiocManager'), dependencies = TRUE)"
 
-# Install sequenza
-RUN Rscript -e "install.packages('pbapply', repos = 'http://cloud.r-project.org', dependencies = TRUE)"
-RUN Rscript -e "install.packages('squash', repos = 'http://cloud.r-project.org', dependencies = TRUE)"
-RUN Rscript -e "install.packages('vroom', repos = 'http://cloud.r-project.org', dependencies = TRUE)"
-RUN Rscript -e "install.packages('readr', repos = 'http://cloud.r-project.org', dependencies = TRUE)"
-RUN Rscript -e "install.packages('optparse', repos = 'http://cloud.r-project.org', dependencies = TRUE)"
-RUN Rscript -e "install.packages('seqminer', repos = 'http://cloud.r-project.org', dependencies = TRUE)"
-RUN Rscript -e "install.packages('BiocManager', repos = 'http://cloud.r-project.org', dependencies = TRUE)"
 RUN Rscript -e "BiocManager::install('igordot/copynumber')"
 RUN wget https://cran.r-project.org/src/contrib/Archive/sequenza/sequenza_3.0.0.tar.gz
 RUN wget https://cran.r-project.org/src/contrib/Archive/iotools/iotools_0.3-1.tar.gz

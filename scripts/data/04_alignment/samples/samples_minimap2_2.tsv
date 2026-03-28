@@ -1,0 +1,3 @@
+sample_id	fastq_file
+nexus-dna-005-tumor-long-read	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/nexus-dna-005-tumor_long_read.fastq.gz
+nexus-dna-005-normal-long-read	/Users/leework/Documents/Research/projects/project_nexus/nexus/test/data/fastq/nexus-dna-005-normal_long_read.fastq.gz

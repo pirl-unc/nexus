@@ -1,11 +1,12 @@
 [build-system]
 requires = [
-    "setuptools>=40.8.0"
+    "setuptools>=40.8.0",
+    "pandas>=2.0.3"
 ]
 
 [project]
 name = "nexus"
-version = "0.1.16"
+version = "0.2.0"
 description = "NEXflow's Ultimate Streamliner"
 requires-python = ">=3.10"
 readme = "README.md"
@@ -24,8 +25,12 @@ include-package-data = true
 where = ["src"]
 
 [tool.setuptools.package-data]
-nexuslib = ["pipelines/**/*.nf"]
+nexuslib = ["tools/**/*.nf", "subworkflows/**/*.nf", "workflows/**/*.nf"]
 
 [project.scripts]
 nexus = "nexuslib.cli.cli_main:run"
-convert_netmhcpan_txt_to_tsv = "nexuslib.scripts.convert_netmhcpan_txt_to_tsv:run"
+nexus_convert_netmhcpan_txt2tsv = "nexuslib.scripts.convert_netmhcpan_txt2tsv:run"
+nexus_create_abra2_targets_bed_file = "nexuslib.scripts.create_abra2_targets_bed_file:run"
+nexus_filter_rnabloom2_transcripts = "nexuslib.scripts.filter_rnabloom2_transcripts:run"
+nexus_filter_unspliced_transcripts = "nexuslib.scripts.filter_unspliced_transcripts:run"
+nexus_plot_scrna_barcode_rank = "nexuslib.scripts.plot_scrna_barcode_rank:run"

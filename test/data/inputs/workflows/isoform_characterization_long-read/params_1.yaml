@@ -1,0 +1,18 @@
+# Test 1: BAM-based — ESPRESSO, IsoTools, TALON
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+reference_genes_gtf_file: ""
+methods: "espresso,isotools,talon"
+
+espresso:
+  s_extra_args: ""
+  c_extra_args: ""
+  q_extra_args: ""
+
+isotools:
+  extra_args: ""
+
+talon:
+  initdb_extra_args: ""
+  extra_args: "--create_novel_spliced_genes"

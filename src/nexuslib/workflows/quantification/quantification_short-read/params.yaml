@@ -1,0 +1,57 @@
+# =============================================================================
+# params.yaml — quantification_short-read
+#
+# Usage:
+#   nextflow run quantification_short-read.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with columns:
+#   sample_id
+#   fastq_file_1
+#   fastq_file_2
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+# Reference transcripts FASTA file
+reference_transcripts_fasta_file: ""
+
+
+# -----------------------------------------------------------------------------
+# Optional — general
+# -----------------------------------------------------------------------------
+
+# Methods to run. Comma-separated list or 'all'.
+# Allowed values:
+#   all, kallisto, salmon
+methods: "all"
+
+
+# -----------------------------------------------------------------------------
+# Kallisto (paired-end mode)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+kallisto:
+  # Extra CLI arguments passed directly to kallisto quant.
+  quant_extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# Salmon
+# Optional arguments.
+# -----------------------------------------------------------------------------
+salmon:
+  # Extra CLI arguments passed directly to salmon index.
+  index_extra_args: "--gencode"
+
+  # Extra CLI arguments passed directly to salmon quant.
+  quant_extra_args: "--libType IU --seqBias --gcBias --posBias"

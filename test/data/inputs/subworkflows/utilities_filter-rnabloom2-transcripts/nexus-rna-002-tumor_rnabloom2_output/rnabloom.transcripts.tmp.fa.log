@@ -1,0 +1,10 @@
+[M::mm_idx_gen::0.002*0.96] collected minimizers
+[M::mm_idx_gen::0.003*0.91] sorted minimizers
+[M::main::0.003*0.85] loaded/built the index for 1 target sequence(s)
+[M::mm_mapopt_update::0.004*0.79] mid_occ = 10
+[M::mm_idx_stat] kmer size: 19; skip: 5; is_hpc: 1; #seq: 1
+[M::mm_idx_stat::0.004*0.72] distinct minimizers: 594 (100.00% are singletons); average occurrences: 1.000; average spacing: 4.278; total length: 2541
+[M::worker_pipeline::0.005*0.68] mapped 1 sequences
+[M::main] Version: 2.22-r1101
+[M::main] CMD: minimap2 -x ava-pb -K 250M -e 25 -f 0.0001 -c -t 1 -X nexus-rna-002-tumor_rnabloom2_output//rnabloom.longreads.assembly4.pol.fa nexus-rna-002-tumor_rnabloom2_output//rnabloom.longreads.assembly4.pol.fa
+[M::main] Real time: 0.009 sec; CPU: 0.005 sec; Peak RSS: 0.003 GB

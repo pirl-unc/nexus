@@ -52,15 +52,18 @@ ENV PATH=/opt/conda/lib:$PATH
 RUN conda update conda
 
 # Install mhcflurry
-RUN conda config --set solver classic
-RUN conda install conda-forge::six==1.16.0
-RUN conda install pandas==2.2.2
-RUN conda install conda-forge::tensorflow==2.17.0
-RUN conda install conda-forge::keras==3.5.0
-RUN conda install conda-forge::appdirs==1.4.4
-RUN conda install anaconda::scikit-learn==1.5.1
-RUN conda install anaconda::pyyaml==6.0.1
-RUN conda install conda-forge::tqdm==4.66.5
+RUN conda install -n base conda-libmamba-solver && \
+    conda config --set solver libmamba
+RUN conda install -c conda-forge \
+    six==1.16.0 \
+    tensorflow==2.17.0 \
+    keras==3.5.0 \
+    appdirs==1.4.4 \
+    tqdm==4.66.5 && \
+    conda install -c anaconda \
+    pandas==2.2.2 \
+    scikit-learn==1.5.1 \
+    pyyaml==6.0.1
 RUN pip install mhcgnomes==1.8.6
 RUN pip install mhcflurry
 RUN mhcflurry-downloads fetch

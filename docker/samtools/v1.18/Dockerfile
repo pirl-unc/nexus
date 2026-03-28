@@ -26,16 +26,8 @@ ENV PATH /opt/conda/lib:$PATH
 RUN conda update -n base -c defaults conda
 
 # Install samtools
-RUN wget https://github.com/samtools/samtools/releases/download/1.18/samtools-1.18.tar.bz2 && \
-    tar -xvjf samtools-1.18.tar.bz2 && \
-    cd samtools-1.18/ && \
-    mkdir bin && \
-    ./configure --prefix=$(pwd) && \
-    make && \
-    make install
-
-# Add samtools to PATH
-ENV PATH /samtools-1.18:$PATH
+RUN conda install -c conda-forge libgcc-ng==15.1.0
+RUN conda install -c bioconda samtools==1.18
 
 # Clean up to reduce Docker image size
 RUN conda clean -all
