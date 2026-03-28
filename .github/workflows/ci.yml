@@ -83,7 +83,8 @@ jobs:
             nextflow=23.10.0 \
             pytest \
             pytest-cov \
-            coveralls
+            coveralls \
+            yaml
           pip install . --verbose
 
       - name: Run unit tests
@@ -141,7 +142,8 @@ jobs:
             nextflow=23.10.0 \
             pytest \
             pytest-cov \
-            coveralls
+            coveralls \
+            yaml
           pip install . --verbose
 
       - name: Run unit tests
