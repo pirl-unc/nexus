@@ -6,7 +6,7 @@ requires = [
 
 [project]
 name = "nexus"
-version = "0.2.0"
+version = "0.2.0a1"
 description = "NEXflow's Ultimate Streamliner"
 requires-python = ">=3.10"
 readme = "README.md"
@@ -33,7 +33,7 @@ include-package-data = true
 where = ["src"]
 
 [tool.setuptools.package-data]
-nexuslib = ["tools/**/*.nf", "subworkflows/**/*.nf", "workflows/**/*.nf"]
+nexuslib = ["tools/**/*.nf", "subworkflows/**/*.nf", "subworkflows/**/*.yaml", "workflows/**/*.nf", "workflows/**/*.yaml", "nextflow/nextflow_slurm.config"]
 
 [project.scripts]
 nexus = "nexuslib.cli.cli_main:run"

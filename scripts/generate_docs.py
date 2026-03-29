@@ -420,6 +420,9 @@ def generate_quarto_yml(subworkflow_sidebar, workflow_sidebar):
                     {"text": "Home", "file": "index.qmd"},
                     {"text": "Subworkflows", "file": "subworkflows/index.qmd"},
                     {"text": "Workflows", "file": "workflows/index.qmd"},
+                ],
+                "right": [
+                    {"icon": "github", "href": "https://github.com/pirl-unc/nexus"}
                 ]
             },
             "sidebar": [

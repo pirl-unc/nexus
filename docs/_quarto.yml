@@ -11,6 +11,9 @@ website:
       file: subworkflows/index.qmd
     - text: Workflows
       file: workflows/index.qmd
+    right:
+    - icon: github
+      href: https://github.com/pirl-unc/nexus
   sidebar:
   - id: subworkflows
     title: Subworkflows
