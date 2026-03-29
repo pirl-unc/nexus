@@ -56,7 +56,7 @@ if (params.help) {
         --reference_genes_gtf_file     :   Reference genes GTF file.
 
     optional arguments:
-        --params_rmats                 :   ESPRESSO_S.pl parameters (default: '"-t paired --libType fr-unstranded --readLength 151"').
+        --params_rmats                 :   rMATS parameters (default: '"-t paired --libType fr-unstranded --readLength 151"').
                                            Note that the parameters need to be wrapped in quotes.
     """.stripIndent()
     exit 0

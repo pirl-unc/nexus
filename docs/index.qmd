@@ -1,0 +1,118 @@
+---
+title: "Nexus"
+subtitle: "Nextflow's ultimate streamliner"
+---
+
+A command-line interface for running bioinformatics workflows written in [Nextflow](https://www.nextflow.io/).
+
+::: {.callout-tip}
+## Three commands. That's it.
+```bash
+nexus avail                                           # see what's available
+nexus run --nf-workflow <WORKFLOW.nf> --help          # see the parameters
+nexus run --nf-workflow <WORKFLOW.nf> [parameters]    # run it
+```
+:::
+
+## Quick Start
+
+### 1. Install
+
+```bash
+conda create -n nexus python=3.10
+conda activate nexus
+conda install bioconda::nextflow==24.10.0
+pip install nexus-<version>.tar.gz --verbose
+```
+
+Download the latest release from [GitHub Releases](https://github.com/pirl-unc/nexus/releases).
+
+### 2. Pick a Workflow
+
+```bash
+nexus avail
+```
+
+### 3. Run
+
+::: {.panel-tabset}
+
+#### Subworkflow (single tool)
+
+```bash
+nexus run --nf-workflow variant_calling_mutect2.nf \
+    -c nextflow.config \
+    -w work/ \
+    --samples_tsv_file samples.tsv \
+    --reference_genome_fasta_file hg38.fa \
+    --output_dir results/
+```
+
+#### Workflow (multiple tools)
+
+```bash
+nexus run --nf-workflow variant_calling_short-read-somatic.nf \
+    -params-file params.yaml
+```
+
+:::
+
+::: {.callout-note}
+Nextflow config files are available
+[here](https://github.com/pirl-unc/nexus/tree/main/nextflow).
+Use the config file that matches your installed nexus version (e.g. `nexus_v0.2.0_nextflow_slurm.config`).
+:::
+
+## How Nexus is Organized
+
+::: {.grid}
+
+::: {.g-col-4}
+### Tools
+Individual process definitions that wrap a single bioinformatics tool (e.g., `samtools`, `gatk4`, `minimap2`).
+:::
+
+::: {.g-col-4}
+### Subworkflows
+Single-tool workflows that compose one or more tool processes into a complete analysis step (e.g., `variant_calling_mutect2`).
+:::
+
+::: {.g-col-4}
+### Workflows
+Meta-workflows that orchestrate multiple subworkflows into end-to-end pipelines (e.g., `variant_calling_short-read-somatic`).
+:::
+
+:::
+
+## What's Available
+
+Check out the [Subworkflows](subworkflows/index.qmd) and [Workflows](workflows/index.qmd) pages for the specific details.
+
+| Category | Subworkflows | Workflows |
+|:---------|:-------------|:----------|
+| alignment | minimap2, bwa-mem2, star, ultra, blastp, diamond-blastp | |
+| antigen prediction | mhcflurry2, netmhcpan4 | |
+| assembly | hifiasm, rnabloom2, stringtie2 | |
+| haplotyping | whatshap | |
+| hla typing | arcashla, hlaprofiler, seq2hla | short-read |
+| isoform characterization | espresso, flair, isoquant, isoseq, isotools, mandalorion, rmats, sqanti3, talon | long-read, short-read |
+| peptide prediction | mopepgen | |
+| quantification | bambu, kallisto, liqa, oarfish, salmon, transigner | long-read, short-read |
+| read error correction | ratatosk | |
+| sequencing simulation | art, nanosim, neat, pbsim3 | |
+| utilities | fastqc, pbccs, fastq2bam, coverage | |
+| variant annotation | vep | |
+| variant calling | 47 tools including mutect2, deepvariant, delly2, sniffles2, manta, strelka2, and more | lr-germline, lr-somatic, sr-germline, sr-somatic |
+| variant phasing | hiphase, whatshap | |
+
+: {.striped .hover}
+
+## Dependencies
+
+* python (>=3.10)
+* nextflow (>=24.10.0)
+* pyyaml
+
+## License
+
+Licensed under the Apache License, Version 2.0.

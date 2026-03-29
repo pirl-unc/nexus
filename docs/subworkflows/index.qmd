@@ -1,0 +1,215 @@
+---
+title: "Subworkflows"
+subtitle: "Single-tool workflows"
+---
+
+Each subworkflow wraps one bioinformatics tool into a ready-to-run Nextflow workflow. Pick a tool, provide a samples TSV and reference files, and go.
+
+```bash
+nexus run --nf-workflow <subworkflow>.nf \
+    -c nextflow.config -w work/ \
+    --samples_tsv_file samples.tsv \
+    --output_dir results/ \
+    [tool-specific parameters]
+```
+
+---
+
+::: {.panel-tabset}
+
+### Alignment
+
+| Tool | Description |
+|:-----|:------------|
+| [blastp](alignment/alignment_blastp.qmd) | protein sequence alignment |
+| [bwamem2](alignment/alignment_bwamem2.qmd) | short-read DNA alignment with ABRA2 realignment |
+| [diamond-blastp](alignment/alignment_diamond-blastp.qmd) | fast protein alignment |
+| [minimap2](alignment/alignment_minimap2.qmd) | long-read alignment |
+| [minimap2-dynamic](alignment/alignment_minimap2-dynamic.qmd) | long-read alignment with dynamic reference |
+| [star](alignment/alignment_star.qmd) | short-read RNA alignment |
+| [ultra](alignment/alignment_ultra.qmd) | long-read RNA alignment |
+
+: {.striped .hover}
+
+### Antigen Prediction
+
+| Tool | Description |
+|:-----|:------------|
+| [mhcflurry2](antigen_prediction/antigen_prediction_mhcflurry2.qmd) | MHC-I binding prediction |
+| [mhcflurry2-scan](antigen_prediction/antigen_prediction_mhcflurry2-scan.qmd) | MHC-I binding scan mode |
+| [netmhcpan4](antigen_prediction/antigen_prediction_netmhcpan4.qmd) | MHC-I binding prediction |
+
+: {.striped .hover}
+
+### Assembly
+
+| Tool | Description |
+|:-----|:------------|
+| [hifiasm](assembly/assembly_hifiasm.qmd) | de novo assembly from HiFi reads |
+| [rnabloom2](assembly/assembly_rnabloom2.qmd) | long-read RNA assembly |
+| [stringtie2](assembly/assembly_stringtie2.qmd) | transcript assembly |
+
+: {.striped .hover}
+
+### Haplotyping
+
+| Tool | Description |
+|:-----|:------------|
+| [whatshap](haplotyping/haplotyping_whatshap.qmd) | read-backed haplotype phasing |
+
+: {.striped .hover}
+
+### HLA Typing
+
+| Tool | Description |
+|:-----|:------------|
+| [arcashla](hla_typing/hla_typing_arcashla.qmd) | HLA typing from RNA-seq BAM |
+| [hlaprofiler](hla_typing/hla_typing_hlaprofiler.qmd) | HLA typing from FASTQ |
+| [seq2hla](hla_typing/hla_typing_seq2hla.qmd) | HLA typing from FASTQ |
+
+: {.striped .hover}
+
+### Isoform Characterization
+
+| Tool | Description |
+|:-----|:------------|
+| [espresso](isoform_characterization/isoform_characterization_espresso.qmd) | isoform detection from long reads |
+| [flair](isoform_characterization/isoform_characterization_flair.qmd) | isoform detection from long reads |
+| [isoquant](isoform_characterization/isoform_characterization_isoquant.qmd) | transcript quantification and discovery |
+| [isoseq](isoform_characterization/isoform_characterization_isoseq.qmd) | PacBio Iso-Seq clustering |
+| [isotools](isoform_characterization/isoform_characterization_isotools.qmd) | long-read isoform analysis |
+| [mandalorion](isoform_characterization/isoform_characterization_mandalorion.qmd) | isoform detection from long reads |
+| [rmats](isoform_characterization/isoform_characterization_rmats.qmd) | differential alternative splicing |
+| [sqanti3-fasta](isoform_characterization/isoform_characterization_sqanti3-fasta.qmd) | isoform QC (FASTA mode) |
+| [sqanti3-gtf](isoform_characterization/isoform_characterization_sqanti3-gtf.qmd) | isoform QC (GTF mode) |
+| [talon](isoform_characterization/isoform_characterization_talon.qmd) | long-read transcriptome annotation |
+
+: {.striped .hover}
+
+### Peptide Prediction
+
+| Tool | Description |
+|:-----|:------------|
+| [mopepgen](peptide_prediction/peptide_prediction_mopepgen-gencode.qmd) | mutant peptide prediction |
+
+: {.striped .hover}
+
+### Quantification
+
+| Tool | Description |
+|:-----|:------------|
+| [bambu](quantification/quantification_bambu.qmd) | long-read transcript quantification |
+| [kallisto-lr](quantification/quantification_kallisto-lr.qmd) | long-read pseudoalignment quantification |
+| [kallisto-pe](quantification/quantification_kallisto-pe.qmd) | paired-end pseudoalignment quantification |
+| [liqa](quantification/quantification_liqa.qmd) | long-read isoform quantification |
+| [oarfish](quantification/quantification_oarfish.qmd) | long-read transcript quantification |
+| [salmon-fastq](quantification/quantification_salmon-fastq.qmd) | paired-end transcript quantification |
+| [transigner](quantification/quantification_transigner.qmd) | long-read transcript quantification |
+
+: {.striped .hover}
+
+### Read Error Correction
+
+| Tool | Description |
+|:-----|:------------|
+| [ratatosk](read_error_correction/read_error_correction_ratatosk.qmd) | hybrid error correction |
+
+: {.striped .hover}
+
+### Sequencing Simulation
+
+| Tool | Description |
+|:-----|:------------|
+| [art-illumina-pe](sequencing_simulation/sequencing_simulation_art-illumina-pe.qmd) | Illumina paired-end simulation |
+| [nanosim-genome](sequencing_simulation/sequencing_simulation_nanosim-genome.qmd) | Nanopore read simulation |
+| [neat](sequencing_simulation/sequencing_simulation_neat.qmd) | Illumina read simulation |
+| [pbsim3-dna](sequencing_simulation/sequencing_simulation_pbsim3-dna.qmd) | PacBio DNA read simulation |
+| [pbsim3-rna](sequencing_simulation/sequencing_simulation_pbsim3-rna.qmd) | PacBio RNA read simulation |
+
+: {.striped .hover}
+
+### Utilities
+
+| Tool | Description |
+|:-----|:------------|
+| [fastq2unalignedbam](utilities/utilities_fastq2unalignedbam.qmd) | FASTQ to unaligned BAM |
+| [fastqc](utilities/utilities_fastqc.qmd) | read quality control |
+| [filter-rnabloom2-transcripts](utilities/utilities_filter-rnabloom2-transcripts.qmd) | filter assembled transcripts |
+| [pbccs](utilities/utilities_pbccs.qmd) | PacBio circular consensus |
+| [sequencing-coverage](utilities/utilities_sequencing-coverage.qmd) | sequencing coverage statistics |
+
+: {.striped .hover}
+
+### Variant Annotation
+
+| Tool | Description |
+|:-----|:------------|
+| [vep](variant_annotation/variant_annotation_vep.qmd) | variant effect prediction |
+| [vep-custom](variant_annotation/variant_annotation_vep-custom.qmd) | VEP with custom annotation |
+
+: {.striped .hover}
+
+### Variant Calling
+
+| Tool | Description |
+|:-----|:------------|
+| [arriba](variant_calling/variant_calling_arriba.qmd) | RNA fusion detection |
+| [circexplorer2](variant_calling/variant_calling_circexplorer2.qmd) | circular RNA detection |
+| [clair3](variant_calling/variant_calling_clair3.qmd) | germline SNV/indel calling (long-read) |
+| [clair3rna](variant_calling/variant_calling_clair3rna.qmd) | RNA variant calling (long-read) |
+| [clairs](variant_calling/variant_calling_clairs.qmd) | somatic SNV/indel calling (long-read) |
+| [colorsv](variant_calling/variant_calling_colorsv.qmd) | somatic SV calling from GFA |
+| [cutesv](variant_calling/variant_calling_cutesv.qmd) | germline SV calling (long-read) |
+| [de-souza](variant_calling/variant_calling_de-souza.qmd) | RNA variant calling pipeline |
+| [deepsomatic](variant_calling/variant_calling_deepsomatic.qmd) | somatic SNV/indel calling (long-read) |
+| [deepvariant](variant_calling/variant_calling_deepvariant.qmd) | germline SNV/indel calling |
+| [delly2-lr-germline](variant_calling/variant_calling_delly2-lr-germline.qmd) | germline SV calling (long-read) |
+| [delly2-lr-somatic](variant_calling/variant_calling_delly2-lr-somatic.qmd) | somatic SV calling (long-read) |
+| [delly2-sr-germline](variant_calling/variant_calling_delly2-sr-germline.qmd) | germline SV calling (short-read) |
+| [delly2-sr-somatic](variant_calling/variant_calling_delly2-sr-somatic.qmd) | somatic SV calling (short-read) |
+| [dysgu-germline](variant_calling/variant_calling_dysgu-germline.qmd) | germline SV calling |
+| [dysgu-somatic](variant_calling/variant_calling_dysgu-somatic.qmd) | somatic SV calling |
+| [gridss2-germline](variant_calling/variant_calling_gridss2-germline.qmd) | germline SV calling (short-read) |
+| [gridss2-somatic](variant_calling/variant_calling_gridss2-somatic.qmd) | somatic SV calling (short-read) |
+| [haplotypecaller](variant_calling/variant_calling_haplotypecaller.qmd) | germline SNV/indel calling (short-read) |
+| [hificnv](variant_calling/variant_calling_hificnv.qmd) | copy number calling (HiFi) |
+| [himut](variant_calling/variant_calling_himut.qmd) | somatic SNV calling (long-read) |
+| [longgf](variant_calling/variant_calling_longgf.qmd) | gene fusion detection (long-read) |
+| [longshot](variant_calling/variant_calling_longshot.qmd) | germline SNV calling (long-read) |
+| [lumpy-germline](variant_calling/variant_calling_lumpy-germline.qmd) | germline SV calling (short-read) |
+| [lumpy-somatic](variant_calling/variant_calling_lumpy-somatic.qmd) | somatic SV calling (short-read) |
+| [manta-germline](variant_calling/variant_calling_manta-germline.qmd) | germline SV calling (short-read) |
+| [manta-somatic](variant_calling/variant_calling_manta-somatic.qmd) | somatic SV calling (short-read) |
+| [mutect2](variant_calling/variant_calling_mutect2.qmd) | somatic SNV/indel calling (short-read) |
+| [nanocaller](variant_calling/variant_calling_nanocaller.qmd) | germline SNV/indel calling (long-read) |
+| [nanomonsv](variant_calling/variant_calling_nanomonsv.qmd) | somatic SV calling (long-read) |
+| [nanovar](variant_calling/variant_calling_nanovar.qmd) | germline SV calling (long-read) |
+| [octopus-germline](variant_calling/variant_calling_octopus-germline.qmd) | germline variant calling (short-read) |
+| [octopus-somatic](variant_calling/variant_calling_octopus-somatic.qmd) | somatic variant calling (short-read) |
+| [pbfusion](variant_calling/variant_calling_pbfusion.qmd) | gene fusion detection (HiFi) |
+| [pbsv](variant_calling/variant_calling_pbsv.qmd) | germline SV calling (HiFi) |
+| [pindel](variant_calling/variant_calling_pindel.qmd) | indel and SV detection (short-read) |
+| [reditools2](variant_calling/variant_calling_reditools2.qmd) | RNA editing detection |
+| [savana](variant_calling/variant_calling_savana.qmd) | somatic SV calling (long-read) |
+| [sequenza](variant_calling/variant_calling_sequenza.qmd) | copy number and cellularity estimation |
+| [severus](variant_calling/variant_calling_severus.qmd) | somatic SV calling (long-read) |
+| [sniffles2](variant_calling/variant_calling_sniffles2.qmd) | germline SV calling (long-read) |
+| [starfusion](variant_calling/variant_calling_starfusion.qmd) | RNA fusion detection |
+| [strelka2-germline](variant_calling/variant_calling_strelka2-germline.qmd) | germline SNV/indel calling (short-read) |
+| [strelka2-somatic](variant_calling/variant_calling_strelka2-somatic.qmd) | somatic SNV/indel calling (short-read) |
+| [svaba](variant_calling/variant_calling_svaba.qmd) | somatic SV and indel calling (short-read) |
+| [svim](variant_calling/variant_calling_svim.qmd) | germline SV calling (long-read) |
+| [svisionpro](variant_calling/variant_calling_svisionpro.qmd) | somatic SV calling (long-read) |
+
+: {.striped .hover}
+
+### Variant Phasing
+
+| Tool | Description |
+|:-----|:------------|
+| [hiphase](variant_phasing/variant_phasing_hiphase.qmd) | small variant and SV phasing |
+| [whatshap](variant_phasing/variant_phasing_whatshap.qmd) | read-backed phasing |
+
+: {.striped .hover}
+
+:::

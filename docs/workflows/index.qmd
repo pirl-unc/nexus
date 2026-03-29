@@ -1,0 +1,61 @@
+---
+title: "Workflows"
+subtitle: "Multi-tool pipelines"
+---
+
+Each workflow orchestrates multiple subworkflows into an end-to-end pipeline. Supply a `params.yaml` file and run.
+
+```bash
+nexus run --nf-workflow <workflow>.nf -params-file params.yaml
+```
+
+---
+
+::: {.panel-tabset}
+
+### Variant Calling
+
+Run multiple variant callers in parallel on the same samples.
+
+| Workflow | Tools | Input |
+|:---------|:--------|:------|
+| [long-read germline](variant_calling/variant_calling_long-read-germline.qmd) | clair3, cutesv, deepvariant, delly2, dysgu, hificnv, longshot, nanocaller, nanovar, pbsv, sniffles2, svim | single-sample BAM |
+| [long-read somatic](variant_calling/variant_calling_long-read-somatic.qmd) | clairs, deepsomatic, delly2, dysgu, nanomonsv, savana, severus, svisionpro | tumor/normal BAM |
+| [short-read germline](variant_calling/variant_calling_short-read-germline.qmd) | clair3, deepvariant, delly2, dysgu, gridss2, haplotypecaller, lumpy, manta, octopus, pindel, strelka2 | single-sample BAM |
+| [short-read somatic](variant_calling/variant_calling_short-read-somatic.qmd) | clairs, deepsomatic, delly2, dysgu, gridss2, lumpy, manta, mutect2, octopus, sequenza, strelka2, svaba | tumor/normal BAM |
+
+: {.striped .hover}
+
+### Quantification
+
+Quantify transcript expression with multiple tools.
+
+| Workflow | Tools | Input |
+|:---------|:------|:------|
+| [long-read](quantification/quantification_long-read.qmd) | bambu, kallisto, liqa, oarfish, transigner | BAM + FASTQ |
+| [short-read](quantification/quantification_short-read.qmd) | kallisto, salmon | paired-end FASTQ |
+
+: {.striped .hover}
+
+### Isoform Characterization
+
+Characterize transcript isoforms with multiple tools.
+
+| Workflow | Tools | Input |
+|:---------|:------|:------|
+| [long-read](isoform_characterization/isoform_characterization_long-read.qmd) | espresso, flair, isoquant, isotools, mandalorion, sqanti3, talon | BAM + FASTQ + FASTA + GTF |
+| [short-read](isoform_characterization/isoform_characterization_short-read.qmd) | rmats | BAM |
+
+: {.striped .hover}
+
+### HLA Typing
+
+Type HLA alleles with multiple tools.
+
+| Workflow | Tools | Input |
+|:---------|:------|:------|
+| [short-read](hla_typing/hla_typing_short-read.qmd) | arcashla, hlaprofiler, seq2hla | BAM + paired-end FASTQ |
+
+: {.striped .hover}
+
+:::

@@ -1,0 +1,174 @@
+project:
+  type: website
+  output-dir: _site
+website:
+  title: Nexus
+  navbar:
+    left:
+    - text: Home
+      file: index.qmd
+    - text: Subworkflows
+      file: subworkflows/index.qmd
+    - text: Workflows
+      file: workflows/index.qmd
+  sidebar:
+  - id: subworkflows
+    title: Subworkflows
+    style: floating
+    contents:
+    - section: Overview
+      contents:
+      - subworkflows/index.qmd
+    - section: Alignment
+      contents:
+      - subworkflows/alignment/alignment_blastp.qmd
+      - subworkflows/alignment/alignment_bwamem2.qmd
+      - subworkflows/alignment/alignment_diamond-blastp.qmd
+      - subworkflows/alignment/alignment_minimap2.qmd
+      - subworkflows/alignment/alignment_minimap2-dynamic.qmd
+      - subworkflows/alignment/alignment_star.qmd
+      - subworkflows/alignment/alignment_ultra.qmd
+    - section: Antigen Prediction
+      contents:
+      - subworkflows/antigen_prediction/antigen_prediction_mhcflurry2.qmd
+      - subworkflows/antigen_prediction/antigen_prediction_mhcflurry2-scan.qmd
+      - subworkflows/antigen_prediction/antigen_prediction_netmhcpan4.qmd
+    - section: Assembly
+      contents:
+      - subworkflows/assembly/assembly_hifiasm.qmd
+      - subworkflows/assembly/assembly_rnabloom2.qmd
+      - subworkflows/assembly/assembly_stringtie2.qmd
+    - section: Haplotyping
+      contents:
+      - subworkflows/haplotyping/haplotyping_whatshap.qmd
+    - section: HLA Typing
+      contents:
+      - subworkflows/hla_typing/hla_typing_arcashla.qmd
+      - subworkflows/hla_typing/hla_typing_hlaprofiler.qmd
+      - subworkflows/hla_typing/hla_typing_seq2hla.qmd
+    - section: Isoform Characterization
+      contents:
+      - subworkflows/isoform_characterization/isoform_characterization_espresso.qmd
+      - subworkflows/isoform_characterization/isoform_characterization_flair.qmd
+      - subworkflows/isoform_characterization/isoform_characterization_isoquant.qmd
+      - subworkflows/isoform_characterization/isoform_characterization_isoseq.qmd
+      - subworkflows/isoform_characterization/isoform_characterization_isotools.qmd
+      - subworkflows/isoform_characterization/isoform_characterization_mandalorion.qmd
+      - subworkflows/isoform_characterization/isoform_characterization_rmats.qmd
+      - subworkflows/isoform_characterization/isoform_characterization_sqanti3-fasta.qmd
+      - subworkflows/isoform_characterization/isoform_characterization_sqanti3-gtf.qmd
+      - subworkflows/isoform_characterization/isoform_characterization_talon.qmd
+    - section: Peptide Prediction
+      contents:
+      - subworkflows/peptide_prediction/peptide_prediction_mopepgen-gencode.qmd
+    - section: Quantification
+      contents:
+      - subworkflows/quantification/quantification_bambu.qmd
+      - subworkflows/quantification/quantification_kallisto-lr.qmd
+      - subworkflows/quantification/quantification_kallisto-pe.qmd
+      - subworkflows/quantification/quantification_liqa.qmd
+      - subworkflows/quantification/quantification_oarfish.qmd
+      - subworkflows/quantification/quantification_salmon-fastq.qmd
+      - subworkflows/quantification/quantification_transigner.qmd
+    - section: Read Error Correction
+      contents:
+      - subworkflows/read_error_correction/read_error_correction_ratatosk.qmd
+    - section: Sequencing Simulation
+      contents:
+      - subworkflows/sequencing_simulation/sequencing_simulation_art-illumina-pe.qmd
+      - subworkflows/sequencing_simulation/sequencing_simulation_nanosim-genome.qmd
+      - subworkflows/sequencing_simulation/sequencing_simulation_neat.qmd
+      - subworkflows/sequencing_simulation/sequencing_simulation_pbsim3-dna.qmd
+      - subworkflows/sequencing_simulation/sequencing_simulation_pbsim3-rna.qmd
+    - section: Utilities
+      contents:
+      - subworkflows/utilities/utilities_fastq2unalignedbam.qmd
+      - subworkflows/utilities/utilities_fastqc.qmd
+      - subworkflows/utilities/utilities_filter-rnabloom2-transcripts.qmd
+      - subworkflows/utilities/utilities_pbccs.qmd
+      - subworkflows/utilities/utilities_sequencing-coverage.qmd
+    - section: Variant Annotation
+      contents:
+      - subworkflows/variant_annotation/variant_annotation_vep.qmd
+      - subworkflows/variant_annotation/variant_annotation_vep-custom.qmd
+    - section: Variant Calling
+      contents:
+      - subworkflows/variant_calling/variant_calling_arriba.qmd
+      - subworkflows/variant_calling/variant_calling_circexplorer2.qmd
+      - subworkflows/variant_calling/variant_calling_clair3.qmd
+      - subworkflows/variant_calling/variant_calling_clair3rna.qmd
+      - subworkflows/variant_calling/variant_calling_clairs.qmd
+      - subworkflows/variant_calling/variant_calling_colorsv.qmd
+      - subworkflows/variant_calling/variant_calling_cutesv.qmd
+      - subworkflows/variant_calling/variant_calling_de-souza.qmd
+      - subworkflows/variant_calling/variant_calling_deepsomatic.qmd
+      - subworkflows/variant_calling/variant_calling_deepvariant.qmd
+      - subworkflows/variant_calling/variant_calling_delly2-lr-germline.qmd
+      - subworkflows/variant_calling/variant_calling_delly2-lr-somatic.qmd
+      - subworkflows/variant_calling/variant_calling_delly2-sr-germline.qmd
+      - subworkflows/variant_calling/variant_calling_delly2-sr-somatic.qmd
+      - subworkflows/variant_calling/variant_calling_dysgu-germline.qmd
+      - subworkflows/variant_calling/variant_calling_dysgu-somatic.qmd
+      - subworkflows/variant_calling/variant_calling_gridss2-germline.qmd
+      - subworkflows/variant_calling/variant_calling_gridss2-somatic.qmd
+      - subworkflows/variant_calling/variant_calling_haplotypecaller.qmd
+      - subworkflows/variant_calling/variant_calling_hificnv.qmd
+      - subworkflows/variant_calling/variant_calling_himut.qmd
+      - subworkflows/variant_calling/variant_calling_longgf.qmd
+      - subworkflows/variant_calling/variant_calling_longshot.qmd
+      - subworkflows/variant_calling/variant_calling_lumpy-germline.qmd
+      - subworkflows/variant_calling/variant_calling_lumpy-somatic.qmd
+      - subworkflows/variant_calling/variant_calling_manta-germline.qmd
+      - subworkflows/variant_calling/variant_calling_manta-somatic.qmd
+      - subworkflows/variant_calling/variant_calling_mutect2.qmd
+      - subworkflows/variant_calling/variant_calling_nanocaller.qmd
+      - subworkflows/variant_calling/variant_calling_nanomonsv.qmd
+      - subworkflows/variant_calling/variant_calling_nanovar.qmd
+      - subworkflows/variant_calling/variant_calling_octopus-germline.qmd
+      - subworkflows/variant_calling/variant_calling_octopus-somatic.qmd
+      - subworkflows/variant_calling/variant_calling_pbfusion.qmd
+      - subworkflows/variant_calling/variant_calling_pbsv.qmd
+      - subworkflows/variant_calling/variant_calling_pindel.qmd
+      - subworkflows/variant_calling/variant_calling_reditools2.qmd
+      - subworkflows/variant_calling/variant_calling_savana.qmd
+      - subworkflows/variant_calling/variant_calling_sequenza.qmd
+      - subworkflows/variant_calling/variant_calling_severus.qmd
+      - subworkflows/variant_calling/variant_calling_sniffles2.qmd
+      - subworkflows/variant_calling/variant_calling_starfusion.qmd
+      - subworkflows/variant_calling/variant_calling_strelka2-germline.qmd
+      - subworkflows/variant_calling/variant_calling_strelka2-somatic.qmd
+      - subworkflows/variant_calling/variant_calling_svaba.qmd
+      - subworkflows/variant_calling/variant_calling_svim.qmd
+      - subworkflows/variant_calling/variant_calling_svisionpro.qmd
+    - section: Variant Phasing
+      contents:
+      - subworkflows/variant_phasing/variant_phasing_hiphase.qmd
+      - subworkflows/variant_phasing/variant_phasing_whatshap.qmd
+  - id: workflows
+    title: Workflows
+    style: floating
+    contents:
+    - section: Overview
+      contents:
+      - workflows/index.qmd
+    - section: HLA Typing
+      contents:
+      - workflows/hla_typing/hla_typing_short-read.qmd
+    - section: Isoform Characterization
+      contents:
+      - workflows/isoform_characterization/isoform_characterization_long-read.qmd
+      - workflows/isoform_characterization/isoform_characterization_short-read.qmd
+    - section: Quantification
+      contents:
+      - workflows/quantification/quantification_long-read.qmd
+      - workflows/quantification/quantification_short-read.qmd
+    - section: Variant Calling
+      contents:
+      - workflows/variant_calling/variant_calling_long-read-germline.qmd
+      - workflows/variant_calling/variant_calling_long-read-somatic.qmd
+      - workflows/variant_calling/variant_calling_short-read-germline.qmd
+      - workflows/variant_calling/variant_calling_short-read-somatic.qmd
+format:
+  html:
+    theme: cosmo
+    toc: true
