@@ -7,7 +7,7 @@ process runGridss2Somatic {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -41,7 +41,7 @@ process runGridss2SomaticFilter {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -73,7 +73,7 @@ process runGridss2Germline {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 

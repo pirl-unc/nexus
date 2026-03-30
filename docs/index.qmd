@@ -1,6 +1,6 @@
 ---
 title: "Nexus"
-subtitle: "Nextflow's ultimate streamliner"
+subtitle: "NEXtflow's Ultimate Streamliner"
 ---
 
 A command-line interface for running bioinformatics workflows written in [Nextflow](https://www.nextflow.io/).

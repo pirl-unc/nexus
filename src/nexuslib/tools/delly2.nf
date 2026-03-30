@@ -7,7 +7,7 @@ process runDelly2ShortReadSomatic {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -52,7 +52,7 @@ process runDelly2LongReadSomatic {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -97,7 +97,7 @@ process runDelly2ShortReadGermline {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -133,7 +133,7 @@ process runDelly2LongReadGermline {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 

@@ -28,7 +28,7 @@ process runVEP {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -59,7 +59,7 @@ process runVEPCustom {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -97,7 +97,7 @@ process runFilterVEP {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 

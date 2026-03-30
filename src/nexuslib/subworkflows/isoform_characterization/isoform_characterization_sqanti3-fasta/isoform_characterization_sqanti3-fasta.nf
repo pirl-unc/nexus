@@ -104,6 +104,7 @@ workflow ISOFORM_CHARACTERIZATION_SQANTI3_FASTA {
         reference_genes_gtf_file
         params_sqanti3_qc
         params_sqanti3_filter
+        method
         output_dir
 
     main:
@@ -123,6 +124,7 @@ workflow ISOFORM_CHARACTERIZATION_SQANTI3_FASTA {
             decompressGtf.out.f,
             params_sqanti3_qc,
             params_sqanti3_filter,
+            method,
             output_dir
         )
 
@@ -140,6 +142,7 @@ workflow {
         params.reference_genes_gtf_file,
         params_sqanti3_qc,
         params_sqanti3_filter,
+        "sqanti3_fasta",
         params.output_dir
     )
 }

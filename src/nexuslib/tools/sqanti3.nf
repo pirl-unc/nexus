@@ -3,11 +3,11 @@
 process runSqanti3FastaMode {
 
     label 'sqanti3'
-    tag "${sample_id}"
+    tag "${sample_id}_${method}"
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -17,14 +17,15 @@ process runSqanti3FastaMode {
         path(reference_genes_gtf_file)
         val(params_sqanti3_qc)
         val(params_sqanti3_filter)
+        val(method)
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_sqanti3_outputs/"), emit: f
+        tuple val(sample_id), path("${sample_id}_${method}_sqanti3_outputs/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_sqanti3_outputs/{qc,filter}/
+        mkdir -p ${sample_id}_${method}_sqanti3_outputs/{qc,filter}/
 
         sqanti3_qc.py \
             --isoforms $fasta_file \
@@ -32,26 +33,26 @@ process runSqanti3FastaMode {
             --refFasta $reference_genome_fasta_file \
             --fasta \
             -t ${task.cpus} \
-            -o ${sample_id} \
-            -d ${sample_id}_sqanti3_outputs/qc/ \
+            -o ${sample_id}_${method} \
+            -d ${sample_id}_${method}_sqanti3_outputs/qc/ \
             $params_sqanti3_qc
 
         sqanti3_filter.py \
            $params_sqanti3_filter \
-           --sqanti_class ${sample_id}_sqanti3_outputs/qc/${sample_id}_classification.txt \
-           --output ${sample_id} \
-           --dir ${sample_id}_sqanti3_outputs/filter/
+           --sqanti_class ${sample_id}_${method}_sqanti3_outputs/qc/${sample_id}_${method}_classification.txt \
+           --output ${sample_id}_${method} \
+           --dir ${sample_id}_${method}_sqanti3_outputs/filter/
         """
 }
 
 process runSqanti3GtfMode {
 
     label 'sqanti3'
-    tag "${sample_id}"
+    tag "${sample_id}_${method}"
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -61,28 +62,29 @@ process runSqanti3GtfMode {
         path(reference_genes_gtf_file)
         val(params_sqanti3_qc)
         val(params_sqanti3_filter)
+        val(method)
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_sqanti3_outputs/"), emit: f
+        tuple val(sample_id), path("${sample_id}_${method}_sqanti3_outputs/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_sqanti3_outputs/{qc,filter}/
+        mkdir -p ${sample_id}_${method}_sqanti3_outputs/{qc,filter}/
 
         sqanti3_qc.py \
             --isoforms $gtf_file \
             --refGTF $reference_genes_gtf_file \
             --refFasta $reference_genome_fasta_file \
             -t ${task.cpus} \
-            -o ${sample_id} \
-            -d ${sample_id}_sqanti3_outputs/qc/ \
+            -o ${sample_id}_${method} \
+            -d ${sample_id}_${method}_sqanti3_outputs/qc/ \
             $params_sqanti3_qc
 
         sqanti3_filter.py \
            $params_sqanti3_filter \
-           --sqanti_class ${sample_id}_sqanti3_outputs/qc/${sample_id}_classification.txt \
-           --output ${sample_id} \
-           --dir ${sample_id}_sqanti3_outputs/filter/
+           --sqanti_class ${sample_id}_${method}_sqanti3_outputs/qc/${sample_id}_${method}_classification.txt \
+           --output ${sample_id}_${method} \
+           --dir ${sample_id}_${method}_sqanti3_outputs/filter/
         """
 }

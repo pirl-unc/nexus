@@ -7,7 +7,7 @@ process runMhcflurry2Predict {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -36,7 +36,7 @@ process runMhcflurry2PredictScan {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 

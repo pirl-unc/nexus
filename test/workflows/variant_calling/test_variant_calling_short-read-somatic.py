@@ -135,9 +135,9 @@ def test_variant_calling_short_read_somatic_2():
     reference_genome_fasta_file = get_data_path(name='fasta/GRCh38.p14.genome.chr17.fa.gz')
     params_yaml_file = get_data_path(name='inputs/workflows/variant_calling_short-read-somatic/params_2.yaml')
     temp_dir = os.getcwd() + '/tmp'
-    intermediate_dir = temp_dir + '/intermediate/test_variant_calling_shortread_somatic_local_2'
-    work_dir = temp_dir + '/work/test_variant_calling_shortread_somatic_local_2'
-    output_dir = temp_dir + '/outputs/test_variant_calling_shortread_somatic_local_2'
+    intermediate_dir = temp_dir + '/intermediate/test_variant_calling_shortread_somatic_2'
+    work_dir = temp_dir + '/work/test_variant_calling_shortread_somatic_2'
+    output_dir = temp_dir + '/outputs/test_variant_calling_shortread_somatic_2'
     if not os.path.exists(intermediate_dir):
         os.makedirs(intermediate_dir)
     if not os.path.exists(work_dir):
@@ -187,9 +187,9 @@ def test_variant_calling_short_read_somatic_3():
     reference_genome_fasta_file = get_data_path(name='fasta/GRCh38.p14.genome.chr17.fa.gz')
     params_yaml_file = get_data_path(name='inputs/workflows/variant_calling_short-read-somatic/params_3.yaml')
     temp_dir = os.getcwd() + '/tmp'
-    intermediate_dir = temp_dir + '/intermediate/test_variant_calling_shortread_somatic_local_3'
-    work_dir = temp_dir + '/work/test_variant_calling_shortread_somatic_local_3'
-    output_dir = temp_dir + '/outputs/test_variant_calling_shortread_somatic_local_3'
+    intermediate_dir = temp_dir + '/intermediate/test_variant_calling_shortread_somatic_3'
+    work_dir = temp_dir + '/work/test_variant_calling_shortread_somatic_3'
+    output_dir = temp_dir + '/outputs/test_variant_calling_shortread_somatic_3'
     if not os.path.exists(intermediate_dir):
         os.makedirs(intermediate_dir)
     if not os.path.exists(work_dir):
@@ -239,9 +239,9 @@ def test_variant_calling_short_read_somatic_4():
     reference_genome_fasta_file = get_data_path(name='fasta/GRCh38.p14.genome.chr21-22.fa.gz')
     params_yaml_file = get_data_path(name='inputs/workflows/variant_calling_short-read-somatic/params_4.yaml')
     temp_dir = os.getcwd() + '/tmp'
-    intermediate_dir = temp_dir + '/intermediate/test_variant_calling_shortread_somatic_local_4'
-    work_dir = temp_dir + '/work/test_variant_calling_shortread_somatic_local_4'
-    output_dir = temp_dir + '/outputs/test_variant_calling_shortread_somatic_local_4'
+    intermediate_dir = temp_dir + '/intermediate/test_variant_calling_shortread_somatic_4'
+    work_dir = temp_dir + '/work/test_variant_calling_shortread_somatic_4'
+    output_dir = temp_dir + '/outputs/test_variant_calling_shortread_somatic_4'
     if not os.path.exists(intermediate_dir):
         os.makedirs(intermediate_dir)
     if not os.path.exists(work_dir):

@@ -18,8 +18,6 @@
 #   bam_file               (required for ESPRESSO, IsoTools, TALON)
 #   bam_bai_file           (required for ESPRESSO, IsoTools, TALON)
 #   fastq_file             (required for FLAIR, IsoQuant, Mandalorion)
-#   fasta_file             (required for SQANTI3-fasta)
-#   gtf_file               (required for SQANTI3-gtf)
 samples_tsv_file: ""
 
 # Directory to which output files will be copied
@@ -39,7 +37,7 @@ reference_genes_gtf_file: ""
 # Methods to run. Comma-separated list or 'all'.
 # Allowed values:
 #   all, espresso, flair, isoquant, isotools, mandalorion,
-#   sqanti3-fasta, sqanti3-gtf, talon
+#   sqanti3-gtf, talon
 methods: "all"
 
 
@@ -101,19 +99,9 @@ mandalorion:
 
 
 # -----------------------------------------------------------------------------
-# SQANTI3 (FASTA mode)
-# Optional arguments.
-# -----------------------------------------------------------------------------
-sqanti3_fasta:
-  # Extra CLI arguments passed directly to sqanti3_qc.py.
-  qc_extra_args: "--aligner_choice minimap2 --report skip --force_id_ignore"
-
-  # Extra CLI arguments passed directly to sqanti3_filter.py.
-  filter_extra_args: "ml --skip_report"
-
-
-# -----------------------------------------------------------------------------
 # SQANTI3 (GTF mode)
+# Runs on GTF outputs from upstream tools (ESPRESSO, FLAIR, IsoQuant,
+# IsoTools, Mandalorion).
 # Optional arguments.
 # -----------------------------------------------------------------------------
 sqanti3_gtf:

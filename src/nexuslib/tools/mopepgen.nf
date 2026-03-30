@@ -7,7 +7,7 @@ process runMoPepGenParseVEP {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -57,7 +57,7 @@ process runMoPepGenParseREDItools2 {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -104,7 +104,7 @@ process runMoPepGenParseSTARFusion {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -154,7 +154,7 @@ process runMoPepGenParseArriba {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -203,7 +203,7 @@ process runMoPepGenParseRMATS {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -256,7 +256,7 @@ process runMoPepGenParseCircExplorer2 {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
@@ -305,7 +305,7 @@ process runMoPepGenCallVariant {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy'
     )
 
