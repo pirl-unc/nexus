@@ -7,13 +7,13 @@ process runIsoseqCluster {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy',
         pattern: "${sample_id}_isoseq-clustered.bam"
     )
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy',
         pattern: "${sample_id}_isoseq-clustered.bam.bai"
     )

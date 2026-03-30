@@ -23,6 +23,30 @@ process decompressFile {
             """
 }
 
+process extractGtfFromDir {
+
+    label 'nexus_utils'
+    tag "${sample_id}"
+    debug true
+
+    input:
+        tuple val(sample_id), path(input_dir)
+        val(pattern)
+
+    output:
+        tuple val(sample_id), path("extracted.gtf"), emit: f, optional: true
+
+    script:
+        """
+        gtf_file=\$(find ${input_dir}/ -name "${pattern}" -type f | head -1)
+        if [ -n "\$gtf_file" ]; then
+            cp "\$gtf_file" extracted.gtf
+        else
+            echo "WARNING: No file matching '${pattern}' found in ${input_dir}/ — skipping."
+        fi
+        """
+}
+
 process bgzipGtfFile {
 
     label 'nexus_utils'

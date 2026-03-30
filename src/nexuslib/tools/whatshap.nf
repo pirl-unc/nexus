@@ -7,13 +7,13 @@ process runWhatshapHaplotag {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy',
         pattern: "${bam_file.baseName}_haplotagged.bam"
     )
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy',
         pattern: "${bam_file.baseName}_haplotagged.bam.bai"
     )
@@ -47,13 +47,13 @@ process runWhatshapPhase {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy',
         pattern: "${sample_id}_whatshap_phased.vcf.gz"
     )
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/",
         mode: 'copy',
         pattern: "${sample_id}_whatshap_phased.vcf.gz.tbi"
     )

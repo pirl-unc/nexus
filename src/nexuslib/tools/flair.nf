@@ -7,7 +7,7 @@ process runFlairAlign {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/${sample_id}_flair_outputs/",
         mode: 'copy'
     )
 
@@ -38,7 +38,7 @@ process runFlairCorrect {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/${sample_id}_flair_outputs/",
         mode: 'copy'
     )
 
@@ -71,7 +71,7 @@ process runFlairCollapse {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/${sample_id}_flair_outputs/",
         mode: 'copy'
     )
 
