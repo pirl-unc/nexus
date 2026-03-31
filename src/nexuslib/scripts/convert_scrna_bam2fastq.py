@@ -1,5 +1,6 @@
 """
-The purpose of this python3 file is to split a BAM file by barcode into FASTQ.GZ files.
+The purpose of this python3 file is to convert an unaligned BAM file to a FASTQ.GZ file while filtering out
+cells that do not meet a minimum molecule count.
 """
 
 
@@ -16,7 +17,7 @@ def parse_args():
     parser.add_argument("--barcode-tag", dest='barcode_tag', type=str, help="Barcode tag (e.g. CB for PacBio single-cell RNA-seq BAM file).")
     parser.add_argument("--output-fastq-file", dest='output_fastq_file', type=str, help="Output FASTQ.GZ file.")
     parser.add_argument("--output-tsv-file", dest='output_tsv_file', type=str, help="Output TSV file.")
-    parser.add_argument("--min-reads-per-barcode", dest='min_reads_per_barcode', type=int, default=500, help="Minimum number of reads per barcode (default: 500). Determine this value by visualizing the number of reads by barcode as a knee plot.")
+    parser.add_argument("--min-reads-per-barcode", dest='min_reads_per_barcode', type=int, help="Minimum number of reads per barcode. Determine this value by running nexus_find_scrna_barcode_knee.")
     parser.add_argument("--base-quality", dest='base_quality', type=int, default=60, help="Default base quality score to use when reads lack quality scores (default: 60).")
     parser.add_argument("--num-threads", dest='num_threads', type=int, default=4, help="Number of threads (default: 4).")
     arguments = parser.parse_args()

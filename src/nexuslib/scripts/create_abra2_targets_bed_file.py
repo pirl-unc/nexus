@@ -1,5 +1,5 @@
 """
-The purpose of this python3 file is to create an ABRA2 targets BED file.
+The purpose of this python3 script is to create an ABRA2 targets BED file.
 """
 
 

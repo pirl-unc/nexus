@@ -11,6 +11,8 @@ website:
       file: subworkflows/index.qmd
     - text: Workflows
       file: workflows/index.qmd
+    - text: Utilities
+      file: utilities/index.qmd
     right:
     - icon: github
       href: https://github.com/pirl-unc/nexus
@@ -171,6 +173,23 @@ website:
       - workflows/variant_calling/variant_calling_long-read-somatic.qmd
       - workflows/variant_calling/variant_calling_short-read-germline.qmd
       - workflows/variant_calling/variant_calling_short-read-somatic.qmd
+  - id: utilities
+    title: Utilities
+    style: floating
+    contents:
+    - section: Overview
+      contents:
+      - utilities/index.qmd
+    - section: Commands
+      contents:
+      - utilities/convert_netmhcpan_txt2tsv.qmd
+      - utilities/convert_scrna_bam2fastq.qmd
+      - utilities/count_scrna_assembly_support.qmd
+      - utilities/create_abra2_targets_bed_file.qmd
+      - utilities/filter_rnabloom2_transcripts.qmd
+      - utilities/filter_scrna_assembly.qmd
+      - utilities/filter_unspliced_transcripts.qmd
+      - utilities/find_scrna_barcode_knee.qmd
 format:
   html:
     theme: cosmo

@@ -1,5 +1,7 @@
 """
-The purpose of this python3 file is to plot a barcode rank (knee) plot from an unaligned scRNA-seq BAM file.
+The purpose of this python3 script is to identify the knee point of an scRNA-seq barcode rank plot from an
+unaligned BAM file. The resulting threshold can be used to set a minimum molecule count per cell, filtering
+out low-count barcodes in downstream analysis.
 """
 
 
@@ -12,8 +14,8 @@ from collections import Counter
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Plot a barcode rank (knee) plot from an unaligned scRNA-seq BAM file.")
-    parser.add_argument("--bam-file", dest='bam_file', type=str, help="Input BAM file.")
+    parser = argparse.ArgumentParser(description="Find the knee of the barcode rank plot from an unaligned scRNA-seq BAM file.")
+    parser.add_argument("--bam-file", dest='bam_file', type=str, help="Input BAM file (unaligned).")
     parser.add_argument("--tag", dest='tag', type=str, default='CB', help="Cell barcode tag (default: 'CB').")
     parser.add_argument("--percentile", dest='percentile', type=float, default=99, help="Percentile method's percentile to determine the knee (default: 99').")
     parser.add_argument("--multiplier", dest='multiplier', type=float, default=0.1, help="Percentile method's multiplier to determine the knee (default: 0.1').")
@@ -36,7 +38,7 @@ def run():
     args = parse_args()
 
     # Step 2. Count the cell barcodes
-    barcodes = Counter()
+    barcodes = Counter() # key = cell barcode, value = molecule count
     with pysam.AlignmentFile(args.bam_file, "rb", check_sq=False, threads=args.num_threads) as bam:
         for read in bam:
             if read.has_tag(args.tag):
@@ -67,7 +69,7 @@ def run():
     plt.xscale("log")
     plt.xlabel("Barcode rank")
     plt.ylabel("Reads per barcode")
-    plt.title("Barcode rank plot")
+    plt.title(f"Barcode rank plot ({len(barcodes):,} total cells, {sum(barcodes.values()):,} total molecules)")
 
     if args.output_png_file is not None:
         plt.savefig(args.output_png_file, dpi=300, bbox_inches="tight")

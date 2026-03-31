@@ -5,14 +5,18 @@ Outputs to docs/ directory.
 """
 
 
+import ast
 import os
 import re
 import shutil
 import yaml
 
+
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SUBWORKFLOWS_DIR = os.path.join(REPO_ROOT, "src", "nexuslib", "subworkflows")
 WORKFLOWS_DIR = os.path.join(REPO_ROOT, "src", "nexuslib", "workflows")
+UTILITIES_DIR = os.path.join(REPO_ROOT, "src", "nexuslib", "scripts")
+PYPROJECT_PATH = os.path.join(REPO_ROOT, "pyproject.toml")
 DOCS_DIR = os.path.join(REPO_ROOT, "docs")
 
 CATEGORY_LABELS = {
@@ -393,7 +397,196 @@ def generate_workflow_pages():
     return sidebar_items
 
 
-def generate_quarto_yml(subworkflow_sidebar, workflow_sidebar):
+def read_cli_commands():
+    """Read pyproject.toml to get CLI command -> module mappings."""
+    cli_map = {}  # module_name -> cli_command
+    if not os.path.exists(PYPROJECT_PATH):
+        return cli_map
+    with open(PYPROJECT_PATH, 'r') as f:
+        content = f.read()
+    in_section = False
+    for line in content.split('\n'):
+        stripped = line.strip()
+        if stripped == '[project.scripts]':
+            in_section = True
+            continue
+        if in_section:
+            if stripped.startswith('['):
+                break
+            match = re.match(r'(\S+)\s*=\s*"nexuslib\.scripts\.(\w+):run"', stripped)
+            if match:
+                cli_map[match.group(2)] = match.group(1)
+    return cli_map
+
+
+def parse_utility_argparse(py_path):
+    """Parse a utility script to extract argparse description and arguments using AST."""
+    with open(py_path, 'r') as f:
+        source = f.read()
+
+    tree = ast.parse(source)
+    description = ""
+    arguments = []
+
+    for node in ast.walk(tree):
+        # Find ArgumentParser(description=...)
+        if isinstance(node, ast.Call):
+            func = node.func
+            is_argparser = False
+            if isinstance(func, ast.Attribute) and func.attr == 'ArgumentParser':
+                is_argparser = True
+            elif isinstance(func, ast.Name) and func.id == 'ArgumentParser':
+                is_argparser = True
+            if is_argparser:
+                for kw in node.keywords:
+                    if kw.arg == 'description' and isinstance(kw.value, ast.Constant):
+                        description = ' '.join(kw.value.value.split())
+
+        # Find add_argument(...) calls
+        if isinstance(node, ast.Call):
+            func = node.func
+            if isinstance(func, ast.Attribute) and func.attr == 'add_argument':
+                arg_name = ""
+                help_text = ""
+                default = None
+                arg_type = ""
+                required = False
+
+                # Get positional arg name(s)
+                for arg in node.args:
+                    if isinstance(arg, ast.Constant) and isinstance(arg.value, str):
+                        if arg.value.startswith('-'):
+                            arg_name = arg.value
+
+                # Get keyword arguments
+                for kw in node.keywords:
+                    if kw.arg == 'help' and isinstance(kw.value, ast.Constant):
+                        help_text = ' '.join(kw.value.value.split())
+                    elif kw.arg == 'default' and isinstance(kw.value, ast.Constant):
+                        default = kw.value.value
+                    elif kw.arg == 'type' and isinstance(kw.value, ast.Name):
+                        arg_type = kw.value.id
+                    elif kw.arg == 'required' and isinstance(kw.value, ast.Constant):
+                        required = kw.value.value
+
+                if arg_name:
+                    arguments.append({
+                        'name': arg_name,
+                        'help': help_text,
+                        'default': default,
+                        'type': arg_type,
+                        'required': required,
+                    })
+
+    return description, arguments
+
+
+def generate_utility_pages():
+    """Generate .qmd pages for all utilities."""
+    utilities_docs_dir = os.path.join(DOCS_DIR, "utilities")
+    os.makedirs(utilities_docs_dir, exist_ok=True)
+
+    cli_map = read_cli_commands()
+    sidebar_items = []
+
+    for filename in sorted(os.listdir(UTILITIES_DIR)):
+        if not filename.endswith('.py') or filename == '__init__.py':
+            continue
+
+        module_name = filename[:-3]  # strip .py
+        py_path = os.path.join(UTILITIES_DIR, filename)
+        description, arguments = parse_utility_argparse(py_path)
+
+        cli_command = cli_map.get(module_name, module_name.replace('_', '-'))
+        title = cli_command
+
+        lines = [
+            '---',
+            f'title: "{title}"',
+            '---',
+            '',
+        ]
+
+        if description:
+            lines.append(description)
+            lines.append('')
+
+        # Usage
+        lines.append('## Usage')
+        lines.append('')
+        lines.append('```bash')
+        usage_parts = [cli_command]
+        for arg in arguments:
+            if arg['default'] is not None:
+                usage_parts.append(f"[{arg['name']} {arg['default']}]")
+            else:
+                # Convert --arg-name to arg_name for placeholder lookup
+                param_key = arg['name'].lstrip('-').replace('-', '_')
+                placeholder = _placeholder_for_param(param_key)
+                # For non-file params, use type-aware placeholder
+                if placeholder == '""' and arg['type']:
+                    type_placeholders = {'int': '0', 'float': '0.0', 'str': '""'}
+                    placeholder = type_placeholders.get(arg['type'], '""')
+                usage_parts.append(f"{arg['name']} {placeholder}")
+        lines.append(' \\\n    '.join(usage_parts))
+        lines.append('```')
+        lines.append('')
+
+        # Parameters table
+        if arguments:
+            lines.append('## Parameters')
+            lines.append('')
+            lines.append('| Parameter | Type | Default | Description |')
+            lines.append('|:----------|:-----|:--------|:------------|')
+            for arg in arguments:
+                default_str = f'`{arg["default"]}`' if arg['default'] is not None else 'required'
+                type_str = f'`{arg["type"]}`' if arg['type'] else ''
+                help_str = arg['help'].replace('|', '\\|') if arg['help'] else ''
+                lines.append(f"| `{arg['name']}` | {type_str} | {default_str} | {help_str} |")
+            lines.append('')
+            lines.append(': {.striped .hover}')
+            lines.append('')
+
+        qmd_path = os.path.join(utilities_docs_dir, f"{module_name}.qmd")
+        with open(qmd_path, 'w') as f:
+            f.write('\n'.join(lines))
+
+        sidebar_items.append({
+            "name": title,
+            "file": f"utilities/{module_name}.qmd"
+        })
+
+    # Generate utilities/index.qmd
+    index_lines = [
+        '---',
+        'title: "Utilities"',
+        '---',
+        '',
+        'Standalone command-line utilities installed with nexus.',
+        '',
+        '| Command | Description |',
+        '|:--------|:------------|',
+    ]
+    for filename in sorted(os.listdir(UTILITIES_DIR)):
+        if not filename.endswith('.py') or filename == '__init__.py':
+            continue
+        module_name = filename[:-3]
+        py_path = os.path.join(UTILITIES_DIR, filename)
+        description, _ = parse_utility_argparse(py_path)
+        cli_command = cli_map.get(module_name, module_name.replace('_', '-'))
+        desc_short = description.split('.')[0] + '.' if description else ''
+        index_lines.append(f"| [{cli_command}]({module_name}.qmd) | {desc_short} |")
+    index_lines.append('')
+    index_lines.append(': {.striped .hover tbl-colwidths="[40, 60]"}')
+
+    index_path = os.path.join(DOCS_DIR, "utilities", "index.qmd")
+    with open(index_path, 'w') as f:
+        f.write('\n'.join(index_lines))
+
+    return sidebar_items
+
+
+def generate_quarto_yml(subworkflow_sidebar, workflow_sidebar, utility_sidebar):
     """Generate _quarto.yml with full navigation."""
     sw_contents = []
     for category in sorted(subworkflow_sidebar.keys()):
@@ -411,6 +604,8 @@ def generate_quarto_yml(subworkflow_sidebar, workflow_sidebar):
             "contents": [w["file"] for w in info["workflows"]]
         })
 
+    sc_contents = [s["file"] for s in utility_sidebar]
+
     quarto_config = {
         "project": {"type": "website", "output-dir": "_site"},
         "website": {
@@ -420,6 +615,7 @@ def generate_quarto_yml(subworkflow_sidebar, workflow_sidebar):
                     {"text": "Home", "file": "index.qmd"},
                     {"text": "Subworkflows", "file": "subworkflows/index.qmd"},
                     {"text": "Workflows", "file": "workflows/index.qmd"},
+                    {"text": "Utilities", "file": "utilities/index.qmd"},
                 ],
                 "right": [
                     {"icon": "github", "href": "https://github.com/pirl-unc/nexus"}
@@ -433,6 +629,10 @@ def generate_quarto_yml(subworkflow_sidebar, workflow_sidebar):
                 {
                     "id": "workflows", "title": "Workflows", "style": "floating",
                     "contents": [{"section": "Overview", "contents": ["workflows/index.qmd"]}] + wf_contents
+                },
+                {
+                    "id": "utilities", "title": "Utilities", "style": "floating",
+                    "contents": [{"section": "Overview", "contents": ["utilities/index.qmd"]}] + [{"section": "Commands", "contents": sc_contents}]
                 }
             ]
         },
@@ -454,8 +654,12 @@ def main():
     wf_sidebar = generate_workflow_pages()
     print(f"    Generated {sum(len(v['workflows']) for v in wf_sidebar.values())} workflow pages")
 
+    print("  Generating utility pages...")
+    sc_sidebar = generate_utility_pages()
+    print(f"    Generated {len(sc_sidebar)} utility pages")
+
     print("  Generating _quarto.yml...")
-    generate_quarto_yml(sw_sidebar, wf_sidebar)
+    generate_quarto_yml(sw_sidebar, wf_sidebar, sc_sidebar)
 
     print(f"Done! Site generated in {DOCS_DIR}/")
     print(f"  NOTE: index.qmd, subworkflows/index.qmd, workflows/index.qmd are NOT overwritten.")

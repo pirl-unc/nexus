@@ -10,10 +10,12 @@ nextflow.enable.dsl=2
 // Step 1. Import Nextflow modules
 // ------------------------------------------------------------
 include { runSamtoolsFaidx }        from '../../../tools/samtools'
+include { runSamtoolsFaidxFasta }   from '../../../tools/samtools'
 include { runMinimap2 }             from '../../../tools/minimap2'
 include { runSamtoolsSamToBam }     from '../../../tools/samtools'
 include { runSamtoolsCalmd }        from '../../../tools/samtools'
 include { runSamtoolsSort }         from '../../../tools/samtools'
+include { decompressFile as decompressFasta } from '../../../tools/utils'
 include { copyBamFile }             from '../../../tools/utils'
 
 // ------------------------------------------------------------
@@ -105,11 +107,17 @@ workflow ALIGNMENT_MINIMAP2 {
         output_dir
 
     main:
-        // Step 1. Index reference genome FASTA file
+        // Step 1. Index reference genome FASTA file (bgzipped for minimap2)
         runSamtoolsFaidx(reference_genome_fasta_file)
         fasta_file          = runSamtoolsFaidx.out.fasta
         fasta_fai_file      = runSamtoolsFaidx.out.fai_file
         fasta_gzi_file      = runSamtoolsFaidx.out.gzi_file
+
+        // Step 1b. Decompress FASTA for calmd (requires uncompressed FASTA)
+        decompressFasta(reference_genome_fasta_file)
+        runSamtoolsFaidxFasta(decompressFasta.out.f)
+        uncompressed_fasta     = runSamtoolsFaidxFasta.out.fasta
+        uncompressed_fasta_fai = runSamtoolsFaidxFasta.out.fai_file
 
         // Step 2. Run Minimap2
         run_minimap2_input_ch = input_fastq_files_ch
@@ -126,11 +134,11 @@ workflow ALIGNMENT_MINIMAP2 {
         // Step 3. Convert SAM to BAM
         runSamtoolsSamToBam(runMinimap2.out.f)
 
-        // Step 4. Run Samtools calmd
+        // Step 4. Run Samtools calmd (requires uncompressed FASTA)
         runSamtoolsCalmd(
             runSamtoolsSamToBam.out.f,
-            fasta_file,
-            fasta_fai_file
+            uncompressed_fasta,
+            uncompressed_fasta_fai
         )
 
         // Step 5. Sort the BAM files
