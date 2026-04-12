@@ -24,55 +24,7 @@ params.output_dir               = ''
 params.params_hlaprofiler       = '-allele_refinement all -if'
 
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         =================================================================================
-         Profile HLA alleles using paired-end RNA sequencing FASTQ files using HLAProfiler
-         =================================================================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1. Profile HLA alleles using paired-end RNA sequencing FASTQ files using HLAProfiler.
-
-    usage: nexus run --nf-workflow hla_typing_hlaprofiler.nf [required] [optional] [--help]
-
-    required arguments:
-        -c                      :   Nextflow .config file.
-        -w                      :   Nextflow work directory path.
-        --samples_tsv_file      :   TSV file with the following columns:
-                                    'sample_id', 'fastq_file_1', 'fastq_file_2'.
-        --output_dir            :   Directory to which output files will be copied.
-
-    optional arguments:
-        --params_hlaprofiler    :   HLAProfiler 'predict' parameters (default: '"-allele_refinement all -if"').
-                                    Note that the parameters need to be wrapped in quotes.
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        samples_tsv_file        :   ${params.samples_tsv_file}
-        output_dir              :   ${params.output_dir}
-        params_hlaprofiler      :   ${params.params_hlaprofiler}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .map { row -> tuple(
-        "${row.sample_id}",
-        "${row.fastq_file_1}",
-        "${row.fastq_file_2}") }
-    .set { input_fastq_files_ch }
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow HLA_TYPING_HLAPROFILER {
     take:
@@ -92,9 +44,51 @@ workflow HLA_TYPING_HLAPROFILER {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             =================================================================================
+             Profile HLA alleles using paired-end RNA sequencing FASTQ files using HLAProfiler
+             =================================================================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Profile HLA alleles using paired-end RNA sequencing FASTQ files using HLAProfiler.
+
+        usage: nexus run --nf-workflow hla_typing_hlaprofiler.nf [required] [optional] [--help]
+
+        required arguments:
+            -c                      :   Nextflow .config file.
+            -w                      :   Nextflow work directory path.
+            --samples_tsv_file      :   TSV file with the following columns:
+                                        'sample_id', 'fastq_file_1', 'fastq_file_2'.
+            --output_dir            :   Directory to which output files will be copied.
+
+        optional arguments:
+            --params_hlaprofiler    :   HLAProfiler 'predict' parameters (default: '"-allele_refinement all -if"').
+                                        Note that the parameters need to be wrapped in quotes.
+        """.stripIndent()
+        exit 0
+    }
+
+    log.info"""\
+        samples_tsv_file        :   ${params.samples_tsv_file}
+        output_dir              :   ${params.output_dir}
+        params_hlaprofiler      :   ${params.params_hlaprofiler}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.fastq_file_1}",
+            "${row.fastq_file_2}") }
+        .set { input_fastq_files_ch }
+
     HLA_TYPING_HLAPROFILER(
         input_fastq_files_ch,
         params.params_hlaprofiler,

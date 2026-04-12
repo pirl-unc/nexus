@@ -25,67 +25,8 @@ params.blastdb_dir          = ''
 params.blastdb_name         = 'nr'
 params.params_blastp        = ''
 
-if (params.params_blastp == true) {
-    params_blastp = ''
-} else {
-    params_blastp = params.params_blastp
-}
-
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         ======================================
-         Align peptide fasta files using Blastp
-         ======================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1. Blast peptide sequences (fasta or fasta.gz files) using Blastp.
-
-    usage: nexus run --nf-workflow alignment_blastp.nf [required] [optional] [--help]
-
-    required arguments:
-        -c                      :   Nextflow .config file.
-        -w                      :   Nextflow work directory path.
-        --samples_tsv_file      :   TSV file with the following columns:
-                                    'sample_id', 'fasta_file'.
-        --output_dir            :   Directory to which output files will be copied.
-        --blastdb_dir           :   Local Blast database path. The database can be downloaded by the
-                                    following command: update_blastdb.pl --source gcp --decompress nr --num_threads 16
-
-    optional arguments:
-        --blastdb_name          :   Local Blast database name (default: 'nr').
-        --params_blastp         :   Blastp parameters (default: '""').
-                                    Note that the parameters need to be wrapped in quotes
-                                    and a space at the end of the string is necessary.
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        samples_tsv_file        :   ${params.samples_tsv_file}
-        output_dir              :   ${params.output_dir}
-        blastdb_dir             :   ${params.blastdb_dir}
-        blastdb_name            :   ${params.blastdb_name}
-        params_blastp           :   ${params_blastp}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .map { row -> tuple(
-        "${row.sample_id}",
-        "${row.fasta_file}") }
-    .set { input_fasta_files_ch }
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow ALIGNMENT_BLASTP {
     take:
@@ -109,9 +50,58 @@ workflow ALIGNMENT_BLASTP {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             ======================================
+             Align peptide fasta files using Blastp
+             ======================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Blast peptide sequences (fasta or fasta.gz files) using Blastp.
+
+        usage: nexus run --nf-workflow alignment_blastp.nf [required] [optional] [--help]
+
+        required arguments:
+            -c                      :   Nextflow .config file.
+            -w                      :   Nextflow work directory path.
+            --samples_tsv_file      :   TSV file with the following columns:
+                                        'sample_id', 'fasta_file'.
+            --output_dir            :   Directory to which output files will be copied.
+            --blastdb_dir           :   Local Blast database path. The database can be downloaded by the
+                                        following command: update_blastdb.pl --source gcp --decompress nr --num_threads 16
+
+        optional arguments:
+            --blastdb_name          :   Local Blast database name (default: 'nr').
+            --params_blastp         :   Blastp parameters (default: '""').
+                                        Note that the parameters need to be wrapped in quotes
+                                        and a space at the end of the string is necessary.
+        """.stripIndent()
+        exit 0
+    }
+
+    def params_blastp = (params.params_blastp == true) ? '' : params.params_blastp
+
+    log.info"""\
+        samples_tsv_file        :   ${params.samples_tsv_file}
+        output_dir              :   ${params.output_dir}
+        blastdb_dir             :   ${params.blastdb_dir}
+        blastdb_name            :   ${params.blastdb_name}
+        params_blastp           :   ${params_blastp}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.fasta_file}") }
+        .set { input_fasta_files_ch }
+
     ALIGNMENT_BLASTP(
         input_fasta_files_ch,
         params.blastdb_dir,

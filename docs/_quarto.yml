@@ -41,10 +41,12 @@ website:
     - section: Assembly
       contents:
       - subworkflows/assembly/assembly_hifiasm.qmd
+      - subworkflows/assembly/assembly_rattle.qmd
       - subworkflows/assembly/assembly_rnabloom2.qmd
       - subworkflows/assembly/assembly_stringtie2.qmd
     - section: Haplotyping
       contents:
+      - subworkflows/haplotyping/haplotyping_longcallr.qmd
       - subworkflows/haplotyping/haplotyping_whatshap.qmd
     - section: HLA Typing
       contents:
@@ -169,10 +171,10 @@ website:
       - workflows/quantification/quantification_short-read.qmd
     - section: Variant Calling
       contents:
-      - workflows/variant_calling/variant_calling_long-read-germline.qmd
-      - workflows/variant_calling/variant_calling_long-read-somatic.qmd
-      - workflows/variant_calling/variant_calling_short-read-germline.qmd
-      - workflows/variant_calling/variant_calling_short-read-somatic.qmd
+      - workflows/variant_calling/variant_calling_long-read-dna-germline.qmd
+      - workflows/variant_calling/variant_calling_long-read-dna-somatic.qmd
+      - workflows/variant_calling/variant_calling_short-read-dna-germline.qmd
+      - workflows/variant_calling/variant_calling_short-read-dna-somatic.qmd
   - id: utilities
     title: Utilities
     style: floating

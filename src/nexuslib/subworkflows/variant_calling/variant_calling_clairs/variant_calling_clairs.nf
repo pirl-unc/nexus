@@ -21,70 +21,8 @@ params.reference_genome_fasta_file  = ''
 // Optional arguments
 params.params_clairs                = '--platform hifi_revio --enable_indel_calling'
 
-if (params.params_clairs == true) {
-    params_clairs = ''
-} else {
-    params_clairs = params.params_clairs
-}
-
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         ==================================================================================
-         Identify somatic small variants in long-read DNA sequencing BAM files using ClairS
-         ==================================================================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1. Run ClairS.
-
-    usage: nexus run --nf-workflow variant_calling_clairs.nf [required] [optional] [--help]
-
-    required arguments:
-        -c                                  :   Nextflow .config file.
-        -w                                  :   Nextflow work directory path.
-        --samples_tsv_file                  :   TSV file with the following columns:
-                                                'sample_id',
-                                                'tumor_bam_file',
-                                                'tumor_bam_bai_file',
-                                                'normal_bam_file',
-                                                'normal_bam_bai_file'.
-        --output_dir                        :   Directory to which output files will be copied.
-        --reference_genome_fasta_file       :   Reference genome FASTA file.
-
-    optional arguments:
-        --params_clairs                     :   ClairS parameters (default: '"--platform hifi_revio --enable_indel_calling"').
-                                                Note that the parameters need to be wrapped in quotes.
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        samples_tsv_file                    :   ${params.samples_tsv_file}
-        output_dir                          :   ${params.output_dir}
-        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
-        params_clairs                       :   ${params_clairs}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .map { row -> tuple(
-        "${row.sample_id}",
-        "${row.tumor_bam_file}",
-        "${row.tumor_bam_bai_file}",
-        "${row.normal_bam_file}",
-        "${row.normal_bam_bai_file}") }
-    .set { input_bam_files_ch }
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow VARIANT_CALLING_CLAIRS {
     take:
@@ -111,9 +49,61 @@ workflow VARIANT_CALLING_CLAIRS {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             ==================================================================================
+             Identify somatic small variants in long-read DNA sequencing BAM files using ClairS
+             ==================================================================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Run ClairS.
+
+        usage: nexus run --nf-workflow variant_calling_clairs.nf [required] [optional] [--help]
+
+        required arguments:
+            -c                                  :   Nextflow .config file.
+            -w                                  :   Nextflow work directory path.
+            --samples_tsv_file                  :   TSV file with the following columns:
+                                                    'sample_id',
+                                                    'tumor_bam_file',
+                                                    'tumor_bam_bai_file',
+                                                    'normal_bam_file',
+                                                    'normal_bam_bai_file'.
+            --output_dir                        :   Directory to which output files will be copied.
+            --reference_genome_fasta_file       :   Reference genome FASTA file.
+
+        optional arguments:
+            --params_clairs                     :   ClairS parameters (default: '"--platform hifi_revio --enable_indel_calling"').
+                                                    Note that the parameters need to be wrapped in quotes.
+        """.stripIndent()
+        exit 0
+    }
+
+    def params_clairs = (params.params_clairs == true) ? '' : params.params_clairs
+
+    log.info"""\
+        samples_tsv_file                    :   ${params.samples_tsv_file}
+        output_dir                          :   ${params.output_dir}
+        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
+        params_clairs                       :   ${params_clairs}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.tumor_bam_file}",
+            "${row.tumor_bam_bai_file}",
+            "${row.normal_bam_file}",
+            "${row.normal_bam_bai_file}") }
+        .set { input_bam_files_ch }
+
     VARIANT_CALLING_CLAIRS(
         input_bam_files_ch,
         params.reference_genome_fasta_file,

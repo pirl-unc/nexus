@@ -24,62 +24,8 @@ params.output_dir = ''
 params.params_neat                = '-R 151 -c 30.0 -p 2 --pe 300 30'
 params.min_contig_length          = 1000
 
-if (params.params_neat == true) {
-    params_neat = ''
-} else {
-    params_neat = params.params_neat
-}
-
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         ====================================
-         Simulate sequencing reads using NEAT
-         ====================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1. Run neat.
-
-    usage: nexus run --nf-workflow sequencing_simulation_neat.nf [required] [optional] [--help]
-
-    required arguments:
-        -c                          :   Nextflow .config file.
-        -w                          :   Nextflow work directory path.
-        --samples_tsv_file          :   TSV file with the following columns:
-                                        'sample_id', 'fasta_file'.
-        --output_dir                :   Directory to which output files will be copied.
-
-    optional arguments:
-        --params_neat               :   Neat parameters (default: "-R 151 -c 30.0 -p 2 --pe 300 30").
-        --min_contig_length         :   Minimum contig length (default: 1000).
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        samples_tsv_file            :   ${params.samples_tsv_file}
-        output_dir                  :   ${params.output_dir}
-        params_neat                 :   ${params_neat}
-        min_contig_length           :   ${params.min_contig_length}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .map { row -> tuple(
-        "${row.sample_id}",
-        "${row.fasta_file}") }
-    .set { input_fasta_files_ch }
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow SEQUENCING_SIMULATION_NEAT {
     take:
@@ -102,9 +48,53 @@ workflow SEQUENCING_SIMULATION_NEAT {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             ====================================
+             Simulate sequencing reads using NEAT
+             ====================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Run neat.
+
+        usage: nexus run --nf-workflow sequencing_simulation_neat.nf [required] [optional] [--help]
+
+        required arguments:
+            -c                          :   Nextflow .config file.
+            -w                          :   Nextflow work directory path.
+            --samples_tsv_file          :   TSV file with the following columns:
+                                            'sample_id', 'fasta_file'.
+            --output_dir                :   Directory to which output files will be copied.
+
+        optional arguments:
+            --params_neat               :   Neat parameters (default: "-R 151 -c 30.0 -p 2 --pe 300 30").
+            --min_contig_length         :   Minimum contig length (default: 1000).
+        """.stripIndent()
+        exit 0
+    }
+
+    def params_neat = (params.params_neat == true) ? '' : params.params_neat
+
+    log.info"""\
+        samples_tsv_file            :   ${params.samples_tsv_file}
+        output_dir                  :   ${params.output_dir}
+        params_neat                 :   ${params_neat}
+        min_contig_length           :   ${params.min_contig_length}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.fasta_file}") }
+        .set { input_fasta_files_ch }
+
     SEQUENCING_SIMULATION_NEAT(
         input_fasta_files_ch,
         params_neat,

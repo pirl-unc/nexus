@@ -26,72 +26,8 @@ params.reference_genes_gtf_file     = ''
 params.params_talon_initdb          = ''
 params.params_talon                 = '--create_novel_spliced_genes'
 
-if (params.params_talon_initdb == true) {
-    params_talon_initdb = ''
-} else {
-    params_talon_initdb = params.params_talon_initdb
-}
-
-if (params.params_talon == true) {
-    params_talon = ''
-} else {
-    params_talon = params.params_talon
-}
-
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         =================================
-         Characterize isoforms using Talon
-         =================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1. Run Talon.
-
-    usage: nexus run --nf-workflow isoform_characterization_talon.nf [required] [optional] [--help]
-
-    required arguments:
-        -c                                  :   Nextflow .config file.
-        -w                                  :   Nextflow work directory path.
-        --samples_tsv_file                  :   TSV file with the following columns:
-                                                'sample_id', 'bam_file', 'bam_bai_file'.
-        --output_dir                        :   Directory to which output files will be copied.
-        --reference_genes_gtf_file          :   Reference genes GTF file.
-
-    optional arguments:
-        --params_talon_initdb               :   talon_initialize_database parameters (default: '""').
-                                                Note that the parameters need to be wrapped in quotes.
-        --params_talon                      :   talon parameters (default: '"--create_novel_spliced_genes"').
-                                                Note that the parameters need to be wrapped in quotes.
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        output_dir                          :   ${params.output_dir}
-        reference_genes_gtf_file            :   ${params.reference_genes_gtf_file}
-        params_talon_initdb                 :   ${params_talon_initdb}
-        params_talon                        :   ${params_talon}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .map { row -> tuple(
-        "${row.sample_id}",
-        "${row.bam_file}",
-        "${row.bam_bai_file}") }
-    .set { input_bam_files_ch }
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow ISOFORM_CHARACTERIZATION_TALON {
     take:
@@ -117,9 +53,58 @@ workflow ISOFORM_CHARACTERIZATION_TALON {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             =================================
+             Characterize isoforms using Talon
+             =================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Run Talon.
+
+        usage: nexus run --nf-workflow isoform_characterization_talon.nf [required] [optional] [--help]
+
+        required arguments:
+            -c                                  :   Nextflow .config file.
+            -w                                  :   Nextflow work directory path.
+            --samples_tsv_file                  :   TSV file with the following columns:
+                                                    'sample_id', 'bam_file', 'bam_bai_file'.
+            --output_dir                        :   Directory to which output files will be copied.
+            --reference_genes_gtf_file          :   Reference genes GTF file.
+
+        optional arguments:
+            --params_talon_initdb               :   talon_initialize_database parameters (default: '""').
+                                                    Note that the parameters need to be wrapped in quotes.
+            --params_talon                      :   talon parameters (default: '"--create_novel_spliced_genes"').
+                                                    Note that the parameters need to be wrapped in quotes.
+        """.stripIndent()
+        exit 0
+    }
+
+    def params_talon_initdb = (params.params_talon_initdb == true) ? '' : params.params_talon_initdb
+    def params_talon        = (params.params_talon == true) ? '' : params.params_talon
+
+    log.info"""\
+        output_dir                          :   ${params.output_dir}
+        reference_genes_gtf_file            :   ${params.reference_genes_gtf_file}
+        params_talon_initdb                 :   ${params_talon_initdb}
+        params_talon                        :   ${params_talon}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.bam_file}",
+            "${row.bam_bai_file}") }
+        .set { input_bam_files_ch }
+
     ISOFORM_CHARACTERIZATION_TALON(
         input_bam_files_ch,
         params.reference_genes_gtf_file,

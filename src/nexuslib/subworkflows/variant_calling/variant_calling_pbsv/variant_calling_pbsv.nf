@@ -26,78 +26,8 @@ params.reference_genome_fasta_file      = ''
 params.params_pbsv_discover             = '--ccs --min-gap-comp-id-perc 97 --min-mapq 20'
 params.params_pbsv_call                 = '--ccs --call-min-reads-per-strand-all-samples 0 --call-min-read-perc-one-sample 10 --call-min-reads-all-samples 3 --call-min-reads-one-sample 3'
 
-if (params.params_pbsv_discover == true) {
-    params_pbsv_discover = ''
-} else {
-    params_pbsv_discover = params.params_pbsv_discover
-}
-
-if (params.params_pbsv_call == true) {
-    params_pbsv_call = ''
-} else {
-    params_pbsv_call = params.params_pbsv_call
-}
-
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         =============================================================================
-         Identify structural variants in long-read DNA sequencing BAM files using Pbsv
-         =============================================================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1. Run Pbsv.
-
-    usage: nexus run --nf-workflow variant_calling_pbsv.nf [required] [optional] [--help]
-
-    required arguments:
-        -c                                  :   Nextflow .config file.
-        -w                                  :   Nextflow work directory path.
-        --samples_tsv_file                  :   TSV file with the following columns:
-                                                'sample_id', 'bam_file', 'bam_bai_file'.
-        --output_dir                        :   Directory to which output files will be copied.
-        --reference_genome_fasta_file       :   Reference genome FASTA file.
-
-    optional arguments:
-        --params_pbsv_discover              :   Pbsv 'discover' parameters (default: '"--ccs --min-gap-comp-id-perc 97 --min-mapq 20"').
-                                                Note that the parameters need to be wrapped in quotes.
-        --params_pbsv_call                  :   Pbsv 'call' parameters (default:
-                                                '"--ccs
-                                                  --call-min-reads-per-strand-all-samples 0
-                                                  --call-min-read-perc-one-sample 10
-                                                  --call-min-reads-all-samples 3
-                                                  --call-min-reads-one-sample 3"').
-                                                Note that the parameters need to be wrapped in quotes.
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        samples_tsv_file                    :   ${params.samples_tsv_file}
-        output_dir                          :   ${params.output_dir}
-        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
-        params_pbsv_discover                :   ${params_pbsv_discover}
-        params_pbsv_call                    :   ${params_pbsv_call}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .map { row -> tuple(
-        "${row.sample_id}",
-        "${row.bam_file}",
-        "${row.bam_bai_file}") }
-    .set { input_bam_files_ch }
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow VARIANT_CALLING_PBSV {
     take:
@@ -123,9 +53,64 @@ workflow VARIANT_CALLING_PBSV {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             =============================================================================
+             Identify structural variants in long-read DNA sequencing BAM files using Pbsv
+             =============================================================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Run Pbsv.
+
+        usage: nexus run --nf-workflow variant_calling_pbsv.nf [required] [optional] [--help]
+
+        required arguments:
+            -c                                  :   Nextflow .config file.
+            -w                                  :   Nextflow work directory path.
+            --samples_tsv_file                  :   TSV file with the following columns:
+                                                    'sample_id', 'bam_file', 'bam_bai_file'.
+            --output_dir                        :   Directory to which output files will be copied.
+            --reference_genome_fasta_file       :   Reference genome FASTA file.
+
+        optional arguments:
+            --params_pbsv_discover              :   Pbsv 'discover' parameters (default: '"--ccs --min-gap-comp-id-perc 97 --min-mapq 20"').
+                                                    Note that the parameters need to be wrapped in quotes.
+            --params_pbsv_call                  :   Pbsv 'call' parameters (default:
+                                                    '"--ccs
+                                                      --call-min-reads-per-strand-all-samples 0
+                                                      --call-min-read-perc-one-sample 10
+                                                      --call-min-reads-all-samples 3
+                                                      --call-min-reads-one-sample 3"').
+                                                    Note that the parameters need to be wrapped in quotes.
+        """.stripIndent()
+        exit 0
+    }
+
+    def params_pbsv_discover = (params.params_pbsv_discover == true) ? '' : params.params_pbsv_discover
+    def params_pbsv_call = (params.params_pbsv_call == true) ? '' : params.params_pbsv_call
+
+    log.info"""\
+        samples_tsv_file                    :   ${params.samples_tsv_file}
+        output_dir                          :   ${params.output_dir}
+        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
+        params_pbsv_discover                :   ${params_pbsv_discover}
+        params_pbsv_call                    :   ${params_pbsv_call}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.bam_file}",
+            "${row.bam_bai_file}") }
+        .set { input_bam_files_ch }
+
     VARIANT_CALLING_PBSV(
         input_bam_files_ch,
         params.reference_genome_fasta_file,

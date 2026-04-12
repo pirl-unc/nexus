@@ -9,7 +9,7 @@ nextflow.enable.dsl=2
 // ------------------------------------------------------------
 // Step 1. Import Nextflow modules
 // ------------------------------------------------------------
-include { runNetMHCpan }    from '../../../tools/netmhcpan'
+include { runNetMHCpan4 }   from '../../../tools/netmhcpan4'
 
 // ------------------------------------------------------------
 // Step 2. Input parameters
@@ -17,107 +17,97 @@ include { runNetMHCpan }    from '../../../tools/netmhcpan'
 params.help                 = ''
 
 // Required arguments
-params.netmhcpan_home_dir   = ''
-params.netmhcpan            = ''
-params.samples_tsv_file     = ''
-params.output_dir           = ''
+params.netmhcpan4_home_dir   = ''
+params.netmhcpan4            = ''
+params.samples_tsv_file      = ''
+params.output_dir            = ''
 
 // Optional arguments
-params.params_netmhcpan     = '-BA -s -l 8,9,10,11'
-
-if (params.params_netmhcpan == true) {
-    params_netmhcpan = ''
-} else {
-    params_netmhcpan = params.params_netmhcpan
-}
+params.params_netmhcpan4     = '-BA -s -l 8,9,10,11'
 
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         ================================================
-         Predict antigen presentation using NetMHCpan 4.x
-         ================================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1. Run netMHCpan command.
-
-    usage: nexus run --nf-workflow antigen_prediction_netmhcpan4.nf [required] [optional] [--help]
-
-    required arguments:
-        -c                      :   Nextflow .config file.
-        -w                      :   Nextflow work directory path.
-        --samples_tsv_file      :   TSV file with the following columns:
-                                    'sample_id',
-                                    'fasta_file',
-                                    'mhc_alleles'.
-        --output_dir            :   Directory to which output files will be copied.
-        --netmhcpan_home_dir    :   NetMHCpan home directory path.
-        --netmhcpan             :   NetMHCpan executable path.
-
-    optional arguments:
-        --params_netmhcpan      :   netmhcpan parameters (default: '""').
-                                    Note that the parameters need to be wrapped in quotes.
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        samples_tsv_file        :   ${params.samples_tsv_file}
-        output_dir              :   ${params.output_dir}
-        netmhcpan_home_dir      :   ${params.netmhcpan_home_dir}
-        netmhcpan               :   ${params.netmhcpan}
-        params_netmhcpan        :   ${params_netmhcpan}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .map { row -> tuple(
-        "${row.sample_id}",
-        "${row.fasta_file}",
-        "${row.mhc_alleles}") }
-    .set { input_netmhcpan_files_ch }
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow ANTIGEN_PREDICTION_NETMHCPAN4 {
     take:
         input_netmhcpan_files_ch             // channel: [val(sample_id), path(fasta_file), path(mhc_alleles)]
-        netmhcpan_home_dir
-        netmhcpan
-        params_netmhcpan
+        netmhcpan4_home_dir
+        netmhcpan4
+        params_netmhcpan4
         output_dir
 
     main:
-        runNetMHCpan(
+        runNetMHCpan4(
             input_netmhcpan_files_ch,
-            netmhcpan_home_dir,
-            netmhcpan,
-            params_netmhcpan,
+            netmhcpan4_home_dir,
+            netmhcpan4,
+            params_netmhcpan4,
             output_dir
         )
 
     emit:
-        runNetMHCpan.out.f
+        runNetMHCpan4.out.f
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             ================================================
+             Predict antigen presentation using NetMHCpan 4.x
+             ================================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Run netMHCpan command.
+
+        usage: nexus run --nf-workflow antigen_prediction_netmhcpan4.nf [required] [optional] [--help]
+
+        required arguments:
+            -c                      :   Nextflow .config file.
+            -w                      :   Nextflow work directory path.
+            --samples_tsv_file      :   TSV file with the following columns:
+                                        'sample_id',
+                                        'fasta_file',
+                                        'mhc_alleles'.
+            --output_dir            :   Directory to which output files will be copied.
+            --netmhcpan4_home_dir   :   NetMHCpan home directory path.
+            --netmhcpan4            :   NetMHCpan executable path.
+
+        optional arguments:
+            --params_netmhcpan4     :   netmhcpan parameters (default: '""').
+                                        Note that the parameters need to be wrapped in quotes.
+        """.stripIndent()
+        exit 0
+    }
+
+    def params_netmhcpan4 = (params.params_netmhcpan4 == true) ? '' : params.params_netmhcpan4
+
+    log.info"""\
+        samples_tsv_file        :   ${params.samples_tsv_file}
+        output_dir              :   ${params.output_dir}
+        netmhcpan4_home_dir     :   ${params.netmhcpan4_home_dir}
+        netmhcpan4              :   ${params.netmhcpan4}
+        params_netmhcpan4       :   ${params_netmhcpan4}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.fasta_file}",
+            "${row.mhc_alleles}") }
+        .set { input_netmhcpan_files_ch }
+
     ANTIGEN_PREDICTION_NETMHCPAN4(
         input_netmhcpan_files_ch,
-        params.netmhcpan_home_dir,
-        params.netmhcpan,
-        params_netmhcpan,
+        params.netmhcpan4_home_dir,
+        params.netmhcpan4,
+        params_netmhcpan4,
         params.output_dir
     )
 }

@@ -33,94 +33,8 @@ params.sequenzautils_bam2seqz           = '-N 20 --qformat sanger'
 params.sequenzautils_seqzbinning        = '--window 50'
 params.chromosomes                      = 'chr1 chr2 chr3 chr4 chr5 chr6 chr7 chr8 chr9 chr10 chr11 chr12 chr13 chr14 chr15 chr16 chr17 chr18 chr19 chr20 chr21 ch22 chrX chrY'
 
-if (params.sequenzautils_gcwiggle == true) {
-    params_sequenzautils_gcwiggle = ''
-} else {
-    params_sequenzautils_gcwiggle = params.sequenzautils_gcwiggle
-}
-
-if (params.sequenzautils_bam2seqz == true) {
-    params_sequenzautils_bam2seqz = ''
-} else {
-    params_sequenzautils_bam2seqz = params.sequenzautils_bam2seqz
-}
-
-if (params.sequenzautils_seqzbinning == true) {
-    params_sequenzautils_seqzbinning = ''
-} else {
-    params_sequenzautils_seqzbinning = params.sequenzautils_seqzbinning
-}
-
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         ================================================================================================
-         Identify somatic copy number variants in paired-end read DNA sequencing BAM files using Sequenza
-         ================================================================================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1.  Run sequenza-utils bam2seqz.
-        2.  Merge seqz files into one seqz file.
-        3.  Run sequenza-utils seqz_binning.
-        4.  Run sequenza in R.
-
-    usage: nexus run --nf-workflow paired-end_read_dna_variant_calling_sequenza.nf [required] [optional] [--help]
-
-    required arguments:
-        --samples_tsv_file                  :   TSV file with the following columns:
-                                                'sample_id',
-                                                'tumor_bam_file',
-                                                'tumor_bam_bai_file',
-                                                'normal_bam_file',
-                                                'normal_bam_bai_file'
-        --output_dir                        :   Directory to which output files will be copied.
-        --reference_genome_fasta_file       :   Reference genome FASTA file.
-        --assembly                          :   Assembly ('hg19' or 'hg38').
-
-    optional arguments:
-        --chromosomes                       :   List of chromosomes (default: '"chr1 chr2 chr3 chr4 chr5 chr6 chr7 chr8 chr9 chr10 chr11 chr12 chr13 chr14 chr15 chr16 chr17 chr18 chr19 chr20 chr21 ch22 chrX chrY"').
-                                                Note that the parameters need to be wrapped in quotes.
-        --params_sequenzautils_gcwiggle     :   sequenza-utils 'gc_wiggle' parameters (default: '"-w 50"').
-                                                Note that the parameters need to be wrapped in quotes.
-        --params_sequenzautils_bam2seqz     :   sequenza-utils 'bam2seqz' parameters (default: '"-N 20 --qformat sanger"').
-                                                Note that the parameters need to be wrapped in quotes.
-        --params_sequenzautils_seqzbinning  :   sequenza-utils 'seqz_binning' parameters (default: '"--window 50"').
-                                                Note that the parameters need to be wrapped in quotes.
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        samples_tsv_file                    :   ${params.samples_tsv_file}
-        output_dir                          :   ${params.output_dir}
-        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
-        assembly                            :   ${params.assembly}
-        chromosomes                         :   ${params.chromosomes}
-        params_sequenzautils_gcwiggle       :   ${params_sequenzautils_gcwiggle}
-        params_sequenzautils_bam2seqz       :   ${params_sequenzautils_bam2seqz}
-        params_sequenzautils_seqzbinning    :   ${params_sequenzautils_seqzbinning}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .map { row -> tuple(
-        "${row.sample_id}",
-        "${row.tumor_bam_file}",
-        "${row.tumor_bam_bai_file}",
-        "${row.normal_bam_file}",
-        "${row.normal_bam_bai_file}") }
-    .set { input_bam_files_ch }
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow VARIANT_CALLING_SEQUENZA {
     take:
@@ -181,9 +95,75 @@ workflow VARIANT_CALLING_SEQUENZA {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             ================================================================================================
+             Identify somatic copy number variants in paired-end read DNA sequencing BAM files using Sequenza
+             ================================================================================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1.  Run sequenza-utils bam2seqz.
+            2.  Merge seqz files into one seqz file.
+            3.  Run sequenza-utils seqz_binning.
+            4.  Run sequenza in R.
+
+        usage: nexus run --nf-workflow paired-end_read_dna_variant_calling_sequenza.nf [required] [optional] [--help]
+
+        required arguments:
+            --samples_tsv_file                  :   TSV file with the following columns:
+                                                    'sample_id',
+                                                    'tumor_bam_file',
+                                                    'tumor_bam_bai_file',
+                                                    'normal_bam_file',
+                                                    'normal_bam_bai_file'
+            --output_dir                        :   Directory to which output files will be copied.
+            --reference_genome_fasta_file       :   Reference genome FASTA file.
+            --assembly                          :   Assembly ('hg19' or 'hg38').
+
+        optional arguments:
+            --chromosomes                       :   List of chromosomes (default: '"chr1 chr2 chr3 chr4 chr5 chr6 chr7 chr8 chr9 chr10 chr11 chr12 chr13 chr14 chr15 chr16 chr17 chr18 chr19 chr20 chr21 ch22 chrX chrY"').
+                                                    Note that the parameters need to be wrapped in quotes.
+            --params_sequenzautils_gcwiggle     :   sequenza-utils 'gc_wiggle' parameters (default: '"-w 50"').
+                                                    Note that the parameters need to be wrapped in quotes.
+            --params_sequenzautils_bam2seqz     :   sequenza-utils 'bam2seqz' parameters (default: '"-N 20 --qformat sanger"').
+                                                    Note that the parameters need to be wrapped in quotes.
+            --params_sequenzautils_seqzbinning  :   sequenza-utils 'seqz_binning' parameters (default: '"--window 50"').
+                                                    Note that the parameters need to be wrapped in quotes.
+        """.stripIndent()
+        exit 0
+    }
+
+    def params_sequenzautils_gcwiggle    = (params.sequenzautils_gcwiggle == true) ? '' : params.sequenzautils_gcwiggle
+    def params_sequenzautils_bam2seqz    = (params.sequenzautils_bam2seqz == true) ? '' : params.sequenzautils_bam2seqz
+    def params_sequenzautils_seqzbinning = (params.sequenzautils_seqzbinning == true) ? '' : params.sequenzautils_seqzbinning
+
+    log.info"""\
+        samples_tsv_file                    :   ${params.samples_tsv_file}
+        output_dir                          :   ${params.output_dir}
+        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
+        assembly                            :   ${params.assembly}
+        chromosomes                         :   ${params.chromosomes}
+        params_sequenzautils_gcwiggle       :   ${params_sequenzautils_gcwiggle}
+        params_sequenzautils_bam2seqz       :   ${params_sequenzautils_bam2seqz}
+        params_sequenzautils_seqzbinning    :   ${params_sequenzautils_seqzbinning}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.tumor_bam_file}",
+            "${row.tumor_bam_bai_file}",
+            "${row.normal_bam_file}",
+            "${row.normal_bam_bai_file}") }
+        .set { input_bam_files_ch }
+
     VARIANT_CALLING_SEQUENZA(
         input_bam_files_ch,
         params.reference_genome_fasta_file,

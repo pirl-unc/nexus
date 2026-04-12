@@ -42,10 +42,10 @@ WORKFLOW_LABELS = {
     "isoform_characterization_short-read": "Isoform Characterization (Short-read)",
     "quantification_long-read": "Quantification (Long-read)",
     "quantification_short-read": "Quantification (Short-read)",
-    "variant_calling_long-read-germline": "Variant Calling (Long-read Germline)",
-    "variant_calling_long-read-somatic": "Variant Calling (Long-read Somatic)",
-    "variant_calling_short-read-germline": "Variant Calling (Short-read Germline)",
-    "variant_calling_short-read-somatic": "Variant Calling (Short-read Somatic)",
+    "variant_calling_long-read-dna-germline": "Variant Calling (Long-read DNA Germline)",
+    "variant_calling_long-read-dna-somatic": "Variant Calling (Long-read DNA Somatic)",
+    "variant_calling_short-read-dna-germline": "Variant Calling (Short-read DNA Germline)",
+    "variant_calling_short-read-dna-somatic": "Variant Calling (Short-read DNA Somatic)",
 }
 
 
