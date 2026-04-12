@@ -33,6 +33,7 @@ workflow QUANTIFICATION_KALLISTO_PE {
     take:
         input_fastq_files_ch
         reference_transcripts_fasta_file
+        params_kallisto_index
         params_kallisto_quant
         output_dir
 
@@ -107,6 +108,7 @@ workflow {
     QUANTIFICATION_KALLISTO_PE(
         input_fastq_files_ch,
         params.reference_transcripts_fasta_file,
+        params_kallisto_index,
         params_kallisto_quant,
         params.output_dir
     )
