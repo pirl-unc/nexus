@@ -87,6 +87,7 @@ workflow QUANTIFICATION_SHORTREAD {
             QUANTIFICATION_KALLISTO_PE(
                 input_fastq_files_ch,
                 reference_transcripts_fasta_file,
+                cfg_kallisto.index_extra_args ?: '-k 31',
                 cfg_kallisto.quant_extra_args ?: '',
                 output_dir
             )
