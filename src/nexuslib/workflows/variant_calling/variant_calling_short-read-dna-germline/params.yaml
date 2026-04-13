@@ -1,0 +1,161 @@
+# =============================================================================
+# params.yaml — variant_calling_short-read-dna-germline
+#
+# Usage:
+#   nextflow run variant_calling_short-read-dna-germline.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with columns:
+#   sample_id
+#   bam_file
+#   bam_bai_file
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+# Reference genome FASTA file
+reference_genome_fasta_file: ""
+
+
+# -----------------------------------------------------------------------------
+# Optional — general
+# -----------------------------------------------------------------------------
+
+# Methods to run. Comma-separated list or 'all'.
+# Allowed values:
+#   all, clair3, deepvariant, delly2, dysgu, gridss2,
+#   haplotypecaller, lumpy, manta, octopus, pindel, strelka2
+methods: "all"
+
+
+# -----------------------------------------------------------------------------
+# Clair3
+# Optional arguments.
+# -----------------------------------------------------------------------------
+clair3:
+  # Extra CLI arguments passed directly to Clair3.
+  extra_args: "--model_path=/opt/models/ilmn/ --platform=ilmn --min_coverage=3"
+
+
+# -----------------------------------------------------------------------------
+# DeepVariant
+# Required when methods includes 'deepvariant' or 'all':
+#   input_path, output_path
+# Optional otherwise.
+# -----------------------------------------------------------------------------
+deepvariant:
+  # Required when running DeepVariant
+  input_path: ""
+  output_path: ""
+
+  # Containerization engine: 'singularity' or 'docker'
+  containerization: "singularity"
+
+  # DeepVariant --model_type value
+  model_type: "WGS"
+
+  # Path to the run_deepvariant binary
+  bin_path: "/opt/deepvariant/bin/run_deepvariant"
+
+  # DeepVariant version
+  bin_version: "1.9.0"
+
+
+# -----------------------------------------------------------------------------
+# Delly2
+# Required when methods includes 'delly2' or 'all':
+#   exclude_tsv_file
+# Optional otherwise.
+# -----------------------------------------------------------------------------
+delly2:
+  # Required when running Delly2
+  exclude_tsv_file: ""
+
+  # Extra CLI arguments passed directly to delly2 call.
+  extra_args: "--map-qual 20"
+
+
+# -----------------------------------------------------------------------------
+# Dysgu
+# Optional arguments.
+# -----------------------------------------------------------------------------
+dysgu:
+  # Extra CLI arguments passed directly to dysgu run.
+  run_extra_args: "--mode pe --min-support 3 --min-size 30 --mq 20"
+
+  # Extra CLI arguments passed directly to dysgu filter.
+  filter_extra_args: "--support-fraction 0.05 --min-mapq 20 --pass-prob 0.2"
+
+
+# -----------------------------------------------------------------------------
+# GRIDSS2
+# Optional arguments.
+# -----------------------------------------------------------------------------
+gridss2:
+  # Extra CLI arguments passed directly to gridss.
+  extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# HaplotypeCaller
+# Optional arguments.
+# -----------------------------------------------------------------------------
+haplotypecaller:
+  # Extra CLI arguments passed directly to GATK4 HaplotypeCaller.
+  extra_args: ""
+
+  # Chromosomes (for compute parallelization purposes)
+  chromosomes: "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY"
+
+
+# -----------------------------------------------------------------------------
+# Manta
+# Optional arguments.
+# -----------------------------------------------------------------------------
+manta:
+  # Extra CLI arguments passed directly to configManta.py.
+  config_extra_args: ""
+
+  # Extra CLI arguments passed directly to runWorkflow.py.
+  run_extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# Octopus
+# Required when methods includes 'octopus' or 'all':
+#   regions_txt_file
+# Optional otherwise.
+# -----------------------------------------------------------------------------
+octopus:
+  # Required when running Octopus
+  regions_txt_file: ""
+
+  # Extra CLI arguments passed directly to octopus.
+  extra_args: "--min-mapping-quality 20 --min-supporting-reads 3"
+
+
+# -----------------------------------------------------------------------------
+# Pindel
+# Optional arguments.
+# -----------------------------------------------------------------------------
+pindel:
+  # Extra CLI arguments passed directly to pindel.
+  extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# Strelka2
+# Optional arguments.
+# -----------------------------------------------------------------------------
+strelka2:
+  # Extra CLI arguments passed directly to configureStrelkaGermlineWorkflow.py.
+  extra_args: ""

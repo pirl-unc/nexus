@@ -26,64 +26,8 @@ params.reference_genes_gtf_file     = ''
 // Optional arguments
 params.params_mandalorion           = ''
 
-if (params.params_mandalorion == true) {
-    params_mandalorion = ''
-} else {
-    params_mandalorion = params.params_mandalorion
-}
-
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         =======================================
-         Characterize isoforms using Mandalorion
-         =======================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1. Run Mandalorion.
-
-    usage: nexus run --nf-workflow isoform_characterization_mandalorion.nf [required] [optional] [--help]
-
-    required arguments:
-        -c                                  :   Nextflow .config file.
-        -w                                  :   Nextflow work directory path.
-        --samples_tsv_file                  :   TSV file with the following columns:
-                                                'sample_id', 'fastq_file'.
-        --output_dir                        :   Directory to which output files will be copied.
-        --reference_genome_fasta_file       :   Reference genome FASTA file.
-        --reference_genes_gtf_file          :   Reference genes GTF file.
-
-    optional arguments:
-        --params_mandalorion                :   Mando.py parameters (default: '""').
-                                                Note that the parameters need to be wrapped in quotes.
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        output_dir                          :   ${params.output_dir}
-        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
-        reference_genes_gtf_file            :   ${params.reference_genes_gtf_file}
-        params_mandalorion                  :   ${params_mandalorion}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .map { row -> tuple(
-        "${row.sample_id}",
-        "${row.fastq_file}") }
-    .set { input_fastq_files_ch }
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow ISOFORM_CHARACTERIZATION_MANDALORION {
     take:
@@ -115,9 +59,55 @@ workflow ISOFORM_CHARACTERIZATION_MANDALORION {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             =======================================
+             Characterize isoforms using Mandalorion
+             =======================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Run Mandalorion.
+
+        usage: nexus run --nf-workflow isoform_characterization_mandalorion.nf [required] [optional] [--help]
+
+        required arguments:
+            -c                                  :   Nextflow .config file.
+            -w                                  :   Nextflow work directory path.
+            --samples_tsv_file                  :   TSV file with the following columns:
+                                                    'sample_id', 'fastq_file'.
+            --output_dir                        :   Directory to which output files will be copied.
+            --reference_genome_fasta_file       :   Reference genome FASTA file.
+            --reference_genes_gtf_file          :   Reference genes GTF file.
+
+        optional arguments:
+            --params_mandalorion                :   Mando.py parameters (default: '""').
+                                                    Note that the parameters need to be wrapped in quotes.
+        """.stripIndent()
+        exit 0
+    }
+
+    def params_mandalorion = (params.params_mandalorion == true) ? '' : params.params_mandalorion
+
+    log.info"""\
+        output_dir                          :   ${params.output_dir}
+        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
+        reference_genes_gtf_file            :   ${params.reference_genes_gtf_file}
+        params_mandalorion                  :   ${params_mandalorion}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.fastq_file}") }
+        .set { input_fastq_files_ch }
+
     ISOFORM_CHARACTERIZATION_MANDALORION(
         input_fastq_files_ch,
         params.reference_genome_fasta_file,

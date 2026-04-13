@@ -6,7 +6,7 @@ requires = [
 
 [project]
 name = "nexus"
-version = "0.2.0a1"
+version = "0.2.0a2"
 description = "NEXflow's Ultimate Streamliner"
 requires-python = ">=3.10"
 readme = "README.md"
@@ -36,9 +36,12 @@ where = ["src"]
 nexuslib = ["tools/**/*.nf", "subworkflows/**/*.nf", "subworkflows/**/*.yaml", "workflows/**/*.nf", "workflows/**/*.yaml", "nextflow/nextflow_slurm.config"]
 
 [project.scripts]
-nexus = "nexuslib.cli.cli_main:run"
-nexus_convert_netmhcpan_txt2tsv = "nexuslib.scripts.convert_netmhcpan_txt2tsv:run"
-nexus_create_abra2_targets_bed_file = "nexuslib.scripts.create_abra2_targets_bed_file:run"
-nexus_filter_rnabloom2_transcripts = "nexuslib.scripts.filter_rnabloom2_transcripts:run"
-nexus_filter_unspliced_transcripts = "nexuslib.scripts.filter_unspliced_transcripts:run"
-nexus_plot_scrna_barcode_rank = "nexuslib.scripts.plot_scrna_barcode_rank:run"
+nexus                                   = "nexuslib.cli.cli_main:run"
+nexus_convert_netmhcpan_txt2tsv         = "nexuslib.scripts.convert_netmhcpan_txt2tsv:run"
+nexus_convert_scrna_bam2fastq           = "nexuslib.scripts.convert_scrna_bam2fastq:run"
+nexus_count_scrna_assembly_support      = "nexuslib.scripts.count_scrna_assembly_support:run"
+nexus_create_abra2_targets_bed_file     = "nexuslib.scripts.create_abra2_targets_bed_file:run"
+nexus_filter_rnabloom2_transcripts      = "nexuslib.scripts.filter_rnabloom2_transcripts:run"
+nexus_filter_scrna_assembly             = "nexuslib.scripts.filter_scrna_assembly:run"
+nexus_filter_unspliced_transcripts      = "nexuslib.scripts.filter_unspliced_transcripts:run"
+nexus_find_scrna_barcode_knee           = "nexuslib.scripts.find_scrna_barcode_knee:run"

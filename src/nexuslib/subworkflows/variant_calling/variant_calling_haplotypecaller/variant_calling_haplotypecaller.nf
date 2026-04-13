@@ -28,68 +28,8 @@ params.reference_genome_fasta_file              = ''
 params.params_gatk4haplotypecaller              = ''
 params.chromosomes                              = 'chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM'
 
-if (params.params_gatk4haplotypecaller == true) {
-    params_gatk4haplotypecaller = ''
-} else {
-    params_gatk4haplotypecaller = params.params_gatk4haplotypecaller
-}
-
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         ==================================================================================================
-         Identify germline variants in paired-end read DNA sequencing BAM files using GATK4-HaplotypeCaller
-         ==================================================================================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1. Run GATK4 HaplotypeCaller.
-        2. Run Picard MergeVcfs,
-
-    usage: nexus run --nf-workflow variant_calling_haplotypecaller.nf [required] [optional] [--help]
-
-    required arguments:
-        --samples_tsv_file                      :   TSV file with the following columns:
-                                                    'sample_id',
-                                                    'bam_file',
-                                                    'bam_bai_file'.
-        --output_dir                            :   Directory to which output files will be symlinked.
-        --reference_genome_fasta_file           :   Reference genome FASTA file.
-
-    optional arguments:
-        --params_gatk4haplotypecaller           :   GATK4 HaplotypeCaller parameters (default: '""').
-                                                    Note that the parameters need to be wrapped in quotes.
-        --chromosomes                           :   Chromosomes to parallelize
-                                                    (default: 'chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM').
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        samples_tsv_file                        :   ${params.samples_tsv_file}
-        output_dir                              :   ${params.output_dir}
-        reference_genome_fasta_file             :   ${params.reference_genome_fasta_file}
-        params_gatk4haplotypecaller             :   ${params_gatk4haplotypecaller}
-        chromosomes                             :   ${params.chromosomes}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .map { row -> tuple(
-        "${row.sample_id}",
-        "${row.bam_file}",
-        "${row.bam_bai_file}") }
-    .set { input_bam_files_ch }
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow VARIANT_CALLING_HAPLOTYPECALLER {
     take:
@@ -139,9 +79,59 @@ workflow VARIANT_CALLING_HAPLOTYPECALLER {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             ==================================================================================================
+             Identify germline variants in paired-end read DNA sequencing BAM files using GATK4-HaplotypeCaller
+             ==================================================================================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Run GATK4 HaplotypeCaller.
+            2. Run Picard MergeVcfs,
+
+        usage: nexus run --nf-workflow variant_calling_haplotypecaller.nf [required] [optional] [--help]
+
+        required arguments:
+            --samples_tsv_file                      :   TSV file with the following columns:
+                                                        'sample_id',
+                                                        'bam_file',
+                                                        'bam_bai_file'.
+            --output_dir                            :   Directory to which output files will be symlinked.
+            --reference_genome_fasta_file           :   Reference genome FASTA file.
+
+        optional arguments:
+            --params_gatk4haplotypecaller           :   GATK4 HaplotypeCaller parameters (default: '""').
+                                                        Note that the parameters need to be wrapped in quotes.
+            --chromosomes                           :   Chromosomes to parallelize
+                                                        (default: 'chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM').
+        """.stripIndent()
+        exit 0
+    }
+
+    def params_gatk4haplotypecaller = (params.params_gatk4haplotypecaller == true) ? '' : params.params_gatk4haplotypecaller
+
+    log.info"""\
+        samples_tsv_file                        :   ${params.samples_tsv_file}
+        output_dir                              :   ${params.output_dir}
+        reference_genome_fasta_file             :   ${params.reference_genome_fasta_file}
+        params_gatk4haplotypecaller             :   ${params_gatk4haplotypecaller}
+        chromosomes                             :   ${params.chromosomes}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.bam_file}",
+            "${row.bam_bai_file}") }
+        .set { input_bam_files_ch }
+
     VARIANT_CALLING_HAPLOTYPECALLER(
         input_bam_files_ch,
         params.output_dir,

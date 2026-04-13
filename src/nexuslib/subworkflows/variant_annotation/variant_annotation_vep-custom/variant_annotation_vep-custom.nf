@@ -25,68 +25,8 @@ params.reference_genes_gtf_file         = ''
 params.reference_genes_gtf_source       = 'GENCODE'
 params.params_vep                       = '--species homo_sapiens --offline --cache --assembly GRCh38'
 
-if (params.params_vep == true) {
-    params_vep = ''
-} else {
-    params_vep = params.params_vep
-}
-
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         ============================================================
-         Annotate variants using VEP using custom FASTA and GTF files
-         ============================================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1. Run VEP.
-
-    usage: nexus run --nf-workflow variant_annotation_vep-custom.nf [required] [optional] [--help]
-
-    required arguments:
-        -c                                  :   Nextflow .config file.
-        -w                                  :   Nextflow work directory path.
-        --samples_tsv_file                  :   TSV file with the following columns: 'sample_id', 'vcf_file'.
-        --vep_dir                           :   VEP cache directory.
-        --output_dir                        :   Directory to which output files will be copied.
-        --reference_genome_fasta_file       :   Reference genome FASTA file.
-        --reference_genes_gtf_file          :   Reference genes GTF file.
-
-    optional arguments:
-        --reference_genes_gtf_source        :   Reference genes GTF file source (default: GENCODE).
-        --params_vep                        :   VEP parameters (default: '"--species homo_sapiens --database --offline --cache --assembly GRCh38"').
-                                                Note that the parameters need to be wrapped in quotes.
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        samples_tsv_file                :   ${params.samples_tsv_file}
-        vep_dir                         :   ${params.vep_dir}
-        output_dir                      :   ${params.output_dir}
-        reference_genome_fasta_file     :   ${params.reference_genome_fasta_file}
-        reference_genes_gtf_file        :   ${params.reference_genes_gtf_file}
-        reference_genes_gtf_source      :   ${params.reference_genes_gtf_source}
-        params_vep                      :   ${params_vep}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .map { row -> tuple(
-        "${row.sample_id}",
-        "${row.vcf_file}") }
-    .set { input_vcf_files_ch }
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow VARIANT_ANNOTATION_VEP_CUSTOM {
     take:
@@ -124,9 +64,59 @@ workflow VARIANT_ANNOTATION_VEP_CUSTOM {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             ============================================================
+             Annotate variants using VEP using custom FASTA and GTF files
+             ============================================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Run VEP.
+
+        usage: nexus run --nf-workflow variant_annotation_vep-custom.nf [required] [optional] [--help]
+
+        required arguments:
+            -c                                  :   Nextflow .config file.
+            -w                                  :   Nextflow work directory path.
+            --samples_tsv_file                  :   TSV file with the following columns: 'sample_id', 'vcf_file'.
+            --vep_dir                           :   VEP cache directory.
+            --output_dir                        :   Directory to which output files will be copied.
+            --reference_genome_fasta_file       :   Reference genome FASTA file.
+            --reference_genes_gtf_file          :   Reference genes GTF file.
+
+        optional arguments:
+            --reference_genes_gtf_source        :   Reference genes GTF file source (default: GENCODE).
+            --params_vep                        :   VEP parameters (default: '"--species homo_sapiens --database --offline --cache --assembly GRCh38"').
+                                                    Note that the parameters need to be wrapped in quotes.
+        """.stripIndent()
+        exit 0
+    }
+
+    def params_vep = (params.params_vep == true) ? '' : params.params_vep
+
+    log.info"""\
+        samples_tsv_file                :   ${params.samples_tsv_file}
+        vep_dir                         :   ${params.vep_dir}
+        output_dir                      :   ${params.output_dir}
+        reference_genome_fasta_file     :   ${params.reference_genome_fasta_file}
+        reference_genes_gtf_file        :   ${params.reference_genes_gtf_file}
+        reference_genes_gtf_source      :   ${params.reference_genes_gtf_source}
+        params_vep                      :   ${params_vep}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.vcf_file}") }
+        .set { input_vcf_files_ch }
+
     VARIANT_ANNOTATION_VEP_CUSTOM(
         input_vcf_files_ch,
         params.vep_dir,

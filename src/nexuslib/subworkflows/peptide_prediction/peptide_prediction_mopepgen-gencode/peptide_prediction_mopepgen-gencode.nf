@@ -25,93 +25,15 @@ include { decompressFile as decompressGtf }        from '../../../tools/utils'
 include { decompressFile as decompressProteome }   from '../../../tools/utils'
 
 // ------------------------------------------------------------
-// Step 2. Print banner and help
-// ------------------------------------------------------------
-log.info """\
-         ===============================================
-         Predict mutant peptide sequences using moPepGen
-         ===============================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info """\
-    usage: nexus run --nf-workflow peptide_prediction_mopepgen-gencode.nf -params-file params.yaml [--help]
-
-    All parameters are supplied via a params.yaml file. See params.yaml for
-    full documentation and defaults.
-    """.stripIndent()
-    exit 0
-}
-
-// ------------------------------------------------------------
-// Step 3. Validate inputs
-// ------------------------------------------------------------
-if (!params.samples_tsv_file)            error "ERROR: samples_tsv_file is required."
-if (!params.output_dir)                  error "ERROR: output_dir is required."
-if (!params.reference_genome_fasta_file) error "ERROR: reference_genome_fasta_file is required."
-if (!params.reference_genes_gtf_file)    error "ERROR: reference_genes_gtf_file is required."
-if (!params.reference_proteome_fasta_file) error "ERROR: reference_proteome_fasta_file is required."
-if (!params.vep.dir)                     error "ERROR: vep.dir is required."
-
-log.info """\
-    samples_tsv_file             :   ${params.samples_tsv_file}
-    reference_genome_fasta_file  :   ${params.reference_genome_fasta_file}
-    reference_genes_gtf_file     :   ${params.reference_genes_gtf_file}
-    reference_proteome_fasta_file:   ${params.reference_proteome_fasta_file}
-    output_dir                   :   ${params.output_dir}
-    vep.dir                      :   ${params.vep.dir}
-    """.stripIndent()
-
-// ------------------------------------------------------------
-// Step 4. Helper functions and channels
+// Step 2. Helper functions
 // ------------------------------------------------------------
 def isValidFile(filePath) {
     if (filePath == null || filePath == '' || filePath == 'NA' || filePath == 'na') return false
     return file(filePath).exists()
 }
 
-// Auto-discover VCF columns (any column ending in _vcf_file).
-// Emit tuple(sample_id, caller_name, vcf_file) for each valid VCF.
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .flatMap { row ->
-        def entries = []
-        row.each { col, val ->
-            if (col.endsWith('_vcf_file') && isValidFile(val)) {
-                def caller = col.replace('_vcf_file', '')
-                entries.add(tuple(row.sample_id, caller, val))
-            }
-        }
-        return entries
-    }
-    .set { vep_input_with_caller_ch }
-
-// Split into: VEP input (sample_id, vcf_file) and caller metadata (sample_id, caller, vcf_basename)
-vep_input_ch = vep_input_with_caller_ch.map { sid, caller, vcf -> tuple(sid, vcf) }
-// Track caller name keyed by (sample_id, vcf_basename) so we can rejoin after VEP/filterVEP
-caller_metadata_ch = vep_input_with_caller_ch.map { sid, caller, vcf ->
-    tuple(sid, file(vcf).baseName, caller)
-}
-
-// Parse direct-parser columns from the same TSV
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .set { tsv_rows_ch }
-
-// Direct parser input channels (only emitted when file is valid)
-reditools2_ch    = tsv_rows_ch.filter { isValidFile(it.reditools2_tsv_file) }
-                              .map { row -> tuple(row.sample_id, row.reditools2_tsv_file) }
-arriba_ch        = tsv_rows_ch.filter { isValidFile(it.arriba_tsv_file) }
-                              .map { row -> tuple(row.sample_id, row.arriba_tsv_file) }
-rmats_ch         = tsv_rows_ch.filter { isValidFile(it.rmats_output_dir) }
-                              .map { row -> tuple(row.sample_id, row.rmats_output_dir) }
-circexplorer2_ch = tsv_rows_ch.filter { isValidFile(it.circexplorer2_bed_file) }
-                              .map { row -> tuple(row.sample_id, row.circexplorer2_bed_file) }
-
 // ------------------------------------------------------------
-// Step 5. Workflow
+// Step 3. Workflow
 // ------------------------------------------------------------
 workflow PEPTIDE_PREDICTION_MOPEPGEN {
     take:
@@ -267,9 +189,81 @@ workflow PEPTIDE_PREDICTION_MOPEPGEN {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             ===============================================
+             Predict mutant peptide sequences using moPepGen
+             ===============================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info """\
+        usage: nexus run --nf-workflow peptide_prediction_mopepgen-gencode.nf -params-file params.yaml [--help]
+
+        All parameters are supplied via a params.yaml file. See params.yaml for
+        full documentation and defaults.
+        """.stripIndent()
+        exit 0
+    }
+
+    if (!params.samples_tsv_file)              error "ERROR: samples_tsv_file is required."
+    if (!params.output_dir)                    error "ERROR: output_dir is required."
+    if (!params.reference_genome_fasta_file)   error "ERROR: reference_genome_fasta_file is required."
+    if (!params.reference_genes_gtf_file)      error "ERROR: reference_genes_gtf_file is required."
+    if (!params.reference_proteome_fasta_file) error "ERROR: reference_proteome_fasta_file is required."
+    if (!params.vep.dir)                       error "ERROR: vep.dir is required."
+
+    log.info """\
+        samples_tsv_file             :   ${params.samples_tsv_file}
+        reference_genome_fasta_file  :   ${params.reference_genome_fasta_file}
+        reference_genes_gtf_file     :   ${params.reference_genes_gtf_file}
+        reference_proteome_fasta_file:   ${params.reference_proteome_fasta_file}
+        output_dir                   :   ${params.output_dir}
+        vep.dir                      :   ${params.vep.dir}
+        """.stripIndent()
+
+    // Auto-discover VCF columns (any column ending in _vcf_file).
+    // Emit tuple(sample_id, caller_name, vcf_file) for each valid VCF.
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .flatMap { row ->
+            def entries = []
+            row.each { col, val ->
+                if (col.endsWith('_vcf_file') && isValidFile(val)) {
+                    def caller = col.replace('_vcf_file', '')
+                    entries.add(tuple(row.sample_id, caller, val))
+                }
+            }
+            return entries
+        }
+        .set { vep_input_with_caller_ch }
+
+    // Split into: VEP input (sample_id, vcf_file) and caller metadata (sample_id, caller, vcf_basename)
+    def vep_input_ch = vep_input_with_caller_ch.map { sid, caller, vcf -> tuple(sid, vcf) }
+    // Track caller name keyed by (sample_id, vcf_basename) so we can rejoin after VEP/filterVEP
+    def caller_metadata_ch = vep_input_with_caller_ch.map { sid, caller, vcf ->
+        tuple(sid, file(vcf).baseName, caller)
+    }
+
+    // Parse direct-parser columns from the same TSV
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .set { tsv_rows_ch }
+
+    // Direct parser input channels (only emitted when file is valid)
+    def reditools2_ch    = tsv_rows_ch.filter { isValidFile(it.reditools2_tsv_file) }
+                                      .map { row -> tuple(row.sample_id, row.reditools2_tsv_file) }
+    def arriba_ch        = tsv_rows_ch.filter { isValidFile(it.arriba_tsv_file) }
+                                      .map { row -> tuple(row.sample_id, row.arriba_tsv_file) }
+    def rmats_ch         = tsv_rows_ch.filter { isValidFile(it.rmats_output_dir) }
+                                      .map { row -> tuple(row.sample_id, row.rmats_output_dir) }
+    def circexplorer2_ch = tsv_rows_ch.filter { isValidFile(it.circexplorer2_bed_file) }
+                                      .map { row -> tuple(row.sample_id, row.circexplorer2_bed_file) }
+
     PEPTIDE_PREDICTION_MOPEPGEN(
         vep_input_ch,
         caller_metadata_ch,

@@ -52,22 +52,19 @@ def run_nexus_avail_from_parsed_args(args):
     """
     Runs Nexus 'avail' command using parameters from parsed arguments.
     """
-    print("Available workflows:")
-    resources_path = resources.files('nexuslib').joinpath("pipelines")
-    workflows_dict = OrderedDict()
-    nf_scripts = glob.glob("%s/**/*.nf" % resources_path, recursive=True)
-    for nf_script in nf_scripts:
-        nf_script_dir = nf_script.replace(str(resources_path), '')
-        nf_script_dirs = nf_script_dir.split('/')
-        if nf_script_dirs[1] == 'modules':
-            continue
-        if nf_script_dirs[1] not in workflows_dict.keys():
-            workflows_dict[nf_script_dirs[1]] = []
-        workflows_dict[nf_script_dirs[1]].append(os.path.basename(nf_script))
-    last_key = ''
-    for key, val in workflows_dict.items():
-        if last_key != key:
-            last_key = key
+    base_path = resources.files('nexuslib')
+    for directory in ('subworkflows', 'workflows'):
+        print("%s:" % directory.capitalize())
+        resources_path = base_path.joinpath(directory)
+        nf_scripts = glob.glob("%s/**/*.nf" % resources_path, recursive=True)
+        workflows_dict = OrderedDict()
+        for nf_script in nf_scripts:
+            nf_script_dir = nf_script.replace(str(resources_path), '')
+            nf_script_dirs = nf_script_dir.split('/')
+            if nf_script_dirs[1] not in workflows_dict.keys():
+                workflows_dict[nf_script_dirs[1]] = []
+            workflows_dict[nf_script_dirs[1]].append(os.path.basename(nf_script))
+        for key, val in sorted(workflows_dict.items()):
             print('\t%s:' % (key.replace('_', ' ')[0].capitalize() + key.replace('_', ' ')[1:]))
-        for v in val:
-            print('\t\t%s' % v)
+            for v in sorted(val):
+                print('\t\t%s' % v)

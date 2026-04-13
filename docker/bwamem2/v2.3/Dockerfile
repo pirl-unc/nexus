@@ -32,7 +32,7 @@ ENV PATH /opt/conda/lib:$PATH
 RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main && \
     conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r && \
     conda update -n base -c defaults conda -y && \
-    conda install -c bioconda bwa-mem2==2.3 -y && \
+    conda install -c bioconda -c conda-forge bwa-mem2==2.3 samtools==1.21 -y && \
     conda clean -a -y
 
 # Clean up to reduce Docker image size

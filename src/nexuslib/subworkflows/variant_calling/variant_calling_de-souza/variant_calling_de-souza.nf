@@ -47,94 +47,8 @@ params.deepvariant_model_type           = 'PACBIO'
 params.deepvariant_bin_path             = '/opt/deepvariant/bin/run_deepvariant'
 params.deepvariant_bin_version          = '1.6.1'
 
-if (params.params_minimap2 == true) {
-    params_minimap2 = ''
-} else {
-    params_minimap2 = params.params_minimap2
-}
-
-if (params.params_samtools_view == true) {
-    params_samtools_view = ''
-} else {
-    params_samtools_view = params.params_samtools_view
-}
-
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         =================================================================================================================================
-         Identify RNA variants in long-read RNA sequencing FASTQ files using lrRNAseqVariantCalling (de Souza et al., Genome Biology 2023)
-         =================================================================================================================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1. Align reads to the reference using minimap2.
-        2. Filter, sort, and index using samtools.
-        3. Run GATK4 SplitNCigarReads.
-        4. Perform flag correction.
-        5. Index using samtools.
-        6. Run DeepVariant.
-
-    usage: nexus run --nf-workflow variant_calling_de-souza.nf [required] [optional] [--help]
-
-    required arguments:
-        -c                                  :   Nextflow .config file.
-        -w                                  :   Nextflow work directory path.
-        --samples_tsv_file                  :   TSV file with the following columns: 'sample_id', 'fastq_file'.
-        --output_dir                        :   Directory to which output files will be copied.
-        --reference_genome_fasta_file       :   Reference genome FASTA file.
-        --deepvariant_input_path            :   DeepVariant input path.
-        --deepvariant_output_path           :   DeepVariant output path.
-
-    optional arguments:
-        --params_minimap2                   :   Minimap2 parameters (default: '"-ax splice -uf -C5 --secondary=no"').
-                                                Note that the parameters need to be wrapped in quotes.
-        --params_samtools_view              :   Samtools view parameters (default: '"-F 2308"').
-                                                Note that the parameters need to be wrapped in quotes.
-        --platform_tag                      :   Platform tag (default: 'unknown').
-        --platform_unit_tag                 :   Platform unit tag (default: 'unknown').
-        --library_tag                       :   Library tag (default: 'unknown').
-        --deepvariant_containerization      :   DeepVariant containerization ('singularity' or 'docker'; default: 'singularity').
-        --deepvariant_model_type            :   DeepVariant --model_type parameter value (default: 'PACBIO').
-        --deepvariant_bin_path              :   DeepVariant bin path (default: '/opt/deepvariant/bin/run_deepvariant').
-        --deepvariant_bin_version           :   DeepVariant bin version (default: '1.6.0').
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        samples_tsv_file                    :   ${params.samples_tsv_file}
-        output_dir                          :   ${params.output_dir}
-        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
-        params_minimap2                     :   ${params_minimap2}
-        params_samtools_view                :   ${params_samtools_view}
-        platform_tag                        :   ${params.platform_tag}
-        platform_unit_tag                   :   ${params.platform_unit_tag}
-        library_tag                         :   ${params.library_tag}
-        deepvariant_containerization        :   ${params.deepvariant_containerization}
-        deepvariant_model_type              :   ${params.deepvariant_model_type}
-        deepvariant_bin_path                :   ${params.deepvariant_bin_path}
-        deepvariant_bin_version             :   ${params.deepvariant_bin_version}
-        deepvariant_input_path              :   ${params.deepvariant_input_path}
-        deepvariant_output_path             :   ${params.deepvariant_output_path}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .map { row -> tuple(
-        "${row.sample_id}",
-        "${row.fastq_file}") }
-    .set { input_fastq_files_ch }
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow VARIANT_CALLING_DE_SOUZA {
     take:
@@ -254,9 +168,80 @@ workflow VARIANT_CALLING_DE_SOUZA {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             =================================================================================================================================
+             Identify RNA variants in long-read RNA sequencing FASTQ files using lrRNAseqVariantCalling (de Souza et al., Genome Biology 2023)
+             =================================================================================================================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Align reads to the reference using minimap2.
+            2. Filter, sort, and index using samtools.
+            3. Run GATK4 SplitNCigarReads.
+            4. Perform flag correction.
+            5. Index using samtools.
+            6. Run DeepVariant.
+
+        usage: nexus run --nf-workflow variant_calling_de-souza.nf [required] [optional] [--help]
+
+        required arguments:
+            -c                                  :   Nextflow .config file.
+            -w                                  :   Nextflow work directory path.
+            --samples_tsv_file                  :   TSV file with the following columns: 'sample_id', 'fastq_file'.
+            --output_dir                        :   Directory to which output files will be copied.
+            --reference_genome_fasta_file       :   Reference genome FASTA file.
+            --deepvariant_input_path            :   DeepVariant input path.
+            --deepvariant_output_path           :   DeepVariant output path.
+
+        optional arguments:
+            --params_minimap2                   :   Minimap2 parameters (default: '"-ax splice -uf -C5 --secondary=no"').
+                                                    Note that the parameters need to be wrapped in quotes.
+            --params_samtools_view              :   Samtools view parameters (default: '"-F 2308"').
+                                                    Note that the parameters need to be wrapped in quotes.
+            --platform_tag                      :   Platform tag (default: 'unknown').
+            --platform_unit_tag                 :   Platform unit tag (default: 'unknown').
+            --library_tag                       :   Library tag (default: 'unknown').
+            --deepvariant_containerization      :   DeepVariant containerization ('singularity' or 'docker'; default: 'singularity').
+            --deepvariant_model_type            :   DeepVariant --model_type parameter value (default: 'PACBIO').
+            --deepvariant_bin_path              :   DeepVariant bin path (default: '/opt/deepvariant/bin/run_deepvariant').
+            --deepvariant_bin_version           :   DeepVariant bin version (default: '1.6.0').
+        """.stripIndent()
+        exit 0
+    }
+
+    def params_minimap2      = (params.params_minimap2 == true) ? '' : params.params_minimap2
+    def params_samtools_view = (params.params_samtools_view == true) ? '' : params.params_samtools_view
+
+    log.info"""\
+        samples_tsv_file                    :   ${params.samples_tsv_file}
+        output_dir                          :   ${params.output_dir}
+        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
+        params_minimap2                     :   ${params_minimap2}
+        params_samtools_view                :   ${params_samtools_view}
+        platform_tag                        :   ${params.platform_tag}
+        platform_unit_tag                   :   ${params.platform_unit_tag}
+        library_tag                         :   ${params.library_tag}
+        deepvariant_containerization        :   ${params.deepvariant_containerization}
+        deepvariant_model_type              :   ${params.deepvariant_model_type}
+        deepvariant_bin_path                :   ${params.deepvariant_bin_path}
+        deepvariant_bin_version             :   ${params.deepvariant_bin_version}
+        deepvariant_input_path              :   ${params.deepvariant_input_path}
+        deepvariant_output_path             :   ${params.deepvariant_output_path}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.fastq_file}") }
+        .set { input_fastq_files_ch }
+
     VARIANT_CALLING_DE_SOUZA(
         input_fastq_files_ch,
         params.reference_genome_fasta_file,

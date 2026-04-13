@@ -51,7 +51,7 @@ nexus run --nf-workflow variant_calling_mutect2.nf \
 #### Workflow (multiple tools)
 
 ```bash
-nexus run --nf-workflow variant_calling_short-read-somatic.nf \
+nexus run --nf-workflow variant_calling_short-read-dna-somatic.nf \
     -params-file params.yaml
 ```
 
@@ -79,7 +79,7 @@ Single-tool workflows that compose one or more tool processes into a complete an
 
 ::: {.g-col-4}
 ### Workflows
-Meta-workflows that orchestrate multiple subworkflows into end-to-end pipelines (e.g., `variant_calling_short-read-somatic`).
+Meta-workflows that orchestrate multiple subworkflows into end-to-end pipelines (e.g., `variant_calling_short-read-dna-somatic`).
 :::
 
 :::

@@ -15,7 +15,6 @@ include { runGatk4CreateSequenceDictionary }    from '../../../tools/gatk4'
 include { runGatk4IndexFeature }                from '../../../tools/gatk4'
 include { runBwaMem2 }                          from '../../../tools/bwamem2'
 include { runAbra2 }                            from '../../../tools/abra2'
-include { runSamtoolsSamToBam }                 from '../../../tools/samtools'
 include { runSamtoolsMarkdup }                  from '../../../tools/samtools'
 include { runSamtoolsFixmate }                  from '../../../tools/samtools'
 include { runGatk4BaseRecalibrator }            from '../../../tools/gatk4'
@@ -44,76 +43,7 @@ params.library_tag                      = 'unknown'
 params.perform_local_indel_realignment  = true
 
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         ==========================================================
-         Align paired-end DNA sequencing fastq files using bwa-mem2
-         ==========================================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1. Index fasta and vcf files.
-        2. Align paired-end reads to a reference genome using bwa-mem2.
-        3. Sort sam to bam files.
-        4. Perform local realignment using abra2 (optional).
-        5. Add mate score tags using samtools.
-        6. Mark PCR duplicates using samtools.
-        7. Calculate base recalibration scores using gatk4.
-        8. Apply base recalibration scores using gatk4.
-
-    usage: nexus run --nf-workflow alignment_bwamem2.nf [required] [optional] [--help]
-
-    required arguments:
-        -c                                  :   Nextflow .config file.
-        -w                                  :   Nextflow work directory path.
-        --samples_tsv_file                  :   TSV file with the following columns:
-                                                'sample_id', 'fastq_file_1', 'fastq_file_2'.
-        --output_dir                        :   Directory to which output files will be copied.
-        --reference_genome_fasta_file       :   Reference genome FASTA file.
-        --abra2_targets_bed_file            :   ABRA2 targets BED file.
-        --known_sites_vcf_files             :   GATK4 BaseRecalibrator --known-sites files. At least one VCF file must be supplied. Note that VCF files should be separated by commas.
-
-    optional arguments:
-        --chromosomes                       :   Chromosomes to recalibrate using GATK4 (default:
-                                                'chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM').
-        --platform_tag                      :   Platform tag (default: 'illumina').
-        --platform_unit_tag                 :   Platform unit tag (default: 'unknown').
-        --library_tag                       :   Library tag (default: 'unknown').
-        --perform_local_indel_realignment   :   Perform local INDEL realignment (default: true).
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        samples_tsv_file                    :   ${params.samples_tsv_file}
-        output_dir                          :   ${params.output_dir}
-        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
-        abra2_targets_bed_file              :   ${params.abra2_targets_bed_file}
-        known_sites_vcf_files               :   ${params.known_sites_vcf_files}
-        chromosomes                         :   ${params.chromosomes}
-        platform_tag                        :   ${params.platform_tag}
-        platform_unit_tag                   :   ${params.platform_unit_tag}
-        library_tag                         :   ${params.library_tag}
-        perform_local_indel_realignment     :   ${params.perform_local_indel_realignment}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .map { row -> tuple(
-        "${row.sample_id}",
-        "${row.fastq_file_1}",
-        "${row.fastq_file_2}") }
-    .set { input_fastq_files_ch }
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow INDEX_REFERENCE_FASTA {
     take:
@@ -173,7 +103,7 @@ workflow ALIGNMENT_BWAMEM2 {
         known_sites_files       = known_sites_vcf_paths.collect { file(it) }
         known_sites_index_files = runGatk4IndexFeature.out.idx.mix(runGatk4IndexFeature.out.tbi).collect()
 
-        // Step 3. Run Bwa-mem2
+        // Step 4. Run Bwa-mem2 (pipes bwa-mem2 mem | samtools view | samtools sort, then samtools index)
         runBwaMem2(
             input_fastq_files_ch,
             fasta_file,
@@ -189,20 +119,17 @@ workflow ALIGNMENT_BWAMEM2 {
             library_tag
         )
 
-        // Step 4. Convert SAM to BAM
-        runSamtoolsSamToBam(runBwaMem2.out.f)
-
         // Step 5. Perform local INDEL realignment
         if (perform_local_indel_realignment == true) {
             decompressFasta(reference_genome_fasta_file)
             runAbra2(
-                runSamtoolsSamToBam.out.f,
+                runBwaMem2.out.f,
                 decompressFasta.out.f,
                 abra2_targets_bed_file
             )
             runSamtoolsFixmate(runAbra2.out.f)
         } else {
-            runSamtoolsFixmate(runSamtoolsSamToBam.out.f)
+            runSamtoolsFixmate(runBwaMem2.out.f)
         }
 
         // Step 6. Perform mark duplicate
@@ -255,9 +182,72 @@ workflow ALIGNMENT_BWAMEM2 {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             ==========================================================
+             Align paired-end DNA sequencing fastq files using bwa-mem2
+             ==========================================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Index fasta and vcf files.
+            2. Align paired-end reads to a reference genome using bwa-mem2 piped to a sorted BAM
+               (bwa-mem2 mem | samtools view | samtools sort), then samtools index.
+            3. Perform local realignment using abra2 (optional).
+            4. Add mate score tags using samtools.
+            5. Mark PCR duplicates using samtools.
+            6. Calculate base recalibration scores using gatk4.
+            7. Apply base recalibration scores using gatk4.
+
+        usage: nexus run --nf-workflow alignment_bwamem2.nf [required] [optional] [--help]
+
+        required arguments:
+            -c                                  :   Nextflow .config file.
+            -w                                  :   Nextflow work directory path.
+            --samples_tsv_file                  :   TSV file with the following columns:
+                                                    'sample_id', 'fastq_file_1', 'fastq_file_2'.
+            --output_dir                        :   Directory to which output files will be copied.
+            --reference_genome_fasta_file       :   Reference genome FASTA file.
+            --abra2_targets_bed_file            :   ABRA2 targets BED file.
+            --known_sites_vcf_files             :   GATK4 BaseRecalibrator --known-sites files. At least one VCF file must be supplied. Note that VCF files should be separated by commas.
+
+        optional arguments:
+            --chromosomes                       :   Chromosomes to recalibrate using GATK4 (default:
+                                                    'chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM').
+            --platform_tag                      :   Platform tag (default: 'illumina').
+            --platform_unit_tag                 :   Platform unit tag (default: 'unknown').
+            --library_tag                       :   Library tag (default: 'unknown').
+            --perform_local_indel_realignment   :   Perform local INDEL realignment (default: true).
+        """.stripIndent()
+        exit 0
+    }
+
+    log.info"""\
+        samples_tsv_file                    :   ${params.samples_tsv_file}
+        output_dir                          :   ${params.output_dir}
+        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
+        abra2_targets_bed_file              :   ${params.abra2_targets_bed_file}
+        known_sites_vcf_files               :   ${params.known_sites_vcf_files}
+        chromosomes                         :   ${params.chromosomes}
+        platform_tag                        :   ${params.platform_tag}
+        platform_unit_tag                   :   ${params.platform_unit_tag}
+        library_tag                         :   ${params.library_tag}
+        perform_local_indel_realignment     :   ${params.perform_local_indel_realignment}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.fastq_file_1}",
+            "${row.fastq_file_2}") }
+        .set { input_fastq_files_ch }
+
     ALIGNMENT_BWAMEM2(
         input_fastq_files_ch,
         params.reference_genome_fasta_file,

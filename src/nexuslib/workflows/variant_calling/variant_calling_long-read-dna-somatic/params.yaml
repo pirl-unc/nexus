@@ -1,0 +1,165 @@
+# =============================================================================
+# params.yaml — variant_calling_long-read-dna-somatic
+#
+# Usage:
+#   nextflow run variant_calling_long-read-dna-somatic.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with columns:
+#   sample_id
+#   tumor_bam_file
+#   tumor_bam_bai_file
+#   normal_bam_file
+#   normal_bam_bai_file
+#   normal_small_variants_vcf_file   (required for Severus; normal DeepVariant VCF
+#                                     from variant_calling_long-read-dna-germline output;
+#                                     will be phased by WhatsHap before Severus)
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+# Reference genome FASTA file
+reference_genome_fasta_file: ""
+
+
+# -----------------------------------------------------------------------------
+# Optional — general
+# -----------------------------------------------------------------------------
+
+# Methods to run. Comma-separated list or 'all'.
+# Allowed values:
+#   all, clairs, deepsomatic, delly2, dysgu, nanomonsv,
+#   savana, severus, svisionpro
+methods: "all"
+
+
+# -----------------------------------------------------------------------------
+# ClairS
+# Optional arguments.
+# -----------------------------------------------------------------------------
+clairs:
+  # Extra CLI arguments passed directly to ClairS.
+  extra_args: "--platform hifi_revio --enable_indel_calling"
+
+
+# -----------------------------------------------------------------------------
+# DeepSomatic
+# Required when methods includes 'deepsomatic' or 'all':
+#   input_path, output_path
+# Optional otherwise.
+# -----------------------------------------------------------------------------
+deepsomatic:
+  # Required when running DeepSomatic
+  input_path: ""
+  output_path: ""
+
+  # Containerization engine: 'singularity' or 'docker'
+  containerization: "singularity"
+
+  # DeepSomatic --model_type value
+  model_type: "PACBIO"
+
+  # Path to the run_deepsomatic binary
+  bin_path: "run_deepsomatic"
+
+  # DeepSomatic version
+  bin_version: "1.9.0"
+
+
+# -----------------------------------------------------------------------------
+# Delly2
+# Required when methods includes 'delly2' or 'all':
+#   exclude_tsv_file
+# Optional otherwise.
+# -----------------------------------------------------------------------------
+delly2:
+  # Required when running Delly2
+  exclude_tsv_file: ""
+
+  # Extra CLI arguments passed directly to delly2 lr.
+  extra_args: "--mapqual 20 --technology pb"
+
+
+# -----------------------------------------------------------------------------
+# Dysgu
+# Optional arguments.
+# -----------------------------------------------------------------------------
+dysgu:
+  # Extra CLI arguments passed directly to dysgu run.
+  run_extra_args: "--mode pacbio-revio --min-support 3 --min-size 30 --mq 20"
+
+  # Extra CLI arguments passed directly to dysgu filter.
+  filter_extra_args: "--support-fraction 0.05 --min-mapq 20 --pass-prob 0.2"
+
+
+# -----------------------------------------------------------------------------
+# nanomonsv
+# Optional arguments.
+# -----------------------------------------------------------------------------
+nanomonsv:
+  # Extra CLI arguments passed directly to nanomonsv parse.
+  parse_extra_args: ""
+
+  # Extra CLI arguments passed directly to nanomonsv get.
+  get_extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# Savana
+# Required when methods includes 'savana' or 'all':
+#   contigs_txt_file, custom_params_file
+# Optional otherwise.
+# -----------------------------------------------------------------------------
+savana:
+  # Required when running Savana
+  contigs_txt_file: ""
+  custom_params_file: ""
+
+  # Extra CLI arguments passed directly to savana run.
+  run_extra_args: "--length 30 --mapq 20 --min_support 3"
+
+  # Extra CLI arguments passed directly to savana classify.
+  classify_extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# Severus
+# Required when methods includes 'severus' or 'all':
+#   vntr_bed_file
+# Optional otherwise.
+# -----------------------------------------------------------------------------
+severus:
+  # Required when running Severus
+  vntr_bed_file: ""
+
+  # Extra CLI arguments passed directly to severus.
+  extra_args: ""
+
+  # Extra CLI arguments passed directly to whatshap phase (for phasing normal VCF).
+  whatshap_extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# SVision-pro
+# Required when methods includes 'svisionpro' or 'all':
+#   model_file
+# Optional otherwise.
+# -----------------------------------------------------------------------------
+svisionpro:
+  # Required when running SVision-pro
+  model_file: ""
+
+  # Extra CLI arguments passed directly to SVision-pro.
+  extra_args: ""
+
+  # Extra CLI arguments passed directly to SVision-pro extract.
+  extract_extra_args: ""

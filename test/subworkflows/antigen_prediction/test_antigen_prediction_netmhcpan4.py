@@ -25,8 +25,8 @@ def test_antigen_prediction_netmhcpan4():
     workflow_args = [
         '-c', nextflow_config_file,
         '-w', work_dir,
-        '--netmhcpan_home_dir', '/Users/leework/Documents/Software/netmhc-bundle-master/netMHCpan-4.1/Darwin_x86_64/',
-        '--netmhcpan', '/Users/leework/Documents/Software/netmhc-bundle-master/netMHCpan-4.1/Darwin_x86_64/bin/netMHCpan',
+        '--netmhcpan4_home_dir', '/Users/leework/Documents/Software/netmhc-bundle-master/netMHCpan-4.1/Darwin_x86_64/',
+        '--netmhcpan4', '/Users/leework/Documents/Software/netmhc-bundle-master/netMHCpan-4.1/Darwin_x86_64/bin/netMHCpan',
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--output_dir', output_dir
     ]

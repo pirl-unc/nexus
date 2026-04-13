@@ -191,7 +191,13 @@ process runSamtoolsCalmdCustomReference {
 
     script:
         """
-        samtools calmd -@ ${task.cpus} -b $bam_file $reference_genome_fasta_file > ${bam_file.baseName}_mdtagged.bam
+        ref_file=$reference_genome_fasta_file
+        if [[ "$reference_genome_fasta_file" == *.gz ]]; then
+            gunzip -c $reference_genome_fasta_file > ref_uncompressed.fa
+            samtools faidx ref_uncompressed.fa
+            ref_file=ref_uncompressed.fa
+        fi
+        samtools calmd -@ ${task.cpus} -b $bam_file \$ref_file > ${bam_file.baseName}_mdtagged.bam
         samtools index -@ ${task.cpus} -b ${bam_file.baseName}_mdtagged.bam ${bam_file.baseName}_mdtagged.bam.bai
         """
 }

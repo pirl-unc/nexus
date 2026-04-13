@@ -25,64 +25,7 @@ params.output_dir           = ''
 params.read_type            = 'single-end'
 
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         ==========
-         Run FastQC
-         ==========
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1. Run FastQC.
-
-    usage: nexus run --nf-workflow utilities_fastqc.nf [required] [optional] [--help]
-
-    required arguments:
-        -c                      :   Nextflow .config file.
-        -w                      :   Nextflow work directory path.
-        --samples_tsv_file      :   TSV file with the following columns:
-                                    'sample_id', 'fastq_file_1', 'fastq_file_2'.
-        --output_dir            :   Directory to which output files will be copied.
-
-    optional arguments:
-        --read_type             :   read type (default: 'single-end'). Either 'single-end' or 'paired-end'.
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        samples_tsv_file        :   ${params.samples_tsv_file}
-        output_dir              :   ${params.output_dir}
-        read_type               :   ${params.read_type}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-if (params.read_type == 'single-end') {
-    Channel
-        .fromPath( params.samples_tsv_file )
-        .splitCsv( header: true, sep: '\t' )
-        .map { row -> tuple(
-            "${row.sample_id}",
-            "${row.fastq_file_1}") }
-        .set { input_fastq_files_ch }
-} else {
-    Channel
-        .fromPath( params.samples_tsv_file )
-        .splitCsv( header: true, sep: '\t' )
-        .map { row -> tuple(
-            "${row.sample_id}",
-            "${row.fastq_file_1}",
-            "${row.fastq_file_2}") }
-        .set { input_fastq_files_ch }
-}
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow UTILITIES_FASTQC {
     take:
@@ -115,9 +58,60 @@ workflow UTILITIES_FASTQC {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             ==========
+             Run FastQC
+             ==========
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Run FastQC.
+
+        usage: nexus run --nf-workflow utilities_fastqc.nf [required] [optional] [--help]
+
+        required arguments:
+            -c                      :   Nextflow .config file.
+            -w                      :   Nextflow work directory path.
+            --samples_tsv_file      :   TSV file with the following columns:
+                                        'sample_id', 'fastq_file_1', 'fastq_file_2'.
+            --output_dir            :   Directory to which output files will be copied.
+
+        optional arguments:
+            --read_type             :   read type (default: 'single-end'). Either 'single-end' or 'paired-end'.
+        """.stripIndent()
+        exit 0
+    }
+
+    log.info"""\
+        samples_tsv_file        :   ${params.samples_tsv_file}
+        output_dir              :   ${params.output_dir}
+        read_type               :   ${params.read_type}
+    """.stripIndent()
+
+    if (params.read_type == 'single-end') {
+        Channel
+            .fromPath( params.samples_tsv_file )
+            .splitCsv( header: true, sep: '\t' )
+            .map { row -> tuple(
+                "${row.sample_id}",
+                "${row.fastq_file_1}") }
+            .set { input_fastq_files_ch }
+    } else {
+        Channel
+            .fromPath( params.samples_tsv_file )
+            .splitCsv( header: true, sep: '\t' )
+            .map { row -> tuple(
+                "${row.sample_id}",
+                "${row.fastq_file_1}",
+                "${row.fastq_file_2}") }
+            .set { input_fastq_files_ch }
+    }
+
     UTILITIES_FASTQC(
         input_fastq_files_ch,
         params.read_type,

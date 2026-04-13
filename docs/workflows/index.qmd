@@ -19,10 +19,10 @@ Run multiple variant callers in parallel on the same samples.
 
 | Workflow | Tools | Input |
 |:---------|:--------|:------|
-| [long-read germline](variant_calling/variant_calling_long-read-germline.qmd) | clair3, cutesv, deepvariant, delly2, dysgu, hificnv, longshot, nanocaller, nanovar, pbsv, sniffles2, svim | single-sample BAM |
-| [long-read somatic](variant_calling/variant_calling_long-read-somatic.qmd) | clairs, deepsomatic, delly2, dysgu, nanomonsv, savana, severus, svisionpro | tumor/normal BAM |
-| [short-read germline](variant_calling/variant_calling_short-read-germline.qmd) | clair3, deepvariant, delly2, dysgu, gridss2, haplotypecaller, lumpy, manta, octopus, pindel, strelka2 | single-sample BAM |
-| [short-read somatic](variant_calling/variant_calling_short-read-somatic.qmd) | clairs, deepsomatic, delly2, dysgu, gridss2, lumpy, manta, mutect2, octopus, sequenza, strelka2, svaba | tumor/normal BAM |
+| [long-read germline](variant_calling/variant_calling_long-read-dna-germline.qmd) | clair3, cutesv, deepvariant, delly2, dysgu, hificnv, longshot, nanocaller, nanovar, pbsv, sniffles2, svim | single-sample BAM |
+| [long-read somatic](variant_calling/variant_calling_long-read-dna-somatic.qmd) | clairs, deepsomatic, delly2, dysgu, nanomonsv, savana, severus, svisionpro | tumor/normal BAM |
+| [short-read germline](variant_calling/variant_calling_short-read-dna-germline.qmd) | clair3, deepvariant, delly2, dysgu, gridss2, haplotypecaller, lumpy, manta, octopus, pindel, strelka2 | single-sample BAM |
+| [short-read somatic](variant_calling/variant_calling_short-read-dna-somatic.qmd) | clairs, deepsomatic, delly2, dysgu, gridss2, lumpy, manta, mutect2, octopus, sequenza, strelka2, svaba | tumor/normal BAM |
 
 : {.striped .hover}
 

@@ -1,5 +1,5 @@
 """
-The purpose of this python3 file is to filter unspliced transcripts.
+The purpose of this python3 script is to filter unspliced transcripts.
 """
 
 

@@ -2,7 +2,7 @@
 
 process decompressFile {
 
-    label 'nexus_utils'
+    label 'decompress_file'
     debug true
 
     input:
@@ -25,7 +25,7 @@ process decompressFile {
 
 process extractGtfFromDir {
 
-    label 'nexus_utils'
+    label 'extract_gtf'
     tag "${sample_id}"
     debug true
 

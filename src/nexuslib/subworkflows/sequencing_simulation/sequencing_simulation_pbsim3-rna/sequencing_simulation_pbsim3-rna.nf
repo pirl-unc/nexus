@@ -26,70 +26,8 @@ params.pbsim3_model_file            = ''
 params.params_pbsim3_mode           = 'errhmm'
 params.params_pbsim3                = '--length-min 100 --length-max 1000000 --length-sd 100 --pass-num 10 --strategy trans'
 
-if (params.params_pbsim3_mode == true) {
-    params_pbsim3_mode = ''
-} else {
-    params_pbsim3_mode = params.params_pbsim3_mode
-}
-
-if (params.params_pbsim3 == true) {
-    params_pbsim3 = ''
-} else {
-    params_pbsim3 = params.params_pbsim3
-}
-
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         ======================================
-         Simulate sequencing reads using PBSIM3
-         ======================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1. Run pbsim3.
-
-    usage: nexus run --nf-workflow sequencing_simulation_pbsim3-rna.nf [required] [optional] [--help]
-
-    required arguments:
-        -c                          :   Nextflow .config file.
-        -w                          :   Nextflow work directory path.
-        --samples_tsv_file          :   TSV file with the following columns:
-                                        'sample_id', 'transcript_file'.
-        --output_dir                :   Directory to which output files will be copied.
-        --pbsim3_model_file         :   PBSIM3 error model file (ERRHMM*.model).
-
-    optional arguments:
-        --params_pbsim3_mode        :   PBSIM3 mode (default: '"errhmm"'). Either '"errhmm"' or '"qshmm"'.
-        --params_pbsim3             :   PBSIM3 parameters (default: "--length-min 100 --length-max 1000000 --pass-num 10 --strategy trans").
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        samples_tsv_file            :   ${params.samples_tsv_file}
-        output_dir                  :   ${params.output_dir}
-        pbsim3_model_file           :   ${params.pbsim3_model_file}
-        params_pbsim3_mode          :   ${params_pbsim3_mode}
-        params_pbsim3               :   ${params_pbsim3}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .map { row -> tuple(
-        "${row.sample_id}",
-        "${row.transcript_file}") }
-    .set { input_transcript_files_ch }
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow SEQUENCING_SIMULATION_PBSIM3_RNA {
     take:
@@ -114,9 +52,56 @@ workflow SEQUENCING_SIMULATION_PBSIM3_RNA {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             ======================================
+             Simulate sequencing reads using PBSIM3
+             ======================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Run pbsim3.
+
+        usage: nexus run --nf-workflow sequencing_simulation_pbsim3-rna.nf [required] [optional] [--help]
+
+        required arguments:
+            -c                          :   Nextflow .config file.
+            -w                          :   Nextflow work directory path.
+            --samples_tsv_file          :   TSV file with the following columns:
+                                            'sample_id', 'transcript_file'.
+            --output_dir                :   Directory to which output files will be copied.
+            --pbsim3_model_file         :   PBSIM3 error model file (ERRHMM*.model).
+
+        optional arguments:
+            --params_pbsim3_mode        :   PBSIM3 mode (default: '"errhmm"'). Either '"errhmm"' or '"qshmm"'.
+            --params_pbsim3             :   PBSIM3 parameters (default: "--length-min 100 --length-max 1000000 --pass-num 10 --strategy trans").
+        """.stripIndent()
+        exit 0
+    }
+
+    def params_pbsim3_mode = (params.params_pbsim3_mode == true) ? '' : params.params_pbsim3_mode
+    def params_pbsim3      = (params.params_pbsim3 == true) ? '' : params.params_pbsim3
+
+    log.info"""\
+        samples_tsv_file            :   ${params.samples_tsv_file}
+        output_dir                  :   ${params.output_dir}
+        pbsim3_model_file           :   ${params.pbsim3_model_file}
+        params_pbsim3_mode          :   ${params_pbsim3_mode}
+        params_pbsim3               :   ${params_pbsim3}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.transcript_file}") }
+        .set { input_transcript_files_ch }
+
     SEQUENCING_SIMULATION_PBSIM3_RNA(
         input_transcript_files_ch,
         params.pbsim3_model_file,

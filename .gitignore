@@ -17,6 +17,8 @@ docs/_site/
 docs/.quarto/
 docs/site_libs/
 docs/subworkflows/*
+docs/utilities/*
 docs/workflows/*
 !docs/subworkflows/index.qmd
+!docs/utilities/index.qmd
 !docs/workflows/index.qmd

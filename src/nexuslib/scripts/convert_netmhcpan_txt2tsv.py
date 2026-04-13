@@ -1,5 +1,5 @@
 """
-The purpose of this python3 file is to convert NetMHCpan TXT output file to a TSV file.
+The purpose of this python3 script is to convert NetMHCpan TXT output file to a TSV file.
 """
 
 

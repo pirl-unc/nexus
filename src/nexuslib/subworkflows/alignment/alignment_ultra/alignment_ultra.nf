@@ -33,74 +33,8 @@ params.reference_genes_gtf_file     = ''
 params.params_ultra_index = '--disable_infer'
 params.params_ultra = '--isoseq'
 
-if (params.params_ultra_index == true) {
-    params_ultra_index = ''
-} else {
-    params_ultra_index = params.params_ultra_index
-}
-
-if (params.params_ultra == true) {
-    params_ultra = ''
-} else {
-    params_ultra = params.params_ultra
-}
-
 // ------------------------------------------------------------
-// Step 3. Print inputs and help
-// ------------------------------------------------------------
-log.info """\
-         ======================================================
-         Align long-read RNA sequencing fastq files using uLTRA
-         ======================================================
-         """.stripIndent()
-
-if (params.help) {
-    log.info"""\
-    workflow:
-        1. Align reads (fastq.gz files) to a reference genome using uLTRA.
-        2. Generate MD tags.
-        3. Sort MD-tagged bam file.
-
-    usage: nexus run --nf-workflow alignment_ultra.nf [required] [optional] [--help]
-
-    required arguments:
-        -c                                  :   Nextflow .config file.
-        -w                                  :   Nextflow work directory path.
-        --samples_tsv_file                  :   TSV file with the following columns:
-                                                'sample_id', 'fastq_file'.
-        --output_dir                        :   Directory to which output files will be copied.
-        --reference_genome_fasta_file       :   Reference genome FASTA file.
-        --reference_genes_gtf_file          :   Reference genes GTF file.
-
-    optional arguments:
-        --params_ultra_index                :   uLTRA index parameters (default: "--disable_infer").
-        --params_ultra                      :   uLTRA align parameters (default: "--isoseq").
-    """.stripIndent()
-    exit 0
-} else {
-    log.info"""\
-        samples_tsv_file                    :   ${params.samples_tsv_file}
-        output_dir                          :   ${params.output_dir}
-        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
-        reference_genes_gtf_file            :   ${params.reference_genes_gtf_file}
-        params_ultra_index                  :   ${params_ultra_index}
-        params_ultra                        :   ${params_ultra}
-    """.stripIndent()
-}
-
-// ------------------------------------------------------------
-// Step 4. Set channels
-// ------------------------------------------------------------
-Channel
-    .fromPath( params.samples_tsv_file )
-    .splitCsv( header: true, sep: '\t' )
-    .map { row -> tuple(
-        "${row.sample_id}",
-        "${row.fastq_file}") }
-    .set { input_fastq_files_ch }
-
-// ------------------------------------------------------------
-// Step 5. Sub-workflows
+// Step 3. Sub-workflows
 // ------------------------------------------------------------
 workflow ALIGNMENT_ULTRA {
     take:
@@ -160,9 +94,60 @@ workflow ALIGNMENT_ULTRA {
 }
 
 // ------------------------------------------------------------
-// Step 6. Entry workflow
+// Step 4. Entry workflow (runs only when this file is the main script)
 // ------------------------------------------------------------
 workflow {
+    log.info """\
+             ======================================================
+             Align long-read RNA sequencing fastq files using uLTRA
+             ======================================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Align reads (fastq.gz files) to a reference genome using uLTRA.
+            2. Generate MD tags.
+            3. Sort MD-tagged bam file.
+
+        usage: nexus run --nf-workflow alignment_ultra.nf [required] [optional] [--help]
+
+        required arguments:
+            -c                                  :   Nextflow .config file.
+            -w                                  :   Nextflow work directory path.
+            --samples_tsv_file                  :   TSV file with the following columns:
+                                                    'sample_id', 'fastq_file'.
+            --output_dir                        :   Directory to which output files will be copied.
+            --reference_genome_fasta_file       :   Reference genome FASTA file.
+            --reference_genes_gtf_file          :   Reference genes GTF file.
+
+        optional arguments:
+            --params_ultra_index                :   uLTRA index parameters (default: "--disable_infer").
+            --params_ultra                      :   uLTRA align parameters (default: "--isoseq").
+        """.stripIndent()
+        exit 0
+    }
+
+    def params_ultra_index = (params.params_ultra_index == true) ? '' : params.params_ultra_index
+    def params_ultra       = (params.params_ultra == true) ? '' : params.params_ultra
+
+    log.info"""\
+        samples_tsv_file                    :   ${params.samples_tsv_file}
+        output_dir                          :   ${params.output_dir}
+        reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
+        reference_genes_gtf_file            :   ${params.reference_genes_gtf_file}
+        params_ultra_index                  :   ${params_ultra_index}
+        params_ultra                        :   ${params_ultra}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.fastq_file}") }
+        .set { input_fastq_files_ch }
+
     ALIGNMENT_ULTRA(
         input_fastq_files_ch,
         params.reference_genome_fasta_file,

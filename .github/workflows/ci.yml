@@ -105,10 +105,10 @@ jobs:
           - isoform_characterization
           - quantification
           - variant_calling
-          - variant_calling_lr-germline
-          - variant_calling_lr-somatic
-          - variant_calling_sr-germline
-          - variant_calling_sr-somatic
+          - variant_calling_dna-lr-germline
+          - variant_calling_dna-lr-somatic
+          - variant_calling_dna-sr-germline
+          - variant_calling_dna-sr-somatic
 
     steps:
       - name: Checkout repository
