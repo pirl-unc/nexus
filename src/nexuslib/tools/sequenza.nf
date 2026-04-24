@@ -6,7 +6,9 @@ process runSequenzaUtilsIndex {
     debug true
 
     input:
-        path(reference_genome_fasta_file)
+        path(reference_genome_fasta_file)       // bgzipped .fa.gz
+        path(reference_genome_fasta_fai_file)   // .fai
+        path(reference_genome_fasta_gzi_file)   // .gzi (enables random access into .fa.gz)
         val(params_sequenzautils_gcwiggle)
 
     output:
@@ -14,10 +16,25 @@ process runSequenzaUtilsIndex {
 
     script:
         """
-        sequenza-utils gc_wiggle \
-            -f $reference_genome_fasta_file \
-            -o ${reference_genome_fasta_file.baseName}.wig.gz \
-            $params_sequenzautils_gcwiggle
+        mkdir -p per_chrom/
+
+        cut -f1 ${reference_genome_fasta_fai_file} | \
+          xargs -n 1 -P ${task.cpus} -I {} bash -lc '
+            chrom="{}"
+            safe=\$(printf "%s" "\$chrom" | tr "/:| " "____")
+            samtools faidx ${reference_genome_fasta_file} "\$chrom" > per_chrom/\${safe}.fa
+            sequenza-utils gc_wiggle \
+              -f per_chrom/\${safe}.fa \
+              -o per_chrom/\${safe}.wig.gz \
+              ${params_sequenzautils_gcwiggle}
+          '
+
+        # Concatenate per-chromosome wigs in .fai order → one whole-genome wig.gz
+        cut -f1 ${reference_genome_fasta_fai_file} | \
+          while read chrom; do
+            safe=\$(printf "%s" "\$chrom" | tr "/:| " "____")
+            zcat per_chrom/\${safe}.wig.gz
+          done | gzip > ${reference_genome_fasta_file.baseName}.wig.gz
         """
 }
 

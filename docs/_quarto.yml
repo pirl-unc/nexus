@@ -46,6 +46,7 @@ website:
       - subworkflows/assembly/assembly_stringtie2.qmd
     - section: Haplotyping
       contents:
+      - subworkflows/haplotyping/haplotyping_flair-longshot.qmd
       - subworkflows/haplotyping/haplotyping_longcallr.qmd
       - subworkflows/haplotyping/haplotyping_whatshap.qmd
     - section: HLA Typing
