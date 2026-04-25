@@ -49,6 +49,18 @@ RUN conda update -n base -c defaults conda
 # Install longgf
 RUN conda install -c bioconda longshot==1.0.0
 
+# Install samtools
+RUN wget https://github.com/samtools/samtools/releases/download/1.18/samtools-1.18.tar.bz2 && \
+    tar -xvjf samtools-1.18.tar.bz2 && \
+    cd samtools-1.18/ && \
+    mkdir bin && \
+    ./configure --prefix=$(pwd) && \
+    make && \
+    make install
+
+# Add samtools to PATH
+ENV PATH /samtools-1.18:$PATH
+
 # Clean up to reduce Docker image size
 RUN conda clean -all
 RUN apt-get clean

@@ -8,7 +8,20 @@ process runLongshot {
 
     publishDir(
         path: "${output_dir}/${sample_id}/",
-        mode: 'copy'
+        mode: 'copy',
+        pattern: "${sample_id}_longshot.vcf"
+    )
+
+    publishDir(
+        path: "${output_dir}/${sample_id}/",
+        mode: 'copy',
+        pattern: "${sample_id}_longshot.bam"
+    )
+
+    publishDir(
+        path: "${output_dir}/${sample_id}/",
+        mode: 'copy',
+        pattern: "${sample_id}_longshot.bam.bai"
     )
 
     input:
@@ -19,7 +32,7 @@ process runLongshot {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_longshot.vcf"), emit: f
+        tuple val(sample_id), path("${sample_id}_longshot.vcf"), path("${sample_id}_longshot.bam"), path("${sample_id}_longshot.bam.bai"), emit: f
 
     script:
         """
@@ -27,6 +40,8 @@ process runLongshot {
             --bam $bam_file \
             --ref $reference_genome_fasta_file \
             --out ${sample_id}_longshot.vcf \
+            --out_bam ${sample_id}_longshot.bam \
             $params_longshot
+        samtools index -@ ${task.cpus} -b ${sample_id}_longshot.bam ${sample_id}_longshot.bam.bai
         """
 }

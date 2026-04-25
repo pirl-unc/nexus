@@ -55,6 +55,8 @@ workflow VARIANT_CALLING_SEQUENZA {
 
         runSequenzaUtilsIndex(
             fasta_file,
+            fasta_fai_file,
+            fasta_gzi_file,
             params_sequenzautils_gcwiggle
         )
         gc_wiggle_file = runSequenzaUtilsIndex.out.wig_file

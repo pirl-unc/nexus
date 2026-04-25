@@ -48,7 +48,7 @@ workflow SEQUENCING_SIMULATION_PBSIM3_RNA {
         )
 
     emit:
-        runPbsim3RNA.out.f
+        runPbsim3RNA.out.merged_bam
 }
 
 // ------------------------------------------------------------

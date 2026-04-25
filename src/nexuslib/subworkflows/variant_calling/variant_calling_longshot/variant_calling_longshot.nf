@@ -51,6 +51,7 @@ workflow VARIANT_CALLING_LONGSHOT {
         )
 
     emit:
+        // channel: [val(sample_id), path(vcf_file), path(bam_file), path(bam_bai_file)]
         runLongshot.out.f
 }
 
