@@ -82,9 +82,10 @@ jobs:
             pytest \
             pytest-cov \
             coveralls \
+            pip \
             pyyaml \
             biopython
-          pip install . --verbose
+          python -m pip install . --verbose
 
       - name: Run unit tests
         shell: bash -l {0}
@@ -144,9 +145,10 @@ jobs:
             pytest \
             pytest-cov \
             coveralls \
+            pip \
             pyyaml \
             biopython
-          pip install . --verbose
+          python -m pip install . --verbose
 
       - name: Run unit tests
         shell: bash -l {0}
