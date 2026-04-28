@@ -1,0 +1,211 @@
+# =============================================================================
+# params.yaml — haplotype_phasing_long-read-dna
+#
+# Usage:
+#   nextflow run haplotype_phasing_long-read-dna.nf -params-file params.yaml
+#
+# This workflow has TWO selectors that determine what runs:
+#
+#   1. small_variants_caller   →  which caller(s) produce the small-variants VCF
+#                                 that the phasers consume.
+#   2. methods                 →  which structural-variant caller / phasers run.
+#
+# Skip to the "QUICK START" presets just below to find a config that matches
+# your goal, or read the "WHAT RUNS" matrix to see the exact tool combinations.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# QUICK-START PRESETS — copy one of these into the two selectors below
+# -----------------------------------------------------------------------------
+#
+#   Goal                                            small_variants_caller   methods
+#   ──────────────────────────────────────────────  ─────────────────────   ────────────────────
+#   Just call small variants with DeepVariant       deepvariant             ""
+#   Just call + phase with Longshot (one step)      longshot                ""
+#   DeepVariant + HiPhase (small + SV jointly)      deepvariant             hiphase
+#   DeepVariant + WhatsHap                          deepvariant             whatshap
+#   Longshot + HapCUT2-WhatsHap                     longshot                hapcut2-whatshap
+#   Everything, all phasers, both callers           all                     all
+#
+# -----------------------------------------------------------------------------
+# WHAT RUNS — by selector value
+# -----------------------------------------------------------------------------
+#
+# All outputs land under ${output_dir}/${sample_id}/. Phaser outputs go into
+# their own <caller>_<phaser>/ subfolders so multiple phaser runs don't collide.
+#
+# methods accepts: comma-separated subset of {pbsv, hiphase, whatshap,
+# hapcut2-whatshap, longshot}, OR "all", OR "" / "none".
+# Auto-promoted: 'hiphase' implies 'pbsv'.
+#
+#
+# ┌─ small_variants_caller = "deepvariant" ───────────────────────────────────┐
+# │                                                                            │
+# │   methods = ""                  →  DeepVariant only                        │
+# │   methods = "pbsv"              →  DeepVariant + pbsv                      │
+# │   methods = "hiphase"           →  DeepVariant + pbsv + HiPhase            │
+# │   methods = "whatshap"          →  DeepVariant + WhatsHap (phase+haplotag) │
+# │   methods = "hapcut2-whatshap"  →  ⚠  skipped — see note ¹                 │
+# │   methods = "longshot"          →  DeepVariant + Longshot (standalone) ²   │
+# │   methods = "all"               →  DeepVariant + pbsv + HiPhase            │
+# │                                       + WhatsHap + standalone Longshot     │
+# │                                       (hapcut2-whatshap skipped — note ¹)  │
+# │                                                                            │
+# └────────────────────────────────────────────────────────────────────────────┘
+#
+# ┌─ small_variants_caller = "longshot" ──────────────────────────────────────┐
+# │                                                                            │
+# │   Longshot calls AND phases in one step, so its phased VCF + BAM are       │
+# │   always published. Anything in `methods` adds extra phaser passes that    │
+# │   consume Longshot's small-variants VCF.                                   │
+# │                                                                            │
+# │   methods = ""                  →  Longshot only (calls + phases)          │
+# │   methods = "pbsv"              →  Longshot + pbsv                         │
+# │   methods = "hiphase"           →  Longshot + pbsv + HiPhase               │
+# │   methods = "whatshap"          →  Longshot + WhatsHap                     │
+# │   methods = "hapcut2-whatshap"  →  Longshot + HapCUT2 + WhatsHap-haplotag  │
+# │   methods = "longshot"          →  same as methods=""  (already running)   │
+# │   methods = "all"               →  every phaser above, all from Longshot   │
+# │                                                                            │
+# └────────────────────────────────────────────────────────────────────────────┘
+#
+# ┌─ small_variants_caller = "all" ───────────────────────────────────────────┐
+# │                                                                            │
+# │   Both DeepVariant AND Longshot run as callers. Each caller-dependent      │
+# │   phaser in `methods` runs once per caller's VCF, except HapCUT2 which     │
+# │   only runs from Longshot's VCF (note ¹).                                  │
+# │                                                                            │
+# │   E.g. methods="hiphase"  →  HiPhase ×2:  deepvariant_pbsv_hiphase/        │
+# │                                           longshot_pbsv_hiphase/           │
+# │                                                                            │
+# └────────────────────────────────────────────────────────────────────────────┘
+#
+# ─────────────────────────────────────────────────────────────────────────────
+# Notes:
+#
+#   ¹  DeepVariant → HapCUT2 path is intentionally NOT wired. HapCUT2 requires
+#      strict diploid GTs and DV's WGS VCFs need heavy filtering for marginal
+#      benefit. To get hapcut2-whatshap output, include 'longshot' in
+#      small_variants_caller.
+#
+#   ²  When `methods` includes 'longshot' with small_variants_caller='deepvariant',
+#      Longshot runs as a STANDALONE phaser (publishes its own phased VCF/BAM)
+#      but its VCF is NOT chained into HiPhase / WhatsHap. Those phasers
+#      consume DeepVariant's VCF only.
+#
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# REQUIRED — input/output paths
+# -----------------------------------------------------------------------------
+
+# TSV file with columns: sample_id, bam_file, bam_bai_file
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+# Reference genome FASTA file (may be .fa or .fa.gz)
+reference_genome_fasta_file: ""
+
+
+# -----------------------------------------------------------------------------
+# REQUIRED — pipeline selectors  (see "QUICK-START PRESETS" / "WHAT RUNS" above)
+# -----------------------------------------------------------------------------
+
+# Allowed values:
+#   "deepvariant"   →  DeepVariant only — phasers consume DV's VCF
+#   "longshot"      →  Longshot only    — phasers consume Longshot's VCF
+#   "all"           →  Both — caller-dependent phasers run twice (once per caller)
+small_variants_caller: "all"
+
+# Allowed values:
+#   ""  /  "none"   →  no phasers, just the caller(s) above
+#   "all"           →  every method (pbsv, hiphase, whatshap, hapcut2-whatshap, longshot)
+#   <list>          →  comma-separated subset, e.g. "hiphase,whatshap"
+methods: "all"
+
+
+# =============================================================================
+# TOOL-SPECIFIC SETTINGS
+# =============================================================================
+# All blocks below are optional unless explicitly marked. Settings are only
+# consumed when the corresponding tool is selected to run.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# DeepVariant — used when small_variants_caller='deepvariant' or 'all'
+#
+# input_path / output_path are REQUIRED in that case (host paths bind-mounted
+# into the DeepVariant container).
+# -----------------------------------------------------------------------------
+deepvariant:
+  input_path:  ""
+  output_path: ""
+
+  # 'singularity' or 'docker'
+  containerization: "singularity"
+
+  # DeepVariant --model_type value (PACBIO | ONT_R104 | WGS | WES | HYBRID_PACBIO_ILLUMINA)
+  model_type: "PACBIO"
+
+  # run_deepvariant binary path inside the container
+  bin_path: "/opt/deepvariant/bin/run_deepvariant"
+
+  # DeepVariant container image tag
+  bin_version: "1.9.0"
+
+
+# -----------------------------------------------------------------------------
+# Longshot — used when small_variants_caller='longshot' or 'all',
+#            or when methods includes 'longshot' (standalone phaser path)
+# -----------------------------------------------------------------------------
+longshot:
+  # Extra CLI arguments passed directly to `longshot`
+  extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# pbsv — used when methods includes 'pbsv' or 'hiphase' (auto-promoted)
+# -----------------------------------------------------------------------------
+pbsv:
+  # Extra CLI arguments passed directly to `pbsv discover`
+  discover_extra_args: ""
+
+  # Extra CLI arguments passed directly to `pbsv call`
+  call_extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# WhatsHap — used when methods includes 'whatshap'
+#            (also fallback for hapcut2_whatshap.whatshap_haplotag_extra_args)
+# -----------------------------------------------------------------------------
+whatshap:
+  # Extra CLI arguments passed directly to `whatshap phase`
+  phase_extra_args: "--mapq 20"
+
+  # Extra CLI arguments passed directly to `whatshap haplotag`
+  haplotag_extra_args: "--ignore-read-groups --tag-supplementary --skip-missing-contigs --output-threads 4"
+
+
+# -----------------------------------------------------------------------------
+# HapCUT2 + WhatsHap haplotag — used when methods includes 'hapcut2-whatshap'
+#                               AND small_variants_caller includes 'longshot'
+#                               (DeepVariant→HapCUT2 path is intentionally not wired)
+# -----------------------------------------------------------------------------
+hapcut2_whatshap:
+  # Read technology for extractHAIRS: 'pacbio' | 'ont' | 'illumina'
+  read_technology: "pacbio"
+
+  # Extra CLI arguments passed directly to `extractHAIRS`
+  extracthairs_extra_args: ""
+
+  # Extra CLI arguments passed directly to `HAPCUT2`
+  hapcut2_extra_args: ""
+
+  # Extra CLI arguments passed directly to `whatshap haplotag` for the haplotag
+  # step following HapCUT2. Falls back to whatshap.haplotag_extra_args if unset.
+  whatshap_haplotag_extra_args: "--ignore-read-groups --tag-supplementary --skip-missing-contigs --output-threads 4"

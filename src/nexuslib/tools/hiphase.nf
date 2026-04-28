@@ -7,7 +7,7 @@ process runHiPhaseWith2VcfFiles {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/${subdir}/",
         mode: 'copy'
     )
 
@@ -22,6 +22,7 @@ process runHiPhaseWith2VcfFiles {
         path(reference_genome_fasta_file)
         path(reference_genome_fasta_fai_file)
         val(output_dir)
+        val(subdir)
 
     output:
         tuple val(sample_id), path("${sample_id}_hiphase_outputs/"), emit: f

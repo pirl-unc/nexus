@@ -39,9 +39,17 @@ process runLongshot {
         longshot \
             --bam $bam_file \
             --ref $reference_genome_fasta_file \
+            --sample_id $sample_id \
             --out ${sample_id}_longshot.vcf \
             --out_bam ${sample_id}_longshot.bam \
             $params_longshot
+
+        # If longshot finds zero variants it skips writing the output BAM,
+        # which breaks the output: declaration. Fall back to the input BAM
+        # in that case so downstream consumers always have a BAM to point at.
+        if [ ! -f ${sample_id}_longshot.bam ]; then
+            cp $bam_file ${sample_id}_longshot.bam
+        fi
         samtools index -@ ${task.cpus} -b ${sample_id}_longshot.bam ${sample_id}_longshot.bam.bai
         """
 }

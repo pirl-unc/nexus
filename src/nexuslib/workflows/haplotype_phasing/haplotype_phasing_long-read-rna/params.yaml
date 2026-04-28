@@ -1,0 +1,66 @@
+# =============================================================================
+# params.yaml — haplotype_phasing_long-read-rna
+#
+# Usage:
+#   nextflow run haplotype_phasing_long-read-rna.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file. Required columns depend on which methods you run:
+#   flair-longshot  → sample_id, fastq_file
+#   longcallr       → sample_id, bam_file, bam_bai_file
+# To run both, include all four columns.
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+# Reference genome FASTA file (may be .fa or .fa.gz)
+reference_genome_fasta_file: ""
+
+
+# -----------------------------------------------------------------------------
+# Optional — general
+# -----------------------------------------------------------------------------
+
+# Methods to run. Comma-separated list or 'all'.
+# Allowed values:
+#   all, flair-longshot, longcallr
+methods: "all"
+
+
+# -----------------------------------------------------------------------------
+# FLAIR + Longshot
+# Optional arguments. Inputs come from the samples_tsv_file 'fastq_file' column.
+# -----------------------------------------------------------------------------
+flair_longshot:
+  # Extra CLI arguments passed directly to `flair align`.
+  flair_align_extra_args: ""
+
+  # Extra CLI arguments passed directly to `longshot`.
+  longshot_extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# LongcallR
+# Required when running longcallr:
+#   preset, reference_genes_gtf_file
+# Inputs come from the samples_tsv_file 'bam_file' / 'bam_bai_file' columns.
+# -----------------------------------------------------------------------------
+longcallr:
+  # LongcallR preset.
+  # Allowed values: hifi-isoseq, hifi-masseq, ont-cdna, ont-drna
+  preset: "hifi-isoseq"
+
+  # Reference genes GTF file (required by LongcallR).
+  reference_genes_gtf_file: ""
+
+  # Extra CLI arguments passed directly to longcallr.
+  extra_args: ""

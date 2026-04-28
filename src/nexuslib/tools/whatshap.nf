@@ -7,13 +7,13 @@ process runWhatshapHaplotag {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/${subdir}/",
         mode: 'copy',
         pattern: "${bam_file.baseName}_haplotagged.bam"
     )
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/${subdir}/",
         mode: 'copy',
         pattern: "${bam_file.baseName}_haplotagged.bam.bai"
     )
@@ -24,6 +24,7 @@ process runWhatshapHaplotag {
         path(reference_genome_fasta_fai_file)
         val(params_whatshap)
         val(output_dir)
+        val(subdir)
 
     output:
         tuple val(sample_id), path("${bam_file.baseName}_haplotagged.bam"), path("${bam_file.baseName}_haplotagged.bam.bai"), emit: f
@@ -47,13 +48,13 @@ process runWhatshapPhase {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/${subdir}/",
         mode: 'copy',
         pattern: "${sample_id}_whatshap_phased.vcf.gz"
     )
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/${subdir}/",
         mode: 'copy',
         pattern: "${sample_id}_whatshap_phased.vcf.gz.tbi"
     )
@@ -64,6 +65,7 @@ process runWhatshapPhase {
         path(reference_genome_fasta_fai_file)
         val(params_whatshap)
         val(output_dir)
+        val(subdir)
 
     output:
         tuple val(sample_id), path("${sample_id}_whatshap_phased.vcf.gz"), path("${sample_id}_whatshap_phased.vcf.gz.tbi"), emit: f

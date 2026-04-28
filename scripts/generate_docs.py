@@ -23,7 +23,7 @@ CATEGORY_LABELS = {
     "alignment": "Alignment",
     "antigen_prediction": "Antigen Prediction",
     "assembly": "Assembly",
-    "haplotyping": "Haplotyping",
+    "haplotype_phasing": "Haplotype Phasing",
     "hla_typing": "HLA Typing",
     "isoform_characterization": "Isoform Characterization",
     "peptide_prediction": "Peptide Prediction",
@@ -33,10 +33,11 @@ CATEGORY_LABELS = {
     "utilities": "Utilities",
     "variant_annotation": "Variant Annotation",
     "variant_calling": "Variant Calling",
-    "variant_phasing": "Variant Phasing",
 }
 
 WORKFLOW_LABELS = {
+    "haplotype_phasing_long-read-dna": "Haplotype Phasing (Long-read DNA)",
+    "haplotype_phasing_long-read-rna": "Haplotype Phasing (Long-read RNA)",
     "hla_typing_short-read": "HLA typing (Short-read)",
     "isoform_characterization_long-read": "Isoform Characterization (Long-read)",
     "isoform_characterization_short-read": "Isoform Characterization (Short-read)",

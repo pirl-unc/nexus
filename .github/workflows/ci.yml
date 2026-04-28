@@ -37,7 +37,7 @@ jobs:
           - alignment
           - antigen_prediction
           - assembly
-          - haplotyping
+          - haplotype_phasing
           - hla_typing
           - isoform_characterization
           - quantification
@@ -48,7 +48,6 @@ jobs:
           - variant_calling_dna-sr
           - variant_calling_rna-lr
           - variant_calling_rna-sr
-          - variant_phasing
 
     steps:
       - name: Checkout repository
@@ -101,6 +100,8 @@ jobs:
       fail-fast: false
       matrix:
         group:
+          - haplotype_phasing_dna-lr
+          - haplotype_phasing_rna-lr
           - hla_typing
           - isoform_characterization
           - quantification

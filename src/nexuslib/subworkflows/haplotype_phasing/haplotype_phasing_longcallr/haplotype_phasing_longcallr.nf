@@ -9,49 +9,57 @@ nextflow.enable.dsl=2
 // ------------------------------------------------------------
 // Step 1. Import Nextflow modules
 // ------------------------------------------------------------
-include { runSamtoolsFaidxFasta }              from '../../../tools/samtools'
-include { runCuteSV }                          from '../../../tools/cutesv'
-include { decompressFile as decompressFasta }  from '../../../tools/utils'
+include { decompressFile as decompressFasta }       from '../../../tools/utils'
+include { runSamtoolsFaidxFasta }                   from '../../../tools/samtools'
+include { runLongcallR }                            from '../../../tools/longcallr'
 
 // ------------------------------------------------------------
 // Step 2. Input parameters
 // ------------------------------------------------------------
-params.help                         = ''
+params.help                             = ''
 
 // Required arguments
-params.samples_tsv_file             = ''
-params.output_dir                   = ''
-params.reference_genome_fasta_file  = ''
+params.samples_tsv_file                 = ''
+params.output_dir                       = ''
+params.reference_genome_fasta_file      = ''
+params.reference_genes_gtf_file         = ''
+params.preset                           = ''
 
 // Optional arguments
-params.params_cutesv                = '--max_cluster_bias_INS 1000 --diff_ratio_merging_INS 0.9 --max_cluster_bias_DEL 1000 --diff_ratio_merging_DEL 0.5 --min_support 3 --min_mapq 20 --min_size 30 --max_size -1 --report_readid --genotype'
+params.params_longcallr                 = ''
 
 // ------------------------------------------------------------
 // Step 3. Sub-workflows
 // ------------------------------------------------------------
-workflow VARIANT_CALLING_CUTESV {
+workflow HAPLOTYPE_PHASING_LONGCALLR {
     take:
         input_bam_files_ch             // channel: [val(sample_id), path(bam_file), path(bam_bai_file)]
+        preset
         reference_genome_fasta_file
-        params_cutesv
+        reference_genes_gtf_file
+        params_longcallr
         output_dir
 
     main:
+        // Step 1. Decompress and index reference genome FASTA file
         decompressFasta(reference_genome_fasta_file)
         runSamtoolsFaidxFasta(decompressFasta.out.f)
-        fasta_file      = runSamtoolsFaidxFasta.out.fasta
-        fasta_fai_file  = runSamtoolsFaidxFasta.out.fai_file
+        fasta_file          = runSamtoolsFaidxFasta.out.fasta
+        fasta_fai_file      = runSamtoolsFaidxFasta.out.fai_file
 
-        runCuteSV(
+        // Step 2. Run LongcallR
+        runLongcallR(
             input_bam_files_ch,
             fasta_file,
             fasta_fai_file,
-            params_cutesv,
+            reference_genes_gtf_file,
+            preset,
+            params_longcallr,
             output_dir
         )
 
     emit:
-        runCuteSV.out.f
+        runLongcallR.out.f
 }
 
 // ------------------------------------------------------------
@@ -59,50 +67,46 @@ workflow VARIANT_CALLING_CUTESV {
 // ------------------------------------------------------------
 workflow {
     log.info """\
-             ===============================================================================
-             Identify structural variants in long-read DNA sequencing BAM files using CuteSV
-             ===============================================================================
+             ============================================================
+             Haplotype long-read DNA sequencing BAM files using LongcallR
+             ============================================================
              """.stripIndent()
 
     if (params.help) {
         log.info"""\
         workflow:
-            1. Run CuteSV.
+            1. Run 'longcallr' command.
 
-        usage: nexus run --nf-workflow variant_calling_cutesv.nf [required] [optional] [--help]
+        usage: nexus run --nf-workflow haplotype_phasing_longcallr.nf [required] [optional] [--help]
 
         required arguments:
             -c                                  :   Nextflow .config file.
             -w                                  :   Nextflow work directory path.
             --samples_tsv_file                  :   TSV file with the following columns:
-                                                    'sample_id', 'bam_file', 'bam_bai_file'.
+                                                    'sample_id',
+                                                    'bam_file',
+                                                    'bam_bai_file'
             --output_dir                        :   Directory to which output files will be copied.
+            --preset                            :   LongcallR preset (choices: hifi-isoseq, hifi-masseq, ont-cdna, ont-drna).
             --reference_genome_fasta_file       :   Reference genome FASTA file.
+            --reference_genes_gtf_file          :   Reference genes GTF file.
 
         optional arguments:
-            --params_cutesv                     :   CuteSV parameters (default:
-                                                    '"--max_cluster_bias_INS 1000
-                                                      --diff_ratio_merging_INS 0.9
-                                                      --max_cluster_bias_DEL 1000
-                                                      --diff_ratio_merging_DEL 0.5
-                                                      --min_support 3
-                                                      --min_mapq 20
-                                                      --min_size 30
-                                                      --max_size -1
-                                                      --report_readid
-                                                      --genotype"').
+            --params_longcallr                  :   longcallr parameters (default: '""').
                                                     Note that the parameters need to be wrapped in quotes.
         """.stripIndent()
         exit 0
     }
 
-    def params_cutesv = (params.params_cutesv == true) ? '' : params.params_cutesv
+    def params_longcallr = (params.params_longcallr == true) ? '' : params.params_longcallr
 
     log.info"""\
         samples_tsv_file                    :   ${params.samples_tsv_file}
         output_dir                          :   ${params.output_dir}
+        preset                              :   ${params.preset}
         reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
-        params_cutesv                       :   ${params_cutesv}
+        reference_genes_gtf_file            :   ${params.reference_genes_gtf_file}
+        params_longcallr                    :   ${params_longcallr}
     """.stripIndent()
 
     Channel
@@ -114,10 +118,12 @@ workflow {
             "${row.bam_bai_file}") }
         .set { input_bam_files_ch }
 
-    VARIANT_CALLING_CUTESV(
+    HAPLOTYPE_PHASING_LONGCALLR(
         input_bam_files_ch,
+        params.preset,
         params.reference_genome_fasta_file,
-        params_cutesv,
+        params.reference_genes_gtf_file,
+        params_longcallr,
         params.output_dir
     )
 }

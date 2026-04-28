@@ -93,7 +93,7 @@ Check out the [Subworkflows](subworkflows/index.qmd) and [Workflows](workflows/i
 | alignment | minimap2, bwa-mem2, star, ultra, blastp, diamond-blastp | |
 | antigen prediction | mhcflurry2, netmhcpan4 | |
 | assembly | hifiasm, rnabloom2, stringtie2 | |
-| haplotyping | whatshap | |
+| haplotyping | flair, longcallr, whatshap | |
 | hla typing | arcashla, hlaprofiler, seq2hla | short-read |
 | isoform characterization | espresso, flair, isoquant, isoseq, isotools, mandalorion, rmats, sqanti3, talon | long-read, short-read |
 | peptide prediction | mopepgen | |

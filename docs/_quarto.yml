@@ -44,11 +44,14 @@ website:
       - subworkflows/assembly/assembly_rattle.qmd
       - subworkflows/assembly/assembly_rnabloom2.qmd
       - subworkflows/assembly/assembly_stringtie2.qmd
-    - section: Haplotyping
+    - section: Haplotype Phasing
       contents:
-      - subworkflows/haplotyping/haplotyping_flair-longshot.qmd
-      - subworkflows/haplotyping/haplotyping_longcallr.qmd
-      - subworkflows/haplotyping/haplotyping_whatshap.qmd
+      - subworkflows/haplotype_phasing/haplotype_phasing_flair-longshot.qmd
+      - subworkflows/haplotype_phasing/haplotype_phasing_hapcut2-whatshap.qmd
+      - subworkflows/haplotype_phasing/haplotype_phasing_hiphase.qmd
+      - subworkflows/haplotype_phasing/haplotype_phasing_longcallr.qmd
+      - subworkflows/haplotype_phasing/haplotype_phasing_longshot.qmd
+      - subworkflows/haplotype_phasing/haplotype_phasing_whatshap.qmd
     - section: HLA Typing
       contents:
       - subworkflows/hla_typing/hla_typing_arcashla.qmd
@@ -148,10 +151,6 @@ website:
       - subworkflows/variant_calling/variant_calling_svaba.qmd
       - subworkflows/variant_calling/variant_calling_svim.qmd
       - subworkflows/variant_calling/variant_calling_svisionpro.qmd
-    - section: Variant Phasing
-      contents:
-      - subworkflows/variant_phasing/variant_phasing_hiphase.qmd
-      - subworkflows/variant_phasing/variant_phasing_whatshap.qmd
   - id: workflows
     title: Workflows
     style: floating
@@ -159,6 +158,10 @@ website:
     - section: Overview
       contents:
       - workflows/index.qmd
+    - section: Haplotype Phasing
+      contents:
+      - workflows/haplotype_phasing/haplotype_phasing_long-read-dna.qmd
+      - workflows/haplotype_phasing/haplotype_phasing_long-read-rna.qmd
     - section: HLA Typing
       contents:
       - workflows/hla_typing/hla_typing_short-read.qmd

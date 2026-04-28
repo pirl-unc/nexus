@@ -104,7 +104,7 @@ def test_variant_calling_deepvariant_local_1():
         '--deepvariant_containerization', 'docker',
         '--deepvariant_model_type', 'PACBIO',
         '--deepvariant_bin_version', '1.6.1',
-        '--deepvariant_input_path', '/Users/leework/Documents/Research/projects/project_nexus/',
+        '--deepvariant_input_path', '/Users/ajslee/Documents/Research/projects/project_nexus/',
         '--deepvariant_output_path', '/var/folders/',
         '--output_dir', output_dir,
     ]
@@ -141,7 +141,7 @@ def test_variant_calling_deepvariant_local_2():
         '--deepvariant_containerization', 'docker',
         '--deepvariant_model_type', 'WGS',
         '--deepvariant_bin_version', '1.6.1',
-        '--deepvariant_input_path', '/Users/leework/Documents/Research/projects/project_nexus/',
+        '--deepvariant_input_path', '/Users/ajslee/Documents/Research/projects/project_nexus/',
         '--deepvariant_output_path', '/var/folders/',
         '--output_dir', output_dir,
     ]

@@ -2,6 +2,13 @@
 
 /*
  * Author: Jin Seok (Andy) Lee
+ *
+ * Phase variants in long-read DNA sequencing BAM files using Longshot.
+ * Longshot is unusual in that it both *calls* and *phases* small variants
+ * in a single step, emitting:
+ *   - a phased VCF
+ *   - a phased BAM (reads tagged with HP:i:1 / HP:i:2)
+ * No separate haplotag step is needed.
  */
 
 nextflow.enable.dsl=2
@@ -9,49 +16,52 @@ nextflow.enable.dsl=2
 // ------------------------------------------------------------
 // Step 1. Import Nextflow modules
 // ------------------------------------------------------------
-include { runSamtoolsFaidxFasta }              from '../../../tools/samtools'
-include { runCuteSV }                          from '../../../tools/cutesv'
-include { decompressFile as decompressFasta }  from '../../../tools/utils'
+include { runSamtoolsFaidxFasta }                  from '../../../tools/samtools'
+include { runLongshot }                            from '../../../tools/longshot'
+include { decompressFile as decompressFasta }      from '../../../tools/utils'
 
 // ------------------------------------------------------------
 // Step 2. Input parameters
 // ------------------------------------------------------------
-params.help                         = ''
+params.help                             = ''
 
 // Required arguments
-params.samples_tsv_file             = ''
-params.output_dir                   = ''
-params.reference_genome_fasta_file  = ''
+params.samples_tsv_file                 = ''
+params.output_dir                       = ''
+params.reference_genome_fasta_file      = ''
 
 // Optional arguments
-params.params_cutesv                = '--max_cluster_bias_INS 1000 --diff_ratio_merging_INS 0.9 --max_cluster_bias_DEL 1000 --diff_ratio_merging_DEL 0.5 --min_support 3 --min_mapq 20 --min_size 30 --max_size -1 --report_readid --genotype'
+params.params_longshot                  = ''
 
 // ------------------------------------------------------------
 // Step 3. Sub-workflows
 // ------------------------------------------------------------
-workflow VARIANT_CALLING_CUTESV {
+workflow HAPLOTYPE_PHASING_LONGSHOT {
     take:
-        input_bam_files_ch             // channel: [val(sample_id), path(bam_file), path(bam_bai_file)]
+        input_bam_files_ch              // channel: [val(sample_id), path(bam_file), path(bam_bai_file)]
         reference_genome_fasta_file
-        params_cutesv
+        params_longshot
         output_dir
 
     main:
+        // Step 1. Decompress and index reference genome FASTA file
         decompressFasta(reference_genome_fasta_file)
         runSamtoolsFaidxFasta(decompressFasta.out.f)
-        fasta_file      = runSamtoolsFaidxFasta.out.fasta
-        fasta_fai_file  = runSamtoolsFaidxFasta.out.fai_file
+        fasta_file          = runSamtoolsFaidxFasta.out.fasta
+        fasta_fai_file      = runSamtoolsFaidxFasta.out.fai_file
 
-        runCuteSV(
+        // Step 2. Run Longshot — calls + phases small variants, emits phased VCF + phased BAM.
+        runLongshot(
             input_bam_files_ch,
             fasta_file,
             fasta_fai_file,
-            params_cutesv,
+            params_longshot,
             output_dir
         )
 
     emit:
-        runCuteSV.out.f
+        // channel: [val(sample_id), path(vcf_file), path(bam_file), path(bam_bai_file)]
+        runLongshot.out.f
 }
 
 // ------------------------------------------------------------
@@ -59,17 +69,19 @@ workflow VARIANT_CALLING_CUTESV {
 // ------------------------------------------------------------
 workflow {
     log.info """\
-             ===============================================================================
-             Identify structural variants in long-read DNA sequencing BAM files using CuteSV
-             ===============================================================================
+             ============================================================
+             Phase small variants in long-read DNA sequencing BAM files
+             using Longshot (call + phase in one step)
+             ============================================================
              """.stripIndent()
 
     if (params.help) {
         log.info"""\
         workflow:
-            1. Run CuteSV.
+            1. Run Longshot — calls and phases small variants. Emits a phased VCF
+               and a haplotagged BAM (reads tagged with HP:i:1 / HP:i:2).
 
-        usage: nexus run --nf-workflow variant_calling_cutesv.nf [required] [optional] [--help]
+        usage: nexus run --nf-workflow haplotype_phasing_longshot.nf [required] [optional] [--help]
 
         required arguments:
             -c                                  :   Nextflow .config file.
@@ -80,29 +92,19 @@ workflow {
             --reference_genome_fasta_file       :   Reference genome FASTA file.
 
         optional arguments:
-            --params_cutesv                     :   CuteSV parameters (default:
-                                                    '"--max_cluster_bias_INS 1000
-                                                      --diff_ratio_merging_INS 0.9
-                                                      --max_cluster_bias_DEL 1000
-                                                      --diff_ratio_merging_DEL 0.5
-                                                      --min_support 3
-                                                      --min_mapq 20
-                                                      --min_size 30
-                                                      --max_size -1
-                                                      --report_readid
-                                                      --genotype"').
+            --params_longshot                   :   Extra longshot parameters (default: '""').
                                                     Note that the parameters need to be wrapped in quotes.
         """.stripIndent()
         exit 0
     }
 
-    def params_cutesv = (params.params_cutesv == true) ? '' : params.params_cutesv
+    def params_longshot = (params.params_longshot == true) ? '' : params.params_longshot
 
     log.info"""\
         samples_tsv_file                    :   ${params.samples_tsv_file}
         output_dir                          :   ${params.output_dir}
         reference_genome_fasta_file         :   ${params.reference_genome_fasta_file}
-        params_cutesv                       :   ${params_cutesv}
+        params_longshot                     :   ${params_longshot}
     """.stripIndent()
 
     Channel
@@ -114,10 +116,10 @@ workflow {
             "${row.bam_bai_file}") }
         .set { input_bam_files_ch }
 
-    VARIANT_CALLING_CUTESV(
+    HAPLOTYPE_PHASING_LONGSHOT(
         input_bam_files_ch,
         params.reference_genome_fasta_file,
-        params_cutesv,
+        params_longshot,
         params.output_dir
     )
 }
