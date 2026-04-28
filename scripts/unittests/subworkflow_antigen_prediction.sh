@@ -1,7 +1,14 @@
+tests=(
+  test_antigen_prediction_mhcflurry2
+  test_antigen_prediction_mhcflurry2_scan
+)
+
+expr=$(printf " or %s" "${tests[@]}")
+expr=${expr:4}
+
 pytest \
   -s \
   --cov-report=term-missing \
   --cov=nexuslib \
   test/ \
-  -k "test_antigen_prediction_mhcflurry2 or \
-      test_antigen_prediction_mhcflurry2_scan"
+  -k "$expr"
