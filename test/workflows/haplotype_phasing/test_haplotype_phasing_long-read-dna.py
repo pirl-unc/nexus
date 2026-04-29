@@ -35,7 +35,7 @@ def test_haplotype_phasing_long_read_dna_github_deepvariant():
     params['samples_tsv_file'] = f"{intermediate_dir}/samples.tsv"
     params['output_dir'] = output_dir
     params['reference_genome_fasta_file'] = reference_genome_fasta_file
-    params['deepvariant']['input_path'] = '/home/runner/work/nexus/nexus/'
+    params['deepvariant']['input_path'] = '/home/runner/work/nexus/'
     params['deepvariant']['output_path'] = '/tmp/'
     params_file = intermediate_dir + '/params.yaml'
     with open(params_file, 'w') as f:
@@ -174,7 +174,7 @@ def test_haplotype_phasing_long_read_dna_all_github():
     params['samples_tsv_file'] = f"{intermediate_dir}/samples.tsv"
     params['output_dir'] = output_dir
     params['reference_genome_fasta_file'] = reference_genome_fasta_file
-    params['deepvariant']['input_path'] = '/home/runner/work/nexus/nexus/'
+    params['deepvariant']['input_path'] = '/home/runner/work/nexus/'
     params['deepvariant']['output_path'] = '/tmp/'
     params_file = intermediate_dir + '/params.yaml'
     with open(params_file, 'w') as f:

@@ -33,7 +33,7 @@ process runIsotools {
             --genome $reference_genome_fasta_file \
             --samples sample.tsv \
             --file_prefix ${sample_id}_isotools_outputs/${sample_id} \
-            --gtf_out
+            --gtf_out \
             $params_isotools
         """
 }
