@@ -35,7 +35,7 @@ def test_haplotype_phasing_long_read_dna_github_deepvariant():
     params['samples_tsv_file'] = f"{intermediate_dir}/samples.tsv"
     params['output_dir'] = output_dir
     params['reference_genome_fasta_file'] = reference_genome_fasta_file
-    params['deepvariant']['input_path'] = '/home/runner/work/nexus/'
+    params['deepvariant']['input_path'] = '/home/runner/work/nexus/nexus/'
     params['deepvariant']['output_path'] = '/tmp/'
     params_file = intermediate_dir + '/params.yaml'
     with open(params_file, 'w') as f:
@@ -174,7 +174,7 @@ def test_haplotype_phasing_long_read_dna_all_github():
     params['samples_tsv_file'] = f"{intermediate_dir}/samples.tsv"
     params['output_dir'] = output_dir
     params['reference_genome_fasta_file'] = reference_genome_fasta_file
-    params['deepvariant']['input_path'] = '/home/runner/work/nexus/'
+    params['deepvariant']['input_path'] = '/home/runner/work/nexus/nexus/'
     params['deepvariant']['output_path'] = '/tmp/'
     params_file = intermediate_dir + '/params.yaml'
     with open(params_file, 'w') as f:
@@ -312,7 +312,7 @@ def test_haplotype_phasing_long_read_dna_longshot_phaser_only():
     bam_file = get_data_path(name='bam/nexus-dna-001-tumor-long-read_minimap2_mdtagged_sorted.bam')
     bam_bai_file = get_data_path(name='bam/nexus-dna-001-tumor-long-read_minimap2_mdtagged_sorted.bam.bai')
     reference_genome_fasta_file = get_data_path(name='fasta/GRCh38.p14.genome.chr17.fa.gz')
-    params_yaml_file = get_data_path(name='inputs/workflows/haplotype_phasing_long-read-dna/params_deepvariant.yaml')
+    params_yaml_file = get_data_path(name='inputs/workflows/haplotype_phasing_long-read-dna/params_longshot.yaml')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_haplotype_phasing_longread_dna_longshot_phaser_only'
     work_dir = temp_dir + '/work/test_haplotype_phasing_longread_dna_longshot_phaser_only'
@@ -329,17 +329,13 @@ def test_haplotype_phasing_long_read_dna_longshot_phaser_only():
         'bam_bai_file': [bam_bai_file]
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
 
-    # Reuse params_deepvariant.yaml but override methods to run only longshot
-    # as a standalone phaser (no other phaser methods).
+    # Use the Longshot-only fixture: Longshot is the small-variants caller and
+    # publishes its phased VCF + BAM directly, with no additional phaser methods.
     with open(params_yaml_file, 'r') as f:
         params = yaml.safe_load(f)
     params['samples_tsv_file'] = f"{intermediate_dir}/samples.tsv"
     params['output_dir'] = output_dir
     params['reference_genome_fasta_file'] = reference_genome_fasta_file
-    params['methods'] = 'longshot'
-    # Bind-mount the parent of the repo root so the mount covers both the
-    # checked-in test data (test/data/...) and the nextflow work dir (tmp/work/...).
-    # Works on local dev (macOS, Linux) and GitHub Actions runners alike.
     params_file = intermediate_dir + '/params.yaml'
     with open(params_file, 'w') as f:
         yaml.dump(params, f, default_flow_style=False, default_style='"')

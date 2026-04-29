@@ -13,8 +13,4 @@ for test_name in "${tests[@]}"; do
     --cov=nexuslib \
     test/ \
     -k "$test_name"
-
-  docker container prune -f || true
-  docker image prune -af || true
-  docker builder prune -af || true
 done
