@@ -7,13 +7,15 @@ tests=(
   test_haplotype_phasing_whatshap
 )
 
-expr=$(printf " or %s" "${tests[@]}")
-expr=${expr:4}
+for test_name in "${tests[@]}"; do
+  pytest \
+    -s \
+    --cov-report=term-missing \
+    --cov=nexuslib \
+    test/ \
+    -k "$test_name"
 
-pytest \
-  -s \
-  --cov-report=term-missing \
-  --cov=nexuslib \
-  test/ \
-  -k "$expr"
-
+  docker container prune -f || true
+  docker image prune -af || true
+  docker builder prune -af || true
+done
