@@ -1,0 +1,76 @@
+# Test fixture: same as params_all.yaml (DeepVariant + Longshot + Clair3 ×
+# pbsv × all phasers) but with haplotag_output="tsv" so the workflow only
+# publishes haplotag TSVs and skips the ~200 GB haplotagged BAMs.
+#
+# Use this fixture to smoke-test the TSV-only path before launching a benchmark
+# across many caller×phaser combinations.
+#
+# Expected output_dir layout (per sample):
+#   ${output_dir}/${sample_id}/
+#     ├── ${sample_id}_deepvariant.vcf.gz                        ← caller VCFs
+#     ├── ${sample_id}_longshot.vcf
+#     ├── ${sample_id}_longshot_haplotag.tsv.gz                  ← Longshot 2-col TSV
+#     ├── ${sample_id}_clair3_outputs/
+#     ├── ${sample_id}_pbsv.vcf
+#     ├── deepvariant_whatshap/<sample>_..._haplotagged_haplotag.tsv.gz
+#     ├── longshot_whatshap/...
+#     ├── clair3_whatshap/...
+#     ├── deepvariant_pbsv_hiphase/${sample_id}_hiphase_haplotag.tsv (+ summary/stats/blocks)
+#     ├── longshot_pbsv_hiphase/...
+#     ├── longshot_hapcut2-whatshap/<sample>_..._haplotagged_haplotag.tsv.gz
+#     ├── clair3_hapcut2-whatshap/...
+#     ├── deepvariant_longphase/<sample>_..._haplotagged_haplotag.tsv.gz
+#     ├── longshot_longphase/...
+#     └── clair3_longphase/...
+#
+# No *.bam files should be present anywhere under ${output_dir}/${sample_id}/.
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+
+small_variant_callers: "all"
+structural_variant_callers: "all"
+phasing_methods: "all"
+haplotag_output: "tsv"
+
+deepvariant:
+  input_path: ""
+  output_path: ""
+  containerization: "docker"
+  model_type: "PACBIO"
+  bin_path: "/opt/deepvariant/bin/run_deepvariant"
+  bin_version: "1.9.0"
+
+longshot:
+  extra_args: ""
+
+clair3:
+  extra_args: "--model_path=/opt/models/hifi_sequel2/ --platform=hifi --min_coverage=3"
+
+pbsv:
+  discover_extra_args: "--ccs --min-gap-comp-id-perc 97 --min-mapq 20"
+  call_extra_args: "--ccs --call-min-reads-per-strand-all-samples 0 --call-min-read-perc-one-sample 10 --call-min-reads-all-samples 3 --call-min-reads-one-sample 3"
+
+whatshap:
+  phase_extra_args: "--mapq 20"
+  haplotag_extra_args: "--ignore-read-groups --skip-missing-contigs --output-threads 4"
+
+hapcut2_whatshap:
+  read_technology: "pacbio"
+  extracthairs_extra_args: ""
+  hapcut2_extra_args: ""
+  whatshap_haplotag_extra_args: "--ignore-read-groups --skip-missing-contigs --output-threads 4"
+
+longphase:
+  # `longphase phase` v2.0.1 requires --ont or --pb (no --hifi). PacBio HiFi
+  # data uses --pb. `longphase haplotag` has no platform flag — leave empty.
+  phase_extra_args: "--pb"
+  haplotag_extra_args: ""
+
+margin:
+  # phase_params_json_file is rewritten by the test to an absolute host path so
+  # docker volume mounts work. Margin v2.3.1's `phase` subcommand produces both
+  # the phased VCF and the haplotagged BAM in one call, so only the phase
+  # params JSON is needed.
+  phase_params_json_file: ""
+  phase_extra_args: ""

@@ -17,7 +17,7 @@ include { VARIANT_CALLING_DYSGU_SOMATIC }               from '../../../subworkfl
 include { VARIANT_CALLING_NANOMONSV }                   from '../../../subworkflows/variant_calling/variant_calling_nanomonsv/variant_calling_nanomonsv'
 include { VARIANT_CALLING_SAVANA }                      from '../../../subworkflows/variant_calling/variant_calling_savana/variant_calling_savana'
 include { VARIANT_CALLING_SEVERUS }                     from '../../../subworkflows/variant_calling/variant_calling_severus/variant_calling_severus'
-include { HAPLOTYPE_PHASING_WHATSHAP }                  from '../../../subworkflows/haplotype_phasing/haplotype_phasing_whatshap/haplotype_phasing_whatshap'
+include { HAPLOTAGGING_WHATSHAP }                  from '../../../subworkflows/haplotagging/haplotagging_whatshap/haplotagging_whatshap'
 include { VARIANT_CALLING_SVISIONPRO }                  from '../../../subworkflows/variant_calling/variant_calling_svisionpro/variant_calling_svisionpro'
 
 // ------------------------------------------------------------
@@ -216,20 +216,20 @@ workflow VARIANT_CALLING_LONGREAD_SOMATIC {
 
         if (run_severus) {
             // Step 1. Phase normal small variant VCF with WhatsHap (haplotag step also runs but is unused here)
-            HAPLOTYPE_PHASING_WHATSHAP(
+            HAPLOTAGGING_WHATSHAP(
                 whatshap_input_ch,
                 uncompressed_fasta,
                 cfg_severus.whatshap_extra_args ?: '',
-                cfg_severus.whatshap_haplotag_extra_args ?: '--ignore-read-groups --tag-supplementary --skip-missing-contigs --output-threads 4',
+                cfg_severus.whatshap_haplotag_extra_args ?: '--ignore-read-groups --skip-missing-contigs --output-threads 4',
                 output_dir,
                 ''
             )
 
             // Step 2. Join phased VCF with BAM files for Severus
-            // HAPLOTYPE_PHASING_WHATSHAP emits .phased_vcf: tuple(sample_id, phased_vcf.gz, phased_vcf.gz.tbi)
+            // HAPLOTAGGING_WHATSHAP emits .phased_vcf: tuple(sample_id, phased_vcf.gz, phased_vcf.gz.tbi)
             // Severus needs: tuple(sample_id, tumor_bam, tumor_bai, normal_bam, normal_bai, phased_vcf)
             severus_input_ch = input_bam_files_ch
-                .join(HAPLOTYPE_PHASING_WHATSHAP.out.phased_vcf.map { sid, vcf, tbi -> tuple(sid, vcf) })
+                .join(HAPLOTAGGING_WHATSHAP.out.phased_vcf.map { sid, vcf, tbi -> tuple(sid, vcf) })
                 .map { sid, tbam, tbai, nbam, nbai, vcf -> tuple(sid, tbam, tbai, nbam, nbai, vcf) }
 
             VARIANT_CALLING_SEVERUS(

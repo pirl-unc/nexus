@@ -37,7 +37,7 @@ jobs:
           - alignment
           - antigen_prediction
           - assembly
-          - haplotype_phasing
+          - haplotagging
           - hla_typing
           - isoform_characterization
           - quantification
@@ -101,8 +101,9 @@ jobs:
       fail-fast: false
       matrix:
         group:
-          - haplotype_phasing_dna-lr
-          - haplotype_phasing_rna-lr
+          - haplotagging_dna-lr
+          - haplotagging_dna-sr
+          - haplotagging_rna-lr
           - hla_typing
           - isoform_characterization
           - quantification

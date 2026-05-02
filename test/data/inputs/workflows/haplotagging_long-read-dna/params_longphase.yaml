@@ -1,0 +1,51 @@
+# Test fixture: focused on the LongPhase phasing path.
+#
+# Pipeline that runs:
+#   - DeepVariant (small-variants caller)
+#   - LongPhase   (phaser; consumes DV's small-variants VCF)
+#
+# No SV calling, no other phasers. Sample-specific paths
+# (samples_tsv_file, output_dir, reference_genome_fasta_file,
+# deepvariant.input_path, deepvariant.output_path) are filled in by the test.
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+
+small_variant_callers: "deepvariant"
+structural_variant_callers: "none"
+phasing_methods: "longphase"
+haplotag_output: "bam"
+
+deepvariant:
+  input_path: ""
+  output_path: ""
+  containerization: "docker"
+  model_type: "PACBIO"
+  bin_path: "/opt/deepvariant/bin/run_deepvariant"
+  bin_version: "1.9.0"
+
+longshot:
+  extra_args: ""
+
+clair3:
+  extra_args: "--model_path=/opt/models/hifi_sequel2/ --platform=hifi --min_coverage=3"
+
+pbsv:
+  discover_extra_args: ""
+  call_extra_args: ""
+
+whatshap:
+  phase_extra_args: "--mapq 20"
+  haplotag_extra_args: "--ignore-read-groups --skip-missing-contigs --output-threads 4"
+
+hapcut2_whatshap:
+  read_technology: "pacbio"
+  extracthairs_extra_args: ""
+  hapcut2_extra_args: ""
+  whatshap_haplotag_extra_args: "--ignore-read-groups --skip-missing-contigs --output-threads 4"
+
+longphase:
+  # `longphase phase` v2.0.1 requires --ont or --pb (no --hifi). PacBio HiFi
+  # data uses --pb. `longphase haplotag` has no platform flag — leave empty.
+  phase_extra_args: "--pb"
+  haplotag_extra_args: ""

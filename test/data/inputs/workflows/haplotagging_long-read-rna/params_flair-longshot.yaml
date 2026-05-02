@@ -1,0 +1,16 @@
+# Test fixture: flair-longshot only.
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+
+methods: "flair-longshot"
+haplotag_output: "bam"
+
+flair_longshot:
+  flair_align_extra_args: ""
+  longshot_extra_args: ""
+
+longcallr:
+  preset: "hifi-isoseq"
+  reference_genes_gtf_file: ""
+  extra_args: ""

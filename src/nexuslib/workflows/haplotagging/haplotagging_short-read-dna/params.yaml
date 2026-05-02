@@ -1,0 +1,84 @@
+# =============================================================================
+# params.yaml — haplotagging_short-read-dna
+#
+# Usage:
+#   nextflow run haplotagging_short-read-dna.nf -params-file params.yaml
+#
+# Two orthogonal selectors decide what runs (CSV list, "all", or "none"/""):
+#   small_variant_callers   {deepvariant, haplotypecaller, clair3,
+#                            strelka2-germline}
+#   phasing_methods         {whatshap, hapcut2-whatshap}
+#
+# Each requested phaser runs ONCE PER selected small-variant caller, with
+# outputs at ${output_dir}/${sample_id}/<caller>_<phaser>/.
+#
+# NOTE: HapCUT2 requires strict diploid GTs (alleles in {0,1,2}, no '.'
+# calls). WGS DeepVariant VCFs may contain non-diploid GTs — if a HapCUT2
+# task fails on 'Non-diploid VCF entry detected', drop "hapcut2-whatshap"
+# from phasing_methods or pre-filter the VCF.
+# =============================================================================
+
+
+# ---- required: input/output paths -------------------------------------------
+
+# TSV file with columns: sample_id, bam_file, bam_bai_file
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+# Reference genome FASTA file (may be .fa or .fa.gz)
+reference_genome_fasta_file: ""
+
+
+# ---- required: pipeline selectors -------------------------------------------
+
+small_variant_callers: "all"
+phasing_methods: "all"
+
+# Output format for haplotagged reads.
+#   "bam"   →  publish full haplotagged BAM(s) (default).
+#   "tsv"   →  publish only a haplotag TSV per phaser (~1000× smaller).
+#   "both"  →  publish BAM and TSV.
+# Phased VCFs are always published.
+haplotag_output: "bam"
+
+
+# =============================================================================
+# Tool-specific settings (only consumed when the corresponding tool runs).
+# =============================================================================
+
+# DeepVariant — input_path / output_path are host paths bind-mounted into the
+# container. Both REQUIRED when running DeepVariant.
+deepvariant:
+  input_path:  ""
+  output_path: ""
+  containerization: "singularity"   # "singularity" | "docker"
+  model_type: "WGS"                 # WGS | WES (use WGS for whole-genome short-read)
+  bin_path: "/opt/deepvariant/bin/run_deepvariant"
+  bin_version: "1.9.0"
+
+# GATK4 HaplotypeCaller — one invocation per chromosome, merged via Picard MergeVcfs.
+haplotypecaller:
+  extra_args: ""
+  chromosomes: "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chrM"
+
+# Clair3 — default extra_args use the Illumina model bundled in the image.
+clair3:
+  extra_args: "--platform=ilmn --include_all_ctgs"
+
+# Strelka2-germline
+strelka2_germline:
+  extra_args: ""
+
+# WhatsHap (also used as fallback for hapcut2_whatshap.whatshap_haplotag_extra_args)
+whatshap:
+  phase_extra_args: "--mapq 20"
+  haplotag_extra_args: "--ignore-read-groups --skip-missing-contigs --output-threads 4"
+
+# HapCUT2 + WhatsHap haplotag — see note above on diploid GT requirements.
+hapcut2_whatshap:
+  read_technology: "illumina"        # "pacbio" | "ont" | "illumina"
+  extracthairs_extra_args: ""
+  hapcut2_extra_args: ""
+  whatshap_haplotag_extra_args: "--ignore-read-groups --skip-missing-contigs --output-threads 4"
