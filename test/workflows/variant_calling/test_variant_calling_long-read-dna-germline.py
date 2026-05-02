@@ -177,7 +177,7 @@ def test_variant_calling_long_read_dna_germline_local_3():
     params['samples_tsv_file'] = f"{intermediate_dir}/samples.tsv"
     params['output_dir'] = output_dir
     params['reference_genome_fasta_file'] = reference_genome_fasta_file
-    params['deepvariant']['input_path'] = '/Users/leework/Documents/Research/projects/project_nexus/'
+    params['deepvariant']['input_path'] = '/Users/ajslee/Documents/Research/projects/project_nexus/'
     params['deepvariant']['output_path'] = '/var/folders/'
     params['hificnv']['exclude_bed_file'] = exclude_bed_file
 

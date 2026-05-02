@@ -6,9 +6,22 @@ process runLongcallR {
     tag "${sample_id}"
     debug true
 
-    publishDir(
+    publishDir(  // VCF — always
         path: "${output_dir}/${sample_id}/",
-        mode: 'copy'
+        mode: 'copy',
+        pattern: "${sample_id}_longcallr.vcf"
+    )
+    publishDir(  // BAM — only when mode includes 'bam'
+        path: "${output_dir}/${sample_id}/",
+        mode: 'copy',
+        pattern: "${sample_id}_longcallr.phased.bam",
+        enabled: ((params.haplotag_output ?: 'bam').toString().toLowerCase() in ['bam', 'both'])
+    )
+    publishDir(  // haplotag TSV — only when mode includes 'tsv'
+        path: "${output_dir}/${sample_id}/",
+        mode: 'copy',
+        pattern: "${sample_id}_longcallr_haplotag.tsv.gz",
+        enabled: ((params.haplotag_output ?: 'bam').toString().toLowerCase() in ['tsv', 'both'])
     )
 
     input:
@@ -22,8 +35,10 @@ process runLongcallR {
 
     output:
         tuple val(sample_id), path("${sample_id}_longcallr.phased.bam"), path("${sample_id}_longcallr.vcf"), emit: f
+        path("${sample_id}_longcallr_haplotag.tsv.gz"), optional: true, emit: tsv
 
     script:
+        def emit_tsv = (params.haplotag_output ?: 'bam').toString().toLowerCase() in ['tsv', 'both']
         """
         longcallR \
             --bam-path $bam_file \
@@ -33,5 +48,18 @@ process runLongcallR {
             --output ${sample_id}_longcallr \
             --threads ${task.cpus} \
             $params_longcallr
+
+        # Extract a (readname, HP) TSV from the phased BAM when requested.
+        # 2 columns; '.' for reads without an HP tag.
+        if [ "${emit_tsv}" = "true" ]; then
+            {
+                printf "# readname\\thaplotype\\n"
+                samtools view ${sample_id}_longcallr.phased.bam | awk -v OFS='\\t' '{
+                    hp="."
+                    for (i=12; i<=NF; i++) if (\$i ~ /^HP:i:/) { hp=substr(\$i, 6); break }
+                    print \$1, hp
+                }'
+            } | gzip > ${sample_id}_longcallr_haplotag.tsv.gz
+        fi
         """
 }

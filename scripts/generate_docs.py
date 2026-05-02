@@ -23,7 +23,7 @@ CATEGORY_LABELS = {
     "alignment": "Alignment",
     "antigen_prediction": "Antigen Prediction",
     "assembly": "Assembly",
-    "haplotyping": "Haplotyping",
+    "haplotagging": "Haplotagging",
     "hla_typing": "HLA Typing",
     "isoform_characterization": "Isoform Characterization",
     "peptide_prediction": "Peptide Prediction",
@@ -33,10 +33,12 @@ CATEGORY_LABELS = {
     "utilities": "Utilities",
     "variant_annotation": "Variant Annotation",
     "variant_calling": "Variant Calling",
-    "variant_phasing": "Variant Phasing",
 }
 
 WORKFLOW_LABELS = {
+    "haplotagging_long-read-dna": "Haplotagging (Long-read DNA)",
+    "haplotagging_long-read-rna": "Haplotagging (Long-read RNA)",
+    "haplotagging_short-read-dna": "Haplotagging (Short-read DNA)",
     "hla_typing_short-read": "HLA typing (Short-read)",
     "isoform_characterization_long-read": "Isoform Characterization (Long-read)",
     "isoform_characterization_short-read": "Isoform Characterization (Short-read)",
@@ -145,6 +147,10 @@ def parse_help_to_params_table(help_text):
     for param, desc in rows:
         # Escape pipes in description
         desc = desc.replace('|', '\\|')
+        # Wrap CLI-style --flag tokens in backticks so Quarto's smart-typography
+        # doesn't convert the leading "--" into an en-dash. Only match flags
+        # that aren't already inside backticks.
+        desc = re.sub(r"(?<![`\w])(--[a-zA-Z][\w-]*)(?![`\w])", r"`\1`", desc)
         lines.append(f"| `{param}` | {desc} |")
     lines.append("")
     lines.append(": {.striped .hover}")

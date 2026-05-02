@@ -37,7 +37,7 @@ jobs:
           - alignment
           - antigen_prediction
           - assembly
-          - haplotyping
+          - haplotagging
           - hla_typing
           - isoform_characterization
           - quantification
@@ -48,7 +48,6 @@ jobs:
           - variant_calling_dna-sr
           - variant_calling_rna-lr
           - variant_calling_rna-sr
-          - variant_phasing
 
     steps:
       - name: Checkout repository
@@ -79,13 +78,14 @@ jobs:
         run: |
           conda install -y \
             pandas \
-            nextflow=23.10.0 \
+            nextflow=24.10.0 \
             pytest \
             pytest-cov \
             coveralls \
+            pip \
             pyyaml \
             biopython
-          pip install . --verbose
+          python -m pip install . --verbose
 
       - name: Run unit tests
         shell: bash -l {0}
@@ -101,10 +101,12 @@ jobs:
       fail-fast: false
       matrix:
         group:
+          - haplotagging_dna-lr
+          - haplotagging_dna-sr
+          - haplotagging_rna-lr
           - hla_typing
           - isoform_characterization
           - quantification
-          - variant_calling
           - variant_calling_dna-lr-germline
           - variant_calling_dna-lr-somatic
           - variant_calling_dna-sr-germline
@@ -139,13 +141,14 @@ jobs:
         run: |
           conda install -y \
             pandas \
-            nextflow=23.10.0 \
+            nextflow=24.10.0 \
             pytest \
             pytest-cov \
             coveralls \
+            pip \
             pyyaml \
             biopython
-          pip install . --verbose
+          python -m pip install . --verbose
 
       - name: Run unit tests
         shell: bash -l {0}

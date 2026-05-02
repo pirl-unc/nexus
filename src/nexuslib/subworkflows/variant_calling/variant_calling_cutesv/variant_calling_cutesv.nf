@@ -9,8 +9,9 @@ nextflow.enable.dsl=2
 // ------------------------------------------------------------
 // Step 1. Import Nextflow modules
 // ------------------------------------------------------------
-include { runSamtoolsFaidxFasta }   from '../../../tools/samtools'
-include { runCuteSV }               from '../../../tools/cutesv'
+include { runSamtoolsFaidxFasta }              from '../../../tools/samtools'
+include { runCuteSV }                          from '../../../tools/cutesv'
+include { decompressFile as decompressFasta }  from '../../../tools/utils'
 
 // ------------------------------------------------------------
 // Step 2. Input parameters
@@ -36,7 +37,8 @@ workflow VARIANT_CALLING_CUTESV {
         output_dir
 
     main:
-        runSamtoolsFaidxFasta(reference_genome_fasta_file)
+        decompressFasta(reference_genome_fasta_file)
+        runSamtoolsFaidxFasta(decompressFasta.out.f)
         fasta_file      = runSamtoolsFaidxFasta.out.fasta
         fasta_fai_file  = runSamtoolsFaidxFasta.out.fai_file
 

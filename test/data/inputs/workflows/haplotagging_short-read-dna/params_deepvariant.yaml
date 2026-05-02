@@ -1,0 +1,25 @@
+# Test fixture: short-read DNA haplotagging with DeepVariant only as the
+# small-variant caller, plus WhatsHap as the phaser. (HapCUT2 is skipped
+# because WGS DV VCFs may contain non-diploid GTs that fail HapCUT2's
+# strict-diploid check.)
+# Sample-specific paths (samples_tsv_file, output_dir, reference_genome_fasta_file,
+# deepvariant.input_path, deepvariant.output_path) are filled in by the test.
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+
+small_variant_callers: "deepvariant"
+phasing_methods: "whatshap"
+haplotag_output: "bam"
+
+deepvariant:
+  input_path: ""
+  output_path: ""
+  containerization: "docker"
+  model_type: "WGS"
+  bin_path: "/opt/deepvariant/bin/run_deepvariant"
+  bin_version: "1.9.0"
+
+whatshap:
+  phase_extra_args: "--mapq 20"
+  haplotag_extra_args: "--ignore-read-groups --skip-missing-contigs --output-threads 4"

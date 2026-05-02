@@ -1,0 +1,41 @@
+# Test fixture: focused on the HapCUT2 + WhatsHap-haplotag phaser path.
+# Uses Longshot as the small-variant caller; runs ONLY hapcut2-whatshap
+# (no hiphase, no whatshap, no SV caller).
+#
+# Note: The DeepVariant→HapCUT2 path is intentionally not wired in
+# haplotagging_long-read-dna.nf (HapCUT2 requires strict diploid GTs and
+# DV's WGS VCFs are awkward to filter), so HapCUT2 only runs from Longshot
+# and Clair3 VCFs.
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+
+small_variant_callers: "longshot"
+structural_variant_callers: "none"
+phasing_methods: "hapcut2-whatshap"
+haplotag_output: "bam"
+
+deepvariant:
+  input_path: ""
+  output_path: ""
+  containerization: "docker"
+  model_type: "PACBIO"
+  bin_path: "/opt/deepvariant/bin/run_deepvariant"
+  bin_version: "1.9.0"
+
+longshot:
+  extra_args: ""
+
+pbsv:
+  discover_extra_args: "--ccs --min-gap-comp-id-perc 97 --min-mapq 20"
+  call_extra_args: "--ccs --call-min-reads-per-strand-all-samples 0 --call-min-read-perc-one-sample 10 --call-min-reads-all-samples 3 --call-min-reads-one-sample 3"
+
+whatshap:
+  phase_extra_args: "--mapq 20"
+  haplotag_extra_args: "--ignore-read-groups --skip-missing-contigs --output-threads 4"
+
+hapcut2_whatshap:
+  read_technology: "pacbio"
+  extracthairs_extra_args: ""
+  hapcut2_extra_args: ""
+  whatshap_haplotag_extra_args: "--ignore-read-groups --skip-missing-contigs --output-threads 4"

@@ -6,22 +6,28 @@ process runLongshot {
     tag "${sample_id}"
     debug true
 
-    publishDir(
+    publishDir(  // VCF — always
         path: "${output_dir}/${sample_id}/",
         mode: 'copy',
         pattern: "${sample_id}_longshot.vcf"
     )
-
-    publishDir(
+    publishDir(  // BAM — only when mode includes 'bam'
         path: "${output_dir}/${sample_id}/",
         mode: 'copy',
-        pattern: "${sample_id}_longshot.bam"
+        pattern: "${sample_id}_longshot.bam",
+        enabled: ((params.haplotag_output ?: 'bam').toString().toLowerCase() in ['bam', 'both'])
     )
-
-    publishDir(
+    publishDir(  // BAI — only when mode includes 'bam'
         path: "${output_dir}/${sample_id}/",
         mode: 'copy',
-        pattern: "${sample_id}_longshot.bam.bai"
+        pattern: "${sample_id}_longshot.bam.bai",
+        enabled: ((params.haplotag_output ?: 'bam').toString().toLowerCase() in ['bam', 'both'])
+    )
+    publishDir(  // haplotag TSV — only when mode includes 'tsv'
+        path: "${output_dir}/${sample_id}/",
+        mode: 'copy',
+        pattern: "${sample_id}_longshot_haplotag.tsv.gz",
+        enabled: ((params.haplotag_output ?: 'bam').toString().toLowerCase() in ['tsv', 'both'])
     )
 
     input:
@@ -33,15 +39,39 @@ process runLongshot {
 
     output:
         tuple val(sample_id), path("${sample_id}_longshot.vcf"), path("${sample_id}_longshot.bam"), path("${sample_id}_longshot.bam.bai"), emit: f
+        path("${sample_id}_longshot_haplotag.tsv.gz"), optional: true, emit: tsv
 
     script:
+        // Only generate the TSV when at least one TSV-publishing mode is active.
+        def emit_tsv = (params.haplotag_output ?: 'bam').toString().toLowerCase() in ['tsv', 'both']
         """
         longshot \
             --bam $bam_file \
             --ref $reference_genome_fasta_file \
+            --sample_id $sample_id \
             --out ${sample_id}_longshot.vcf \
             --out_bam ${sample_id}_longshot.bam \
             $params_longshot
+
+        # If longshot finds zero variants it skips writing the output BAM,
+        # which breaks the output: declaration. Fall back to the input BAM
+        # in that case so downstream consumers always have a BAM to point at.
+        if [ ! -f ${sample_id}_longshot.bam ]; then
+            cp $bam_file ${sample_id}_longshot.bam
+        fi
         samtools index -@ ${task.cpus} -b ${sample_id}_longshot.bam ${sample_id}_longshot.bam.bai
+
+        # Extract a (readname, HP) TSV from the phased BAM when requested.
+        # 2 columns; '.' for reads without an HP tag.
+        if [ "${emit_tsv}" = "true" ]; then
+            {
+                printf "# readname\\thaplotype\\n"
+                samtools view ${sample_id}_longshot.bam | awk -v OFS='\\t' '{
+                    hp="."
+                    for (i=12; i<=NF; i++) if (\$i ~ /^HP:i:/) { hp=substr(\$i, 6); break }
+                    print \$1, hp
+                }'
+            } | gzip > ${sample_id}_longshot_haplotag.tsv.gz
+        fi
         """
 }

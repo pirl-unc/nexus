@@ -55,7 +55,7 @@ nexus run --nf-workflow <subworkflow>.nf \
 
 | Tool | Description |
 |:-----|:------------|
-| [whatshap](haplotyping/haplotyping_whatshap.qmd) | read-backed haplotype phasing |
+| [whatshap](haplotyping/haplotyping_whatshap.qmd) | read-backed haplotagging |
 
 : {.striped .hover}
 

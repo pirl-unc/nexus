@@ -1,0 +1,55 @@
+# Test fixture: full pipeline running DeepVariant, Longshot, AND Clair3 in
+# parallel. Each caller-dependent phaser runs once per caller's VCF, with
+# outputs nested under ${output_dir}/${sample_id}/<caller>_<phaser>/.
+# HapCUT2-WhatsHap runs from Longshot and Clair3 only (DV→HapCUT2 not wired).
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+
+small_variant_callers: "all"
+structural_variant_callers: "all"
+phasing_methods: "all"
+haplotag_output: "bam"
+
+deepvariant:
+  input_path: ""
+  output_path: ""
+  containerization: "docker"
+  model_type: "PACBIO"
+  bin_path: "/opt/deepvariant/bin/run_deepvariant"
+  bin_version: "1.9.0"
+
+longshot:
+  extra_args: ""
+
+clair3:
+  extra_args: "--model_path=/opt/models/hifi_sequel2/ --platform=hifi --min_coverage=3"
+
+pbsv:
+  discover_extra_args: "--ccs --min-gap-comp-id-perc 97 --min-mapq 20"
+  call_extra_args: "--ccs --call-min-reads-per-strand-all-samples 0 --call-min-read-perc-one-sample 10 --call-min-reads-all-samples 3 --call-min-reads-one-sample 3"
+
+whatshap:
+  phase_extra_args: "--mapq 20"
+  haplotag_extra_args: "--ignore-read-groups --skip-missing-contigs --output-threads 4"
+
+hapcut2_whatshap:
+  read_technology: "pacbio"
+  extracthairs_extra_args: ""
+  hapcut2_extra_args: ""
+  whatshap_haplotag_extra_args: "--ignore-read-groups --skip-missing-contigs --output-threads 4"
+
+longphase:
+  # `longphase phase` v2.0.1 requires --ont or --pb (no --hifi). PacBio HiFi
+  # data uses --pb. `longphase haplotag` has no platform flag — leave empty.
+  phase_extra_args: "--pb"
+  haplotag_extra_args: ""
+
+margin:
+  # phase_params_json_file is rewritten by the test to an absolute host path so
+  # docker volume mounts work. Test data is PacBio HiFi — the matching JSON
+  # ships at test/data/indices/margin/phase/allParams.phase_vcf.pb-hifi.json.
+  # Margin v2.3.1's `phase` subcommand produces both the phased VCF and the
+  # haplotagged BAM in one call, so only the phase params JSON is needed.
+  phase_params_json_file: ""
+  phase_extra_args: ""

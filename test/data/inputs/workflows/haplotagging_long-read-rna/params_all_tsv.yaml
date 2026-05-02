@@ -1,0 +1,37 @@
+# Test fixture: same as params_all.yaml (flair-longshot + longcallr) but with
+# haplotag_output="tsv" so the workflow publishes only haplotag TSVs and skips
+# the haplotagged BAMs.
+#
+# Use this fixture to smoke-test the TSV-only path before launching a benchmark.
+#
+# Expected output_dir layout (per sample):
+#   ${output_dir}/${sample_id}/
+#     ├── (flair-longshot)
+#     │   ├── ${sample_id}_flair_outputs/                ← FLAIR alignment outputs
+#     │   ├── ${sample_id}_longshot.vcf
+#     │   └── ${sample_id}_longshot_haplotag.tsv.gz      ← Longshot 2-col TSV
+#     └── (longcallr)
+#         ├── ${sample_id}_longcallr.vcf
+#         └── ${sample_id}_longcallr_haplotag.tsv.gz     ← longcallR 2-col TSV
+#
+# No *.bam files should be present anywhere under ${output_dir}/${sample_id}/.
+#
+# CAVEAT: longcallR's container (ajslee/longcallr:2.0.0) must include
+# `samtools` for the post-extract step. If it doesn't, the longcallr branch
+# of this test will fail with "samtools: command not found" — rebuild the
+# image with samtools installed.
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+
+methods: "all"
+haplotag_output: "tsv"
+
+flair_longshot:
+  flair_align_extra_args: ""
+  longshot_extra_args: ""
+
+longcallr:
+  preset: "hifi-isoseq"
+  reference_genes_gtf_file: ""
+  extra_args: ""

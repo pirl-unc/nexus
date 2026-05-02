@@ -7,15 +7,24 @@ process runWhatshapHaplotag {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/${subdir}/",
         mode: 'copy',
-        pattern: "${bam_file.baseName}_haplotagged.bam"
+        pattern: "${bam_file.baseName}_haplotagged.bam",
+        enabled: ((params.haplotag_output ?: 'bam').toString().toLowerCase() in ['bam', 'both'])
     )
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/${subdir}/",
         mode: 'copy',
-        pattern: "${bam_file.baseName}_haplotagged.bam.bai"
+        pattern: "${bam_file.baseName}_haplotagged.bam.bai",
+        enabled: ((params.haplotag_output ?: 'bam').toString().toLowerCase() in ['bam', 'both'])
+    )
+
+    publishDir(
+        path: "${output_dir}/${sample_id}/${subdir}/",
+        mode: 'copy',
+        pattern: "${bam_file.baseName}_haplotagged_haplotag.tsv.gz",
+        enabled: ((params.haplotag_output ?: 'bam').toString().toLowerCase() in ['tsv', 'both'])
     )
 
     input:
@@ -24,15 +33,22 @@ process runWhatshapHaplotag {
         path(reference_genome_fasta_fai_file)
         val(params_whatshap)
         val(output_dir)
+        val(subdir)
 
     output:
         tuple val(sample_id), path("${bam_file.baseName}_haplotagged.bam"), path("${bam_file.baseName}_haplotagged.bam.bai"), emit: f
+        path("${bam_file.baseName}_haplotagged_haplotag.tsv.gz"), emit: tsv
 
     script:
+        // WhatsHap's --output-haplotag-list emits a 4-column TSV
+        // (readname, haplotype, phaseset, chromosome). The .gz suffix triggers
+        // gzipped output (per WhatsHap docs). Always generated; whether it's
+        // copied to output_dir is governed by the publishDir enabled flag above.
         """
         whatshap haplotag \
             --reference $reference_genome_fasta_file \
             -o ${bam_file.baseName}_haplotagged.bam \
+            --output-haplotag-list ${bam_file.baseName}_haplotagged_haplotag.tsv.gz \
             $phased_vcf_file \
             $bam_file \
             $params_whatshap
@@ -47,13 +63,13 @@ process runWhatshapPhase {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/${subdir}/",
         mode: 'copy',
         pattern: "${sample_id}_whatshap_phased.vcf.gz"
     )
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/${subdir}/",
         mode: 'copy',
         pattern: "${sample_id}_whatshap_phased.vcf.gz.tbi"
     )
@@ -64,6 +80,7 @@ process runWhatshapPhase {
         path(reference_genome_fasta_fai_file)
         val(params_whatshap)
         val(output_dir)
+        val(subdir)
 
     output:
         tuple val(sample_id), path("${sample_id}_whatshap_phased.vcf.gz"), path("${sample_id}_whatshap_phased.vcf.gz.tbi"), emit: f

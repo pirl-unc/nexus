@@ -1,0 +1,14 @@
+{
+        "include" : "../base_params.json",
+        "polish": {
+                "maxDepth": 32
+        },
+        "phase" : {
+                "onlyUseSNPVCFEntries": false,
+                "useVariantSelectionAdaptiveSampling": false,
+                "phasesetMaxDiscordantRatio": 0.5,
+                "phasesetMinSpanningReads": 2,
+                "minSnpVariantQuality": 0,
+                "minIndelVariantQuality": 5
+        }
+}
