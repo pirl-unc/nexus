@@ -3,7 +3,7 @@ tests=(
   test_haplotagging_short_read_dna_haplotypecaller
   test_haplotagging_short_read_dna_clair3
   test_haplotagging_short_read_dna_strelka2_germline
-  test_haplotagging_short_read_dna_all
+  test_haplotagging_short_read_dna_all_github
 )
 
 for test_name in "${tests[@]}"; do

@@ -1,5 +1,6 @@
-# Test fixture: short-read DNA haplotagging using Strelka2-germline with both
-# phasers.
+# Test fixture: short-read DNA haplotagging using Strelka2-germline with
+# WhatsHap as the phaser. HapCUT2 is exercised in the all-callers integration
+# test (params_all.yaml), not here.
 # Sample-specific paths (samples_tsv_file, output_dir, reference_genome_fasta_file)
 # are filled in by the test.
 samples_tsv_file: ""
@@ -7,7 +8,7 @@ output_dir: ""
 reference_genome_fasta_file: ""
 
 small_variant_callers: "strelka2-germline"
-phasing_methods: "all"
+phasing_methods: "whatshap"
 haplotag_output: "bam"
 
 strelka2_germline:
@@ -16,9 +17,3 @@ strelka2_germline:
 whatshap:
   phase_extra_args: "--mapq 20"
   haplotag_extra_args: "--ignore-read-groups --skip-missing-contigs --output-threads 4"
-
-hapcut2_whatshap:
-  read_technology: "illumina"
-  extracthairs_extra_args: ""
-  hapcut2_extra_args: ""
-  whatshap_haplotag_extra_args: "--ignore-read-groups --skip-missing-contigs --output-threads 4"

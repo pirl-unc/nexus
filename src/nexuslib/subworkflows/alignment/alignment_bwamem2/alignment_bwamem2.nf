@@ -210,6 +210,12 @@ workflow {
             -w                                  :   Nextflow work directory path.
             --samples_tsv_file                  :   TSV file with the following columns:
                                                     'sample_id', 'fastq_file_1', 'fastq_file_2'.
+                                                    Multiple rows may share the same sample_id with
+                                                    different paired fastq files; for each sample_id
+                                                    all R1 files are concatenated and all R2 files
+                                                    are concatenated, then aligned together into a
+                                                    single merged BAM (e.g., for combining haplotype
+                                                    A and haplotype B reads of the same sample).
             --output_dir                        :   Directory to which output files will be copied.
             --reference_genome_fasta_file       :   Reference genome FASTA file.
             --abra2_targets_bed_file            :   ABRA2 targets BED file.
@@ -239,13 +245,19 @@ workflow {
         perform_local_indel_realignment     :   ${params.perform_local_indel_realignment}
     """.stripIndent()
 
+    // Read the TSV and group rows by sample_id so multiple paired fastq
+    // entries with the same sample_id (e.g., haplotype A R1/R2 and
+    // haplotype B R1/R2) collapse into a single tuple
+    // [sample_id, [r1_a, r1_b, ...], [r2_a, r2_b, ...]] and get aligned
+    // together into one merged BAM per sample.
     Channel
         .fromPath( params.samples_tsv_file )
         .splitCsv( header: true, sep: '\t' )
         .map { row -> tuple(
             "${row.sample_id}",
-            "${row.fastq_file_1}",
-            "${row.fastq_file_2}") }
+            file("${row.fastq_file_1}"),
+            file("${row.fastq_file_2}")) }
+        .groupTuple()
         .set { input_fastq_files_ch }
 
     ALIGNMENT_BWAMEM2(

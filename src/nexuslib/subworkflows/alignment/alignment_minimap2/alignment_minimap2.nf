@@ -36,7 +36,13 @@ params.library_tag                  = 'unknown'
 // ------------------------------------------------------------
 workflow ALIGNMENT_MINIMAP2 {
     take:
-        input_fastq_files_ch            // channel: [val(sample_id), path(fastq_file)]
+        // input_fastq_files_ch: [val(sample_id), path(fastq_files)] where
+        // fastq_files may be a single path or a list. Multiple rows in the
+        // input TSV that share the same sample_id should be collapsed into
+        // ONE entry here (single sample_id, list of fastq paths) — see the
+        // entry workflow's `groupTuple()` call. All FASTQs grouped under the
+        // same sample_id get aligned together into one merged BAM.
+        input_fastq_files_ch
         reference_genome_fasta_file
         params_minimap2
         platform_tag
@@ -103,6 +109,11 @@ workflow {
             -w                                  :   Nextflow work directory path.
             --samples_tsv_file                  :   TSV file with the following columns:
                                                     'sample_id', 'fastq_file'.
+                                                    Multiple rows may share the same sample_id with
+                                                    different fastq_file values; all such fastq files
+                                                    are aligned together into a single merged BAM
+                                                    per sample_id (e.g., for combining haplotype A
+                                                    and haplotype B reads of the same sample).
             --output_dir                        :   Directory to which output files will be copied.
             --reference_genome_fasta_file       :   Reference genome FASTA file.
 
@@ -127,12 +138,17 @@ workflow {
         library_tag                         :   ${params.library_tag}
     """.stripIndent()
 
+    // Read the TSV and group rows by sample_id so multiple fastq files with
+    // the same sample_id (e.g., haplotype A + haplotype B reads) collapse
+    // into a single tuple [sample_id, [fastq1, fastq2, ...]] and get
+    // aligned together into one merged BAM per sample.
     Channel
         .fromPath( params.samples_tsv_file )
         .splitCsv( header: true, sep: '\t' )
         .map { row -> tuple(
             "${row.sample_id}",
-            "${row.fastq_file}") }
+            file("${row.fastq_file}")) }
+        .groupTuple()
         .set { input_fastq_files_ch }
 
     ALIGNMENT_MINIMAP2(
