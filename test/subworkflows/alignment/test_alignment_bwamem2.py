@@ -111,9 +111,9 @@ def test_alignment_bwamem2_multi_fastq_per_sample():
     # sample_id), plus a single row for 'nexus-dna-001-normal' as a control.
     pd.DataFrame({
         'sample_id': [
-            'nexus-dna-merged',
-            'nexus-dna-merged',
-            'nexus-dna-001-normal',
+            'nexus-dna-001-tumor',
+            'nexus-dna-001-tumor',
+            'nexus-dna-001-normal'
         ],
         'fastq_file_1': [tumor_r1, normal_r1, normal_r1],
         'fastq_file_2': [tumor_r2, normal_r2, normal_r2],
@@ -139,7 +139,7 @@ def test_alignment_bwamem2_multi_fastq_per_sample():
     # Exactly one merged BAM should exist for the multi-row sample_id, and
     # one BAM for the single-row control.
     suffix = '_bwamem2_sorted_fixmate_markeddup_recalibrated.bam'
-    merged_bam = os.path.join(output_dir, 'nexus-dna-merged' + suffix)
+    merged_bam = os.path.join(output_dir, 'nexus-dna-001-tumor' + suffix)
     merged_bai = merged_bam + '.bai'
     control_bam = os.path.join(output_dir, 'nexus-dna-001-normal' + suffix)
     control_bai = control_bam + '.bai'
