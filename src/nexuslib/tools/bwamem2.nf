@@ -49,30 +49,27 @@ process runBwaMem2 {
 
     script:
         """
-        # Detect input compression from the first R1 file (assumed uniform
-        # within a sample). Preserve the suffix on the merged FASTQ so
-        # downstream tools see a consistent extension.
-        first_r1=\$(ls r1_in/ | head -n1)
-        case "\$first_r1" in
-            *.gz) ext=".fastq.gz" ;;
-            *)    ext=".fastq"    ;;
-        esac
-
-        # Concatenate all R1s and all R2s for this sample into one merged file
-        # each. (Gzipped FASTQs concatenate cleanly: `cat a.fq.gz b.fq.gz` is
-        # a valid gzip stream that decompresses to the concatenation.)
-        cat r1_in/* > merged_R1\${ext}
-        cat r2_in/* > merged_R2\${ext}
-
+        # Stream the concatenation of all R1s (and all R2s) into bwa-mem2
+        # via bash process substitution. No merged FASTQ ever lands on
+        # disk — bytes flow cat -> /dev/fd/N -> bwa-mem2 directly.
+        #
+        # Compression detection is not needed: bwa-mem2 (via kseq.h)
+        # detects gzip from magic bytes at the start of each input
+        # stream, so plain or gzipped inputs both work transparently.
+        # Concatenating gzipped FASTQs is also valid: cat a.fq.gz
+        # b.fq.gz produces a multi-member gzip stream that decompresses
+        # to the concatenation of a and b.
+        #
+        # Glob order is alphabetical, so r1_in/* and r2_in/* must use
+        # parallel naming conventions for mate pairs to align (the same
+        # constraint applied to the previous merged-file approach).
         bwa-mem2 mem -t ${task.bwamem2_threads} \\
             -R "@RG\\tID:${sample_id}\\tSM:${sample_id}\\tPL:${platform_tag}\\tLB:${library_tag}\\tPU:${platform_unit_tag}" \\
-            ${reference_genome_fasta_file} merged_R1\${ext} merged_R2\${ext} \\
+            ${reference_genome_fasta_file} \\
+            <(cat r1_in/*) \\
+            <(cat r2_in/*) \\
             | samtools view -@ ${task.samtools_view_threads} -bS \\
             | samtools sort -@ ${task.samtools_sort_threads} -m ${task.samtools_memory.toGiga()}G -O bam -o ${sample_id}_bwamem2_sorted.bam
         samtools index -@ ${task.cpus} -b ${sample_id}_bwamem2_sorted.bam ${sample_id}_bwamem2_sorted.bam.bai
-
-        # Clean up merged intermediates so the work-dir size stays reasonable
-        # (Nextflow will still keep the staged inputs and the final BAM).
-        rm -f merged_R1\${ext} merged_R2\${ext}
         """
 }

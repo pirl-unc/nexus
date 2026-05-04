@@ -54,7 +54,11 @@ process runPbsim3DNA {
         ls -1 contigs/*.fasta | \
           xargs -n 1 -P ${task.cpus} -I {} bash -lc '
             fa="{}"
-            contig=\$(basename "\$fa" .fa)
+            # Read the contig name from inside the FASTA rather than from
+            # the filename. seqkit split, when fed from stdin, names files
+            # "stdin.part_<id>.fasta" — parsing that back out is fragile,
+            # so we just ask the file for its sequence ID directly.
+            contig=\$(seqkit fx2tab -n -i "\$fa" | head -n1)
 
             pbsim \
               --method ${params_pbsim3_mode} \
