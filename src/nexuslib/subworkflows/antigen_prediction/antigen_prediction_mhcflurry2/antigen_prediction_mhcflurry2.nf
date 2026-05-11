@@ -43,9 +43,9 @@ workflow ANTIGEN_PREDICTION_MHCFLURRY2 {
         runMhcflurry2Predict.out.f
 }
 
-// ------------------------------------------------------------
+// --------------------------------------------------------------------
 // Step 4. Entry workflow (runs only when this file is the main script)
-// ------------------------------------------------------------
+// --------------------------------------------------------------------
 workflow {
     log.info """\
              ================================================
@@ -65,6 +65,7 @@ workflow {
             -w                                  :   Nextflow work directory path.
             --samples_tsv_file                  :   TSV file with the following columns:
                                                     'sample_id', 'csv_file'. The CSV file should have the columns 'peptide' and 'allele'.
+                                                    Note that all of the alleles should be specified by single string joined by comma.
             --output_dir                        :   Directory to which output files will be copied.
 
         optional arguments:
