@@ -57,8 +57,10 @@ website:
     - section: HLA Typing
       contents:
       - subworkflows/hla_typing/hla_typing_arcashla.qmd
+      - subworkflows/hla_typing/hla_typing_hlaminer-lr-rna.qmd
       - subworkflows/hla_typing/hla_typing_hlaprofiler.qmd
       - subworkflows/hla_typing/hla_typing_seq2hla.qmd
+      - subworkflows/hla_typing/hla_typing_specimmune.qmd
     - section: Isoform Characterization
       contents:
       - subworkflows/isoform_characterization/isoform_characterization_espresso.qmd
@@ -73,6 +75,7 @@ website:
       - subworkflows/isoform_characterization/isoform_characterization_talon.qmd
     - section: Peptide Prediction
       contents:
+      - subworkflows/peptide_prediction/peptide_prediction_exacto.qmd
       - subworkflows/peptide_prediction/peptide_prediction_mopepgen-gencode.qmd
     - section: Quantification
       contents:
@@ -167,6 +170,7 @@ website:
       - workflows/haplotagging/haplotagging_short-read-dna.qmd
     - section: HLA Typing
       contents:
+      - workflows/hla_typing/hla_typing_long-read.qmd
       - workflows/hla_typing/hla_typing_short-read.qmd
     - section: Isoform Characterization
       contents:
@@ -199,7 +203,10 @@ website:
       - utilities/filter_scrna_assembly.qmd
       - utilities/filter_unspliced_transcripts.qmd
       - utilities/find_scrna_barcode_knee.qmd
+      - utilities/split_fastq_by_hp_tag.qmd
 format:
   html:
-    theme: cosmo
+    theme:
+    - cosmo
+    - custom.scss
     toc: true

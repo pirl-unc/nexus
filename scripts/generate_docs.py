@@ -39,6 +39,7 @@ WORKFLOW_LABELS = {
     "haplotagging_long-read-dna": "Haplotagging (Long-read DNA)",
     "haplotagging_long-read-rna": "Haplotagging (Long-read RNA)",
     "haplotagging_short-read-dna": "Haplotagging (Short-read DNA)",
+    "hla_typing_long-read": "HLA typing (Long-read)",
     "hla_typing_short-read": "HLA typing (Short-read)",
     "isoform_characterization_long-read": "Isoform Characterization (Long-read)",
     "isoform_characterization_short-read": "Isoform Characterization (Short-read)",
@@ -157,8 +158,18 @@ def parse_help_to_params_table(help_text):
     return '\n'.join(lines)
 
 
-def _placeholder_for_param(name):
-    """Return a sensible placeholder based on the parameter name."""
+def _placeholder_for_param(name, help_text=""):
+    """Return a sensible placeholder based on the parameter name.
+
+    First we try to match a suffix on the param name itself (e.g. `_fastq_file`
+    → `/path/to/file.fastq`). If that fails and `help_text` is supplied, we
+    scan the help text for a known file-format token. If both fail we return
+    `""`.
+
+    When help-text fallback fires, a trailing digit in the param name (e.g.
+    `out_hap1`, `out_hap2`) is appended to the example filename so paired
+    outputs render as `/path/to/file1.fastq.gz` / `/path/to/file2.fastq.gz`.
+    """
     file_extensions = [
         ('_fasta_file', '/path/to/file.fasta'),
         ('_fa_file', '/path/to/file.fa'),
@@ -183,6 +194,29 @@ def _placeholder_for_param(name):
     for suffix, placeholder in file_extensions:
         if name.endswith(suffix):
             return placeholder
+
+    # Help-text fallback. Order matters: longer tokens first so "fastq.gz"
+    # wins over the substring "fastq".
+    if help_text:
+        digit_match = re.search(r'(\d+)$', name)
+        digit_suffix = digit_match.group(1) if digit_match else ''
+        help_lower = help_text.lower()
+        help_extensions = [
+            ('fastq.gz', f'/path/to/file{digit_suffix}.fastq.gz'),
+            ('fasta.gz', f'/path/to/file{digit_suffix}.fasta.gz'),
+            ('vcf.gz',   f'/path/to/file{digit_suffix}.vcf.gz'),
+            ('fastq',    f'/path/to/file{digit_suffix}.fastq'),
+            ('fasta',    f'/path/to/file{digit_suffix}.fasta'),
+            ('.bam',     f'/path/to/file{digit_suffix}.bam'),
+            ('.vcf',     f'/path/to/file{digit_suffix}.vcf'),
+            ('.tsv',     f'/path/to/file{digit_suffix}.tsv'),
+            ('.gtf',     f'/path/to/file{digit_suffix}.gtf'),
+            ('.bed',     f'/path/to/file{digit_suffix}.bed'),
+        ]
+        for keyword, placeholder in help_extensions:
+            if keyword in help_lower:
+                return placeholder
+
     return '""'
 
 
@@ -241,7 +275,7 @@ def generate_subworkflow_page(tool_name, nf_filename, nf_path, tool_dir, tool_pa
     lines.append('::: {.callout-note}')
     lines.append('Nextflow config files are available')
     lines.append('[here](https://github.com/pirl-unc/nexus/tree/main/nextflow).')
-    lines.append('Use the config file that matches your installed nexus version (e.g. `nexus_v0.2.0_nextflow_slurm.config`).')
+    lines.append('Use the config file that matches your installed Nexus version (e.g. `nexus_v0.2.0_nextflow_slurm.config`).')
     lines.append(':::')
     lines.append('')
 
@@ -526,9 +560,12 @@ def generate_utility_pages():
             if arg['default'] is not None:
                 usage_parts.append(f"[{arg['name']} {arg['default']}]")
             else:
-                # Convert --arg-name to arg_name for placeholder lookup
+                # Convert --arg-name to arg_name for placeholder lookup. Pass
+                # the help text in so paired outputs like --out-hap1/--out-hap2
+                # can be inferred from their help strings ("Output fastq.gz
+                # for haplotype 1." → /path/to/file1.fastq.gz).
                 param_key = arg['name'].lstrip('-').replace('-', '_')
-                placeholder = _placeholder_for_param(param_key)
+                placeholder = _placeholder_for_param(param_key, arg['help'])
                 # For non-file params, use type-aware placeholder
                 if placeholder == '""' and arg['type']:
                     type_placeholders = {'int': '0', 'float': '0.0', 'str': '""'}
@@ -568,7 +605,7 @@ def generate_utility_pages():
         'title: "Utilities"',
         '---',
         '',
-        'Standalone command-line utilities installed with nexus.',
+        'Standalone command-line utilities installed with Nexus.',
         '',
         '| Command | Description |',
         '|:--------|:------------|',
@@ -642,7 +679,10 @@ def generate_quarto_yml(subworkflow_sidebar, workflow_sidebar, utility_sidebar):
                 }
             ]
         },
-        "format": {"html": {"theme": "cosmo", "toc": True}}
+        # `custom.scss` lives next to _quarto.yml under docs/. Listing it here
+        # (as a list, not a string) tells Quarto to layer it on top of the
+        # cosmo Bootstrap theme.
+        "format": {"html": {"theme": ["cosmo", "custom.scss"], "toc": True}}
     }
 
     with open(os.path.join(DOCS_DIR, "_quarto.yml"), 'w') as f:

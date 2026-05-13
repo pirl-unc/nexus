@@ -1,0 +1,16 @@
+{
+	"include" : "../base_params.json",
+	"polish": {
+		"maxDepth": 64,
+		"includeSupplementaryAlignments": true,
+        "synchronizeSupplementaryAlignments": true
+	},
+	"phase" : {
+		"onlyUseSNPVCFEntries": true,
+		"useVariantSelectionAdaptiveSampling": true,
+		"variantSelectionAdaptiveSamplingPrimaryThreshold": 10,
+		"variantSelectionAdaptiveSamplingDesiredBasepairsPerVariant": 2000,
+		"minSnpVariantQuality": 5,
+		"phasesetMinSpanningReads": 3
+	}
+}

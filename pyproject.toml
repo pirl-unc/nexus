@@ -6,7 +6,7 @@ requires = [
 
 [project]
 name = "nexus"
-version = "0.2.0a6"
+version = "0.2.0a7"
 description = "NEXflow's Ultimate Streamliner"
 requires-python = ">=3.10"
 readme = "README.md"
@@ -45,3 +45,4 @@ nexus_filter_rnabloom2_transcripts      = "nexuslib.scripts.filter_rnabloom2_tra
 nexus_filter_scrna_assembly             = "nexuslib.scripts.filter_scrna_assembly:run"
 nexus_filter_unspliced_transcripts      = "nexuslib.scripts.filter_unspliced_transcripts:run"
 nexus_find_scrna_barcode_knee           = "nexuslib.scripts.find_scrna_barcode_knee:run"
+nexus_split_fastq_by_hp_tag             = "nexuslib.scripts.split_fastq_by_hp_tag:run"

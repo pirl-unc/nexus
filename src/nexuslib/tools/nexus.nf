@@ -17,7 +17,12 @@ process runNexusFilterRNABloom2Transcripts {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_rnabloom2_filtered_reads.tsv"), path("${sample_id}_rnabloom2_filtered_transcripts.tsv"), path("${sample_id}_rnabloom2_filtered.fasta"), emit: f
+        tuple val(sample_id),
+              path("${sample_id}_rnabloom2_filtered_reads.tsv"),
+              path("${sample_id}_rnabloom2_filtered_transcripts.tsv"),
+              path("${sample_id}_rnabloom2_filtered.fasta"),
+              path("${sample_id}_rnabloom2_filtered.fastq.gz"),
+              emit: f
 
     script:
         """
@@ -27,6 +32,7 @@ process runNexusFilterRNABloom2Transcripts {
             --output-reads-tsv-file ${sample_id}_rnabloom2_filtered_reads.tsv \
             --output-transcripts-tsv-file ${sample_id}_rnabloom2_filtered_transcripts.tsv \
             --output-fasta-file ${sample_id}_rnabloom2_filtered.fasta \
+            --output-fastq-file ${sample_id}_rnabloom2_filtered.fastq.gz \
             $params_nexus_filter_rnabloom2_transcripts
         """
 }

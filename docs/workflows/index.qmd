@@ -58,4 +58,16 @@ Type HLA alleles with multiple tools.
 
 : {.striped .hover}
 
+### Haplotagging
+
+Phase and haplotag reads with multiple tools.
+
+| Workflow | Tools | Input |
+|:---------|:------|:------|
+| [long-read-dna](haplotagging/haplotagging_long-read-dna.qmd) | hapcut2-whatshap, hiphase, longphase, margin, whatshap | long-read DNA FASTQ |
+| [long-read-rna](haplotagging/haplotagging_long-read-rna.qmd) | flair-longshot, longcallr | long-read RNA FASTQ |
+| [short-read-dna](haplotagging/haplotagging_short-read-dna.qmd) | hapcut2-whatshap, whatshap | short-read DNA FASTQ |
+
+: {.striped .hover}
+
 :::

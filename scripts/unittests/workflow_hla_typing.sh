@@ -1,4 +1,5 @@
 tests=(
+  test_hla_typing_longread
   test_hla_typing_shortread
 )
 

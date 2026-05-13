@@ -2,7 +2,7 @@
 title: "Utilities"
 ---
 
-Standalone command-line utilities installed with nexus.
+Standalone command-line utilities installed with Nexus.
 
 | Command | Description |
 |:--------|:------------|
@@ -14,5 +14,6 @@ Standalone command-line utilities installed with nexus.
 | [nexus_filter_scrna_assembly](filter_scrna_assembly.qmd) | Filter scRNA-seq assembly based on minimum cell and molecule support. |
 | [nexus_filter_unspliced_transcripts](filter_unspliced_transcripts.qmd) | Filter unspliced transcripts. |
 | [nexus_find_scrna_barcode_knee](find_scrna_barcode_knee.qmd) | Find the knee of the barcode rank plot from an unaligned scRNA-seq BAM file. |
+| [nexus_split_fastq_by_hp_tag](split_fastq_by_hp_tag.qmd) | Split a fastq. |
 
 : {.striped .hover tbl-colwidths="[40, 60]"}

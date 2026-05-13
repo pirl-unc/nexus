@@ -96,7 +96,7 @@ process runMarginPhase {
                 ${bam_file.baseName}_haplotagged.bam.bai
 
             # Empty haplotag TSV (header only).
-            printf "# readname\\thaplotype\\n" | gzip \
+            printf "# readname\\thaplotype\\tphaseset\\n" | gzip \
                 > ${bam_file.baseName}_haplotagged_haplotag.tsv.gz
             exit 0
         fi
@@ -126,14 +126,17 @@ process runMarginPhase {
             ${bam_file.baseName}_haplotagged.bam \
             ${bam_file.baseName}_haplotagged.bam.bai
 
-        # Extract a (readname, HP) TSV from the haplotagged BAM.
-        # 2 columns; '.' for reads without an HP tag.
+        # Extract a (readname, HP, PS) TSV from the haplotagged BAM.
+        # 3 columns; '.' for reads without an HP or PS tag.
         {
-            printf "# readname\\thaplotype\\n"
+            printf "# readname\\thaplotype\\tphaseset\\n"
             samtools view ${bam_file.baseName}_haplotagged.bam | awk -v OFS='\\t' '{
-                hp="."
-                for (i=12; i<=NF; i++) if (\$i ~ /^HP:i:/) { hp=substr(\$i, 6); break }
-                print \$1, hp
+                hp="."; ps="."
+                for (i=12; i<=NF; i++) {
+                    if      (\$i ~ /^HP:i:/) hp=substr(\$i, 6)
+                    else if (\$i ~ /^PS:i:/) ps=substr(\$i, 6)
+                }
+                print \$1, hp, ps
             }'
         } | gzip > ${bam_file.baseName}_haplotagged_haplotag.tsv.gz
         """
