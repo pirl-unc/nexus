@@ -92,12 +92,14 @@ website:
     - section: Sequencing Simulation
       contents:
       - subworkflows/sequencing_simulation/sequencing_simulation_art-illumina-pe.qmd
+      - subworkflows/sequencing_simulation/sequenicng_simulation_beers2.qmd
       - subworkflows/sequencing_simulation/sequencing_simulation_nanosim-genome.qmd
       - subworkflows/sequencing_simulation/sequencing_simulation_neat.qmd
       - subworkflows/sequencing_simulation/sequencing_simulation_pbsim3-dna.qmd
       - subworkflows/sequencing_simulation/sequencing_simulation_pbsim3-rna.qmd
     - section: Utilities
       contents:
+      - subworkflows/utilities/utilities_cutadapt.qmd
       - subworkflows/utilities/utilities_fastq2unalignedbam.qmd
       - subworkflows/utilities/utilities_fastqc.qmd
       - subworkflows/utilities/utilities_filter-rnabloom2-transcripts.qmd
@@ -199,6 +201,7 @@ website:
       - utilities/convert_scrna_bam2fastq.qmd
       - utilities/count_scrna_assembly_support.qmd
       - utilities/create_abra2_targets_bed_file.qmd
+      - utilities/create_beers2_input_data.qmd
       - utilities/filter_rnabloom2_transcripts.qmd
       - utilities/filter_scrna_assembly.qmd
       - utilities/filter_unspliced_transcripts.qmd

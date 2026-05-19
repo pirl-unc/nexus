@@ -101,8 +101,39 @@ process runMarginPhase {
             exit 0
         fi
 
+        # Margin requires each read ID to have AT MOST one primary alignment.
+        # If two primaries share a read name, margin polishes through to the
+        # merge step and then fails with:
+        #   "Expected three tokens in header line, got 2
+        #    This usually means you have multiple primary alignments with the
+        #    same read ID."
+        # ...wasting hours of polishing. Detect duplicates up front and, if
+        # present, write a deduplicated BAM (keep the first primary per read;
+        # preserve all secondary / supplementary / unmapped records) and feed
+        # that to margin. Other haplotaggers (whatshap, longphase) are not
+        # sensitive to this so we keep the fix local to runMarginPhase rather
+        # than touching the aligner.
+        margin_bam=${bam_file}
+        n_dup=\$(samtools view -F 0x904 ${bam_file} | cut -f1 | sort | uniq -d | wc -l)
+        if [ "\${n_dup}" -gt 0 ]; then
+            echo "WARNING: \${n_dup} read IDs have multiple primary alignments. Deduplicating BAM before margin."
+            {
+                samtools view -H ${bam_file}
+                # Primary mapped: keep first occurrence per read ID.
+                samtools view -F 0x904 ${bam_file} | awk '!seen[\$1]++'
+                # Unmapped primaries (have 0x4, no 0x100/0x800).
+                samtools view -f 0x004 -F 0x900 ${bam_file}
+                # Secondary alignments.
+                samtools view -f 0x100 ${bam_file}
+                # Supplementary alignments.
+                samtools view -f 0x800 ${bam_file}
+            } | samtools view -bS - | samtools sort -@ ${task.cpus} -o margin_input.bam -
+            samtools index -@ ${task.cpus} margin_input.bam
+            margin_bam=margin_input.bam
+        fi
+
         margin phase \
-            ${bam_file} \
+            \${margin_bam} \
             ${reference_genome_fasta_file} \
             \${in_vcf} \
             ${margin_params_json_file} \

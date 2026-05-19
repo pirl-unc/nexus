@@ -132,6 +132,7 @@ nexus run --nf-workflow <subworkflow>.nf \
 | Tool | Description |
 |:-----|:------------|
 | [art-illumina-pe](sequencing_simulation/sequencing_simulation_art-illumina-pe.qmd) | Illumina paired-end simulation |
+| [beers2](sequencing_simulation/sequenicng_simulation_beers2.qmd) | RNA-seq Illumina paired-end simulation |
 | [nanosim-genome](sequencing_simulation/sequencing_simulation_nanosim-genome.qmd) | Nanopore read simulation |
 | [neat](sequencing_simulation/sequencing_simulation_neat.qmd) | Illumina read simulation |
 | [pbsim3-dna](sequencing_simulation/sequencing_simulation_pbsim3-dna.qmd) | PacBio DNA read simulation |
@@ -143,6 +144,7 @@ nexus run --nf-workflow <subworkflow>.nf \
 
 | Tool | Description |
 |:-----|:------------|
+| [cutadapt](utilities/utilities_cutadapt.qmd) | adapter and polyA trimming |
 | [fastq2unalignedbam](utilities/utilities_fastq2unalignedbam.qmd) | FASTQ to unaligned BAM |
 | [fastqc](utilities/utilities_fastqc.qmd) | read quality control |
 | [filter-rnabloom2-transcripts](utilities/utilities_filter-rnabloom2-transcripts.qmd) | filter assembled transcripts |

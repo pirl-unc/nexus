@@ -16,9 +16,9 @@ include { HLA_TYPING_SPECIMMUNE }        from '../../../subworkflows/hla_typing/
 // Step 2. Print banner and help
 // ------------------------------------------------------------
 log.info """\
-         ============================================
+         ========================================
          HLA typing in long-read sequencing FASTQ
-         ============================================
+         ========================================
          """.stripIndent()
 
 if (params.help) {

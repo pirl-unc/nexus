@@ -53,12 +53,81 @@ WORKFLOW_LABELS = {
 
 
 def extract_tool_name(dirname):
-    """Extract the tool name from a subworkflow directory name."""
+    """Extract the tool name from a subworkflow directory name.
+
+    Strips the canonical `<category>_` prefix if present. If no known
+    category matches (e.g. the directory name has a typo like
+    `sequenicng_simulation_beers2`), falls back to returning the last
+    underscore-separated token — this is consistent with the convention
+    that subworkflow directories are named `<category>_<tool>` and tool
+    names use dashes (never underscores), so the trailing token is
+    always the tool name.
+    """
     for category in CATEGORY_LABELS:
         prefix = category + "_"
         if dirname.startswith(prefix):
             return dirname[len(prefix):]
+    if "_" in dirname:
+        return dirname.rsplit("_", 1)[-1]
     return dirname
+
+
+def resolve_nf_path(tool_path, tool_dir):
+    """Resolve the .nf file inside a subworkflow/workflow directory.
+
+    Tries the canonical `<tool_dir>.nf` first. If that file doesn't
+    exist (e.g. because the directory name has a typo but the .nf
+    inside is correctly spelled — as is the case for
+    `sequenicng_simulation_beers2/sequencing_simulation_beers2.nf`),
+    falls back to the sole .nf file in the directory.
+
+    Returns the tuple (nf_filename, nf_path). When no .nf is found,
+    returns the canonical (non-existent) names so the caller's
+    `read_nf_file` path still degrades gracefully to empty content.
+    """
+    canonical = f"{tool_dir}.nf"
+    canonical_path = os.path.join(tool_path, canonical)
+    if os.path.exists(canonical_path):
+        return canonical, canonical_path
+
+    if not os.path.isdir(tool_path):
+        return canonical, canonical_path
+
+    nf_files = sorted(f for f in os.listdir(tool_path) if f.endswith('.nf'))
+    if len(nf_files) == 1:
+        fname = nf_files[0]
+        return fname, os.path.join(tool_path, fname)
+
+    # Zero matches or ambiguous (multiple .nf files in one dir): keep
+    # the canonical path so the caller's existing missing-file behavior
+    # applies. Multiple .nf in a single subworkflow dir is unusual
+    # enough that picking arbitrarily would silently mislabel pages.
+    return canonical, canonical_path
+
+
+def read_extras_block(tool_path):
+    """Return hand-written extra docs for a tool, or '' if none exist.
+
+    `generate_docs.py` overwrites the per-tool .qmd on every run, so any
+    long-form content (deep parameter references, gotchas, examples)
+    written directly into the generated .qmd is lost on regen. To keep
+    such content version-controlled and regen-safe, drop a Markdown file
+    named `docs_extras.md` next to the subworkflow's .nf file:
+
+        src/nexuslib/subworkflows/<category>/<tool_dir>/
+            ├── <tool_dir>.nf
+            └── docs_extras.md    ← appended verbatim to the generated qmd
+
+    The content is appended after the auto-generated sections (banner,
+    usage, callout, parameters table), so the extras sit at the bottom
+    of the page. Use level-2 (`##`) headings inside the extras file to
+    match the surrounding sections.
+    """
+    extras_path = os.path.join(tool_path, "docs_extras.md")
+    if not os.path.exists(extras_path):
+        return ""
+    with open(extras_path, "r") as f:
+        return f.read().strip()
 
 
 def read_nf_file(nf_path):
@@ -301,6 +370,13 @@ def generate_subworkflow_page(tool_name, nf_filename, nf_path, tool_dir, tool_pa
             lines.append(params_table)
             lines.append('')
 
+    # Hand-written extras (see read_extras_block docstring for usage).
+    # Appended verbatim — author is responsible for headings/formatting.
+    extras = read_extras_block(tool_path)
+    if extras:
+        lines.append(extras)
+        lines.append('')
+
     return '\n'.join(lines)
 
 
@@ -325,8 +401,7 @@ def generate_subworkflow_pages():
                 continue
 
             tool_name = extract_tool_name(tool_dir)
-            nf_filename = f"{tool_dir}.nf"
-            nf_path = os.path.join(tool_path, nf_filename)
+            nf_filename, nf_path = resolve_nf_path(tool_path, tool_dir)
 
             qmd_content = generate_subworkflow_page(tool_name, nf_filename, nf_path, tool_dir, tool_path, cat_docs_dir)
             qmd_path = os.path.join(cat_docs_dir, f"{tool_dir}.qmd")
@@ -363,8 +438,7 @@ def generate_workflow_pages():
                 continue
 
             wf_label = WORKFLOW_LABELS.get(wf_dir, wf_dir.replace('_', ' ').replace('-', ' '))
-            nf_filename = f"{wf_dir}.nf"
-            nf_path = os.path.join(wf_path, nf_filename)
+            nf_filename, nf_path = resolve_nf_path(wf_path, wf_dir)
             params_path = os.path.join(wf_path, "params.yaml")
 
             banner, help_text, methods, _ = read_nf_file(nf_path)
@@ -423,6 +497,12 @@ def generate_workflow_pages():
                 qmd_lines.append('```yaml')
                 qmd_lines.append(params_content.strip())
                 qmd_lines.append('```')
+                qmd_lines.append('')
+
+            # Hand-written extras (same mechanism as subworkflows).
+            extras = read_extras_block(wf_path)
+            if extras:
+                qmd_lines.append(extras)
                 qmd_lines.append('')
 
             qmd_path = os.path.join(cat_docs_dir, f"{wf_dir}.qmd")
@@ -631,20 +711,28 @@ def generate_utility_pages():
 
 def generate_quarto_yml(subworkflow_sidebar, workflow_sidebar, utility_sidebar):
     """Generate _quarto.yml with full navigation."""
+    # Sort each category's contents by displayed tool/workflow name so the
+    # sidebar order matches the user-facing label, not the (possibly
+    # typo'd or category-prefixed) source directory name. Without this, a
+    # directory like `sequenicng_simulation_beers2/` sorts after
+    # `sequencing_simulation_*/` and `beers2` ends up at the bottom of the
+    # Sequencing Simulation section even though `b` < `n` alphabetically.
     sw_contents = []
     for category in sorted(subworkflow_sidebar.keys()):
         info = subworkflow_sidebar[category]
+        tools_sorted = sorted(info["tools"], key=lambda t: t["name"].lower())
         sw_contents.append({
             "section": info["label"],
-            "contents": [t["file"] for t in info["tools"]]
+            "contents": [t["file"] for t in tools_sorted]
         })
 
     wf_contents = []
     for category in sorted(workflow_sidebar.keys()):
         info = workflow_sidebar[category]
+        workflows_sorted = sorted(info["workflows"], key=lambda w: w["name"].lower())
         wf_contents.append({
             "section": info["label"],
-            "contents": [w["file"] for w in info["workflows"]]
+            "contents": [w["file"] for w in workflows_sorted]
         })
 
     sc_contents = [s["file"] for s in utility_sidebar]

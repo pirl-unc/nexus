@@ -10,6 +10,7 @@ Standalone command-line utilities installed with Nexus.
 | [nexus_convert_scrna_bam2fastq](convert_scrna_bam2fastq.qmd) | Convert an unaligned BAM file to a FASTQ. |
 | [nexus_count_scrna_assembly_support](count_scrna_assembly_support.qmd) | Count cell and molecule support for each transcript from assembled from scRNA-seq. |
 | [nexus_create_abra2_targets_bed_file](create_abra2_targets_bed_file.qmd) | Creates an ABRA2 targets BED file based on a GENCODE GTF file. |
+| [nexus_create_beers2_input_data](create_beers2_input_data.qmd) |  |
 | [nexus_filter_rnabloom2_transcripts](filter_rnabloom2_transcripts.qmd) | Filter RNA-Bloom2 assembled transcripts. |
 | [nexus_filter_scrna_assembly](filter_scrna_assembly.qmd) | Filter scRNA-seq assembly based on minimum cell and molecule support. |
 | [nexus_filter_unspliced_transcripts](filter_unspliced_transcripts.qmd) | Filter unspliced transcripts. |
