@@ -1,0 +1,108 @@
+#!/usr/bin/env nextflow
+
+/*
+ * Author: Jin Seok (Andy) Lee
+ */
+
+nextflow.enable.dsl=2
+
+// ------------------------------------------------------------
+// Step 1. Import Nextflow modules
+// ------------------------------------------------------------
+include { runStringTie3 }                          from '../../../tools/stringtie3'
+include { decompressFile as decompressGtf }        from '../../../tools/utils'
+
+// ------------------------------------------------------------
+// Step 2. Input parameters
+// ------------------------------------------------------------
+params.help                     = ''
+
+// Required arguments
+params.samples_tsv_file         = ''
+params.output_dir               = ''
+params.reference_genes_gtf_file = ''
+
+// Optional arguments
+params.params_stringtie3    = '-L'
+
+// ------------------------------------------------------------
+// Step 3. Sub-workflows
+// ------------------------------------------------------------
+workflow ASSEMBLY_STRINGTIE3 {
+    take:
+        input_bam_files_ch            // channel: [val(sample_id), path(bam_file)]
+        reference_genes_gtf_file
+        params_stringtie3
+        output_dir
+
+    main:
+        decompressGtf(reference_genes_gtf_file)
+
+        runStringTie3(
+            input_bam_files_ch,
+            decompressGtf.out.f,
+            params_stringtie3,
+            output_dir
+        )
+
+    emit:
+        runStringTie3.out.f
+}
+
+// ------------------------------------------------------------
+// Step 4. Entry workflow (runs only when this file is the main script)
+// ------------------------------------------------------------
+workflow {
+    log.info """\
+             =================================================
+             Assemble long-read RNA BAM files using StringTie3
+             =================================================
+             """.stripIndent()
+
+    if (params.help) {
+        log.info"""\
+        workflow:
+            1. Assemble transcripts using StringTie3.
+
+        usage: nexus run --nf-workflow assembly_stringtie3.nf [required] [optional] [--help]
+
+        required arguments:
+            -c                          :   Nextflow .config file.
+            -w                          :   Nextflow work directory path.
+            --samples_tsv_file          :   TSV file with the following columns:
+                                            'sample_id', 'bam_file', 'bam_bai_file'.
+            --output_dir                :   Directory to which output files will be copied.
+            --reference_genes_gtf_file  :   Reference genes GTF file.
+
+        optional arguments:
+            --params_stringtie3         :   StringTie3 parameters (default: '"-L"').
+                                            Note that the parameters need to be wrapped in quotes.
+        """.stripIndent()
+        exit 0
+    }
+
+    def params_stringtie3 = (params.params_stringtie3 == true) ? '' : params.params_stringtie3
+
+    log.info"""\
+        samples_tsv_file            :   ${params.samples_tsv_file}
+        output_dir                  :   ${params.output_dir}
+        reference_genes_gtf_file    :   ${params.reference_genes_gtf_file}
+        params_stringtie3           :   ${params_stringtie3}
+    """.stripIndent()
+
+    Channel
+        .fromPath( params.samples_tsv_file )
+        .splitCsv( header: true, sep: '\t' )
+        .map { row -> tuple(
+            "${row.sample_id}",
+            "${row.bam_file}",
+            "${row.bam_bai_file}") }
+        .set { input_bam_files_ch }
+
+    ASSEMBLY_STRINGTIE3(
+        input_bam_files_ch,
+        params.reference_genes_gtf_file,
+        params_stringtie3,
+        params.output_dir
+    )
+}
