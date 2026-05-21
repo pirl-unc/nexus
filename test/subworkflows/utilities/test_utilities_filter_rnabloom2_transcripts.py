@@ -6,7 +6,7 @@ from ...data import get_data_path
 
 def test_utilities_filter_rnabloom2_transcripts():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
-    rnabloom2_output_dir = get_data_path(name='inputs/subworkflows/utilities_filter-rnabloom2-transcripts/nexus-rna-002-tumor_rnabloom2_output/')
+    rnabloom2_output_dir = get_data_path(name='inputs/subworkflows/filter_rnabloom2_transcripts/nexus-rna-002-tumor_rnabloom2_output/')
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_utilities_filter_rnabloom2_transcripts'
     work_dir = temp_dir + '/work/test_utilities_filter_rnabloom2_transcripts'

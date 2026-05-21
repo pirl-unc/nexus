@@ -7,7 +7,7 @@ process runPicardMergeVCFs {
     debug true
 
    publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/${variant_calling_method}/",
         mode: 'copy'
     )
 

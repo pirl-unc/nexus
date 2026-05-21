@@ -18,16 +18,16 @@ process runOarfishFastqMode {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_oarfish_outputs/"), emit: f
+        tuple val(sample_id), path("oarfish/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_oarfish_outputs/
+        mkdir -p oarfish/
         oarfish \
             --reference $reference_transcriptome_fasta_file \
             --threads ${task.cpus} \
             $params_oarfish \
-            --output ${sample_id}_oarfish_outputs/${sample_id}_oarfish \
+            --output oarfish/${sample_id}_oarfish \
             --reads $fastq_file
         """
 }

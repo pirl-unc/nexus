@@ -37,7 +37,7 @@ process runCircExplorer2Annotate {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/circexplorer2/",
         mode: 'copy'
     )
 

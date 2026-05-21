@@ -216,8 +216,13 @@ workflow HAPLOTAGGING_SHORTREAD_DNA {
                 cfg_strelka2_germline?.extra_args ?: '',
                 output_dir
             )
-            // Strelka2-germline emits (sid, "${sid}_strelka2.vcf")
-            strelka2_vcf_ch = VARIANT_CALLING_STRELKA2_GERMLINE.out
+            // Strelka2-germline now emits (sid, "strelka2/") — the whole
+            // run directory, mirroring the clair3 publishDir refactor.
+            // The merged germline VCF lives at
+            // <run_dir>/results/variants/variants.vcf.gz by convention.
+            strelka2_vcf_ch = VARIANT_CALLING_STRELKA2_GERMLINE.out.map { sid, dir ->
+                tuple(sid, file("${dir}/results/variants/variants.vcf.gz"))
+            }
         }
 
         // ----------------------------------------------------

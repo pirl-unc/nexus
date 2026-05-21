@@ -200,8 +200,10 @@ def test_haplotagging_long_read_rna_all_tsv():
     assert not leaked_bams, \
         f"haplotag_output='tsv' but found published phased BAMs: {leaked_bams}"
 
-    # Each method's haplotag TSV should be present.
-    longshot_tsv = os.path.join(sample_out, 'nexus-rna-001-tumor_longshot_haplotag.tsv.gz')
-    longcallr_tsv = os.path.join(sample_out, 'nexus-rna-001-tumor_longcallr_haplotag.tsv.gz')
+    # Each method's haplotag TSV should be present. After the publishDir
+    # standardization, per-tool outputs land in <sample>/<tool>/ instead
+    # of directly under <sample>/.
+    longshot_tsv = os.path.join(sample_out, 'longshot', 'nexus-rna-001-tumor_longshot_haplotag.tsv.gz')
+    longcallr_tsv = os.path.join(sample_out, 'longcallr', 'nexus-rna-001-tumor_longcallr_haplotag.tsv.gz')
     assert os.path.isfile(longshot_tsv), f"missing Longshot haplotag TSV at {longshot_tsv}"
     assert os.path.isfile(longcallr_tsv), f"missing longcallR haplotag TSV at {longcallr_tsv}"

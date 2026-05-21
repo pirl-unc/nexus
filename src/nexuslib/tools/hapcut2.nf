@@ -1,13 +1,5 @@
 #!/usr/bin/env nextflow
 
-/*
- * HapCUT2 phaser. Runs in two stages that are tightly coupled:
- *   1. `extractHAIRS` — extracts haplotype-relevant read fragments from the BAM
- *   2. `HAPCUT2`     — phases the variants using those fragments
- * The fragment file is intermediate; the published outputs are the phased
- * haplotype block file and the phased VCF.
- */
-
 process runHapCUT2 {
 
     label 'hapcut2'

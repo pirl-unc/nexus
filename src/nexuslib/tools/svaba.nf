@@ -25,30 +25,17 @@ process runSvaba {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_svaba_outputs/"), emit: f
+        tuple val(sample_id), path("svaba/"), emit: f
 
     script:
         """
+        mkdir -p svaba/
         svaba run \
             --reference-genome $reference_genome_fasta_file \
-            --id-string $sample_id \
+            --id-string svaba/$sample_id \
             --case-bam $tumor_bam_file \
             --control-bam $normal_bam_file \
             --threads ${task.cpus} \
             $params_svaba
-        mkdir -p ${sample_id}_svaba_outputs/
-        mv ${sample_id}.alignments.txt.gz ${sample_id}_svaba_outputs/
-        mv ${sample_id}.bps.txt.gz ${sample_id}_svaba_outputs/
-        mv ${sample_id}.contigs.bam ${sample_id}_svaba_outputs/
-        mv ${sample_id}.discordant.txt.gz ${sample_id}_svaba_outputs/
-        mv ${sample_id}.log ${sample_id}_svaba_outputs/
-        mv ${sample_id}.svaba.germline.indel.vcf ${sample_id}_svaba_outputs/
-        mv ${sample_id}.svaba.germline.sv.vcf ${sample_id}_svaba_outputs/
-        mv ${sample_id}.svaba.somatic.indel.vcf ${sample_id}_svaba_outputs/
-        mv ${sample_id}.svaba.somatic.sv.vcf ${sample_id}_svaba_outputs/
-        mv ${sample_id}.svaba.unfiltered.germline.indel.vcf ${sample_id}_svaba_outputs/
-        mv ${sample_id}.svaba.unfiltered.germline.sv.vcf ${sample_id}_svaba_outputs/
-        mv ${sample_id}.svaba.unfiltered.somatic.indel.vcf ${sample_id}_svaba_outputs/
-        mv ${sample_id}.svaba.unfiltered.somatic.sv.vcf ${sample_id}_svaba_outputs/
         """
 }

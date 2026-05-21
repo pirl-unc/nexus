@@ -17,16 +17,16 @@ process runHifiasm {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_hifiasm_outputs/"), emit: f
+        tuple val(sample_id), path("hifiasm/"), emit: f
 
     script:
         """
         READS="${fastq_files.join(' ')}"
-        mkdir -p ${sample_id}_hifiasm_outputs/
+        mkdir -p hifiasm/
         hifiasm \
             $params_hifiasm \
             -t ${task.cpus} \
-            -o ${sample_id}_hifiasm_outputs/${sample_id}_hifiasm.asm \
+            -o hifiasm/${sample_id}_hifiasm.asm \
             \$READS
         """
 }

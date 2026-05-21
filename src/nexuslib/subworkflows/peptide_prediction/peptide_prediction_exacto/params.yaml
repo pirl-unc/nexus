@@ -1,0 +1,103 @@
+# =============================================================================
+# params.yaml — peptide_prediction_exacto
+#
+# Usage:
+#   nextflow run peptide_prediction_exacto.nf -params-file params.yaml
+#
+# Mirrors the exacto mutant-proteoform-prediction pipeline:
+#   https://pirl-unc.github.io/exacto/pipelines/mutant-proteoform-prediction.html
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with the following columns (one row per sample):
+#   sample_id
+#   tumor_dna_fastq_file       long-read tumor  DNA fastq.gz
+#   normal_dna_fastq_file      long-read normal DNA fastq.gz (matched control)
+#   tumor_rna_fastq_file       long-read tumor  RNA fastq.gz
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+# Reference genome FASTA file (bgzipped is OK; exacto + samtools handle .gz)
+reference_genome_fasta_file: ""
+
+# Reference gene annotation file (e.g. GENCODE *.gtf.gz)
+reference_gene_annotation_file: ""
+
+# Reference gene annotation source / assembly / version (consumed by several
+# exacto subcommands — keep these consistent with reference_gene_annotation_file)
+reference_gene_annotation_source: "gencode"
+reference_gene_annotation_assembly: "hg38"
+reference_gene_annotation_version: "v45"
+
+# Reference proteome FASTA file (e.g. GENCODE translations FASTA)
+reference_proteome_fasta_file: ""
+
+
+# -----------------------------------------------------------------------------
+# Translation strategy
+# -----------------------------------------------------------------------------
+# Passed to `exacto translate-structs`.
+#   'longest_orf' : translate only the longest ORF per transcript structure
+#   'all_orfs'    : translate every ORF per transcript structure
+strategy: "longest_orf"
+
+
+# -----------------------------------------------------------------------------
+# Read group tags (passed to minimap2 via -R "@RG\\t...")
+# -----------------------------------------------------------------------------
+platform_tag: "unknown"
+platform_unit_tag: "unknown"
+library_tag: "unknown"
+
+
+# -----------------------------------------------------------------------------
+# Per-tool extra CLI arguments
+#
+# Each field below is appended verbatim to the corresponding tool invocation.
+# Defaults follow the exacto reference pipeline; leave fields empty ("") to
+# skip extra args entirely.
+# -----------------------------------------------------------------------------
+exacto:
+  # ---- minimap2 ----
+  # Tumor + normal DNA alignment (PacBio HiFi preset)
+  minimap2_dna_args: "-ax map-hifi --cs --eqx -Y -L --secondary=no"
+
+  # Filtered transcript-assembly FASTA → genome alignment (long-read RNA preset)
+  minimap2_rna_args: "-ax splice:hq -uf --cs --eqx -Y -L --secondary=no"
+
+  # ---- RNA-Bloom2 (transcript assembly) ----
+  # See: https://github.com/bcgsc/RNA-Bloom
+  # Reference pipeline uses '-chimera -lrpb' for PacBio HiFi long-read input.
+  rnabloom2_extra_args: "-chimera -lrpb"
+
+  # ---- nexus_filter_rnabloom2_transcripts ----
+  filter_rnabloom2_extra_args: ""
+
+  # ---- exacto remove-unspliced-rnas ----
+  remove_unspliced_rnas_extra_args: ""
+
+  # ---- exacto call-rna-vars ----
+  call_rna_vars_extra_args: ""
+
+  # ---- exacto call-somatic-dna-vars ----
+  # Set --preset to 'pb' (PacBio HiFi) or 'ont' (Oxford Nanopore) to match the
+  # sequencing platform of the input DNA FASTQ files.
+  call_somatic_dna_vars_extra_args: "--preset pb"
+
+  # ---- exacto annotate-vars ----
+  annotate_vars_extra_args: ""
+
+  # ---- exacto integrate-vars ----
+  integrate_vars_extra_args: ""
+
+  # ---- exacto translate-structs ----
+  translate_structs_extra_args: ""
+
+  # ---- exacto call-peptide-vars ----
+  call_peptide_vars_extra_args: ""

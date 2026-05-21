@@ -19,17 +19,16 @@ process runSvimAlignmentMode {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_svim.vcf"), emit: f
+        tuple val(sample_id), path("svim/"), emit: f
 
     script:
         """
-        mkdir ${sample_id}_svim_output/
+        mkdir svim/
         svim alignment \
             --sample $sample_id \
             $params_svim \
-            ${sample_id}_svim_output/ \
+            svim/ \
             $bam_file \
             $reference_genome_fasta_file
-        cp ${sample_id}_svim_output/variants.vcf ${sample_id}_svim.vcf
         """
 }

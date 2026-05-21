@@ -7,7 +7,7 @@ process runCuteSV {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/cutesv/",
         mode: 'copy'
     )
 
@@ -23,7 +23,7 @@ process runCuteSV {
 
     script:
         """
-        mkdir -p ${sample_id}_cutesv_output/
+        mkdir -p temp/
         cuteSV \
             --threads ${task.cpus} \
             --sample $sample_id \
@@ -31,6 +31,6 @@ process runCuteSV {
             $bam_file \
             $reference_genome_fasta_file \
             ${sample_id}_cutesv.vcf \
-            ${sample_id}_cutesv_output/
+            temp/
         """
 }

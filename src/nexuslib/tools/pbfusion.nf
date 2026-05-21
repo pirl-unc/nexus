@@ -20,15 +20,15 @@ process runPbfusion {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_pbfusion*"), emit: f
+        tuple val(sample_id), path("pbfusion/"), emit: f
 
     script:
         """
-        mkdir -p outputs/
+        mkdir -p pbfusion/
         pbfusion discover \
             -b $bam_file \
             -g $gtf_file \
-            -o ${sample_id}_pbfusion \
+            -o pbfusion/${sample_id}_pbfusion \
             $params_pbfusion_discover
         """
 }

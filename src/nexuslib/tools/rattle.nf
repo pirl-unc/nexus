@@ -7,7 +7,7 @@ process runRattleCluster {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/rattle/",
         mode: 'copy'
     )
 
@@ -36,7 +36,7 @@ process runRattleCorrect {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/rattle/",
         mode: 'copy'
     )
 
@@ -68,7 +68,7 @@ process runRattlePolish {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/rattle/",
         mode: 'copy'
     )
 

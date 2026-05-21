@@ -1,0 +1,76 @@
+# =============================================================================
+# params.yaml — peptide_prediction_exacto (test fixture)
+#
+# Usage:
+#   nextflow run peptide_prediction_exacto.nf -params-file params.yaml
+#
+# Mirrors the exacto mutant-proteoform-prediction pipeline:
+#   https://pirl-unc.github.io/exacto/pipelines/mutant-proteoform-prediction.html
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required (filled in by the test harness)
+# -----------------------------------------------------------------------------
+
+# TSV file with the following columns (one row per sample):
+#   sample_id
+#   tumor_dna_fastq_file       long-read tumor  DNA fastq.gz
+#   normal_dna_fastq_file      long-read normal DNA fastq.gz (matched control)
+#   tumor_rna_fastq_file       long-read tumor  RNA fastq.gz
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+# Reference genome FASTA file
+reference_genome_fasta_file: ""
+
+# Reference gene annotation file (e.g. GENCODE *.gtf.gz)
+reference_gene_annotation_file: ""
+
+# Reference gene annotation source / assembly / version
+reference_gene_annotation_source: "gencode"
+reference_gene_annotation_assembly: "hg38"
+reference_gene_annotation_version: "v45"
+
+# Reference proteome FASTA file (e.g. GENCODE translations FASTA)
+reference_proteome_fasta_file: ""
+
+
+# -----------------------------------------------------------------------------
+# Translation strategy (passed to translate-structs)
+# -----------------------------------------------------------------------------
+strategy: "longest_orf"
+
+
+# -----------------------------------------------------------------------------
+# Read group tags
+# -----------------------------------------------------------------------------
+platform_tag: "unknown"
+platform_unit_tag: "unknown"
+library_tag: "unknown"
+
+
+# -----------------------------------------------------------------------------
+# Per-tool extra CLI arguments
+# -----------------------------------------------------------------------------
+exacto:
+  # minimap2
+  minimap2_dna_args: "-ax map-hifi --cs --eqx -Y -L --secondary=no"
+  minimap2_rna_args: "-ax splice:hq -uf --cs --eqx -Y -L --secondary=no"
+
+  # RNA-Bloom2
+  rnabloom2_extra_args: "-chimera -lrpb"
+
+  # nexus_filter_rnabloom2_transcripts
+  filter_rnabloom2_extra_args: ""
+
+  # exacto sub-commands
+  remove_unspliced_rnas_extra_args: ""
+  call_rna_vars_extra_args: ""
+  call_somatic_dna_vars_extra_args: "--preset pb"
+  annotate_vars_extra_args: ""
+  integrate_vars_extra_args: ""
+  translate_structs_extra_args: ""
+  call_peptide_vars_extra_args: ""

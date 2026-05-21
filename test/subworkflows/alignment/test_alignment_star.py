@@ -40,3 +40,4 @@ def test_alignment_star():
     run_workflow(workflow='alignment_star.nf',
                  nextflow='nextflow',
                  workflow_args=workflow_args)
+

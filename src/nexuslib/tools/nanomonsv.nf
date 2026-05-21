@@ -20,27 +20,27 @@ process runNanomonsv {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_nanomonsv_outputs/"), emit: f
+        tuple val(sample_id), path("nanomonsv/"), emit: f
 
     script:
         """
-        mkdir ${sample_id}_nanomonsv_outputs/
+        mkdir nanomonsv/
         nanomonsv parse \
             --reference_fasta $reference_genome_fasta_file \
             $params_nanomonsv_parse \
             $tumor_bam_file \
-            ${sample_id}_nanomonsv_outputs/$sample_id
+            nanomonsv/$sample_id
         nanomonsv parse \
             --reference_fasta $reference_genome_fasta_file \
             $params_nanomonsv_parse \
             $normal_bam_file \
-            ${sample_id}_nanomonsv_outputs/${normal_bam_file.baseName}_nanomonsv
+            nanomonsv/${normal_bam_file.baseName}_nanomonsv
         nanomonsv get \
-            --control_prefix ${sample_id}_nanomonsv_outputs/${normal_bam_file.baseName}_nanomonsv \
+            --control_prefix nanomonsv/${normal_bam_file.baseName}_nanomonsv \
             --control_bam $normal_bam_file \
             --processes ${task.cpus} \
             $params_nanomonsv_get \
-            ${sample_id}_nanomonsv_outputs/$sample_id \
+            nanomonsv/$sample_id \
             $tumor_bam_file \
             $reference_genome_fasta_file
         """

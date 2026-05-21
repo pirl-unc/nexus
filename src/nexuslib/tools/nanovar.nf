@@ -19,16 +19,16 @@ process runNanoVar {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_nanovar_outputs/"), emit: f
+        tuple val(sample_id), path("nanovar/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_nanovar_outputs/
+        mkdir -p nanovar/
         nanovar \
             $params_nanovar \
             --threads ${task.cpus} \
             $bam_file \
             $reference_genome_fasta_file \
-            ${sample_id}_nanovar_outputs/
+            nanovar/
         """
 }

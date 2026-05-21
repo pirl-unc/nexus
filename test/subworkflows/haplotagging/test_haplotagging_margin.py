@@ -11,7 +11,7 @@ def test_haplotagging_margin():
     small_variants_vcf_gz_file = get_data_path(name='vcf/nexus-dna-001-tumor_deepvariant.vcf.gz')
     reference_genome_fasta_file = get_data_path(name='fasta/GRCh38.p14.genome.chr17.fa.gz')
     margin_phase_params_json_file = get_data_path(
-        name='indices/margin/phase/allParams.phase_vcf.pb-hifi.json'
+        name='indices/margin/phase/allParams.haplotag.pb-hifi.json'
     )
     temp_dir = os.getcwd() + '/tmp'
     intermediate_dir = temp_dir + '/intermediate/test_haplotagging_margin'

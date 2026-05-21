@@ -20,15 +20,15 @@ process runMandalorion {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_mandalorion_outputs/"), emit: f
+        tuple val(sample_id), path("mandalorion/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_mandalorion_outputs/
+        mkdir -p mandalorion/
         printf "%s\n" "$fastq_file" >> sample.fofn
 
         Mando.py \
-            --path ${sample_id}_mandalorion_outputs/ \
+            --path mandalorion/ \
             --genome_annotation $reference_genes_gtf_file \
             --genome_sequence $reference_genome_fasta_file \
             -f sample.fofn \

@@ -88,24 +88,6 @@ Meta-workflows that orchestrate multiple subworkflows into end-to-end pipelines 
 
 Check out the [Subworkflows](subworkflows/index.qmd) and [Workflows](workflows/index.qmd) pages for the specific details.
 
-| Category | Subworkflows | Workflows |
-|:---------|:-------------|:----------|
-| alignment | minimap2, bwa-mem2, star, ultra, blastp, diamond-blastp | |
-| antigen prediction | mhcflurry2, netmhcpan4 | |
-| assembly | hifiasm, rnabloom2, stringtie2 | |
-| haplotagging | flair-longshot, hapcut2-whatshap, hiphase, longcallr, longphase, longshot, margin, whatshap | long-read-dna, long-read-rna, short-read-dna |
-| hla typing | arcashla, hlaprofiler, seq2hla | short-read |
-| isoform characterization | espresso, flair, isoquant, isoseq, isotools, mandalorion, rmats, sqanti3, talon | long-read, short-read |
-| peptide prediction | mopepgen | |
-| quantification | bambu, kallisto, liqa, oarfish, salmon, transigner | long-read, short-read |
-| read error correction | ratatosk | |
-| sequencing simulation | art, nanosim, neat, pbsim3 | |
-| utilities | fastqc, pbccs, fastq2bam, coverage | |
-| variant annotation | vep | |
-| variant calling | 47 tools including mutect2, deepvariant, delly2, sniffles2, manta, strelka2, and more | lr-germline, lr-somatic, sr-germline, sr-somatic |
-
-: {.striped .hover}
-
 ## Dependencies
 
 * python (>=3.10)

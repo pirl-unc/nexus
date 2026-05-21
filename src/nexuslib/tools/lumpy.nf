@@ -7,7 +7,7 @@ process runLumpyExpressGermline {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/lumpy/",
         mode: 'copy'
     )
 
@@ -46,7 +46,7 @@ process runLumpyExpressSomatic {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/lumpy/",
         mode: 'copy'
     )
 

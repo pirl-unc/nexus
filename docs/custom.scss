@@ -1,0 +1,39 @@
+/*-- scss:defaults --*/
+$sidebar-width: 280px;
+$body-max-width: 1080px;
+
+/*-- scss:rules --*/
+/* Widen the sidebar grid track and the body content track.
+ *
+ * Selector is `#quarto-content.page-columns` (no body-class qualifier) so the
+ * SAME grid applies to every page — pages with a sidebar (Subworkflows,
+ * Workflows, Utilities) and pages without (Home). On Home the sidebar grid
+ * column is just empty, but the body content still starts at the same
+ * x-position as on the sidebar pages, which keeps the layout consistent.
+ *
+ * The two SCSS vars at the top of this file are the only things you should
+ * need to tune.
+ */
+@media (min-width: 992px) {
+  #quarto-content.page-columns {
+    grid-template-columns:
+      [screen-start] 1.5em
+      [screen-start-inset] minmax(0, 1fr)
+      [page-start page-start-inset] #{$sidebar-width}
+      [body-start-outset] 35px
+      [body-start] 1.5em
+      [body-content-start] minmax(600px, calc(#{$body-max-width} - 3em))
+      [body-content-end] 1.5em
+      [body-end] 35px
+      [body-end-outset] minmax(75px, 145px)
+      [page-end-inset] 35px
+      [page-end] 5fr
+      [screen-end-inset] 1.5em
+      [screen-end];
+  }
+
+  /* Let the sidebar fill its (now wider) grid cell. */
+  #quarto-sidebar.sidebar-navigation {
+    width: auto;
+  }
+}

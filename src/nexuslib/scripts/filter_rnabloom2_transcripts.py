@@ -18,8 +18,12 @@ def parse_args():
     parser.add_argument("--min-fraction-match", dest='min_fraction_match', default=0.5, type=float, help="Minimum fraction match (default: 0.5).")
     parser.add_argument("--output-reads-tsv-file", dest='output_reads_tsv_file', type=str, help="Output reads TSV file.")
     parser.add_argument("--output-transcripts-tsv-file", dest='output_transcripts_tsv_file', type=str, help="Output transcripts TSV file.")
-    parser.add_argument("--output-fasta-file", dest='output_fasta_file', type=str, help="Output FASTA file.")
+    parser.add_argument("--output-fasta-file", dest='output_fasta_file', type=str, default=None, help="Output FASTA file. Optional; supply --output-fasta-file and/or --output-fastq-file.")
+    parser.add_argument("--output-fastq-file", dest='output_fastq_file', type=str, default=None, help="Output gzipped FASTQ file (.fastq.gz). Optional; supply --output-fasta-file and/or --output-fastq-file.")
+    parser.add_argument("--base-quality", dest='base_quality', default=30, type=int, help="Phred base quality assigned to every base in the FASTQ output (default: 30).")
     arguments = parser.parse_args()
+    if arguments.output_fasta_file is None and arguments.output_fastq_file is None:
+        parser.error("at least one of --output-fasta-file or --output-fastq-file must be specified")
     return arguments
 
 
@@ -81,7 +85,7 @@ def run():
     df_grouped = df_grouped.rename(columns={"read_name": "num_read_support"})
     df_grouped = df_grouped[df_grouped['num_read_support'] >= args.min_read_support]
     df_paf_filtered = df_paf_filtered[df_paf_filtered['transcript_id'].isin(df_grouped['transcript_id'].unique())]
-    print('%i unique transcripts before filtering' % len(df_paf))
+    print('%i unique transcripts before filtering' % len(df_paf['transcript_id'].unique()))
     print('%i unique transcripts after filtering' % len(df_grouped['transcript_id'].unique()))
 
     # Step 3. Output to TSV files
@@ -102,7 +106,19 @@ def run():
     df_transcripts.to_csv(args.output_transcripts_tsv_file, index=False, sep='\t')
 
     # Step 4. Output to FASTA file
-    with open(args.output_fasta_file, 'w') as file:
-        for transcript_id in df_grouped['transcript_id'].unique():
-            file.write('>%s\n' % transcript_id)
-            file.write('%s\n' % transcripts[transcript_id])
+    if args.output_fasta_file is not None:
+        with open(args.output_fasta_file, 'w') as file:
+            for transcript_id in df_grouped['transcript_id'].unique():
+                file.write('>%s\n' % transcript_id)
+                file.write('%s\n' % transcripts[transcript_id])
+
+    # Step 5. Output to gzipped FASTQ file
+    if args.output_fastq_file is not None:
+        quality_char = chr(args.base_quality + 33)
+        with gzip.open(args.output_fastq_file, 'wt') as file:
+            for transcript_id in df_grouped['transcript_id'].unique():
+                transcript_sequence = transcripts[transcript_id]
+                file.write('@%s\n' % transcript_id)
+                file.write('%s\n' % transcript_sequence)
+                file.write('+\n')
+                file.write('%s\n' % (quality_char * len(transcript_sequence)))

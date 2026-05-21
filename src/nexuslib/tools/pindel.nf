@@ -19,15 +19,16 @@ process runPindel {
         val(output_dir)
 
     output:
-        tuple val(sample_id), emit: f
+        tuple val(sample_id), path("pindel/"), emit: f
 
     script:
         """
+        mkdir -p pindel/
         echo "${bam_file} 500 ${sample_id}" > pindel.input
         pindel \
             -f $reference_genome_fasta_file \
             -i pindel.input \
-            -o ${sample_id}_pindel \
+            -o pindel/${sample_id}_pindel \
             -T ${task.cpus} \
             $params_pindel
         """

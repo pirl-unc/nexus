@@ -21,11 +21,11 @@ process runSqanti3FastaMode {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_${method}_sqanti3_outputs/"), emit: f
+        tuple val(sample_id), path("${method}_sqanti3/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_${method}_sqanti3_outputs/{qc,filter}/
+        mkdir -p ${method}_sqanti3/{qc,filter}/
 
         sqanti3_qc.py \
             --isoforms $fasta_file \
@@ -34,14 +34,14 @@ process runSqanti3FastaMode {
             --fasta \
             -t ${task.cpus} \
             -o ${sample_id}_${method} \
-            -d ${sample_id}_${method}_sqanti3_outputs/qc/ \
+            -d ${method}_sqanti3/qc/ \
             $params_sqanti3_qc
 
         sqanti3_filter.py \
            $params_sqanti3_filter \
-           --sqanti_class ${sample_id}_${method}_sqanti3_outputs/qc/${sample_id}_${method}_classification.txt \
-           --output ${sample_id}_${method} \
-           --dir ${sample_id}_${method}_sqanti3_outputs/filter/
+           --sqanti_class ${method}_sqanti3/qc/${sample_id}_${method}_classification.txt \
+           --output ${method} \
+           --dir ${method}_sqanti3/filter/
         """
 }
 
@@ -66,11 +66,11 @@ process runSqanti3GtfMode {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_${method}_sqanti3_outputs/"), emit: f
+        tuple val(sample_id), path("${method}_sqanti3/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_${method}_sqanti3_outputs/{qc,filter}/
+        mkdir -p ${method}_sqanti3/{qc,filter}/
 
         sqanti3_qc.py \
             --isoforms $gtf_file \
@@ -78,13 +78,13 @@ process runSqanti3GtfMode {
             --refFasta $reference_genome_fasta_file \
             -t ${task.cpus} \
             -o ${sample_id}_${method} \
-            -d ${sample_id}_${method}_sqanti3_outputs/qc/ \
+            -d ${method}_sqanti3/qc/ \
             $params_sqanti3_qc
 
         sqanti3_filter.py \
            $params_sqanti3_filter \
-           --sqanti_class ${sample_id}_${method}_sqanti3_outputs/qc/${sample_id}_${method}_classification.txt \
-           --output ${sample_id}_${method} \
-           --dir ${sample_id}_${method}_sqanti3_outputs/filter/
+           --sqanti_class ${method}_sqanti3/qc/${sample_id}_${method}_classification.txt \
+           --output ${method} \
+           --dir ${method}_sqanti3/filter/
         """
 }

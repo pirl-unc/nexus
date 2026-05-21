@@ -46,16 +46,24 @@ nexus run --nf-workflow <subworkflow>.nf \
 | Tool | Description |
 |:-----|:------------|
 | [hifiasm](assembly/assembly_hifiasm.qmd) | de novo assembly from HiFi reads |
+| [rattle](assembly/assembly_rattle.qmd) | long-read RNA isoform clustering |
 | [rnabloom2](assembly/assembly_rnabloom2.qmd) | long-read RNA assembly |
 | [stringtie2](assembly/assembly_stringtie2.qmd) | transcript assembly |
 
 : {.striped .hover}
 
-### Haplotyping
+### Haplotagging
 
 | Tool | Description |
 |:-----|:------------|
-| [whatshap](haplotyping/haplotyping_whatshap.qmd) | read-backed haplotagging |
+| [flair-longshot](haplotagging/haplotagging_flair-longshot.qmd) | long-read RNA variant phasing + haplotagging |
+| [hapcut2-whatshap](haplotagging/haplotagging_hapcut2-whatshap.qmd) | short-read variant phasing + haplotagging |
+| [hiphase](haplotagging/haplotagging_hiphase.qmd) | PacBio long-read phasing + haplotagging (SNV + SV) |
+| [longcallr](haplotagging/haplotagging_longcallr.qmd) | long-read RNA variant calling, phasing, haplotagging |
+| [longphase](haplotagging/haplotagging_longphase.qmd) | long-read variant phasing + haplotagging |
+| [longshot](haplotagging/haplotagging_longshot.qmd) | long-read SNV phasing + haplotagging |
+| [margin](haplotagging/haplotagging_margin.qmd) | long-read variant phasing + haplotagging |
+| [whatshap](haplotagging/haplotagging_whatshap.qmd) | read-backed phasing + haplotagging |
 
 : {.striped .hover}
 
@@ -64,8 +72,10 @@ nexus run --nf-workflow <subworkflow>.nf \
 | Tool | Description |
 |:-----|:------------|
 | [arcashla](hla_typing/hla_typing_arcashla.qmd) | HLA typing from RNA-seq BAM |
+| [hlaminer-lr-rna](hla_typing/hla_typing_hlaminer-lr-rna.qmd) | long-read RNA HLA typing (minimap2 + HLAminer) |
 | [hlaprofiler](hla_typing/hla_typing_hlaprofiler.qmd) | HLA typing from FASTQ |
 | [seq2hla](hla_typing/hla_typing_seq2hla.qmd) | HLA typing from FASTQ |
+| [specimmune](hla_typing/hla_typing_specimmune.qmd) | long-read HLA / KIR / CYP / IG_TR typing |
 
 : {.striped .hover}
 
@@ -90,7 +100,8 @@ nexus run --nf-workflow <subworkflow>.nf \
 
 | Tool | Description |
 |:-----|:------------|
-| [mopepgen](peptide_prediction/peptide_prediction_mopepgen-gencode.qmd) | mutant peptide prediction |
+| [exacto](peptide_prediction/peptide_prediction_exacto.qmd) | long-read mutant proteoform prediction pipeline |
+| [mopepgen-gencode](peptide_prediction/peptide_prediction_mopepgen-gencode.qmd) | mutant peptide prediction |
 
 : {.striped .hover}
 
@@ -121,6 +132,7 @@ nexus run --nf-workflow <subworkflow>.nf \
 | Tool | Description |
 |:-----|:------------|
 | [art-illumina-pe](sequencing_simulation/sequencing_simulation_art-illumina-pe.qmd) | Illumina paired-end simulation |
+| [beers2](sequencing_simulation/sequenicng_simulation_beers2.qmd) | RNA-seq Illumina paired-end simulation |
 | [nanosim-genome](sequencing_simulation/sequencing_simulation_nanosim-genome.qmd) | Nanopore read simulation |
 | [neat](sequencing_simulation/sequencing_simulation_neat.qmd) | Illumina read simulation |
 | [pbsim3-dna](sequencing_simulation/sequencing_simulation_pbsim3-dna.qmd) | PacBio DNA read simulation |
@@ -132,6 +144,7 @@ nexus run --nf-workflow <subworkflow>.nf \
 
 | Tool | Description |
 |:-----|:------------|
+| [cutadapt](utilities/utilities_cutadapt.qmd) | adapter and polyA trimming |
 | [fastq2unalignedbam](utilities/utilities_fastq2unalignedbam.qmd) | FASTQ to unaligned BAM |
 | [fastqc](utilities/utilities_fastqc.qmd) | read quality control |
 | [filter-rnabloom2-transcripts](utilities/utilities_filter-rnabloom2-transcripts.qmd) | filter assembled transcripts |
@@ -200,15 +213,6 @@ nexus run --nf-workflow <subworkflow>.nf \
 | [svaba](variant_calling/variant_calling_svaba.qmd) | somatic SV and indel calling (short-read) |
 | [svim](variant_calling/variant_calling_svim.qmd) | germline SV calling (long-read) |
 | [svisionpro](variant_calling/variant_calling_svisionpro.qmd) | somatic SV calling (long-read) |
-
-: {.striped .hover}
-
-### Variant Phasing
-
-| Tool | Description |
-|:-----|:------------|
-| [hiphase](variant_phasing/variant_phasing_hiphase.qmd) | small variant and SV phasing |
-| [whatshap](variant_phasing/variant_phasing_whatshap.qmd) | read-backed phasing |
 
 : {.striped .hover}
 

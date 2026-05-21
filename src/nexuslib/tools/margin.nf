@@ -96,13 +96,44 @@ process runMarginPhase {
                 ${bam_file.baseName}_haplotagged.bam.bai
 
             # Empty haplotag TSV (header only).
-            printf "# readname\\thaplotype\\n" | gzip \
+            printf "# readname\\thaplotype\\tphaseset\\n" | gzip \
                 > ${bam_file.baseName}_haplotagged_haplotag.tsv.gz
             exit 0
         fi
 
+        # Margin requires each read ID to have AT MOST one primary alignment.
+        # If two primaries share a read name, margin polishes through to the
+        # merge step and then fails with:
+        #   "Expected three tokens in header line, got 2
+        #    This usually means you have multiple primary alignments with the
+        #    same read ID."
+        # ...wasting hours of polishing. Detect duplicates up front and, if
+        # present, write a deduplicated BAM (keep the first primary per read;
+        # preserve all secondary / supplementary / unmapped records) and feed
+        # that to margin. Other haplotaggers (whatshap, longphase) are not
+        # sensitive to this so we keep the fix local to runMarginPhase rather
+        # than touching the aligner.
+        margin_bam=${bam_file}
+        n_dup=\$(samtools view -F 0x904 ${bam_file} | cut -f1 | sort | uniq -d | wc -l)
+        if [ "\${n_dup}" -gt 0 ]; then
+            echo "WARNING: \${n_dup} read IDs have multiple primary alignments. Deduplicating BAM before margin."
+            {
+                samtools view -H ${bam_file}
+                # Primary mapped: keep first occurrence per read ID.
+                samtools view -F 0x904 ${bam_file} | awk '!seen[\$1]++'
+                # Unmapped primaries (have 0x4, no 0x100/0x800).
+                samtools view -f 0x004 -F 0x900 ${bam_file}
+                # Secondary alignments.
+                samtools view -f 0x100 ${bam_file}
+                # Supplementary alignments.
+                samtools view -f 0x800 ${bam_file}
+            } | samtools view -bS - | samtools sort -@ ${task.cpus} -o margin_input.bam -
+            samtools index -@ ${task.cpus} margin_input.bam
+            margin_bam=margin_input.bam
+        fi
+
         margin phase \
-            ${bam_file} \
+            \${margin_bam} \
             ${reference_genome_fasta_file} \
             \${in_vcf} \
             ${margin_params_json_file} \
@@ -126,14 +157,17 @@ process runMarginPhase {
             ${bam_file.baseName}_haplotagged.bam \
             ${bam_file.baseName}_haplotagged.bam.bai
 
-        # Extract a (readname, HP) TSV from the haplotagged BAM.
-        # 2 columns; '.' for reads without an HP tag.
+        # Extract a (readname, HP, PS) TSV from the haplotagged BAM.
+        # 3 columns; '.' for reads without an HP or PS tag.
         {
-            printf "# readname\\thaplotype\\n"
+            printf "# readname\\thaplotype\\tphaseset\\n"
             samtools view ${bam_file.baseName}_haplotagged.bam | awk -v OFS='\\t' '{
-                hp="."
-                for (i=12; i<=NF; i++) if (\$i ~ /^HP:i:/) { hp=substr(\$i, 6); break }
-                print \$1, hp
+                hp="."; ps="."
+                for (i=12; i<=NF; i++) {
+                    if      (\$i ~ /^HP:i:/) hp=substr(\$i, 6)
+                    else if (\$i ~ /^PS:i:/) ps=substr(\$i, 6)
+                }
+                print \$1, hp, ps
             }'
         } | gzip > ${bam_file.baseName}_haplotagged_haplotag.tsv.gz
         """

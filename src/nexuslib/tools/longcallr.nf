@@ -7,18 +7,18 @@ process runLongcallR {
     debug true
 
     publishDir(  // VCF — always
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/longcallr/",
         mode: 'copy',
         pattern: "${sample_id}_longcallr.vcf"
     )
     publishDir(  // BAM — only when mode includes 'bam'
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/longcallr/",
         mode: 'copy',
         pattern: "${sample_id}_longcallr.phased.bam",
         enabled: ((params.haplotag_output ?: 'bam').toString().toLowerCase() in ['bam', 'both'])
     )
     publishDir(  // haplotag TSV — only when mode includes 'tsv'
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/longcallr/",
         mode: 'copy',
         pattern: "${sample_id}_longcallr_haplotag.tsv.gz",
         enabled: ((params.haplotag_output ?: 'bam').toString().toLowerCase() in ['tsv', 'both'])
@@ -49,15 +49,18 @@ process runLongcallR {
             --threads ${task.cpus} \
             $params_longcallr
 
-        # Extract a (readname, HP) TSV from the phased BAM when requested.
-        # 2 columns; '.' for reads without an HP tag.
+        # Extract a (readname, HP, PS) TSV from the phased BAM when requested.
+        # 3 columns; '.' for reads without an HP or PS tag.
         if [ "${emit_tsv}" = "true" ]; then
             {
-                printf "# readname\\thaplotype\\n"
+                printf "# readname\\thaplotype\\tphaseset\\n"
                 samtools view ${sample_id}_longcallr.phased.bam | awk -v OFS='\\t' '{
-                    hp="."
-                    for (i=12; i<=NF; i++) if (\$i ~ /^HP:i:/) { hp=substr(\$i, 6); break }
-                    print \$1, hp
+                    hp="."; ps="."
+                    for (i=12; i<=NF; i++) {
+                        if      (\$i ~ /^HP:i:/) hp=substr(\$i, 6)
+                        else if (\$i ~ /^PS:i:/) ps=substr(\$i, 6)
+                    }
+                    print \$1, hp, ps
                 }'
             } | gzip > ${sample_id}_longcallr_haplotag.tsv.gz
         fi

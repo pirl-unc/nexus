@@ -9,7 +9,7 @@ reference_genome_fasta_file: ""
 small_variant_callers: "all"
 structural_variant_callers: "all"
 phasing_methods: "all"
-haplotag_output: "bam"
+haplotag_output: "both"
 
 deepvariant:
   input_path: ""

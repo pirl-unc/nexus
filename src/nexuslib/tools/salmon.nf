@@ -42,18 +42,18 @@ process runSalmonFastqMode {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_salmon_output/"), emit: f
+        tuple val(sample_id), path("salmon/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_salmon_output/
+        mkdir -p salmon/
         salmon quant \
             $params_salmon_quant \
             --index $salmon_index_dir \
             --mates1 $fastq_file_1 \
             --mates2 $fastq_file_2 \
             --geneMap $reference_transcripts_fasta_file \
-            --output ${sample_id}_salmon_output/ \
+            --output salmon/ \
             --threads ${task.cpus}
         """
 }

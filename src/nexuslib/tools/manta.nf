@@ -20,18 +20,18 @@ process runMantaSomatic {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_manta_outputs/"), emit: f
+        tuple val(sample_id), path("manta/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_manta_outputs/
+        mkdir -p manta/
         configManta.py \
             --tumorBam $tumor_bam_file \
             --normalBam $normal_bam_file \
             --referenceFasta $reference_genome_fasta_file \
-            --runDir ${sample_id}_manta_outputs/ \
+            --runDir manta/ \
             $params_manta_config
-        ${sample_id}_manta_outputs/runWorkflow.py \
+        manta/runWorkflow.py \
             -j ${task.cpus} \
             -g ${task.memory.toGiga()} \
             $params_manta_run
@@ -58,17 +58,17 @@ process runMantaGermline {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_manta_outputs/"), emit: f
+        tuple val(sample_id), path("manta/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_manta_outputs/
+        mkdir -p manta/
         configManta.py \
             --bam $bam_file \
             --referenceFasta $reference_genome_fasta_file \
-            --runDir ${sample_id}_manta_outputs/ \
+            --runDir manta/ \
             $params_manta_config
-        ${sample_id}_manta_outputs/runWorkflow.py \
+        manta/runWorkflow.py \
             -j ${task.cpus} \
             -g ${task.memory.toGiga()} \
             $params_manta_run

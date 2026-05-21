@@ -18,19 +18,19 @@ process runRmatsBamMode {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_rmats_outputs/"), emit: f
+        tuple val(sample_id), path("rmats/"), emit: f
 
     script:
         """
         mkdir -p temp/
-        mkdir -p ${sample_id}_rmats_outputs/
+        mkdir -p rmats/
         realpath $bam_file > path.txt
         rmats.py \
             --b1 path.txt \
             --gtf $reference_genes_gtf_file \
             --tmp \$PWD/temp/ \
             --nthread ${task.cpus} \
-            --od ${sample_id}_rmats_outputs/ \
+            --od rmats/ \
             $params_rmats
         """
 }

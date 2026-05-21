@@ -14,9 +14,9 @@ def test_hla_typing_shortread():
     fastq_file_2 = get_data_path(name='fastq/nexus-rna-104-normal_paired-end_read_r2.fastq.gz')
     params_yaml_file = get_data_path(name='inputs/workflows/hla_typing_short-read/params_1.yaml')
     temp_dir = os.getcwd() + '/tmp'
-    intermediate_dir = temp_dir + '/intermediate/test_hla_typing_shortread_local_1'
-    work_dir = temp_dir + '/work/test_hla_typing_shortread_local_1'
-    output_dir = temp_dir + '/outputs/test_hla_typing_shortread_local_1'
+    intermediate_dir = temp_dir + '/intermediate/test_hla_typing_shortread'
+    work_dir = temp_dir + '/work/test_hla_typing_shortread'
+    output_dir = temp_dir + '/outputs/test_hla_typing_shortread'
     if not os.path.exists(intermediate_dir):
         os.makedirs(intermediate_dir)
     if not os.path.exists(work_dir):

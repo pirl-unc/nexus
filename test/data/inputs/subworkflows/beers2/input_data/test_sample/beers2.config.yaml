@@ -1,0 +1,153 @@
+seed: 100
+output:
+  output_fastq: true
+  output_sam: false
+  output_bam: false
+  full_logs: false
+global_config:
+  samples:
+    '1':
+      barcodes:
+        i5: AGCGCTAG
+        i7: AACCGCGG
+  molecule_maker_parameters:
+    min_polyA_tail_length: 50
+    max_polyA_tail_length: 250
+  resources:
+    pre_i5_adapter: AATGATACGGCGACCACCGAGATCTACAC
+    post_i5_adapter: ACACTCTTTCCCTACACGACGCTCTTCCGATCT
+    pre_i7_adapter: GATCGGAAGAGCACACGTCTGAACTCCAGTCAC
+    post_i7_adapter: ATCTCGTATGCCGTCTTCTGCTTG
+    reference_genome_fasta: /Users/ajslee/Documents/Research/projects/project_nexus/nexus/test/data/inputs/subworkflows/beers2/input_data//test_sample/reference.fa
+library_prep_pipeline:
+  input:
+    directory_path: /Users/ajslee/Documents/Research/projects/project_nexus/nexus/test/data/inputs/subworkflows/beers2/input_data//test_sample/
+    from_distribution_data:
+      '1':
+        num_packets: 0
+        num_molecules_per_packet: 10000
+        sample_data_directory: /path/to/CAMPAREE_output/sample1/
+  steps:
+  - step_name: polya_step.PolyAStep
+    parameters:
+      breakpoint_prob_per_base: 0.0001
+      max_retention_prob: 1.0
+      min_retention_prob: 0.0
+      min_polya_tail_length: 40
+      length_retention_prob: 0.05
+  - step_name: fragment_step.FragmentStep
+    parameters:
+      method: uniform
+      rate: 0.005
+      runtime: 1
+      min_frag_size: 20
+  - step_name: first_strand_synthesis_step.FirstStrandSynthesisStep
+    parameters:
+      perfect_priming: false
+      position_probability_matrix:
+        A:
+        - 0.5
+        - 0.1
+        - 0.4
+        - 0.3
+        - 0.25
+        - 0.15
+        C:
+        - 0.2
+        - 0.5
+        - 0.3
+        - 0.25
+        - 0.25
+        - 0.15
+        G:
+        - 0.15
+        - 0.1
+        - 0.15
+        - 0.25
+        - 0.25
+        - 0.2
+        T:
+        - 0.15
+        - 0.3
+        - 0.15
+        - 0.2
+        - 0.25
+        - 0.5
+      primes_per_kb: 50
+  - step_name: second_strand_synthesis_step.SecondStrandSynthesisStep
+    parameters:
+      perfect_priming: false
+      position_probability_matrix:
+        A:
+        - 0.5
+        - 0.1
+        - 0.4
+        - 0.3
+        - 0.25
+        - 0.15
+        C:
+        - 0.2
+        - 0.5
+        - 0.3
+        - 0.25
+        - 0.25
+        - 0.15
+        G:
+        - 0.15
+        - 0.1
+        - 0.15
+        - 0.25
+        - 0.25
+        - 0.2
+        T:
+        - 0.15
+        - 0.3
+        - 0.15
+        - 0.2
+        - 0.25
+        - 0.5
+      primes_per_kb: 50
+  - step_name: sizing_step.SizingStep
+    parameters:
+      min_length: 300
+      max_length: 600
+      select_all_start_length: 300
+      select_all_end_length: 500
+  - step_name: adapter_ligation_step.AdapterLigationStep
+    parameters: {}
+  - step_name: pcr_amplification_step.PCRAmplificationStep
+    parameters:
+      number_cycles: 10
+      retention_percentage: 1.0
+      gc_bias_constant: 1.0
+      gc_bias_linear: 0.0
+      gc_bias_quadratic: -20
+      deletion_rate: 0.0001
+      insertion_rate: 0.0001
+      substitution_rate: 0.001
+sequence_pipeline:
+  steps:
+  - step_name: bridge_amplification_step.BridgeAmplificationStep
+    parameters:
+      cycles: 10
+      substitution_rate: 0.01
+  - step_name: sequence_by_synthesis_step.SequenceBySynthesisStep
+    parameters:
+      forward_is_5_prime: true
+      paired_ends: true
+      read_length: 150
+      skip_rate: 0.002
+      drop_rate: 0.002
+  flowcell:
+    coordinate_strategy: random
+    flowcell_geometry:
+      min_lane: 1
+      max_lane: 8
+      max_tile: 2228
+      min_tile: 1101
+      min_x: 1012
+      max_x: 32816
+      min_y: 998
+      max_y: 49247
+    lanes_to_use:
+    - 1
