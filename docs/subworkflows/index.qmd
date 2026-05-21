@@ -49,6 +49,7 @@ nexus run --nf-workflow <subworkflow>.nf \
 | [rattle](assembly/assembly_rattle.qmd) | long-read RNA isoform clustering |
 | [rnabloom2](assembly/assembly_rnabloom2.qmd) | long-read RNA assembly |
 | [stringtie2](assembly/assembly_stringtie2.qmd) | transcript assembly |
+| [stringtie3](assembly/assembly_stringtie3.qmd) | long-read transcript assembly |
 
 : {.striped .hover}
 
