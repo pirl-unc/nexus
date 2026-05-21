@@ -7,18 +7,18 @@ process runLongcallR {
     debug true
 
     publishDir(  // VCF — always
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/longcallr/",
         mode: 'copy',
         pattern: "${sample_id}_longcallr.vcf"
     )
     publishDir(  // BAM — only when mode includes 'bam'
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/longcallr/",
         mode: 'copy',
         pattern: "${sample_id}_longcallr.phased.bam",
         enabled: ((params.haplotag_output ?: 'bam').toString().toLowerCase() in ['bam', 'both'])
     )
     publishDir(  // haplotag TSV — only when mode includes 'tsv'
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/longcallr/",
         mode: 'copy',
         pattern: "${sample_id}_longcallr_haplotag.tsv.gz",
         enabled: ((params.haplotag_output ?: 'bam').toString().toLowerCase() in ['tsv', 'both'])

@@ -16,17 +16,16 @@ process runFastQCSingleEndRead {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("*.html"), path("*.zip"), emit: f
+        tuple val(sample_id), path("fastqc/"), emit: f
 
     script:
         """
-        mkdir -p output/
+        mkdir -p fastqc/
         fastqc \
             $fastq_file \
             --memory ${task.fastqc_memory.toMega()} \
             --threads ${task.cpus} \
-            -o output/
-        mv output/* .
+            -o fastqc/
         """
 }
 
@@ -46,16 +45,15 @@ process runFastQCPairedEndRead {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("*.html"), path("*.zip"), emit: f
+        tuple val(sample_id), path("fastqc/"), emit: f
 
     script:
         """
-        mkdir -p output/
+        mkdir -p fastqc/
         fastqc \
             $fastq_file_1 $fastq_file_2 \
             --memory ${task.fastqc_memory.toMega()} \
             --threads ${task.cpus} \
-            -o output/
-        mv output/* .
+            -o fastqc/
         """
 }

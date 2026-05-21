@@ -1,12 +1,5 @@
 #!/usr/bin/env nextflow
 
-/*
- * exacto v0.4.6a1
- *
- * Nextflow process wrappers for the exacto CLI.
- * See https://pirl-unc.github.io/exacto/cli/index.html
- */
-
 process runExactoAnnotateVars {
 
     label 'exacto_annotate_vars'
@@ -14,7 +7,7 @@ process runExactoAnnotateVars {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/exacto/",
         mode: 'copy'
     )
 
@@ -51,7 +44,7 @@ process runExactoBuildGenomeVarGraph {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/exacto/",
         mode: 'copy'
     )
 
@@ -84,7 +77,7 @@ process runExactoBuildTranscriptomeVarGraph {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/exacto/",
         mode: 'copy'
     )
 
@@ -115,7 +108,7 @@ process runExactoCallGermlineDNAVars {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/exacto/",
         mode: 'copy'
     )
 
@@ -149,7 +142,7 @@ process runExactoCallSomaticDNAVars {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/exacto/",
         mode: 'copy'
     )
 
@@ -187,7 +180,7 @@ process runExactoCallPeptideVars {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/exacto/",
         mode: 'copy'
     )
 
@@ -222,7 +215,7 @@ process runExactoCallRNAVars {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/exacto/",
         mode: 'copy'
     )
 
@@ -274,7 +267,7 @@ process runExactoIntegrateVars {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/exacto/",
         mode: 'copy'
     )
 
@@ -318,7 +311,7 @@ process runExactoRemoveUnsplicedRNAs {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/exacto/",
         mode: 'copy'
     )
 
@@ -363,7 +356,7 @@ process runExactoTranslateSeqs {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/exacto/",
         mode: 'copy'
     )
 
@@ -401,7 +394,7 @@ process runExactoTranslateStructs {
     debug true
 
     publishDir(
-        path: "${output_dir}/",
+        path: "${output_dir}/${sample_id}/exacto/",
         mode: 'copy'
     )
 

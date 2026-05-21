@@ -20,11 +20,11 @@ process runIsotools {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_isotools_outputs/"), emit: f
+        tuple val(sample_id), path("isotools/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_isotools_outputs/
+        mkdir -p isotools/
         printf "sample_name\tfile_name\tgroup\n" >> sample.tsv
         printf "%s\t%s\t%s\n" "$sample_id" "$bam_file" "$sample_id" >> sample.tsv
 
@@ -32,7 +32,7 @@ process runIsotools {
             --anno $reference_genes_gtf_file \
             --genome $reference_genome_fasta_file \
             --samples sample.tsv \
-            --file_prefix ${sample_id}_isotools_outputs/${sample_id} \
+            --file_prefix isotools/${sample_id} \
             --gtf_out \
             $params_isotools
         """

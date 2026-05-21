@@ -7,7 +7,7 @@ process runOctopusSomatic {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/octopus/",
         mode: 'copy'
     )
 
@@ -44,7 +44,7 @@ process runOctopusGermline {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/octopus/",
         mode: 'copy'
     )
 

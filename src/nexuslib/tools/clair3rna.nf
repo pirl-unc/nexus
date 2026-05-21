@@ -19,15 +19,15 @@ process runClair3RNA {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_clair3rna_outputs/"), emit: f
+        tuple val(sample_id), path("clair3rna/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_clair3rna_outputs/
+        mkdir -p clair3rna/
         run_clair3_rna \
             --bam_fn $bam_file \
             --ref_fn $reference_genome_fasta_file \
-            --output_dir ${sample_id}_clair3rna_outputs/ \
+            --output_dir clair3rna/ \
             --threads ${task.cpus} \
             $params_clair3rna
         """

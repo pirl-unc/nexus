@@ -16,14 +16,13 @@ process runArcasHlaPairedEndMode {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${bam_file.baseName}_arcashla_genotype.json"), emit: f
+        tuple val(sample_id), path("arclashla/"), emit: f
 
     script:
 
         """
-        mkdir -p output/
-        arcasHLA extract $bam_file -o output/ -t ${task.cpus} -v
-        arcasHLA genotype output/*.extracted.1.fq.gz output/*.extracted.2.fq.gz --genes all -o output/ -t ${task.cpus} -v
-        cp output/*.genotype.json ${bam_file.baseName}_arcashla_genotype.json
+        mkdir -p arclashla/
+        arcasHLA extract $bam_file -o arclashla/ -t ${task.cpus} -v
+        arcasHLA genotype arclashla/*.extracted.1.fq.gz arclashla/*.extracted.2.fq.gz --genes all -o arclashla/ -t ${task.cpus} -v
         """
 }

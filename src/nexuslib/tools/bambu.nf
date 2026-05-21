@@ -19,15 +19,15 @@ process runBambuDiscoverQuantify {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_bambu_discover_quantify_output/"), emit: f
+        tuple val(sample_id), path("bambu/"), emit: f
 
     script:
         """
-        mkdir ${sample_id}_bambu_discover_quantify_output/
+        mkdir bambu/
         Rscript /opt/bambu/run_bambu.R \
             --bam-file $bam_file \
             --fasta-file $reference_genome_fasta_file \
             --gtf-file $gtf_file \
-            --output-path ${sample_id}_bambu_discover_quantify_output/
+            --output-path bambu/
         """
 }

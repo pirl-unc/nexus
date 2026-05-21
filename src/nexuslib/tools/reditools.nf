@@ -20,7 +20,7 @@ process runReditoolsDenovo {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_reditools_outputs/"), emit: f
+        tuple val(sample_id), path("reditools/"), emit: f
 
     script:
         """
@@ -28,11 +28,9 @@ process runReditoolsDenovo {
             $params_reditoolsdenovo \
             -i $bam_file \
             -f $reference_genome_fasta_file \
-            -o reditools_outputs \
+            -o reditools \
             -X $reference_gtf_file \
             -t ${task.cpus}
-        original_dir=\$(find reditools_outputs/ -maxdepth 1 -type d -name 'denovo_*' | head -n 1)
-        mv "\$original_dir" "${sample_id}_reditools_outputs"
         """
 }
 
@@ -43,7 +41,7 @@ process runReditoolsAnnotateTable {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/reditools/",
         mode: 'copy'
     )
 

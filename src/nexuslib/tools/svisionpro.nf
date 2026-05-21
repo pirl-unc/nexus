@@ -21,23 +21,22 @@ process runSVisionPro {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}*.vcf"), path("${sample_id}*.log"), emit: f
+        tuple val(sample_id), path("svisionpro/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_svisionpro_outputs/
+        mkdir -p svisionpro/
         SVision-pro \
             --target_path $tumor_bam_file \
             --base_path $normal_bam_file \
             --genome_path $reference_genome_fasta_file \
             --model_path $svisionpro_model_file \
-            --out_path ${sample_id}_svisionpro_outputs/ \
+            --out_path svisionpro/ \
             --sample_name $sample_id \
             --process_num ${task.cpus} \
             $params_svisionpro
-        mv ${sample_id}_svisionpro_outputs/* .
         python /opt/SVision-pro/extract_op.py \
-            --input_vcf ${sample_id}*.vcf \
+            --input_vcf svisionpro/${sample_id}.svision_pro*.vcf \
             $params_svisionpro_extract
         """
 }

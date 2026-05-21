@@ -20,11 +20,11 @@ process runSavanaRun {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_savana_run_breakpoints.vcf"), path("${sample_id}_savana_run_breakpoints_read_support.tsv"), path("${sample_id}_savana_run_breakpoints.bedpe"), emit: f
+        tuple val(sample_id), path("savana/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_savana_run_outputs/
+        mkdir -p savana/
         savana run \
             -t $tumor_bam_file \
             -n $normal_bam_file \
@@ -32,12 +32,9 @@ process runSavanaRun {
             --ref_index $reference_genome_fasta_fai_file \
             --contigs $contigs_file \
             --threads ${task.cpus} \
-            --outdir ${sample_id}_savana_run_outputs/ \
+            --outdir savana/ \
             --sample $sample_id \
             $params_savana_run
-        mv ${sample_id}_savana_run_outputs/${sample_id}.sv_breakpoints.vcf ${sample_id}_savana_run_breakpoints.vcf
-        mv ${sample_id}_savana_run_outputs/${sample_id}.sv_breakpoints.bedpe ${sample_id}_savana_run_breakpoints.bedpe
-        mv ${sample_id}_savana_run_outputs/${sample_id}.sv_breakpoints_read_support.tsv ${sample_id}_savana_run_breakpoints_read_support.tsv
         """
 }
 
@@ -48,12 +45,12 @@ process runSavanaClassify {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/savana/",
         mode: 'copy'
     )
 
     input:
-        tuple val(sample_id), path(vcf_file), path(read_support_tsv_file), path(breakpoints_bedpe)
+        tuple val(sample_id), path(savana_run_dir)
         path(custom_params_file)
         val(params_savana_classify)
         val(output_dir)
@@ -64,7 +61,7 @@ process runSavanaClassify {
     script:
         """
         savana classify \
-            --vcf $vcf_file \
+            --vcf ${savana_run_dir}/${sample_id}.sv_breakpoints.vcf \
             --output ${sample_id}_savana_classify_output.vcf \
             --custom_params $custom_params_file \
             $params_savana_classify

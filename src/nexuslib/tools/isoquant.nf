@@ -19,19 +19,19 @@ process runIsoquant {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_isoquant/"), emit: f
+        tuple val(sample_id), path("isoquant/"), emit: f
 
     script:
         """
         echo "#${sample_id}" > fastq_list.txt
         echo "$fastq_file:$sample_id" >> fastq_list.txt
-        mkdir -p ${sample_id}_isoquant/
+        mkdir -p isoquant/
         isoquant.py \
           --reference $reference_genome_fasta_file \
           --genedb $gtf_file \
           --fastq_list fastq_list.txt \
           --threads ${task.cpus} \
-          --output ${sample_id}_isoquant/ \
+          --output isoquant/ \
           $params_isoquant
         """
 }

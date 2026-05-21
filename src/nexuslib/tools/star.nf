@@ -44,18 +44,18 @@ process runStar {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_star_outputs/"), emit: f
+        tuple val(sample_id), path("star/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_star_outputs/
+        mkdir -p star/
         STAR \
             --runThreadN ${task.cpus} \
             --readFilesIn $fastq_file_1 $fastq_file_2 \
             --genomeDir $star_index \
-            --outFileNamePrefix ${sample_id}_star_outputs/${sample_id}_star_ \
+            --outFileNamePrefix star/${sample_id}_star_ \
             $params_star
-        bam_file=\$(find ${sample_id}_star_outputs/ -name "${sample_id}_star_*.bam" | head -n 1)
+        bam_file=\$(find star/ -name "${sample_id}_star_*.bam" | head -n 1)
         samtools index -b \$bam_file
         """
 }
@@ -73,18 +73,18 @@ process runStarNoPublish {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_star_outputs/"), emit: f
+        tuple val(sample_id), path("star/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_star_outputs/
+        mkdir -p star/
         STAR \
             --runThreadN ${task.cpus} \
             --readFilesIn $fastq_file_1 $fastq_file_2 \
             --genomeDir $star_index \
-            --outFileNamePrefix ${sample_id}_star_outputs/${sample_id}_star_ \
+            --outFileNamePrefix star/${sample_id}_star_ \
             $params_star
-        bam_file=\$(find ${sample_id}_star_outputs/ -name "${sample_id}_star_*.bam" | head -n 1)
+        bam_file=\$(find star/ -name "${sample_id}_star_*.bam" | head -n 1)
         samtools index -b \$bam_file
         """
 }

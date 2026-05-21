@@ -7,7 +7,7 @@ process runBeers2 {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/beers2/",
         mode: 'copy'
     )
 

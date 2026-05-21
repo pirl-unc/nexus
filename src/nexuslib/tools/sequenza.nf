@@ -134,16 +134,16 @@ process runSequenza {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_sequenza/*"), emit: f
+        tuple val(sample_id), path("sequenza/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_sequenza_outputs/
+        mkdir -p sequenza/
         Rscript /opt/sequenza/run_sequenza.R \
             --sample-id $sample_id \
             --small-seqz-file $small_seqz_gz_file \
             --assembly $assembly \
             --chromosomes $chromosomes \
-            --output-path ${sample_id}_sequenza/
+            --output-path sequenza/
         """
 }

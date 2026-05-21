@@ -19,16 +19,16 @@ process runClairs {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_clairs_outputs/"), emit: f
+        tuple val(sample_id), path("clairs/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_clairs_outputs/
+        mkdir -p clairs/
         run_clairs \
             --tumor_bam $tumor_bam_file \
             --normal_bam $normal_bam_file \
             --ref_fn $reference_genome_fasta_file \
-            --output_dir ${sample_id}_clairs_outputs/ \
+            --output_dir clairs/ \
             --threads ${task.cpus} \
             $params_clairs
         """

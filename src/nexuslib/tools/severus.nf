@@ -18,18 +18,18 @@ process runSeverus {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_severus_outputs/"), emit: f
+        tuple val(sample_id), path("severus/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_severus_outputs/
+        mkdir -p severus/
         severus \
             --target-bam $tumor_bam_file \
             --control-bam $normal_bam_file \
             --phasing-vcf $phased_vcf_file \
             --vntr-bed $vntr_bed_file \
             --threads ${task.cpus} \
-            --out-dir ${sample_id}_severus_outputs/ \
+            --out-dir severus/ \
             $params_severus
         """
 }

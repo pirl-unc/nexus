@@ -7,7 +7,7 @@ process runDysguSomaticMode {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/dysgu/",
         mode: 'copy'
     )
 
@@ -54,7 +54,7 @@ process runDysguGermlineMode {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/dysgu/",
         mode: 'copy'
     )
 

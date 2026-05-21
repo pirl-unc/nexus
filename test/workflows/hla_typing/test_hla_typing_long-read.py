@@ -11,9 +11,9 @@ def test_hla_typing_longread():
     fastq_file = get_data_path(name='fastq/test_HLA-A0201.fastq.gz')
     params_yaml_file = get_data_path(name='inputs/workflows/hla_typing_long-read/params_1.yaml')
     temp_dir = os.getcwd() + '/tmp'
-    intermediate_dir = temp_dir + '/intermediate/test_hla_typing_longread_local_1'
-    work_dir = temp_dir + '/work/test_hla_typing_longread_local_1'
-    output_dir = temp_dir + '/outputs/test_hla_typing_longread_local_1'
+    intermediate_dir = temp_dir + '/intermediate/test_hla_typing_longread'
+    work_dir = temp_dir + '/work/test_hla_typing_longread'
+    output_dir = temp_dir + '/outputs/test_hla_typing_longread'
     if not os.path.exists(intermediate_dir):
         os.makedirs(intermediate_dir)
     if not os.path.exists(work_dir):

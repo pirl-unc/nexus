@@ -19,27 +19,27 @@ process runTalon {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_talon_outputs/"), emit: f
+        tuple val(sample_id), path("talon/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_talon_outputs/
+        mkdir -p talon/
 
         talon_initialize_database \
             --f $reference_genes_gtf_file \
             --a reference_annotation \
             --g reference_genome \
-            --o ${sample_id}_talon_outputs/reference \
+            --o talon/reference \
             $params_talon_initdb
 
         printf "%s,%s,%s,%s\n" "$sample_id" "$sample_id" "$sample_id" "$bam_file" >> config.csv
 
         talon \
             --f config.csv \
-            --db ${sample_id}_talon_outputs/reference.db \
+            --db talon/reference.db \
             --build reference_genome \
             --threads ${task.cpus} \
-            --o ${sample_id}_talon_outputs/${sample_id} \
+            --o talon/${sample_id} \
             $params_talon
         """
 }

@@ -7,7 +7,7 @@ process runStringTie3 {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/stringtie3/",
         mode: 'copy'
     )
 
@@ -18,7 +18,7 @@ process runStringTie3 {
         val(output_dir)
 
     output:
-        tuple val(sample_id), emit: f
+        tuple val(sample_id), path("${sample_id}_stringtie3.gtf"), emit: f
 
     script:
         """

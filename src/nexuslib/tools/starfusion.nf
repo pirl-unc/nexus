@@ -18,17 +18,17 @@ process runStarFusion {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_starfusion_outputs/"), emit: f
+        tuple val(sample_id), path("starfusion/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_starfusion_outputs/
+        mkdir -p starfusion/
         STAR-Fusion \
             --left_fq $fastq_file_1 \
             --right_fq $fastq_file_2 \
             --genome_lib_dir \${PWD}/${genome_lib_dir} \
             --CPU ${task.cpus} \
-            --output_dir ${sample_id}_starfusion_outputs/ \
+            --output_dir starfusion/ \
             $params_starfusion
         """
 }

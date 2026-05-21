@@ -7,7 +7,7 @@ process runNetMHCpan4 {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/netmhcpan4/",
         mode: 'copy'
     )
 

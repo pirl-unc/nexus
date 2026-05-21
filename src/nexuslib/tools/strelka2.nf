@@ -20,18 +20,17 @@ process runStrelka2GermlineMode {
         val(output_dir)
 
    output:
-         tuple val(sample_id), path("${sample_id}_strelka2.vcf"), emit: f
+         tuple val(sample_id), path("strelka2/"), emit: f
 
    script:
         """
-        mkdir -p ${sample_id}_strelka2_germline_mode/
+        mkdir -p strelka2/
         configureStrelkaGermlineWorkflow.py \
             --bam ${bam_file} \
             --referenceFasta ${reference_genome_fasta_file} \
-            --runDir ${sample_id}_strelka2_germline_mode/ \
+            --runDir strelka2/ \
             $params_strelka2
-        python ${sample_id}_strelka2_germline_mode/runWorkflow.py -m local -j ${task.cpus}
-        gunzip -c ${sample_id}_strelka2_germline_mode/results/variants/variants.vcf.gz > ${sample_id}_strelka2.vcf
+        python strelka2/runWorkflow.py -m local -j ${task.cpus}
         """
 }
 
@@ -55,19 +54,17 @@ process runStrelka2SomaticMode {
         val(output_dir)
 
     output:
-         tuple val(sample_id), path("${sample_id}_strelka2_snvs.vcf"), path("${sample_id}_strelka2_indels.vcf"), emit: f
+         tuple val(sample_id), path("strelka2/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_strelka2_somatic_mode/
+        mkdir -p strelka2/
         configureStrelkaSomaticWorkflow.py \
             --normalBam $normal_bam_file \
             --tumorBam $tumor_bam_file \
             --referenceFasta $reference_genome_fasta_file \
-            --runDir ${sample_id}_strelka2_somatic_mode/ \
+            --runDir strelka2/ \
             $params_strelka2
-        python ${sample_id}_strelka2_somatic_mode/runWorkflow.py -m local -j ${task.cpus}
-        gunzip -c ${sample_id}_strelka2_somatic_mode/results/variants/somatic.snvs.vcf.gz > ${sample_id}_strelka2_snvs.vcf
-        gunzip -c ${sample_id}_strelka2_somatic_mode/results/variants/somatic.indels.vcf.gz > ${sample_id}_strelka2_indels.vcf
+        python strelka2/runWorkflow.py -m local -j ${task.cpus}
         """
 }

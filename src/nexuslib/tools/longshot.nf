@@ -7,24 +7,24 @@ process runLongshot {
     debug true
 
     publishDir(  // VCF — always
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/longshot/",
         mode: 'copy',
         pattern: "${sample_id}_longshot.vcf"
     )
     publishDir(  // BAM — only when mode includes 'bam'
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/longshot/",
         mode: 'copy',
         pattern: "${sample_id}_longshot.bam",
         enabled: ((params.haplotag_output ?: 'bam').toString().toLowerCase() in ['bam', 'both'])
     )
     publishDir(  // BAI — only when mode includes 'bam'
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/longshot/",
         mode: 'copy',
         pattern: "${sample_id}_longshot.bam.bai",
         enabled: ((params.haplotag_output ?: 'bam').toString().toLowerCase() in ['bam', 'both'])
     )
     publishDir(  // haplotag TSV — only when mode includes 'tsv'
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/longshot/",
         mode: 'copy',
         pattern: "${sample_id}_longshot_haplotag.tsv.gz",
         enabled: ((params.haplotag_output ?: 'bam').toString().toLowerCase() in ['tsv', 'both'])

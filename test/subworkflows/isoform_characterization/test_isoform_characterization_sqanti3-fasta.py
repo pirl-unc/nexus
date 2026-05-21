@@ -6,7 +6,7 @@ from ...data import get_data_path
 
 def test_isoform_characterization_sqanti3_fasta():
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
-    long_read_tumor_rna_fasta_file = get_data_path(name='inputs/subworkflows/utilities_filter-rnabloom2-transcripts/nexus-rna-002-tumor_rnabloom2_output/rnabloom.transcripts.fa')
+    long_read_tumor_rna_fasta_file = get_data_path(name='inputs/subworkflows/filter_rnabloom2_transcripts/nexus-rna-002-tumor_rnabloom2_output/rnabloom.transcripts.fa')
     reference_genome_fasta_file = get_data_path(name='fasta/GRCh38.p14.genome.chr17.fa.gz')
     reference_genes_gtf_file = get_data_path(name='gtf/gencode.v45.chr_patch_hapl_scaff.annotation.chr17.gtf.gz')
     temp_dir = os.getcwd() + '/tmp'

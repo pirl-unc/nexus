@@ -21,19 +21,19 @@ process runColorSV {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_colorsv_outputs/"), emit: f
+        tuple val(sample_id), path("colorsv/"), emit: f
 
     script:
         """
         colorSV preprocess \
-            -o ${sample_id}_colorsv_outputs \
+            -o colorsv \
             --graph $gfa_file \
             --reference $reference_genome_fasta_file \
             --tumor-ids $tumor_ids \
             $params_colorsv_preprocess
 
         colorSV call \
-            -o ${sample_id}_colorsv_outputs \
+            -o colorsv \
             --graph $gfa_file \
             --filter $filter_bed_file \
             $params_colorsv_call

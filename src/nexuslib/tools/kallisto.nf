@@ -62,45 +62,45 @@ process runKallistoQuantTccLongReads {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_kallisto_outputs/"), emit: f
+        tuple val(sample_id), path("kallisto/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_kallisto_outputs/
+        mkdir -p kallisto/
 
         kallisto bus \
             -t ${task.cpus} \
             --long \
             -i $kallisto_index_file \
-            -o ${sample_id}_kallisto_outputs/ \
+            -o kallisto/ \
             $params_kallisto_bus \
             $fastq_file
 
         bustools sort \
             -t ${task.cpus} \
-            -o ${sample_id}_kallisto_outputs/sorted.bus \
+            -o kallisto/sorted.bus \
             -m ${task.bustools_memory.toGiga()}G \
             $params_bustools_sort \
-            ${sample_id}_kallisto_outputs/output.bus
+            kallisto/output.bus
 
         bustools count \
-            -t ${sample_id}_kallisto_outputs/transcripts.txt \
-            -e ${sample_id}_kallisto_outputs/matrix.ec \
-            -o ${sample_id}_kallisto_outputs/count \
+            -t kallisto/transcripts.txt \
+            -e kallisto/matrix.ec \
+            -o kallisto/count \
             -g $reference_genes_t2g_file \
             $params_bustools_count \
-            ${sample_id}_kallisto_outputs/sorted.bus
+            kallisto/sorted.bus
 
         kallisto quant-tcc \
             -t ${task.cpus} \
             --long \
-            -f ${sample_id}_kallisto_outputs/flens.txt \
+            -f kallisto/flens.txt \
             -i $kallisto_index_file \
-            -e ${sample_id}_kallisto_outputs/count.ec.txt \
-            -o ${sample_id}_kallisto_outputs/ \
+            -e kallisto/count.ec.txt \
+            -o kallisto/ \
             --gtf $reference_genes_gtf_file \
             $params_kallisto_quanttcc \
-            ${sample_id}_kallisto_outputs/count.mtx
+            kallisto/count.mtx
         """
 }
 
@@ -124,14 +124,14 @@ process runKallistoQuantSingleEndReads {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_kallisto_outputs/"), emit: f
+        tuple val(sample_id), path("kallisto/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_kallisto_outputs/
+        mkdir -p kallisto/
         kallisto quant \
             --index=$kallisto_index_file \
-            --output-dir=${sample_id}_kallisto_outputs/ \
+            --output-dir=kallisto/ \
             --fragment-length=$params_kallisto_quant_fragment_length \
             --sd=$params_kallisto_quant_sd \
             --single \
@@ -159,14 +159,14 @@ process runKallistoQuantPairedEndReads {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_kallisto_outputs/"), emit: f
+        tuple val(sample_id), path("kallisto/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_kallisto_outputs/
+        mkdir -p kallisto/
         kallisto quant \
             --index=$kallisto_index_file \
-            --output-dir=${sample_id}_kallisto_outputs/ \
+            --output-dir=kallisto/ \
             --threads=${task.cpus} \
             $params_kallisto_quant \
             $fastq_file_1 $fastq_file_2

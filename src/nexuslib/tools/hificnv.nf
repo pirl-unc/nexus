@@ -19,17 +19,17 @@ process runHiFiCNV {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_hificnv_outputs/"), emit: f
+        tuple val(sample_id), path("hificnv/"), emit: f
 
     script:
         """
-        mkdir -p ${sample_id}_hificnv_outputs/
+        mkdir -p hificnv/
         hificnv \
             --ref $reference_genome_fasta_file \
             --bam $bam_file \
             --maf $vcf_file \
             --exclude $exclude_bed_file \
-            --output-prefix ${sample_id}_hificnv_outputs/${sample_id}_hificnv \
+            --output-prefix hificnv/${sample_id}_hificnv \
             --threads ${task.cpus} \
             $params_hificnv
         """

@@ -17,14 +17,15 @@ process runSeq2HLA {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}-Class*"), emit: f
+        tuple val(sample_id), path("seq2hla/"), emit: f
 
     script:
         """
+        mkdir -p seq2hla/
         seq2HLA \
           -1 $fastq_file_1 \
           -2 $fastq_file_2 \
-          -r $sample_id \
+          -r seq2hla/$sample_id \
           -p ${task.cpus} \
           $params_seq2hla
         """

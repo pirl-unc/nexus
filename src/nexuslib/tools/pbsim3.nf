@@ -7,7 +7,7 @@ process runPbsim3DNA {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/pbsim3/",
         mode: 'copy'
     )
 
@@ -86,7 +86,7 @@ process runPbsim3RNA {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/pbsim3/",
         mode: 'copy'
     )
 

@@ -85,7 +85,7 @@ def run():
     df_grouped = df_grouped.rename(columns={"read_name": "num_read_support"})
     df_grouped = df_grouped[df_grouped['num_read_support'] >= args.min_read_support]
     df_paf_filtered = df_paf_filtered[df_paf_filtered['transcript_id'].isin(df_grouped['transcript_id'].unique())]
-    print('%i unique transcripts before filtering' % len(df_paf))
+    print('%i unique transcripts before filtering' % len(df_paf['transcript_id'].unique()))
     print('%i unique transcripts after filtering' % len(df_grouped['transcript_id'].unique()))
 
     # Step 3. Output to TSV files

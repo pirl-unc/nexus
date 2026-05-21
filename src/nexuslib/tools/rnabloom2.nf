@@ -17,15 +17,15 @@ process runRnaBloom2LongRead {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("${sample_id}_rnabloom2_output/"), emit: f
+        tuple val(sample_id), path("rnabloom2/"), emit: f
 
     script:
         """
-        mkdir ${sample_id}_rnabloom2_output/
+        mkdir rnabloom2/
         java -jar -Xmx${task.java_max_mem.toGiga()}G /opt/rnabloom2/RNA-Bloom.jar \
             -long $fastq_file \
             --threads ${task.cpus} \
-            --outdir ${sample_id}_rnabloom2_output/ \
+            --outdir rnabloom2/ \
             $params_rnabloom2
         """
 }

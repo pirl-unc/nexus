@@ -7,7 +7,7 @@ process runLonggf {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/longgf/",
         mode: 'copy'
     )
 
