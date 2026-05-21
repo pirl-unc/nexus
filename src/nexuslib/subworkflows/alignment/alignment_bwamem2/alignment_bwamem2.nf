@@ -19,7 +19,8 @@ include { runSamtoolsMarkdup }                  from '../../../tools/samtools'
 include { runSamtoolsFixmate }                  from '../../../tools/samtools'
 include { runGatk4BaseRecalibrator }            from '../../../tools/gatk4'
 include { runGatk4GatherBQSRReports }           from '../../../tools/gatk4'
-include { runGatk4ApplyBQSRSpark }              from '../../../tools/gatk4'
+include { runGatk4ApplyBQSRFast }               from '../../../tools/gatk4'
+include { runSamtoolsMergeRecalibratedBamFiles }from '../../../tools/samtools'
 include { copyBamFile }                         from '../../../tools/utils'
 include { decompressFile as decompressFasta }   from '../../../tools/utils'
 
@@ -150,35 +151,52 @@ workflow ALIGNMENT_BWAMEM2 {
         )
 
         // Step 8. Gather BQSR reports
-        runGatk4BaseRecalibrator.out.f.set { run_gatk4_base_recalibrator_output_ch }
         runGatk4BaseRecalibrator.out.f
           .groupTuple(by: [0], size: chromosomes_count)
           .map{ [it[0], it[3]] }
           .set{ run_gatk4_gather_bqsr_reports_input_ch }
         runGatk4GatherBQSRReports(run_gatk4_gather_bqsr_reports_input_ch)
 
-        // Step 9. Apply BQSR
-        run_gatk4_base_recalibrator_output_ch
-           .groupTuple(by: [0])
-           .map{ [it[0], it[1][0]] }
-           .join(runGatk4GatherBQSRReports.out.f)
-           .set{ run_gatk4_apply_bqsr_input_ch }
-        runGatk4ApplyBQSRSpark(
-            run_gatk4_apply_bqsr_input_ch,
+        // Step 9. Apply BQSR — scatter by chromosome
+        // Branch off runSamtoolsMarkdup.out.f (which carries the bai) rather
+        // than the BaseRecalibrator output (bam-only), so ApplyBQSR -L <chr>
+        // has the index for efficient interval seeking. Join with the merged
+        // recalibration table by sample_id, then fan out across chromosomes.
+        // Channel shape into runGatk4ApplyBQSRFast:
+        //   (sample_id, bam, bai, merged_recal_table, chromosome)
+        runSamtoolsMarkdup.out.f
+            .join(runGatk4GatherBQSRReports.out.f)
+            .combine(Channel.from(chromosomes_list))
+            .set{ run_gatk4_apply_bqsr_fast_input_ch }
+        runGatk4ApplyBQSRFast(
+            run_gatk4_apply_bqsr_fast_input_ch,
             fasta_file,
             fasta_fai_file,
             fasta_gzi_file,
             fasta_dict_file
         )
 
-        // Step 10. Copy BAM files
+        // Step 10. Gather per-chromosome recalibrated BAM shards into one
+        // coordinate-sorted, indexed BAM per sample. groupTuple by [0, 1] —
+        // (sample_id, bam_basename) — preserves the original BAM basename
+        // through the gather so the merged output keeps the long-form name
+        // (e.g. "<sample>_bwamem2_sorted_fixmate_markeddup_recalibrated.bam")
+        // that downstream consumers and tests expect. size: chromosomes_count
+        // lets groupTuple emit as soon as all shards for a sample arrive,
+        // matching the barrier pattern used by GatherBQSRReports above.
+        runGatk4ApplyBQSRFast.out.f
+            .groupTuple(by: [0, 1], size: chromosomes_count)
+            .set{ run_samtools_merge_bams_input_ch }
+        runSamtoolsMergeRecalibratedBamFiles(run_samtools_merge_bams_input_ch)
+
+        // Step 11. Copy BAM files
         copyBamFile(
-            runGatk4ApplyBQSRSpark.out.f,
+            runSamtoolsMergeRecalibratedBamFiles.out.f,
             output_dir
         )
 
     emit:
-        runGatk4ApplyBQSRSpark.out.f
+        runSamtoolsMergeRecalibratedBamFiles.out.f
 }
 
 // ------------------------------------------------------------

@@ -183,6 +183,50 @@ process runGatk4ApplyBQSRSpark {
         """
 }
 
+process runGatk4ApplyBQSRFast {
+
+    // Scatter half of the scatter-gather ApplyBQSR pattern. One invocation
+    // per (sample, chromosome) — emits a per-chromosome recalibrated BAM
+    // shard. Uses the canonical (walker) ApplyBQSR tool, so the merged
+    // output is bit-identical to running the single-shot runGatk4ApplyBQSR.
+    //
+    // Pair with runSamtoolsMergeRecalibratedBamFiles (in tools/samtools.nf)
+    // to produce the final recalibrated BAM. In the subworkflow, fan this
+    // process out over the same chromosome channel that runGatk4BaseRecalibrator
+    // uses, then groupTuple() the shards by sample_id before piping into the
+    // merge step.
+    //
+    // No samtools index here — the gather step indexes the merged BAM.
+
+    label 'gatk4_applybqsr'
+    tag "${sample_id}"
+    debug true
+
+    input:
+        tuple val(sample_id), path(bam_file), path(bam_bai_file), path(data_table_file), val(chromosome)
+        path(reference_genome_fasta_file)
+        path(reference_genome_fasta_fai_file)
+        path(reference_genome_fasta_gzi_file)
+        path(reference_genome_fasta_dict_file)
+
+    // val("${bam_file.baseName}") carries the original BAM's basename forward
+    // so the downstream merge step can produce a final BAM with the same long-
+    // form name (e.g. "<sample>_bwamem2_sorted_fixmate_markeddup_recalibrated.bam")
+    // that the unscattered runGatk4ApplyBQSR would have produced.
+    output:
+        tuple val(sample_id), val("${bam_file.baseName}"), path("${bam_file.baseName}_recalibrated_${chromosome}.bam"), emit: f
+
+    script:
+        """
+        gatk --java-options -Xmx${task.java_max_mem.toGiga()}G ApplyBQSR \
+            -I ${bam_file} \
+            -R ${reference_genome_fasta_file} \
+            -L ${chromosome} \
+            --bqsr-recal-file ${data_table_file} \
+            -O ${bam_file.baseName}_recalibrated_${chromosome}.bam
+        """
+}
+
 process runGatk4LearnReadOrientationModel {
 
     label 'gatk4_learnreadorientationmodel'
