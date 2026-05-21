@@ -341,3 +341,41 @@ process runSamtoolsMerge {
         samtools merge -@ ${task.cpus} -o ${sample_id}_merged.bam $bam_files
         """
 }
+
+
+process runSamtoolsMergeRecalibratedBamFiles {
+
+    // Gather half of the scatter-gather ApplyBQSR pattern. Combines N
+    // coordinate-sorted, region-disjoint BAM shards into one coordinate-
+    // sorted BAM and indexes it. samtools merge re-orders by coordinate
+    // using the @SQ header order, so the upstream scatter does not need
+    // to emit shards in any particular order.
+    //
+    //   -c   collapse duplicate @RG header lines across shards
+    //   -p   collapse duplicate @PG (program) header lines — otherwise
+    //        each shard's ApplyBQSR PG record would appear N times
+    //   -f   overwrite any existing output
+
+    label 'samtools_merge'
+    tag "${sample_id}"
+    debug true
+
+    // bam_basename carries the original (pre-scatter) BAM's basename, so the
+    // merged output keeps the same long-form name the unscattered ApplyBQSR
+    // would have produced (e.g. "<sample>_bwamem2_sorted_fixmate_markeddup_recalibrated.bam").
+    input:
+        tuple val(sample_id), val(bam_basename), path(bam_files)
+
+    output:
+        tuple val(sample_id), path("${bam_basename}_recalibrated.bam"), path("${bam_basename}_recalibrated.bam.bai"), emit: f
+
+    script:
+        """
+        samtools merge -@ ${task.cpus} -c -p -f \
+            ${bam_basename}_recalibrated.bam \
+            ${bam_files}
+        samtools index -@ ${task.cpus} -b \
+            ${bam_basename}_recalibrated.bam \
+            ${bam_basename}_recalibrated.bam.bai
+        """
+}
