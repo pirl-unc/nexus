@@ -151,7 +151,35 @@ process runGatk4ApplyBQSR {
             -R ${reference_genome_fasta_file} \
             --bqsr-recal-file ${data_table_file} \
             -O ${bam_file.baseName}_recalibrated.bam
-        samtools index -b ${bam_file.baseName}_recalibrated.bam ${bam_file.baseName}_recalibrated.bam.bai
+        samtools index -@ ${task.cpus} -b ${bam_file.baseName}_recalibrated.bam ${bam_file.baseName}_recalibrated.bam.bai
+        """
+}
+
+process runGatk4ApplyBQSRSpark {
+
+    label 'gatk4_applybqsrspark'
+    tag "${sample_id}"
+    debug true
+
+    input:
+        tuple val(sample_id), path(bam_file), path(data_table_file)
+        path(reference_genome_fasta_file)
+        path(reference_genome_fasta_fai_file)
+        path(reference_genome_fasta_gzi_file)
+        path(reference_genome_fasta_dict_file)
+
+    output:
+        tuple val(sample_id), path("${bam_file.baseName}_recalibrated.bam"), path("${bam_file.baseName}_recalibrated.bam.bai"), emit: f
+
+    script:
+        """
+        gatk --java-options -Xmx${task.java_max_mem.toGiga()}G ApplyBQSRSpark \
+            -I ${bam_file} \
+            -R ${reference_genome_fasta_file} \
+            --bqsr-recal-file ${data_table_file} \
+            -O ${bam_file.baseName}_recalibrated.bam \
+            --spark-master local[${task.cpus}]
+        samtools index -@ ${task.cpus} -b ${bam_file.baseName}_recalibrated.bam ${bam_file.baseName}_recalibrated.bam.bai
         """
 }
 

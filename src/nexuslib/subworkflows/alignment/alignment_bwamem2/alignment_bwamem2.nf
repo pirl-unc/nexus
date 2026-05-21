@@ -19,7 +19,7 @@ include { runSamtoolsMarkdup }                  from '../../../tools/samtools'
 include { runSamtoolsFixmate }                  from '../../../tools/samtools'
 include { runGatk4BaseRecalibrator }            from '../../../tools/gatk4'
 include { runGatk4GatherBQSRReports }           from '../../../tools/gatk4'
-include { runGatk4ApplyBQSR }                   from '../../../tools/gatk4'
+include { runGatk4ApplyBQSRSpark }              from '../../../tools/gatk4'
 include { copyBamFile }                         from '../../../tools/utils'
 include { decompressFile as decompressFasta }   from '../../../tools/utils'
 
@@ -163,7 +163,7 @@ workflow ALIGNMENT_BWAMEM2 {
            .map{ [it[0], it[1][0]] }
            .join(runGatk4GatherBQSRReports.out.f)
            .set{ run_gatk4_apply_bqsr_input_ch }
-        runGatk4ApplyBQSR(
+        runGatk4ApplyBQSRSpark(
             run_gatk4_apply_bqsr_input_ch,
             fasta_file,
             fasta_fai_file,
@@ -173,12 +173,12 @@ workflow ALIGNMENT_BWAMEM2 {
 
         // Step 10. Copy BAM files
         copyBamFile(
-            runGatk4ApplyBQSR.out.f,
+            runGatk4ApplyBQSRSpark.out.f,
             output_dir
         )
 
     emit:
-        runGatk4ApplyBQSR.out.f
+        runGatk4ApplyBQSRSpark.out.f
 }
 
 // ------------------------------------------------------------
