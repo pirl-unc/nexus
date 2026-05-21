@@ -44,6 +44,7 @@ website:
       - subworkflows/assembly/assembly_rattle.qmd
       - subworkflows/assembly/assembly_rnabloom2.qmd
       - subworkflows/assembly/assembly_stringtie2.qmd
+      - subworkflows/assembly/assembly_stringtie3.qmd
     - section: Haplotagging
       contents:
       - subworkflows/haplotagging/haplotagging_flair-longshot.qmd
