@@ -31,7 +31,7 @@ def parse_args():
         dest="bedtools",
         type=str,
         required=True,
-        help="bedtools path (e.g. /<path>/bedtools.static.binary)."
+        help="bedtools path (e.g. /bedtools.static.binary)."
     )
     arg_parser.add_argument(
         "--output_temp_bed_file",
