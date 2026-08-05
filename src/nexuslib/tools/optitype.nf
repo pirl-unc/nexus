@@ -21,8 +21,6 @@ process runOptiType {
 
     script:
         """
-        mkdir -p optitype/
-
         sed '/^\\[mapping\\]/,/^\\[/ s/^threads=.*/threads=${task.cpus}/' \
             /usr/local/bin/OptiType/config.ini > config.ini
 

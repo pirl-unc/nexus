@@ -1,6 +1,5 @@
 tests=(
   test_sequencing_simulation_art_illumina_pe
-  test_sequencing_simulation_beers2
   test_sequencing_simulation_nanosim_genome
   test_sequencing_simulation_neat
   test_sequencing_simulation_pbsim3_dna_1

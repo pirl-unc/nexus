@@ -7,7 +7,7 @@ process runLRAA {
     debug true
 
     publishDir(
-        path: "${output_dir}/${sample_id}/",
+        path: "${output_dir}/${sample_id}/lraa/",
         mode: 'copy'
     )
 
@@ -20,16 +20,15 @@ process runLRAA {
         val(output_dir)
 
     output:
-        tuple val(sample_id), path("lraa/"), emit: f
+        tuple val(sample_id), path("${sample_id}_lraa*"), emit: f
 
     script:
         """
-        mkdir lraa/
         LRAA \
             --genome $reference_genome_fasta_file \
             --gtf $gtf_file \
             --bam $bam_file \
-            --output_prefix lraa/${sample_id} \
+            --output_prefix ${sample_id}_lraa \
             --num_threads_per_worker ${Math.max(1, task.cpus.intdiv(4))} \
             $params_lraa
         """

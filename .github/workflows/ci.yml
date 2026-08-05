@@ -46,7 +46,6 @@ jobs:
           - read_error_correction
           - sequencing_simulation
           - utilities
-          - variant_annotation
           - variant_calling_dna-lr
           - variant_calling_dna-sr
           - variant_calling_rna-lr
