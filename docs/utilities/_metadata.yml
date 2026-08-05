@@ -1,0 +1,8 @@
+# Loads the sidebar "Expand all / Collapse all" control on every page in this
+# section. Wired here (per-section) rather than in _quarto.yml because the
+# include kept getting stripped from _quarto.yml by an external formatter.
+# The src is root-relative; Quarto rewrites it to the right depth per page.
+format:
+  html:
+    header-includes: |
+      <script src="/sidebar-toggle-all.js" defer></script>

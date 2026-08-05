@@ -22,6 +22,9 @@ docs/workflows/*
 !docs/subworkflows/index.qmd
 !docs/utilities/index.qmd
 !docs/workflows/index.qmd
+!docs/subworkflows/_metadata.yml
+!docs/utilities/_metadata.yml
+!docs/workflows/_metadata.yml
 CLAUDE.md
 references/
 tasks/
