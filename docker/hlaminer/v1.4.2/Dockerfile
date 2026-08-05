@@ -25,6 +25,8 @@ RUN wget --quiet https://github.com/BirolLab/HLAminer/releases/download/v1.4.2/h
     tar -xvf hlaminer-1.4.2.tar.gz && \
     rm hlaminer-1.4.2.tar.gz
 RUN ln -s /opt/hlaminer-1.4.2/HLAminer-1.4 /opt/hlaminer
+RUN gunzip /opt/hlaminer/database/HLA-I_II_CDS.fasta.gz && \
+    gunzip /opt/hlaminer/database/HLA-I_II_GEN.fasta.gz
 
 # Install samtools
 RUN wget https://github.com/samtools/samtools/releases/download/1.18/samtools-1.18.tar.bz2 && \
@@ -36,13 +38,20 @@ RUN wget https://github.com/samtools/samtools/releases/download/1.18/samtools-1.
     make install
 
 # Add samtools to PATH
-# `make install --prefix=/opt/samtools-1.18` (from inside that dir) installs
-# the samtools binary to /opt/samtools-1.18/bin/samtools.
 ENV PATH /opt/samtools-1.18/bin:$PATH
 
-# Install minimap2 for long-read alignment against HLAminer's HLA reference
-# (used by the hla_typing_hlaminer-lr-rna subworkflow).
+# Install minimap2
 RUN conda install -c bioconda minimap2=2.28 -y
+
+# Install bwa
+RUN conda install -c conda-forge libgcc==15.1.0
+RUN conda install -c bioconda bwa==0.7.19
+
+# Build bwa indexes for the coding (RNA) and genomic (DNA) HLA references so the
+# short-read hla_typing_hlaminer-sr-dna / -sr-rna subworkflows align without
+# per-task indexing.
+RUN bwa index /opt/hlaminer/database/HLA-I_II_CDS.fasta && \
+    bwa index /opt/hlaminer/database/HLA-I_II_GEN.fasta
 
 RUN conda clean -a -y && \
     apt-get clean

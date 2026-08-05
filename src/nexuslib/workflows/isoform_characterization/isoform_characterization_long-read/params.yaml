@@ -15,8 +15,8 @@
 
 # TSV file with columns:
 #   sample_id
-#   bam_file               (required for ESPRESSO, IsoTools, TALON)
-#   bam_bai_file           (required for ESPRESSO, IsoTools, TALON)
+#   bam_file               (required for ESPRESSO, IsoTools, LRAA, TALON)
+#   bam_bai_file           (required for ESPRESSO, IsoTools, LRAA, TALON)
 #   fastq_file             (required for FLAIR, IsoQuant, Mandalorion)
 samples_tsv_file: ""
 
@@ -36,7 +36,7 @@ reference_genes_gtf_file: ""
 
 # Methods to run. Comma-separated list or 'all'.
 # Allowed values:
-#   all, espresso, flair, isoquant, isotools, mandalorion,
+#   all, espresso, flair3, isoquant, isotools, lraa, mandalorion,
 #   sqanti3-gtf, talon
 methods: "all"
 
@@ -57,18 +57,12 @@ espresso:
 
 
 # -----------------------------------------------------------------------------
-# FLAIR
+# FLAIR3
 # Optional arguments.
 # -----------------------------------------------------------------------------
-flair:
-  # Extra CLI arguments passed directly to flair align.
-  align_extra_args: ""
-
-  # Extra CLI arguments passed directly to flair correct.
-  correct_extra_args: ""
-
-  # Extra CLI arguments passed directly to flair collapse.
-  collapse_extra_args: ""
+flair3:
+  # Extra CLI arguments passed directly to flair transcriptome.
+  extra_args: ""
 
 
 # -----------------------------------------------------------------------------
@@ -87,6 +81,15 @@ isoquant:
 isotools:
   # Extra CLI arguments passed directly to isotools.
   extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# LRAA (BAM-based)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+lraa:
+  # Extra CLI arguments passed directly to LRAA.
+  extra_args: "--HiFi"
 
 
 # -----------------------------------------------------------------------------

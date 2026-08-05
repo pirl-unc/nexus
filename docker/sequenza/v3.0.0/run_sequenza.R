@@ -24,6 +24,10 @@ options.list <- list(
                 type="character",
                 dest="chromosomes",
                 help="Chromosomes (e.g. 'chr1,chr2,chr3'"),
+   make_option(c("-x", "--sex"),
+                type="character",
+                dest="sex",
+                help="Sex ('male' or 'female')"),
     make_option(c("-o", "--output-path"),
                 type="character",
                 dest="output.path",
@@ -33,13 +37,20 @@ parser <- OptionParser(usage="%prog [options]",
                        option_list = options.list)
 args <- parse_args(parser, args = commandArgs(trailingOnly=TRUE))
 
+# Sequenza takes the sex as a boolean `female`; map --sex onto it.
+if (is.null(args$sex) || !(args$sex %in% c("male", "female"))) {
+    stop("--sex must be 'male' or 'female'.")
+}
+female <- args$sex == "female"
+
 # Step 2. Run Sequenza
 chromosome.list <- strsplit(args$chromosomes, split = "\\,")[[1]]
 test <- sequenza.extract(args$small.seqz.file, verbose = TRUE,
                          assembly = args$assembly,
                          chromosome.list = chromosome.list)
-CP <- sequenza.fit(test)
+CP <- sequenza.fit(test, female = female)
 sequenza.results(sequenza.extract = test,
                  cp.table = CP,
                  sample.id = args$sample.id,
+                 female = female,
                  out.dir = args$output.path)

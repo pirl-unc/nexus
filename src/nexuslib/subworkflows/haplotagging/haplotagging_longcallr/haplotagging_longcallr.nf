@@ -68,7 +68,7 @@ workflow HAPLOTAGGING_LONGCALLR {
 workflow {
     log.info """\
              ============================================================
-             Haplotype long-read DNA sequencing BAM files using LongcallR
+             Haplotype long-read RNA sequencing BAM files using LongcallR
              ============================================================
              """.stripIndent()
 

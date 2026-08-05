@@ -19,9 +19,8 @@
 #   tumor_bam_bai_file
 #   normal_bam_file
 #   normal_bam_bai_file
-#   normal_small_variants_vcf_file   (required for Severus; normal DeepVariant VCF
-#                                     from variant_calling_long-read-dna-germline output;
-#                                     will be phased by WhatsHap before Severus)
+#   normal_small_variants_vcf_file   (required for Severus; normal phased VCF file;
+#                                     the matching phased VCF file from haplotagging should be supplied)
 samples_tsv_file: ""
 
 # Directory to which output files will be copied
@@ -72,7 +71,7 @@ deepsomatic:
   bin_path: "run_deepsomatic"
 
   # DeepSomatic version
-  bin_version: "1.9.0"
+  bin_version: "1.10.0"
 
 
 # -----------------------------------------------------------------------------

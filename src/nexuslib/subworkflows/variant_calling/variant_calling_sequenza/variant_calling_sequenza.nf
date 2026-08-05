@@ -38,7 +38,7 @@ params.chromosomes                      = 'chr1 chr2 chr3 chr4 chr5 chr6 chr7 ch
 // ------------------------------------------------------------
 workflow VARIANT_CALLING_SEQUENZA {
     take:
-        input_bam_files_ch             // channel: [val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file), path(normal_bam_file), path(normal_bam_bai_file)]
+        input_bam_files_ch             // channel: [val(sample_id), path(tumor_bam_file), path(tumor_bam_bai_file), path(normal_bam_file), path(normal_bam_bai_file), val(sex)]
         reference_genome_fasta_file
         assembly
         chromosomes
@@ -53,6 +53,15 @@ workflow VARIANT_CALLING_SEQUENZA {
         fasta_fai_file              = runSamtoolsFaidx.out.fai_file
         fasta_gzi_file              = runSamtoolsFaidx.out.gzi_file
 
+        // sequenza-utils bam2seqz only needs the BAMs; carry sex separately,
+        // keyed by sample_id, and re-attach it just before runSequenza.
+        bam_files_ch = input_bam_files_ch.map { it ->
+            tuple(it[0], it[1], it[2], it[3], it[4])
+        }
+        sample_sex_ch = input_bam_files_ch.map { it ->
+            tuple(it[0], it[5])
+        }
+
         runSequenzaUtilsIndex(
             fasta_file,
             fasta_fai_file,
@@ -62,7 +71,7 @@ workflow VARIANT_CALLING_SEQUENZA {
         gc_wiggle_file = runSequenzaUtilsIndex.out.wig_file
 
         runSequenzaUtilsBam2Seqz(
-            input_bam_files_ch,
+            bam_files_ch,
             fasta_file,
             fasta_fai_file,
             fasta_gzi_file,
@@ -85,8 +94,11 @@ workflow VARIANT_CALLING_SEQUENZA {
 
         chromosomes = chromosomes.replace(" ",",")
 
+        // Re-attach sex (joined on sample_id) for the final R step.
+        sequenza_input_ch = runSequenzaUtilsSeqzBinning.out.f.join(sample_sex_ch)
+
         runSequenza(
-            runSequenzaUtilsSeqzBinning.out.f,
+            sequenza_input_ch,
             chromosomes,
             assembly,
             output_dir
@@ -122,7 +134,8 @@ workflow {
                                                     'tumor_bam_file',
                                                     'tumor_bam_bai_file',
                                                     'normal_bam_file',
-                                                    'normal_bam_bai_file'
+                                                    'normal_bam_bai_file',
+                                                    'sex' ('male' or 'female')
             --output_dir                        :   Directory to which output files will be copied.
             --reference_genome_fasta_file       :   Reference genome FASTA file.
             --assembly                          :   Assembly ('hg19' or 'hg38').
@@ -163,7 +176,8 @@ workflow {
             "${row.tumor_bam_file}",
             "${row.tumor_bam_bai_file}",
             "${row.normal_bam_file}",
-            "${row.normal_bam_bai_file}") }
+            "${row.normal_bam_bai_file}",
+            "${row.sex}") }
         .set { input_bam_files_ch }
 
     VARIANT_CALLING_SEQUENZA(

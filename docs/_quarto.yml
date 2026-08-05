@@ -13,6 +13,8 @@ website:
       file: workflows/index.qmd
     - text: Utilities
       file: utilities/index.qmd
+    - text: FAQ
+      file: faq.qmd
     right:
     - icon: github
       href: https://github.com/pirl-unc/nexus
@@ -40,14 +42,21 @@ website:
       - subworkflows/antigen_prediction/antigen_prediction_netmhcpan4.qmd
     - section: Assembly
       contents:
+      - subworkflows/assembly/assembly_bookend.qmd
       - subworkflows/assembly/assembly_hifiasm.qmd
+      - subworkflows/assembly/assembly_isonform.qmd
+      - subworkflows/assembly/assembly_isonform_clustered.qmd
       - subworkflows/assembly/assembly_rattle.qmd
+      - subworkflows/assembly/assembly_rattle_clustered.qmd
       - subworkflows/assembly/assembly_rnabloom2.qmd
+      - subworkflows/assembly/assembly_rnabloom2_clustered.qmd
+      - subworkflows/assembly/assembly_spades.qmd
       - subworkflows/assembly/assembly_stringtie2.qmd
       - subworkflows/assembly/assembly_stringtie3.qmd
+      - subworkflows/assembly/assembly_trinity.qmd
     - section: Haplotagging
       contents:
-      - subworkflows/haplotagging/haplotagging_flair-longshot.qmd
+      - subworkflows/haplotagging/haplotagging_flair3-longshot.qmd
       - subworkflows/haplotagging/haplotagging_hapcut2-whatshap.qmd
       - subworkflows/haplotagging/haplotagging_hiphase.qmd
       - subworkflows/haplotagging/haplotagging_longcallr.qmd
@@ -58,17 +67,26 @@ website:
     - section: HLA Typing
       contents:
       - subworkflows/hla_typing/hla_typing_arcashla.qmd
+      - subworkflows/hla_typing/hla_typing_fufihla.qmd
+      - subworkflows/hla_typing/hla_typing_hlaminer-lr-dna.qmd
       - subworkflows/hla_typing/hla_typing_hlaminer-lr-rna.qmd
+      - subworkflows/hla_typing/hla_typing_hlaminer-sr-dna.qmd
+      - subworkflows/hla_typing/hla_typing_hlaminer-sr-rna.qmd
       - subworkflows/hla_typing/hla_typing_hlaprofiler.qmd
+      - subworkflows/hla_typing/hla_typing_optitype.qmd
       - subworkflows/hla_typing/hla_typing_seq2hla.qmd
+      - subworkflows/hla_typing/hla_typing_spechla.qmd
+      - subworkflows/hla_typing/hla_typing_spechla-lr-dna.qmd
       - subworkflows/hla_typing/hla_typing_specimmune.qmd
     - section: Isoform Characterization
       contents:
       - subworkflows/isoform_characterization/isoform_characterization_espresso.qmd
-      - subworkflows/isoform_characterization/isoform_characterization_flair.qmd
+      - subworkflows/isoform_characterization/isoform_characterization_flair2.qmd
+      - subworkflows/isoform_characterization/isoform_characterization_flair3.qmd
       - subworkflows/isoform_characterization/isoform_characterization_isoquant.qmd
       - subworkflows/isoform_characterization/isoform_characterization_isoseq.qmd
       - subworkflows/isoform_characterization/isoform_characterization_isotools.qmd
+      - subworkflows/isoform_characterization/isoform_characterization_lraa.qmd
       - subworkflows/isoform_characterization/isoform_characterization_mandalorion.qmd
       - subworkflows/isoform_characterization/isoform_characterization_rmats.qmd
       - subworkflows/isoform_characterization/isoform_characterization_sqanti3-fasta.qmd
@@ -87,6 +105,10 @@ website:
       - subworkflows/quantification/quantification_oarfish.qmd
       - subworkflows/quantification/quantification_salmon-fastq.qmd
       - subworkflows/quantification/quantification_transigner.qmd
+    - section: Read Clustering
+      contents:
+      - subworkflows/read_clustering/read_clustering_geluster.qmd
+      - subworkflows/read_clustering/read_clustering_isonclust3.qmd
     - section: Read Error Correction
       contents:
       - subworkflows/read_error_correction/read_error_correction_ratatosk.qmd
@@ -132,6 +154,7 @@ website:
       - subworkflows/variant_calling/variant_calling_haplotypecaller.qmd
       - subworkflows/variant_calling/variant_calling_hificnv.qmd
       - subworkflows/variant_calling/variant_calling_himut.qmd
+      - subworkflows/variant_calling/variant_calling_isolaser.qmd
       - subworkflows/variant_calling/variant_calling_longgf.qmd
       - subworkflows/variant_calling/variant_calling_longshot.qmd
       - subworkflows/variant_calling/variant_calling_lumpy-germline.qmd
@@ -165,6 +188,10 @@ website:
     - section: Overview
       contents:
       - workflows/index.qmd
+    - section: Assembly
+      contents:
+      - workflows/assembly/assembly_long-read-rna.qmd
+      - workflows/assembly/assembly_short-read-rna.qmd
     - section: Haplotagging
       contents:
       - workflows/haplotagging/haplotagging_long-read-dna.qmd
@@ -172,20 +199,23 @@ website:
       - workflows/haplotagging/haplotagging_short-read-dna.qmd
     - section: HLA Typing
       contents:
-      - workflows/hla_typing/hla_typing_long-read.qmd
-      - workflows/hla_typing/hla_typing_short-read.qmd
+      - workflows/hla_typing/hla_typing_long-read-dna.qmd
+      - workflows/hla_typing/hla_typing_long-read-rna.qmd
+      - workflows/hla_typing/hla_typing_short-read-dna.qmd
+      - workflows/hla_typing/hla_typing_short-read-rna.qmd
     - section: Isoform Characterization
       contents:
       - workflows/isoform_characterization/isoform_characterization_long-read.qmd
       - workflows/isoform_characterization/isoform_characterization_short-read.qmd
     - section: Quantification
       contents:
-      - workflows/quantification/quantification_long-read.qmd
-      - workflows/quantification/quantification_short-read.qmd
+      - workflows/quantification/quantification_long-read-rna.qmd
+      - workflows/quantification/quantification_short-read-rna.qmd
     - section: Variant Calling
       contents:
       - workflows/variant_calling/variant_calling_long-read-dna-germline.qmd
       - workflows/variant_calling/variant_calling_long-read-dna-somatic.qmd
+      - workflows/variant_calling/variant_calling_long-read-rna.qmd
       - workflows/variant_calling/variant_calling_short-read-dna-germline.qmd
       - workflows/variant_calling/variant_calling_short-read-dna-somatic.qmd
   - id: utilities
@@ -199,15 +229,13 @@ website:
       contents:
       - utilities/calculate_cancer_cell_fraction.qmd
       - utilities/convert_netmhcpan_txt2tsv.qmd
-      - utilities/convert_scrna_bam2fastq.qmd
-      - utilities/count_scrna_assembly_support.qmd
       - utilities/create_abra2_targets_bed_file.qmd
       - utilities/create_beers2_input_data.qmd
       - utilities/filter_rnabloom2_transcripts.qmd
-      - utilities/filter_scrna_assembly.qmd
-      - utilities/filter_unspliced_transcripts.qmd
-      - utilities/find_scrna_barcode_knee.qmd
-      - utilities/merge_rna_assemblies.qmd
+      - utilities/scrna_convert_bam2fastq.qmd
+      - utilities/scrna_count_assembly_support.qmd
+      - utilities/scrna_filter_assembly.qmd
+      - utilities/scrna_find_barcode_knee.qmd
       - utilities/split_fastq_by_hp_tag.qmd
 format:
   html:

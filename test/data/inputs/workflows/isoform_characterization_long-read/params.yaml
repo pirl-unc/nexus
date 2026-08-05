@@ -10,7 +10,7 @@ espresso:
   c_extra_args: ""
   q_extra_args: ""
 
-flair:
+flair3:
   align_extra_args: ""
   correct_extra_args: ""
   collapse_extra_args: ""
@@ -20,6 +20,9 @@ isoquant:
 
 isotools:
   extra_args: ""
+
+lraa:
+  extra_args: "--HiFi"
 
 mandalorion:
   extra_args: ""

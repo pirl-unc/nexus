@@ -1,12 +1,12 @@
-# Test fixture: flair-longshot only.
+# Test fixture: flair3-longshot only.
 samples_tsv_file: ""
 output_dir: ""
 reference_genome_fasta_file: ""
 
-methods: "flair-longshot"
+methods: "flair3-longshot"
 haplotag_output: "bam"
 
-flair_longshot:
+flair3_longshot:
   flair_align_extra_args: ""
   longshot_extra_args: ""
 

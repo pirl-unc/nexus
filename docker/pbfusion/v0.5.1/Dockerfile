@@ -1,7 +1,5 @@
-# Use Ubuntu 18.04 LTS as the base image
-FROM ubuntu:18.04
+FROM --platform=linux/amd64 ubuntu:22.04
 
-# Set noninteractive installation to avoid getting stuck during build
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Install necessary packages for Miniconda installation

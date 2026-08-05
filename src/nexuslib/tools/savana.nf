@@ -60,8 +60,35 @@ process runSavanaClassify {
 
     script:
         """
+        breakpoints_vcf=${savana_run_dir}/${sample_id}.sv_breakpoints.vcf
+
+        n_breakpoints=0
+        if [ -f "\${breakpoints_vcf}" ]; then
+            n_breakpoints=\$(grep -cv '^#' "\${breakpoints_vcf}" || true)
+        else
+            echo "WARNING: \${breakpoints_vcf} not found — 'savana run' emitted no breakpoints VCF for ${sample_id}."
+        fi
+
+        if [ "\${n_breakpoints:-0}" -lt 1 ]; then
+            echo "WARNING: 'savana run' produced 0 SV breakpoints for ${sample_id} — skipping 'savana classify' and emitting empty somatic/germline VCFs."
+            for out in ${sample_id}_savana_classify_output.somatic.vcf \
+                       ${sample_id}_savana_classify_output.germline.vcf; do
+                if [ -f "\${breakpoints_vcf}" ]; then
+                    # Reuse the breakpoints header so contig/INFO/FORMAT definitions
+                    # survive, tagging why the file is empty.
+                    awk '/^#CHROM/ { print "##nexus_note=savana_classify_skipped_zero_breakpoints" } { print }' \
+                        "\${breakpoints_vcf}" > "\${out}"
+                fi
+                if [ ! -s "\${out}" ]; then
+                    printf '##fileformat=VCFv4.2\\n##nexus_note=savana_classify_skipped_zero_breakpoints\\n#CHROM\\tPOS\\tID\\tREF\\tALT\\tQUAL\\tFILTER\\tINFO\\n' \
+                        > "\${out}"
+                fi
+            done
+            exit 0
+        fi
+
         savana classify \
-            --vcf ${savana_run_dir}/${sample_id}.sv_breakpoints.vcf \
+            --vcf "\${breakpoints_vcf}" \
             --output ${sample_id}_savana_classify_output.vcf \
             --custom_params $custom_params_file \
             $params_savana_classify

@@ -84,14 +84,8 @@ def test_alignment_bwamem2_2():
                  workflow_args=workflow_args)
 
 
-def test_alignment_bwamem2_multi_fastq_per_sample():
-    """Two TSV rows share sample_id='nexus-dna-merged' but each row points to
-    a different paired (R1, R2) fastq set. Both pairs should be concatenated
-    in-process and aligned together into a single merged BAM via groupTuple
-    — exercising the multi-row-per-sample-id code path. A second sample
-    (single row) verifies the original one-pair-per-sample case still works
-    alongside.
-    """
+def test_alignment_bwamem2_3():
+    # Multi FASTQ files per sample
     nextflow_config_file = get_data_path(name='nextflow/nextflow_test_docker.config')
     tumor_r1 = get_data_path(name='fastq/nexus-dna-001-tumor_paired-end_read_r1.fastq.gz')
     tumor_r2 = get_data_path(name='fastq/nexus-dna-001-tumor_paired-end_read_r2.fastq.gz')

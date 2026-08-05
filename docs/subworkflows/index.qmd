@@ -45,11 +45,18 @@ nexus run --nf-workflow <subworkflow>.nf \
 
 | Tool | Description |
 |:-----|:------------|
+| [bookend](assembly/assembly_bookend.qmd) | reference-guided transcript assembly |
 | [hifiasm](assembly/assembly_hifiasm.qmd) | de novo assembly from HiFi reads |
+| [isonform](assembly/assembly_isonform.qmd) | long-read RNA isoform assembly |
+| [isonform-clustered](assembly/assembly_isonform_clustered.qmd) | long-read RNA isoform assembly per read cluster |
 | [rattle](assembly/assembly_rattle.qmd) | long-read RNA isoform clustering |
+| [rattle-clustered](assembly/assembly_rattle_clustered.qmd) | long-read RNA isoform assembly per read cluster |
 | [rnabloom2](assembly/assembly_rnabloom2.qmd) | long-read RNA assembly |
+| [rnabloom2-clustered](assembly/assembly_rnabloom2_clustered.qmd) | long-read RNA assembly per read cluster |
+| [spades](assembly/assembly_spades.qmd) | short-read RNA de novo assembly |
 | [stringtie2](assembly/assembly_stringtie2.qmd) | transcript assembly |
 | [stringtie3](assembly/assembly_stringtie3.qmd) | long-read transcript assembly |
+| [trinity](assembly/assembly_trinity.qmd) | short-read RNA de novo assembly |
 
 : {.striped .hover}
 
@@ -57,7 +64,7 @@ nexus run --nf-workflow <subworkflow>.nf \
 
 | Tool | Description |
 |:-----|:------------|
-| [flair-longshot](haplotagging/haplotagging_flair-longshot.qmd) | long-read RNA variant phasing + haplotagging |
+| [flair3-longshot](haplotagging/haplotagging_flair3-longshot.qmd) | long-read RNA variant phasing + haplotagging |
 | [hapcut2-whatshap](haplotagging/haplotagging_hapcut2-whatshap.qmd) | short-read variant phasing + haplotagging |
 | [hiphase](haplotagging/haplotagging_hiphase.qmd) | PacBio long-read phasing + haplotagging (SNV + SV) |
 | [longcallr](haplotagging/haplotagging_longcallr.qmd) | long-read RNA variant calling, phasing, haplotagging |
@@ -73,9 +80,16 @@ nexus run --nf-workflow <subworkflow>.nf \
 | Tool | Description |
 |:-----|:------------|
 | [arcashla](hla_typing/hla_typing_arcashla.qmd) | HLA typing from RNA-seq BAM |
+| [fufihla](hla_typing/hla_typing_fufihla.qmd) | long-read DNA HLA typing (FuFiHLA) |
+| [hlaminer-sr-dna](hla_typing/hla_typing_hlaminer-sr-dna.qmd) | short-read DNA HLA typing (bwa + HLAminer) |
+| [hlaminer-sr-rna](hla_typing/hla_typing_hlaminer-sr-rna.qmd) | short-read RNA HLA typing (bwa + HLAminer) |
+| [hlaminer-lr-dna](hla_typing/hla_typing_hlaminer-lr-dna.qmd) | long-read DNA HLA typing (minimap2 + HLAminer) |
 | [hlaminer-lr-rna](hla_typing/hla_typing_hlaminer-lr-rna.qmd) | long-read RNA HLA typing (minimap2 + HLAminer) |
 | [hlaprofiler](hla_typing/hla_typing_hlaprofiler.qmd) | HLA typing from FASTQ |
+| [optitype](hla_typing/hla_typing_optitype.qmd) | paired-end DNA/RNA HLA typing (OptiType) |
 | [seq2hla](hla_typing/hla_typing_seq2hla.qmd) | HLA typing from FASTQ |
+| [spechla](hla_typing/hla_typing_spechla.qmd) | paired-end DNA/RNA HLA typing (SpecHLA) |
+| [spechla-lr-dna](hla_typing/hla_typing_spechla-lr-dna.qmd) | long-read DNA HLA typing (SpecHLA) |
 | [specimmune](hla_typing/hla_typing_specimmune.qmd) | long-read HLA / KIR / CYP / IG_TR typing |
 
 : {.striped .hover}
@@ -85,10 +99,12 @@ nexus run --nf-workflow <subworkflow>.nf \
 | Tool | Description |
 |:-----|:------------|
 | [espresso](isoform_characterization/isoform_characterization_espresso.qmd) | isoform detection from long reads |
-| [flair](isoform_characterization/isoform_characterization_flair.qmd) | isoform detection from long reads |
+| [flair2](isoform_characterization/isoform_characterization_flair2.qmd) | isoform detection from long reads |
+| [flair3](isoform_characterization/isoform_characterization_flair3.qmd) | isoform detection from long reads (single-pass `flair transcriptome`) |
 | [isoquant](isoform_characterization/isoform_characterization_isoquant.qmd) | transcript quantification and discovery |
 | [isoseq](isoform_characterization/isoform_characterization_isoseq.qmd) | PacBio Iso-Seq clustering |
 | [isotools](isoform_characterization/isoform_characterization_isotools.qmd) | long-read isoform analysis |
+| [lraa](isoform_characterization/isoform_characterization_lraa.qmd) | long-read isoform discovery and quantification |
 | [mandalorion](isoform_characterization/isoform_characterization_mandalorion.qmd) | isoform detection from long reads |
 | [rmats](isoform_characterization/isoform_characterization_rmats.qmd) | differential alternative splicing |
 | [sqanti3-fasta](isoform_characterization/isoform_characterization_sqanti3-fasta.qmd) | isoform QC (FASTA mode) |
@@ -120,6 +136,15 @@ nexus run --nf-workflow <subworkflow>.nf \
 
 : {.striped .hover}
 
+### Read Clustering
+
+| Tool | Description |
+|:-----|:------------|
+| [geluster](read_clustering/read_clustering_geluster.qmd) | reference-free long-read RNA clustering by gene of origin |
+| [isonclust3](read_clustering/read_clustering_isonclust3.qmd) | long-read clustering by gene of origin |
+
+: {.striped .hover}
+
 ### Read Error Correction
 
 | Tool | Description |
@@ -148,7 +173,6 @@ nexus run --nf-workflow <subworkflow>.nf \
 | [cutadapt](utilities/utilities_cutadapt.qmd) | adapter and polyA trimming |
 | [fastq2unalignedbam](utilities/utilities_fastq2unalignedbam.qmd) | FASTQ to unaligned BAM |
 | [fastqc](utilities/utilities_fastqc.qmd) | read quality control |
-| [filter-rnabloom2-transcripts](utilities/utilities_filter-rnabloom2-transcripts.qmd) | filter assembled transcripts |
 | [pbccs](utilities/utilities_pbccs.qmd) | PacBio circular consensus |
 | [sequencing-coverage](utilities/utilities_sequencing-coverage.qmd) | sequencing coverage statistics |
 
@@ -188,6 +212,7 @@ nexus run --nf-workflow <subworkflow>.nf \
 | [haplotypecaller](variant_calling/variant_calling_haplotypecaller.qmd) | germline SNV/indel calling (short-read) |
 | [hificnv](variant_calling/variant_calling_hificnv.qmd) | copy number calling (HiFi) |
 | [himut](variant_calling/variant_calling_himut.qmd) | somatic SNV calling (long-read) |
+| [isolaser](variant_calling/variant_calling_isolaser.qmd) | allele-specific RNA variant calling (long-read) |
 | [longgf](variant_calling/variant_calling_longgf.qmd) | gene fusion detection (long-read) |
 | [longshot](variant_calling/variant_calling_longshot.qmd) | germline SNV calling (long-read) |
 | [lumpy-germline](variant_calling/variant_calling_lumpy-germline.qmd) | germline SV calling (short-read) |

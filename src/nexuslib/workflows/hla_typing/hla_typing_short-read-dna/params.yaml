@@ -1,0 +1,73 @@
+# =============================================================================
+# params.yaml — hla_typing_short-read-dna
+#
+# Usage:
+#   nextflow run hla_typing_short-read-dna.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with columns:
+#   sample_id
+#   fastq_file_1           paired-end short-read FASTQ (read 1), gzipped
+#   fastq_file_2           paired-end short-read FASTQ (read 2), gzipped
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+
+# -----------------------------------------------------------------------------
+# Optional — general
+# -----------------------------------------------------------------------------
+
+# Methods to run. Comma-separated list or 'all'.
+# Allowed values:
+#   all, hlaminer, optitype, spechla
+methods: "all"
+
+
+# -----------------------------------------------------------------------------
+# HLAminer (short-read DNA)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+# Pipeline:
+#   bwa aln/sampe (against HLAminer's genomic HLA reference) | HLAminer.pl
+hlaminer:
+  # Extra CLI arguments passed directly to "bwa aln" (run per mate).
+  bwa_aln_extra_args: "-e 0 -o 0"
+
+  # Extra CLI arguments passed directly to "bwa sampe" (pairing step).
+  bwa_sampe_extra_args: "-o 1000"
+
+  # Extra CLI arguments passed directly to HLAminer.pl. Short reads keep the
+  # strict default identity/expect thresholds. Common flags:
+  #   -i <minimum percent identity>
+  #   -s <minimum alignment score>
+  #   -q <minimum log10 expect value>
+  hlaminer_extra_args: "-s 500"
+
+
+# -----------------------------------------------------------------------------
+# OptiType
+# Optional arguments.
+# -----------------------------------------------------------------------------
+optitype:
+  # Extra CLI arguments passed directly to OptiType. Use --dna for DNA data.
+  extra_args: "--dna"
+
+
+# -----------------------------------------------------------------------------
+# SpecHLA (short-read)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+spechla:
+  # Extra CLI arguments passed directly to spechla. Use -u 0 for full-length
+  # (WGS) data or -u 1 for exome/RNA data.
+  extra_args: ""

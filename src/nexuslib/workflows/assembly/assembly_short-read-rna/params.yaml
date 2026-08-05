@@ -1,0 +1,71 @@
+# =============================================================================
+# params.yaml — assembly_short-read-rna
+#
+# Usage:
+#   nextflow run assembly_short-read-rna.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with columns:
+#   sample_id
+#   fastq_file_1    (paired-end read 1, for spades and trinity)
+#   fastq_file_2    (paired-end read 2, for spades and trinity)
+#   bam_file        (splice-aware aligned reads, e.g. STAR/HISAT2, for bookend)
+#   bam_bai_file    (index of bam_file, for bookend)
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+# Reference genome FASTA file (reference-guided assembly)
+# Required when methods includes 'bookend' or 'all'.
+reference_genome_fasta_file: ""
+
+
+# -----------------------------------------------------------------------------
+# Optional — general
+# -----------------------------------------------------------------------------
+
+# Methods to run. Comma-separated list or 'all'.
+# Allowed values:
+#   all, spades, trinity, bookend
+methods: "all"
+
+
+# -----------------------------------------------------------------------------
+# rnaSPAdes (de novo, paired-end FASTQ)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+spades:
+  # Extra CLI arguments passed directly to rnaspades.py.
+  # (-1/-2/-o/-t/-m are supplied by the workflow.)
+  extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# Trinity (de novo, paired-end FASTQ)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+trinity:
+  # Extra CLI arguments passed directly to Trinity.
+  # (--seqType/--left/--right/--output/--CPU/--max_memory are supplied by the workflow.)
+  extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# Bookend (reference-guided, aligned BAM)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+bookend:
+  # Extra CLI arguments passed directly to `bookend assemble`.
+  params_assemble: ""
+
+  # Extra CLI arguments passed directly to `bookend fasta`.
+  params_fasta: ""

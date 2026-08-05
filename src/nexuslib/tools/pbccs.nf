@@ -23,18 +23,13 @@ process runPbccs {
         """
         pbindex --num-threads ${task.cpus} $subreads_bam_file
 
-        for i in {1..20}; do
-            ccs \
-                --num-threads ${task.cpus} \
-                --chunk \${i}/20 \
-                $params_pbccs \
-                $subreads_bam_file \
-                ${subreads_bam_file.baseName}.ccs.\${i}.bam
-        done
+        ccs \
+            --num-threads ${task.cpus} \
+            $params_pbccs \
+            $subreads_bam_file \
+            ${subreads_bam_file.baseName}.ccs.bam
 
-        samtools cat ${subreads_bam_file.baseName}.ccs.*.bam \
-            | tee ${subreads_bam_file.baseName}.ccs.bam \
-            | samtools fastq --threads \$(( ${task.cpus} / 2 )) - \
+        samtools fastq --threads \$(( ${task.cpus} / 2 )) ${subreads_bam_file.baseName}.ccs.bam \
             | pigz -p \$(( ${task.cpus} / 2 )) > ${subreads_bam_file.baseName}.ccs.fastq.gz
         """
 }

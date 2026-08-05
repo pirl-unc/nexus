@@ -2,11 +2,11 @@ tests=(
   test_alignment_blastp
   test_alignment_bwamem2_1
   test_alignment_bwamem2_2
-  test_alignment_bwamem2_multi_fastq_per_sample
+  test_alignment_bwamem2_3
   test_alignment_diamond_blastp
   test_alignment_minimap2_1
   test_alignment_minimap2_2
-  test_alignment_minimap2_multi_fastq_per_sample
+  test_alignment_minimap2_3
   test_alignment_minimap2_dynamic_1
   test_alignment_minimap2_dynamic_2
   test_alignment_star

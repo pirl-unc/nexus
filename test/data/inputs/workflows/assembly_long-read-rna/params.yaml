@@ -1,0 +1,90 @@
+# =============================================================================
+# params.yaml — assembly_long-read-rna
+#
+# Usage:
+#   nextflow run assembly_long-read-rna.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with columns:
+#   sample_id
+#   fastq_file      (raw long reads, for isonform, rattle, rnabloom2, rnabloom2_clustered)
+#   tsv_file        (per-read cluster groups: 'group_id', 'read_id'; for rnabloom2_clustered)
+#   bam_file        (splice-aware aligned reads, e.g. minimap2, for stringtie3)
+#   bam_bai_file    (index of bam_file, for stringtie3)
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+# Reference genes annotation GTF file (reference-guided assembly)
+# Required when methods includes 'stringtie3' or 'all'.
+reference_genes_gtf_file: ""
+
+
+# -----------------------------------------------------------------------------
+# Optional — general
+# -----------------------------------------------------------------------------
+
+# Methods to run. Comma-separated list or 'all'.
+# Allowed values:
+#   all, isonform, rattle, rnabloom2, rnabloom2_clustered, stringtie3
+methods: "all"
+
+
+# -----------------------------------------------------------------------------
+# isONform (de novo, raw FASTQ)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+isonform:
+  # Parameters passed directly to isON_pipeline.sh.
+  extra_args: "--mode pacbio --iso_abundance 3"
+
+
+# -----------------------------------------------------------------------------
+# RATTLE (de novo, raw FASTQ)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+rattle:
+  # Parameters passed directly to `rattle cluster`.
+  params_cluster: "--iso --rna"
+
+  # Parameters passed directly to `rattle correct`.
+  params_correct: ""
+
+  # Parameters passed directly to `rattle polish`.
+  params_polish: "--rna"
+
+
+# -----------------------------------------------------------------------------
+# RNA-Bloom2 (de novo, raw FASTQ)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+rnabloom2:
+  # Parameters passed directly to RNA-Bloom2.
+  extra_args: "--qual 20 --qual-avg 20 --mincov 3 -ntcard -savebf -chimera -lrpb"
+
+
+# -----------------------------------------------------------------------------
+# RNA-Bloom2 (clustered; de novo per read cluster, raw FASTQ + cluster TSV)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+rnabloom2_clustered:
+  # Parameters passed directly to RNA-Bloom2.
+  extra_args: "--qual 20 --qual-avg 20 --mincov 3 -ntcard -savebf -chimera -lrpb"
+
+
+# -----------------------------------------------------------------------------
+# StringTie3 (reference-guided, aligned BAM)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+stringtie3:
+  # Parameters passed directly to StringTie3.
+  extra_args: "-L"

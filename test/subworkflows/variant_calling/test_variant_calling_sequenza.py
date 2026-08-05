@@ -26,7 +26,8 @@ def test_variant_calling_sequenza():
         'tumor_bam_file': [tumor_bam_file],
         'tumor_bam_bai_file': [tumor_bam_bai_file],
         'normal_bam_file': [normal_bam_file],
-        'normal_bam_bai_file': [normal_bam_bai_file]
+        'normal_bam_bai_file': [normal_bam_bai_file],
+        'sex': ['female']
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
     workflow_args = [
         '-c', nextflow_config_file,

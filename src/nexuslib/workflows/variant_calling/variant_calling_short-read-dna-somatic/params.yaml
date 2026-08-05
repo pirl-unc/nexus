@@ -24,6 +24,7 @@
 #   normal_bam_file_no_realign      (not indel-realigned, for Manta and GRIDSS2)
 #   normal_bam_bai_file_no_realign  (not indel-realigned, for Manta and GRIDSS2)
 #   normal_sample_id
+#   sex                             ('male' or 'female', for Sequenza)
 samples_tsv_file: ""
 
 # Directory to which output files will be copied
@@ -74,7 +75,7 @@ deepsomatic:
   bin_path: "run_deepsomatic"
 
   # DeepSomatic version
-  bin_version: "1.9.0"
+  bin_version: "1.10.0"
 
 
 # -----------------------------------------------------------------------------

@@ -159,7 +159,7 @@ def run():
         bam_file=args.bam_file,
         num_threads=args.num_threads
     )
-    print("\ti unique read names in BAM file." % len(seen_reads))
+    print("\t%i unique read names in BAM file." % len(seen_reads))
     print("\t%i read names with at least one HP tag." % len(hp_tags))
 
     # Step 2. Make output directories

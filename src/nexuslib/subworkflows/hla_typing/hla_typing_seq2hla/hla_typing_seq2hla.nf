@@ -75,6 +75,8 @@ workflow {
         exit 0
     }
 
+    def params_seq2hla = (params.params_seq2hla == true) ? '' : params.params_seq2hla
+
     log.info"""\
         samples_tsv_file        :   ${params.samples_tsv_file}
         output_dir              :   ${params.output_dir}
@@ -92,7 +94,7 @@ workflow {
 
     HLA_TYPING_SEQ2HLA(
         input_fastq_files_ch,
-        params.params_seq2hla,
+        params_seq2hla,
         params.output_dir
     )
 }

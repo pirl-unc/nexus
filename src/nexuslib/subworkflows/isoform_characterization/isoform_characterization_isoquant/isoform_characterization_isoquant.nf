@@ -9,8 +9,13 @@ nextflow.enable.dsl=2
 // ------------------------------------------------------------
 // Step 1. Import Nextflow modules
 // ------------------------------------------------------------
-include { runSamtoolsFaidx }    from '../../../tools/samtools'
-include { runIsoquant }         from '../../../tools/isoquant'
+// IsoQuant needs an UNCOMPRESSED reference: its pyfaidx reader cannot random-
+// access a bgzipped FASTA (see runIsoquant's input comment). So decompress and
+// use runSamtoolsFaidxFasta (plain `samtools faidx`) rather than
+// runSamtoolsFaidx, which bgzips the FASTA.
+include { decompressFile as decompressFasta }   from '../../../tools/utils'
+include { runSamtoolsFaidxFasta }               from '../../../tools/samtools'
+include { runIsoquant }                         from '../../../tools/isoquant'
 
 // ------------------------------------------------------------
 // Step 2. Input parameters
@@ -38,11 +43,13 @@ workflow ISOFORM_CHARACTERIZATION_ISOQUANT {
         output_dir
 
     main:
-        // Step 1. Index reference genome FASTA file
-        runSamtoolsFaidx(reference_genome_fasta_file)
-        fasta_file          = runSamtoolsFaidx.out.fasta
-        fasta_fai_file      = runSamtoolsFaidx.out.fai_file
-        fasta_gzi_file      = runSamtoolsFaidx.out.gzi_file
+        // Step 1. Decompress and index reference genome FASTA file.
+        //         Must stay UNCOMPRESSED — IsoQuant's pyfaidx reader cannot
+        //         random-access a bgzipped FASTA.
+        decompressFasta(reference_genome_fasta_file)
+        runSamtoolsFaidxFasta(decompressFasta.out.f)
+        fasta_file          = runSamtoolsFaidxFasta.out.fasta
+        fasta_fai_file      = runSamtoolsFaidxFasta.out.fai_file
 
         // Step 2. Run Isoquant
         runIsoquant(

@@ -6,7 +6,7 @@ reference_genome_fasta_file: ""
 methods: "longcallr"
 haplotag_output: "bam"
 
-flair_longshot:
+flair3_longshot:
   flair_align_extra_args: ""
   longshot_extra_args: ""
 

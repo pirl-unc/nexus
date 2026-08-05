@@ -1,9 +1,11 @@
 tests=(
   test_isoform_characterization_espresso
-  test_isoform_characterization_flair
+  test_isoform_characterization_flair2
+  test_isoform_characterization_flair3
   test_isoform_characterization_isoquant
   test_isoform_characterization_isoseq
   test_isoform_characterization_isotools
+  test_isoform_characterization_lraa
   test_isoform_characterization_mandalorion
   test_isoform_characterization_rmats
   test_isoform_characterization_sqanti3_fasta

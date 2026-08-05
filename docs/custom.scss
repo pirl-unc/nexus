@@ -37,3 +37,37 @@ $body-max-width: 1080px;
     width: auto;
   }
 }
+
+/* Expand-all / collapse-all control injected at the top of each sidebar
+ * (see sidebar-toggle-all.html). It sits at the top of the list and scrolls
+ * with it (not sticky) so it never overlays the section links. */
+.sidebar-toggle-all {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.15rem 0 0.5rem 0.25rem;
+  margin-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+}
+
+.sidebar-toggle-all button {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  color: var(--bs-secondary-color, #6c757d);
+  cursor: pointer;
+}
+
+.sidebar-toggle-all button:hover,
+.sidebar-toggle-all button:focus-visible {
+  color: var(--bs-link-color, #2761e3);
+  text-decoration: underline;
+}
+
+.sidebar-toggle-all .sep {
+  color: rgba(0, 0, 0, 0.25);
+  font-size: 0.8rem;
+  user-select: none;
+}

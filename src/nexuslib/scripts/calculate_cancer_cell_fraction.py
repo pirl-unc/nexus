@@ -3,6 +3,8 @@ The purpose of this python3 script is to calculate the Cancer Cell Fraction (CCF
 for somatic variants given an aligned tumor BAM file, a list of variants in Variant
 Grammar format, a copy number segmentation TSV, and tumor purity.
 
+The following equations were taken from Tarabichi et al., Nature Methods 2021.
+
 CCF equation
 ------------
     CCF = VAF * [purity * CN_tumor + (1 - purity) * CN_normal] / (purity * multiplicity)
@@ -17,7 +19,7 @@ where:
     multiplicity = number of tumor chromosomes carrying
                    the variant                          (estimated per-variant; see below)
 
-Multiplicity estimation (Tarabichi et al. 2021, Nature Methods, Box 1)
+Multiplicity estimation
 -------------------------------------------------------------------------------
 Multiplicity is determined by the data once VAF, purity, and local copy number are known.
 The paper's formula is:
@@ -29,11 +31,13 @@ The paper's formula is:
 
 import argparse
 import math
+import numpy as np
 import pandas as pd
 import pysam
 import sys
+from datetime import datetime
 from pathlib import Path
-from typing import Tuple
+from typing import Dict, Set, Tuple
 
 
 def parse_args():
@@ -194,41 +198,67 @@ def reference_spanning_depth(
 
 
 def calculate_normal_copy_number(chromosome: str, sex: str, normal_ploidy: int) -> float:
+    is_x = chromosome in ['chrX', 'X']
+    is_y = chromosome in ['chrY', 'Y']
     if sex == 'male':
-        if chromosome in ['chrX', 'chrY', 'X', 'Y']:
-            return 1.0
+        if is_x or is_y:
+            return float(normal_ploidy) / 2.0
         return float(normal_ploidy)
     if sex == 'female':
-        assert chromosome not in ['chrY', 'Y']
+        if is_y:
+            return 0.0
         return float(normal_ploidy)
-    raise Exception("Unexpected to reach here.")
+    raise ValueError("Unexpected to reach here.")
+
+
+def build_copy_number_index(df_copy_numbers: pd.DataFrame) -> Dict[str, Set[np.ndarray]]:
+    """
+    Build an index for the copy numbers.
+
+    Parameters:
+        df_copy_numbers :   pd.DataFrame.
+
+    Returns:
+        cn_index        :   Dict[chromosome, Set[np.ndarray]]
+    """
+    cn_index = {}
+    for chromosome, df_group in df_copy_numbers.groupby("chromosome", sort=False):
+        df_group = df_group.sort_values("start")
+        cn_index[str(chromosome)] = (
+            df_group["start"].to_numpy(),
+            df_group["end"].to_numpy(),
+            df_group["copy_number"].to_numpy(dtype=float),
+            df_group["major_copy_number"].to_numpy(dtype=float),
+            df_group["minor_copy_number"].to_numpy(dtype=float)
+        )
+    return cn_index
 
 
 def fetch_local_copy_numbers(
-        df_copy_numbers: pd.DataFrame,
+        cn_index: dict,
         chromosome: str,
         position: int,
         sex: str,
         normal_ploidy: int
 ) -> Tuple[float, float, float]:
-    df_matched = df_copy_numbers.loc[
-        (df_copy_numbers['chromosome'] == chromosome) &
-        (df_copy_numbers['start'] <= position) &
-        (df_copy_numbers['end'] >= position),
-        :
-    ]
-    if len(df_matched) == 0:
-        normal_cn = calculate_normal_copy_number(
-            chromosome=chromosome,
-            sex=sex,
-            normal_ploidy=normal_ploidy
-        )
-        return (normal_cn, math.ceil(normal_cn / 2.0), math.floor(normal_cn / 2.0))
-    else:
-        assert len(df_matched) == 1
-        return (float(df_matched['copy_number'].values[0]),
-                float(df_matched['major_copy_number'].values[0]),
-                float(df_matched['minor_copy_number'].values[0]))
+    segments = cn_index.get(chromosome)
+    if segments is not None:
+        starts, ends, copy_number, major, minor = segments
+
+        # Rightmost segment whose start <= position (segments are sorted,
+        # non-overlapping), then confirm the segment also covers `position`.
+        i = int(np.searchsorted(starts, position, side="right")) - 1
+        if i >= 0 and position <= ends[i]:
+            return (float(copy_number[i]), float(major[i]), float(minor[i]))
+
+    # Unknown chromosome or off-segment -> germline fallback genotype.
+    normal_cn = calculate_normal_copy_number(
+        chromosome=chromosome,
+        sex=sex,
+        normal_ploidy=normal_ploidy
+    )
+
+    return (normal_cn, math.ceil(normal_cn / float(normal_ploidy)), math.floor(normal_cn / float(normal_ploidy)))
 
 
 def calculate_vaf(
@@ -243,7 +273,19 @@ def calculate_vaf(
     num_total_reads_values = []
     num_ref_reads_values = []
     with pysam.AlignmentFile(str(bam_file), "rb", threads=num_threads) as bam:
-        for _, row in df_variants.iterrows():
+        start_time = datetime.now()
+        num_total_rows = len(df_variants)
+        for i, (_, row) in enumerate(df_variants.iterrows()):
+            if i % 1000 == 0 or i + 1 == num_total_rows:
+                now = datetime.now()
+                elapsed = str(now - start_time).split(".")[0]
+                print("[%s]\tProcessed %i/%i rows (%.1f%%, elapsed %s)." % (
+                    now.strftime("%Y-%m-%d %H:%M:%S"),
+                    i + 1, num_total_rows,
+                    100.0 * (i + 1) / num_total_rows,
+                    elapsed,
+                ), flush=True)
+
             variant_type = row['variant_type']
             chromosome_1 = row['chromosome_1']
             position_1 = row['position_1']
@@ -344,6 +386,7 @@ def load_dna_variants(tsv_file: Path) -> pd.DataFrame:
     missing = [c for c in required_cols if c not in df_variants.columns]
     if missing:
         raise Exception(f"Missing required columns in --variants-tsv-file: {missing}")
+    df_variants["sequence"] = df_variants["sequence"].fillna("")
 
     # Infer the variant types
     variant_types = []
@@ -380,7 +423,7 @@ def load_dna_variants(tsv_file: Path) -> pd.DataFrame:
             if operation_1 == 'D' and operation_2 == 'U':
                 if len(sequence) == 1 and abs(position_2 - position_1) == 2:
                     variant_type = 'SNV'
-                if len(sequence) >= 2 and len(sequence) == abs(position_2 - position_1) - 1:
+                if len(sequence) >= 2 and (abs(position_2 - position_1) == 2) or (len(sequence) == abs(position_2 - position_1) - 1):
                     variant_type = 'MNV'
                 if len(sequence) > 0  and abs(position_2 - position_1) == 1:
                     variant_type = 'INS'
@@ -397,7 +440,7 @@ def load_dna_variants(tsv_file: Path) -> pd.DataFrame:
             raise ValueError(
                 f"Could not infer variant type for variant_id={row['variant_id']} "
                 f"({chromosome_1}:{position_1}:{operation_1} / {chromosome_2}:{position_2}:{operation_2}, "
-                f"seq_len={len(sequence)})"
+                f"sequence={sequence})"
             )
 
         variant_types.append(variant_type)
@@ -418,17 +461,21 @@ def load_copy_numbers(tsv_file: Path) -> pd.DataFrame:
 def run():
     args = parse_args()
 
-    # Step 1. Check inputs
+    # Step 1. Check inputs.
     if not (0 < args.tumor_purity <= 1):
         sys.exit(f"--tumor-purity must be in (0, 1]; got {args.tumor_purity}")
 
-    # Step 2. Load somatic DNA variants data
+    # Step 2. Load somatic DNA variants data.
+    print("[%s] Loading the somatic DNA variants." % (datetime.now().strftime("%Y-%m-%d %H:%M:%S")), flush=True)
     df_variants = load_dna_variants(tsv_file=args.variants_tsv_file)
 
-    # Step 3. Load copy number data
-    df_copy_number = load_copy_numbers(tsv_file=args.copy_number_tsv_file)
+    # Step 3. Load copy number data.
+    print("[%s] Loading the copy number data." % (datetime.now().strftime("%Y-%m-%d %H:%M:%S")), flush=True)
+    df_copy_numbers = load_copy_numbers(tsv_file=args.copy_number_tsv_file)
+    cn_index = build_copy_number_index(df_copy_numbers=df_copy_numbers)
 
-    # Step 4. Calculate variant allele fraction (VAF) for each variant
+    # Step 4. Calculate variant allele fraction (VAF) for each variant.
+    print("[%s] Calculating the variant allele fraction." % (datetime.now().strftime("%Y-%m-%d %H:%M:%S")), flush=True)
     df_variants = calculate_vaf(
         df_variants=df_variants,
         bam_file=args.bam_file,
@@ -438,7 +485,8 @@ def run():
         num_threads=args.num_threads
     )
 
-    # Step 5. Calculate cancer cell fraction (CCF) for each variant
+    # Step 5. Calculate cancer cell fraction (CCF) for each variant.
+    print("[%s] Calculating the cancer cell fraction." % (datetime.now().strftime("%Y-%m-%d %H:%M:%S")), flush=True)
     tumor_purity = args.tumor_purity
     ccf_values = []
     mutation_multiplicity_values = []
@@ -453,16 +501,16 @@ def run():
         position_2 = int(row["position_2"])
         vaf = float(row['vaf'])
 
-        # Get the local copy numbers
+        # Get the local copy numbers.
         cn_1, major_cn_1, minor_cn_1 = fetch_local_copy_numbers(
-            df_copy_numbers=df_copy_number,
+            cn_index=cn_index,
             chromosome=chromosome_1,
             position=position_1,
             sex=args.sex,
             normal_ploidy=args.normal_ploidy
         )
         cn_2, major_cn_2, minor_cn_2 = fetch_local_copy_numbers(
-            df_copy_numbers=df_copy_number,
+            cn_index=cn_index,
             chromosome=chromosome_2,
             position=position_2,
             sex=args.sex,
@@ -472,7 +520,7 @@ def run():
         major_cn = (float(major_cn_1) + float(major_cn_2)) / 2.0
         minor_cn = (float(minor_cn_1) + float(minor_cn_2)) / 2.0
 
-        # Calculate the normal ploidy
+        # Calculate the normal ploidy.
         normal_cn_1 = calculate_normal_copy_number(
             chromosome=chromosome_1,
             sex=args.sex,
@@ -488,11 +536,11 @@ def run():
         else:
             normal_cn = normal_cn_1
 
-        # Calculate m multiplicity
+        # Calculate m multiplicity.
         m_raw = (vaf / tumor_purity) * ((tumor_purity * tumor_cn) + (normal_cn * (1 - tumor_purity)))
         m = max(1, math.floor(m_raw + 0.5))
 
-        # Calculate CCF
+        # Calculate CCF.
         ccf = (vaf / (m * tumor_purity)) * ((tumor_purity * tumor_cn) + (normal_cn * (1 - tumor_purity)))
 
         ccf_values.append(ccf)

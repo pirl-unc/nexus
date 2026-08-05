@@ -2,7 +2,7 @@
 
 process decompressFile {
 
-    label 'decompress_file'
+    label 'utils_short'
     debug true
 
     input:
@@ -24,16 +24,8 @@ process decompressFile {
 }
 
 process bgzipAndIndexVcfFile {
-    /*
-     * Ensure a per-sample VCF is bgzipped and tabix-indexed.
-     * Accepts either plain .vcf or already-compressed .vcf.gz inputs.
-     * Always emits (sample_id, *.vcf.gz, *.vcf.gz.tbi).
-     *
-     * If the input is already .gz, it is assumed to be bgzf-compressed.
-     * If you suspect a plain gzip input, decompress it upstream first.
-     */
 
-    label 'samtools_faidx'
+    label 'utils_short'
     tag "${sample_id}"
     debug true
 
@@ -58,7 +50,7 @@ process bgzipAndIndexVcfFile {
 
 process extractGtfFromDir {
 
-    label 'extract_gtf'
+    label 'utils_short'
     tag "${sample_id}"
     debug true
 
@@ -70,19 +62,24 @@ process extractGtfFromDir {
         tuple val(sample_id), path("extracted.gtf"), emit: f, optional: true
 
     script:
+        // A GTF without exon features yields an empty corrected FASTA in
+        // SQANTI3 GTF mode, which crashes TD2/PSAURON — leave 'extracted.gtf'
+        // uncreated so the optional output drops the sample from the channel.
         """
         gtf_file=\$(find ${input_dir}/ -name "${pattern}" -type f | head -1)
-        if [ -n "\$gtf_file" ]; then
-            cp "\$gtf_file" extracted.gtf
+        if [ -z "\$gtf_file" ]; then
+            echo "WARNING: No file matching '${pattern}' found in ${input_dir}/ — skipping ${sample_id}."
+        elif ! awk -F'\\t' '\$1 !~ /^#/ && \$3 == "exon" { found = 1; exit } END { exit !found }' "\$gtf_file"; then
+            echo "WARNING: '\$gtf_file' has no exon features — skipping ${sample_id}."
         else
-            echo "WARNING: No file matching '${pattern}' found in ${input_dir}/ — skipping."
+            cp "\$gtf_file" extracted.gtf
         fi
         """
 }
 
 process bgzipGtfFile {
 
-    label 'nexus_utils'
+    label 'utils_short'
     debug true
 
     input:
@@ -100,7 +97,7 @@ process bgzipGtfFile {
 
 process copyBamFile {
 
-    label 'copy_bam_file'
+    label 'utils_long'
     debug true
 
     input:
@@ -122,7 +119,7 @@ process copyBamFile {
 
 process copyVcfFile {
 
-    label 'copy_vcf_file'
+    label 'utils_short'
     debug true
 
     input:
@@ -142,7 +139,7 @@ process copyVcfFile {
 
 process copyIndexedVcfFile {
 
-    label 'copy_vcf_file'
+    label 'utils_short'
     debug true
 
     input:

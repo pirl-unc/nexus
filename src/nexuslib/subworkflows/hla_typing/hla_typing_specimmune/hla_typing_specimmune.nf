@@ -45,9 +45,9 @@ workflow HLA_TYPING_SPECIMMUNE {
 // ------------------------------------------------------------
 workflow {
     log.info """\
-             ===================================================================================
-             Profile HLA / KIR / CYP / IG-TR alleles from long-read FASTQ files using SpecImmune
-             ===================================================================================
+             ==============================================================================================
+             Profile HLA / KIR / CYP / IG-TR alleles from long-read DNA or RNA FASTQ files using SpecImmune
+             ==============================================================================================
              """.stripIndent()
 
     if (params.help) {

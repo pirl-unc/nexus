@@ -16,12 +16,12 @@ include { extractGtfFromDir as extractIsoquantGtf }    from '../../../tools/util
 include { extractGtfFromDir as extractIsotoolsGtf }    from '../../../tools/utils'
 include { extractGtfFromDir as extractMandalorionGtf } from '../../../tools/utils'
 include { ISOFORM_CHARACTERIZATION_ESPRESSO }        from '../../../subworkflows/isoform_characterization/isoform_characterization_espresso/isoform_characterization_espresso'
-include { ISOFORM_CHARACTERIZATION_FLAIR }           from '../../../subworkflows/isoform_characterization/isoform_characterization_flair/isoform_characterization_flair'
+include { ISOFORM_CHARACTERIZATION_FLAIR3 }          from '../../../subworkflows/isoform_characterization/isoform_characterization_flair3/isoform_characterization_flair3'
 include { ISOFORM_CHARACTERIZATION_ISOQUANT }        from '../../../subworkflows/isoform_characterization/isoform_characterization_isoquant/isoform_characterization_isoquant'
 include { ISOFORM_CHARACTERIZATION_ISOTOOLS }        from '../../../subworkflows/isoform_characterization/isoform_characterization_isotools/isoform_characterization_isotools'
+include { ISOFORM_CHARACTERIZATION_LRAA }            from '../../../subworkflows/isoform_characterization/isoform_characterization_lraa/isoform_characterization_lraa'
 include { ISOFORM_CHARACTERIZATION_MANDALORION }     from '../../../subworkflows/isoform_characterization/isoform_characterization_mandalorion/isoform_characterization_mandalorion'
 include { ISOFORM_CHARACTERIZATION_SQANTI3_GTF as SQANTI3_GTF_ESPRESSO }     from '../../../subworkflows/isoform_characterization/isoform_characterization_sqanti3-gtf/isoform_characterization_sqanti3-gtf'
-include { ISOFORM_CHARACTERIZATION_SQANTI3_GTF as SQANTI3_GTF_FLAIR }        from '../../../subworkflows/isoform_characterization/isoform_characterization_sqanti3-gtf/isoform_characterization_sqanti3-gtf'
 include { ISOFORM_CHARACTERIZATION_SQANTI3_GTF as SQANTI3_GTF_ISOQUANT }     from '../../../subworkflows/isoform_characterization/isoform_characterization_sqanti3-gtf/isoform_characterization_sqanti3-gtf'
 include { ISOFORM_CHARACTERIZATION_SQANTI3_GTF as SQANTI3_GTF_ISOTOOLS }     from '../../../subworkflows/isoform_characterization/isoform_characterization_sqanti3-gtf/isoform_characterization_sqanti3-gtf'
 include { ISOFORM_CHARACTERIZATION_SQANTI3_GTF as SQANTI3_GTF_MANDALORION }  from '../../../subworkflows/isoform_characterization/isoform_characterization_sqanti3-gtf/isoform_characterization_sqanti3-gtf'
@@ -52,9 +52,10 @@ if (params.help) {
 def active_methods      = params.methods.toString().tokenize(',').collect { it.trim().toLowerCase() }
 def run_all             = active_methods.isEmpty() || active_methods.contains('all')
 def run_espresso        = run_all || active_methods.contains('espresso')
-def run_flair           = run_all || active_methods.contains('flair')
+def run_flair3          = run_all || active_methods.contains('flair3')
 def run_isoquant        = run_all || active_methods.contains('isoquant')
 def run_isotools        = run_all || active_methods.contains('isotools')
+def run_lraa            = run_all || active_methods.contains('lraa')
 def run_mandalorion     = run_all || active_methods.contains('mandalorion')
 def run_sqanti3_gtf     = run_all || active_methods.contains('sqanti3-gtf')
 def run_talon           = run_all || active_methods.contains('talon')
@@ -67,9 +68,10 @@ if (!params.reference_genes_gtf_file)    error "ERROR: reference_genes_gtf_file 
 def known_methods = [
     'all',
     'espresso',
-    'flair',
+    'flair3',
     'isoquant',
     'isotools',
+    'lraa',
     'mandalorion',
     'sqanti3-gtf',
     'talon'
@@ -99,7 +101,7 @@ Channel
         "${row.bam_bai_file}") }
     .set { input_bam_files_ch }
 
-// FASTQ channel for FLAIR, IsoQuant, Mandalorion
+// FASTQ channel for IsoQuant, Mandalorion
 Channel
     .fromPath( params.samples_tsv_file )
     .splitCsv( header: true, sep: '\t' )
@@ -119,9 +121,10 @@ workflow ISOFORM_CHARACTERIZATION_LONGREAD {
         reference_genes_gtf_file
         output_dir
         cfg_espresso
-        cfg_flair
+        cfg_flair3
         cfg_isoquant
         cfg_isotools
+        cfg_lraa
         cfg_mandalorion
         cfg_sqanti3_gtf
         cfg_talon
@@ -156,29 +159,18 @@ workflow ISOFORM_CHARACTERIZATION_LONGREAD {
             }
         }
 
-        if (run_flair) {
-            ISOFORM_CHARACTERIZATION_FLAIR(
-                input_fastq_files_ch,
+        // FLAIR3 runs a single `flair transcriptome` call and takes an aligned
+        // BAM rather than raw FASTQ. It replaces the former 'flair' (FLAIR2)
+        // method, whose align -> correct -> collapse chain is no longer
+        // supported here.
+        if (run_flair3) {
+            ISOFORM_CHARACTERIZATION_FLAIR3(
+                input_bam_files_ch,
                 uncompressed_fasta,
                 uncompressed_gtf,
-                cfg_flair.align_extra_args ?: '',
-                cfg_flair.correct_extra_args ?: '',
-                cfg_flair.collapse_extra_args ?: '',
+                cfg_flair3.extra_args ?: '',
                 output_dir
             )
-            if (run_sqanti3_gtf) {
-                flair_gtf_ch = ISOFORM_CHARACTERIZATION_FLAIR.out
-                    .map { sid, bed, fasta, gtf -> tuple(sid, gtf) }
-                SQANTI3_GTF_FLAIR(
-                    flair_gtf_ch,
-                    uncompressed_fasta,
-                    uncompressed_gtf,
-                    cfg_sqanti3_gtf.qc_extra_args ?: '',
-                    cfg_sqanti3_gtf.filter_extra_args ?: '',
-                    "flair",
-                    output_dir
-                )
-            }
         }
 
         if (run_isoquant) {
@@ -225,6 +217,16 @@ workflow ISOFORM_CHARACTERIZATION_LONGREAD {
             }
         }
 
+        if (run_lraa) {
+            ISOFORM_CHARACTERIZATION_LRAA(
+                input_bam_files_ch,
+                uncompressed_fasta,
+                uncompressed_gtf,
+                cfg_lraa.extra_args ?: '',
+                output_dir
+            )
+        }
+
         if (run_mandalorion) {
             ISOFORM_CHARACTERIZATION_MANDALORION(
                 input_fastq_files_ch,
@@ -269,9 +271,10 @@ workflow {
         params.reference_genes_gtf_file,
         params.output_dir,
         params.espresso,
-        params.flair,
+        params.flair3,
         params.isoquant,
         params.isotools,
+        params.lraa,
         params.mandalorion,
         params.sqanti3_gtf,
         params.talon

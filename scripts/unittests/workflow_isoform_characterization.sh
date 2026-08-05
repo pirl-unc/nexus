@@ -1,7 +1,5 @@
 tests=(
-  test_isoform_characterization_long_read_1
-  test_isoform_characterization_long_read_2
-  test_isoform_characterization_long_read_3
+  test_isoform_characterization_long_read
   test_isoform_characterization_short_read
 )
 

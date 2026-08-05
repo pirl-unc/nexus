@@ -1,0 +1,17 @@
+# Test 1: FuFiHLA, HLAminer (lr-dna), SpecHLA (long-read), SpecImmune
+samples_tsv_file: ""
+output_dir: ""
+methods: "all"
+
+fufihla:
+  extra_args: "--hifi"
+
+hlaminer:
+  minimap2_extra_args: "-ax map-hifi --secondary=no --MD"
+  hlaminer_extra_args: "-s 500 -q 1 -i 1"
+
+spechla:
+  extra_args: ""
+
+specimmune:
+  extra_args: "-i HLA -y pacbio-hifi --seq_tech wgs"

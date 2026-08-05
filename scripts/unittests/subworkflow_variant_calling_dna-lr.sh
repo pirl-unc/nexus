@@ -1,11 +1,13 @@
 tests=(
   test_variant_calling_clair3_1
   test_variant_calling_clairs_1
+  test_variant_calling_colorsv
   test_variant_calling_cutesv
   test_variant_calling_deepsomatic_github_1
   test_variant_calling_deepvariant_github_1
   test_variant_calling_delly2_lr_germline
   test_variant_calling_delly2_lr_somatic
+  test_variant_calling_dysgu_germline_lr
   test_variant_calling_dysgu_somatic_lr
   test_variant_calling_hificnv
   test_variant_calling_longshot
@@ -18,6 +20,7 @@ tests=(
   test_variant_calling_savana
   test_variant_calling_severus
   test_variant_calling_sniffles2
+  test_variant_calling_svim
   test_variant_calling_svisionpro
 )
 

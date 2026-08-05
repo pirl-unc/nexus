@@ -28,6 +28,7 @@ CATEGORY_LABELS = {
     "isoform_characterization": "Isoform Characterization",
     "peptide_prediction": "Peptide Prediction",
     "quantification": "Quantification",
+    "read_clustering": "Read Clustering",
     "read_error_correction": "Read Error Correction",
     "sequencing_simulation": "Sequencing Simulation",
     "utilities": "Utilities",
@@ -36,20 +37,39 @@ CATEGORY_LABELS = {
 }
 
 WORKFLOW_LABELS = {
+    "assembly_long-read-rna": "Assembly (Long-read RNA)",
+    "assembly_short-read-rna": "Assembly (Short-read RNA)",
     "haplotagging_long-read-dna": "Haplotagging (Long-read DNA)",
     "haplotagging_long-read-rna": "Haplotagging (Long-read RNA)",
     "haplotagging_short-read-dna": "Haplotagging (Short-read DNA)",
     "hla_typing_long-read": "HLA typing (Long-read)",
+    "hla_typing_long-read-dna": "HLA typing (Long-read DNA)",
+    "hla_typing_long-read-rna": "HLA typing (Long-read RNA)",
     "hla_typing_short-read": "HLA typing (Short-read)",
+    "hla_typing_short-read-dna": "HLA typing (Short-read DNA)",
+    "hla_typing_short-read-rna": "HLA typing (Short-read RNA)",
     "isoform_characterization_long-read": "Isoform Characterization (Long-read)",
     "isoform_characterization_short-read": "Isoform Characterization (Short-read)",
-    "quantification_long-read": "Quantification (Long-read)",
-    "quantification_short-read": "Quantification (Short-read)",
+    "quantification_long-read-rna": "Quantification (Long-read RNA)",
+    "quantification_short-read-rna": "Quantification (Short-read RNA)",
     "variant_calling_long-read-dna-germline": "Variant Calling (Long-read DNA Germline)",
     "variant_calling_long-read-dna-somatic": "Variant Calling (Long-read DNA Somatic)",
+    "variant_calling_long-read-rna": "Variant Calling (Long-read RNA)",
     "variant_calling_short-read-dna-germline": "Variant Calling (Short-read DNA Germline)",
     "variant_calling_short-read-dna-somatic": "Variant Calling (Short-read DNA Somatic)",
 }
+
+
+def is_source_dir(path, dirname):
+    """Check whether a directory holds a subworkflow/workflow category or tool.
+
+    Skips dotfiles and dunder directories so Python bytecode caches
+    (`__pycache__`, which any test run leaves behind under `src/`) are
+    never mistaken for a category or a tool. Without this guard the
+    generator emits a bogus `__pycache__` sidebar section plus a link to
+    a page it never writes, which breaks `quarto render`.
+    """
+    return os.path.isdir(path) and not dirname.startswith(('.', '__'))
 
 
 def extract_tool_name(dirname):
@@ -407,7 +427,7 @@ def generate_subworkflow_pages():
 
     for category in sorted(os.listdir(SUBWORKFLOWS_DIR)):
         category_path = os.path.join(SUBWORKFLOWS_DIR, category)
-        if not os.path.isdir(category_path) or category.startswith('.'):
+        if not is_source_dir(category_path, category):
             continue
 
         label = CATEGORY_LABELS.get(category, category.replace('_', ' '))
@@ -418,7 +438,7 @@ def generate_subworkflow_pages():
 
         for tool_dir in sorted(os.listdir(category_path)):
             tool_path = os.path.join(category_path, tool_dir)
-            if not os.path.isdir(tool_path):
+            if not is_source_dir(tool_path, tool_dir):
                 continue
 
             tool_name = extract_tool_name(tool_dir)
@@ -444,7 +464,7 @@ def generate_workflow_pages():
 
     for category in sorted(os.listdir(WORKFLOWS_DIR)):
         category_path = os.path.join(WORKFLOWS_DIR, category)
-        if not os.path.isdir(category_path) or category.startswith('.'):
+        if not is_source_dir(category_path, category):
             continue
 
         label = CATEGORY_LABELS.get(category, category.replace('_', ' '))
@@ -455,7 +475,7 @@ def generate_workflow_pages():
 
         for wf_dir in sorted(os.listdir(category_path)):
             wf_path = os.path.join(category_path, wf_dir)
-            if not os.path.isdir(wf_path):
+            if not is_source_dir(wf_path, wf_dir):
                 continue
 
             wf_label = WORKFLOW_LABELS.get(wf_dir, wf_dir.replace('_', ' ').replace('-', ' '))
@@ -804,6 +824,7 @@ def generate_quarto_yml(subworkflow_sidebar, workflow_sidebar, utility_sidebar):
                     {"text": "Subworkflows", "file": "subworkflows/index.qmd"},
                     {"text": "Workflows", "file": "workflows/index.qmd"},
                     {"text": "Utilities", "file": "utilities/index.qmd"},
+                    {"text": "FAQ", "file": "faq.qmd"},
                 ],
                 "right": [
                     {"icon": "github", "href": "https://github.com/pirl-unc/nexus"}
