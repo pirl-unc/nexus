@@ -28,6 +28,7 @@ CATEGORY_LABELS = {
     "isoform_characterization": "Isoform Characterization",
     "peptide_prediction": "Peptide Prediction",
     "quantification": "Quantification",
+    "read_clustering": "Read Clustering",
     "read_error_correction": "Read Error Correction",
     "sequencing_simulation": "Sequencing Simulation",
     "utilities": "Utilities",
@@ -36,20 +37,39 @@ CATEGORY_LABELS = {
 }
 
 WORKFLOW_LABELS = {
+    "assembly_long-read-rna": "Assembly (Long-read RNA)",
+    "assembly_short-read-rna": "Assembly (Short-read RNA)",
     "haplotagging_long-read-dna": "Haplotagging (Long-read DNA)",
     "haplotagging_long-read-rna": "Haplotagging (Long-read RNA)",
     "haplotagging_short-read-dna": "Haplotagging (Short-read DNA)",
     "hla_typing_long-read": "HLA typing (Long-read)",
+    "hla_typing_long-read-dna": "HLA typing (Long-read DNA)",
+    "hla_typing_long-read-rna": "HLA typing (Long-read RNA)",
     "hla_typing_short-read": "HLA typing (Short-read)",
+    "hla_typing_short-read-dna": "HLA typing (Short-read DNA)",
+    "hla_typing_short-read-rna": "HLA typing (Short-read RNA)",
     "isoform_characterization_long-read": "Isoform Characterization (Long-read)",
     "isoform_characterization_short-read": "Isoform Characterization (Short-read)",
-    "quantification_long-read": "Quantification (Long-read)",
-    "quantification_short-read": "Quantification (Short-read)",
+    "quantification_long-read-rna": "Quantification (Long-read RNA)",
+    "quantification_short-read-rna": "Quantification (Short-read RNA)",
     "variant_calling_long-read-dna-germline": "Variant Calling (Long-read DNA Germline)",
     "variant_calling_long-read-dna-somatic": "Variant Calling (Long-read DNA Somatic)",
+    "variant_calling_long-read-rna": "Variant Calling (Long-read RNA)",
     "variant_calling_short-read-dna-germline": "Variant Calling (Short-read DNA Germline)",
     "variant_calling_short-read-dna-somatic": "Variant Calling (Short-read DNA Somatic)",
 }
+
+
+def is_source_dir(path, dirname):
+    """Check whether a directory holds a subworkflow/workflow category or tool.
+
+    Skips dotfiles and dunder directories so Python bytecode caches
+    (`__pycache__`, which any test run leaves behind under `src/`) are
+    never mistaken for a category or a tool. Without this guard the
+    generator emits a bogus `__pycache__` sidebar section plus a link to
+    a page it never writes, which breaks `quarto render`.
+    """
+    return os.path.isdir(path) and not dirname.startswith(('.', '__'))
 
 
 def extract_tool_name(dirname):
@@ -230,15 +250,29 @@ def parse_help_to_params_table(help_text):
 def _placeholder_for_param(name, help_text=""):
     """Return a sensible placeholder based on the parameter name.
 
-    First we try to match a suffix on the param name itself (e.g. `_fastq_file`
-    → `/path/to/file.fastq`). If that fails and `help_text` is supplied, we
-    scan the help text for a known file-format token. If both fail we return
-    `""`.
-
-    When help-text fallback fires, a trailing digit in the param name (e.g.
-    `out_hap1`, `out_hap2`) is appended to the example filename so paired
-    outputs render as `/path/to/file1.fastq.gz` / `/path/to/file2.fastq.gz`.
+    Resolution order:
+      1. An explicit per-parameter override, for semantic values no generic
+         heuristic can infer (e.g. a tumor purity must lie in (0, 1], so the
+         generic float "0.0" is a nonsensical example -> use "0.5").
+      2. A suffix match on the param name (e.g. `_fastq_file` ->
+         `/path/to/file.fastq`). For gzip-capable formats (fastq/fasta/vcf), if
+         `help_text` states the file is compressed (mentions e.g. "fastq.gz"),
+         a ".gz" is appended (`/path/to/file.fastq.gz`) so the example matches
+         what the tool actually reads/writes.
+      3. A help-text scan for a known file-format token, when no suffix
+         matches. Here a trailing digit in the param name (e.g. `out_hap1`,
+         `out_hap2`) is appended to the example filename so paired outputs
+         render as `/path/to/file1.fastq.gz` / `/path/to/file2.fastq.gz`.
+      4. Otherwise `""`.
     """
+    # (1) Per-parameter overrides for values a heuristic can't infer.
+    example_overrides = {
+        'tumor_purity': '0.5',
+        'sex': 'female',
+    }
+    if name in example_overrides:
+        return example_overrides[name]
+
     file_extensions = [
         ('_fasta_file', '/path/to/file.fasta'),
         ('_fa_file', '/path/to/file.fa'),
@@ -255,13 +289,20 @@ def _placeholder_for_param(name, help_text=""):
         ('_json_file', '/path/to/file.json'),
         ('_yaml_file', '/path/to/file.yaml'),
         ('_xml_file', '/path/to/file.xml'),
+        ('_png_file', '/path/to/file.png'),
         ('_sif_file', '/path/to/file.sif'),
         ('_file', '/path/to/file'),
         ('_dir', '/path/to/dir/'),
         ('_path', '/path/to/dir/'),
     ]
+    # (2) Suffix match, refined to ".gz" when the help text says the file is
+    # gzip-compressed (only for formats that are commonly gzipped).
+    gzippable = ('fastq', 'fasta', 'vcf')
     for suffix, placeholder in file_extensions:
         if name.endswith(suffix):
+            ext = placeholder.rsplit('.', 1)[-1]
+            if help_text and ext in gzippable and ('%s.gz' % ext) in help_text.lower():
+                return placeholder + '.gz'
             return placeholder
 
     # Help-text fallback. Order matters: longer tokens first so "fastq.gz"
@@ -386,7 +427,7 @@ def generate_subworkflow_pages():
 
     for category in sorted(os.listdir(SUBWORKFLOWS_DIR)):
         category_path = os.path.join(SUBWORKFLOWS_DIR, category)
-        if not os.path.isdir(category_path) or category.startswith('.'):
+        if not is_source_dir(category_path, category):
             continue
 
         label = CATEGORY_LABELS.get(category, category.replace('_', ' '))
@@ -397,7 +438,7 @@ def generate_subworkflow_pages():
 
         for tool_dir in sorted(os.listdir(category_path)):
             tool_path = os.path.join(category_path, tool_dir)
-            if not os.path.isdir(tool_path):
+            if not is_source_dir(tool_path, tool_dir):
                 continue
 
             tool_name = extract_tool_name(tool_dir)
@@ -423,7 +464,7 @@ def generate_workflow_pages():
 
     for category in sorted(os.listdir(WORKFLOWS_DIR)):
         category_path = os.path.join(WORKFLOWS_DIR, category)
-        if not os.path.isdir(category_path) or category.startswith('.'):
+        if not is_source_dir(category_path, category):
             continue
 
         label = CATEGORY_LABELS.get(category, category.replace('_', ' '))
@@ -434,7 +475,7 @@ def generate_workflow_pages():
 
         for wf_dir in sorted(os.listdir(category_path)):
             wf_path = os.path.join(category_path, wf_dir)
-            if not os.path.isdir(wf_path):
+            if not is_source_dir(wf_path, wf_dir):
                 continue
 
             wf_label = WORKFLOW_LABELS.get(wf_dir, wf_dir.replace('_', ' ').replace('-', ' '))
@@ -571,6 +612,7 @@ def parse_utility_argparse(py_path):
                 default = None
                 arg_type = ""
                 required = False
+                choices = []
 
                 # Get positional arg name(s)
                 for arg in node.args:
@@ -588,6 +630,9 @@ def parse_utility_argparse(py_path):
                         arg_type = kw.value.id
                     elif kw.arg == 'required' and isinstance(kw.value, ast.Constant):
                         required = kw.value.value
+                    elif kw.arg == 'choices' and isinstance(kw.value, (ast.List, ast.Tuple)):
+                        choices = [e.value for e in kw.value.elts
+                                   if isinstance(e, ast.Constant)]
 
                 if arg_name:
                     arguments.append({
@@ -596,9 +641,30 @@ def parse_utility_argparse(py_path):
                         'default': default,
                         'type': arg_type,
                         'required': required,
+                        'choices': choices,
                     })
 
     return description, arguments
+
+
+# Per-script Usage examples, keyed by module name then by the exact flag string.
+# Use this only when the generic placeholder heuristics can't (or shouldn't)
+# produce the value: e.g. short-flag tools whose flag (`-i`/`-o`) carries no
+# descriptive name to drive a suffix match, or a bespoke output path that must
+# not leak into other tools that share the same flag/dest name (e.g.
+# `output_tsv_file` is also used by merge_rna_assemblies and the CCF tool).
+USAGE_EXAMPLE_OVERRIDES = {
+    'convert_netmhcpan_txt2tsv': {
+        '-i': '/path/to/file.txt',
+        '-o': '/path/to/file/output.tsv',
+    },
+    'create_abra2_targets_bed_file': {
+        '--bedtools': '/path/to/bedtools.static.binary',
+    },
+    'create_beers2_input_data': {
+        '--sample-id': 'sample001',
+    },
+}
 
 
 def generate_utility_pages():
@@ -636,8 +702,14 @@ def generate_utility_pages():
         lines.append('')
         lines.append('```bash')
         usage_parts = [cli_command]
+        script_examples = USAGE_EXAMPLE_OVERRIDES.get(module_name, {})
         for arg in arguments:
-            if arg['default'] is not None:
+            if arg['name'] in script_examples:
+                # Per-(script, flag) example for cases no generic heuristic can
+                # infer (short-flag tools, or a bespoke path that must not leak
+                # into other tools sharing the same flag/dest name).
+                usage_parts.append(f"{arg['name']} {script_examples[arg['name']]}")
+            elif arg['default'] is not None:
                 usage_parts.append(f"[{arg['name']} {arg['default']}]")
             else:
                 # Convert --arg-name to arg_name for placeholder lookup. Pass
@@ -665,6 +737,11 @@ def generate_utility_pages():
                 default_str = f'`{arg["default"]}`' if arg['default'] is not None else 'required'
                 type_str = f'`{arg["type"]}`' if arg['type'] else ''
                 help_str = arg['help'].replace('|', '\\|') if arg['help'] else ''
+                # Surface argparse choices so enum-style params (e.g. --sex,
+                # --missing-from-bam) document their allowed values in the table.
+                if arg.get('choices'):
+                    choice_str = ' or '.join(f'`{c}`' for c in arg['choices'])
+                    help_str = (f"{help_str} " if help_str else '') + f"Choices: {choice_str}."
                 lines.append(f"| `{arg['name']}` | {type_str} | {default_str} | {help_str} |")
             lines.append('')
             lines.append(': {.striped .hover}')
@@ -747,6 +824,7 @@ def generate_quarto_yml(subworkflow_sidebar, workflow_sidebar, utility_sidebar):
                     {"text": "Subworkflows", "file": "subworkflows/index.qmd"},
                     {"text": "Workflows", "file": "workflows/index.qmd"},
                     {"text": "Utilities", "file": "utilities/index.qmd"},
+                    {"text": "FAQ", "file": "faq.qmd"},
                 ],
                 "right": [
                     {"icon": "github", "href": "https://github.com/pirl-unc/nexus"}

@@ -52,6 +52,7 @@ process runPicardSingleEndFastqToSam {
         java -Xmx${task.java_max_mem.toGiga()}G -jar /opt/picard/picard.jar FastqToSam \
             F1=${fastq_file} \
             SM=${sample_id} \
+            SO=unsorted \
             O=${sample_id}.sam \
             $params_picard
         """

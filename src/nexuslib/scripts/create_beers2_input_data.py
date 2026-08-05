@@ -5,7 +5,9 @@ from pathlib import Path
 
 
 def parse_args():
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser(
+        description="Create Beers2 input data."
+    )
     ap.add_argument(
         "--sample-id",
         required=True,

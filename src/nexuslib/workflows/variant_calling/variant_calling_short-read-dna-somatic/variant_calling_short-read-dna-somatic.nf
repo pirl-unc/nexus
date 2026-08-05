@@ -122,7 +122,8 @@ Channel
         "${row.tumor_bam_bai_file_no_realign}",
         "${row.normal_bam_file_no_realign}",
         "${row.normal_bam_bai_file_no_realign}",
-        "${row.normal_sample_id}") }
+        "${row.normal_sample_id}",
+        "${row.sex}") }
     .set { input_bam_files_ch }
 
 // ------------------------------------------------------------
@@ -154,6 +155,10 @@ workflow VARIANT_CALLING_SHORTREAD_SOMATIC {
         }
         no_realign_bam_files_ch = input_bam_files_ch.map { it ->
             tuple(it[0], it[5], it[6], it[7], it[8])
+        }
+        // Sequenza runs on the indel-realigned BAMs plus the per-sample sex.
+        sequenza_bam_files_ch = input_bam_files_ch.map { it ->
+            tuple(it[0], it[1], it[2], it[3], it[4], it[10])
         }
 
         if (run_clairs) {
@@ -252,7 +257,7 @@ workflow VARIANT_CALLING_SHORTREAD_SOMATIC {
 
         if (run_sequenza) {
             VARIANT_CALLING_SEQUENZA(
-                abra2_bam_files_ch_1,
+                sequenza_bam_files_ch,
                 reference_genome_fasta_file,
                 cfg_sequenza.assembly,
                 cfg_sequenza.chromosomes,

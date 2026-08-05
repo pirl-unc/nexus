@@ -25,7 +25,7 @@ def test_variant_annotation_vep():
         '-c', nextflow_config_file,
         '-w', work_dir,
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
-        '--vep_dir', '/Users/leework/.vep',
+        '--vep_dir', '/Users/ajslee/.vep',
         '--params_vep', '"--species homo_sapiens --database --offline --cache --assembly GRCh38"',
         '--output_dir', output_dir,
     ]

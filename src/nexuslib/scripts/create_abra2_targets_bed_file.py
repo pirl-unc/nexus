@@ -11,7 +11,7 @@ import argparse
 def parse_args():
     arg_parser = argparse.ArgumentParser(
         description="""
-        Creates an ABRA2 targets BED file based on a GENCODE GTF file.
+        Create an ABRA2 targets BED file based on a GENCODE GTF file.
         The following tasks are performed:
             1. Fetch all exon regions.
             2. Drop duplicates and sort the exon regions.
@@ -31,7 +31,7 @@ def parse_args():
         dest="bedtools",
         type=str,
         required=True,
-        help="bedtools path (e.g. /<path>/bedtools.static.binary)."
+        help="bedtools path (e.g. /bedtools.static.binary)."
     )
     arg_parser.add_argument(
         "--output_temp_bed_file",

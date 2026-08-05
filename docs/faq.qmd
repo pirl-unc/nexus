@@ -1,0 +1,39 @@
+---
+title: "FAQ"
+---
+
+Frequently asked questions. If your question isn't answered here, please
+[open an issue](https://github.com/pirl-unc/nexus/issues).
+
+<script>
+function faqExpandAll() {
+  document.querySelectorAll('#faq-list .callout-collapse:not(.show)').forEach(c => {
+    bootstrap.Collapse.getOrCreateInstance(c, {toggle: false}).show();
+  });
+  document.querySelectorAll('#faq-list details').forEach(d => { d.open = true; });
+}
+function faqCollapseAll() {
+  document.querySelectorAll('#faq-list .callout-collapse.show').forEach(c => {
+    bootstrap.Collapse.getOrCreateInstance(c, {toggle: false}).hide();
+  });
+  document.querySelectorAll('#faq-list details').forEach(d => { d.open = false; });
+}
+</script>
+
+<div class="d-flex gap-2 my-3">
+  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="faqExpandAll()">Expand all</button>
+  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="faqCollapseAll()">Collapse all</button>
+</div>
+
+<div id="faq-list">
+
+**Inputs**
+
+::: {.callout-note collapse="true" icon="false"}
+## What is the difference between a subworkflow and a workflow?
+
+A subworkflow runs a specific tool (e.g. Mutect2) for a specific task while a workflow can run multiple tools
+(e.g. Mutect2 and Strelka2) for the same task (e.g. variant calling).
+:::
+
+</div>

@@ -109,7 +109,9 @@ Channel
     .map { row -> tuple(
         "${row.sample_id}",
         "${row.bam_file}",
-        "${row.bam_bai_file}") }
+        "${row.bam_bai_file}",
+        "${row.bam_file_no_realign}",
+        "${row.bam_bai_file_no_realign}") }
     .set { input_bam_files_ch }
 
 // ------------------------------------------------------------
@@ -117,7 +119,7 @@ Channel
 // ------------------------------------------------------------
 workflow VARIANT_CALLING_SHORTREAD_GERMLINE {
     take:
-        input_bam_files_ch          // channel: [val(sample_id), path(bam_file), path(bam_bai_file)]
+        input_bam_files_ch          // channel: [val(sample_id), path(bam_file), path(bam_bai_file), path(bam_file_no_realign), path(bam_bai_file_no_realign)]
         reference_genome_fasta_file
         output_dir
         cfg_clair3
@@ -135,9 +137,18 @@ workflow VARIANT_CALLING_SHORTREAD_GERMLINE {
         decompressFasta(reference_genome_fasta_file)
         uncompressed_fasta = decompressFasta.out.f
 
+        // Indel-realigned BAM for most callers; non-realigned BAM for the SV callers
+        // (Manta, GRIDSS2), whose breakpoint evidence is degraded by indel realignment.
+        realign_bam_files_ch = input_bam_files_ch.map { it ->
+            tuple(it[0], it[1], it[2])
+        }
+        no_realign_bam_files_ch = input_bam_files_ch.map { it ->
+            tuple(it[0], it[3], it[4])
+        }
+
         if (run_clair3) {
             VARIANT_CALLING_CLAIR3(
-                input_bam_files_ch,
+                realign_bam_files_ch,
                 uncompressed_fasta,
                 cfg_clair3.extra_args ?: '',
                 output_dir
@@ -146,7 +157,7 @@ workflow VARIANT_CALLING_SHORTREAD_GERMLINE {
 
         if (run_deepvariant) {
             VARIANT_CALLING_DEEPVARIANT(
-                input_bam_files_ch,
+                realign_bam_files_ch,
                 uncompressed_fasta,
                 cfg_deepvariant.containerization,
                 cfg_deepvariant.bin_version,
@@ -160,7 +171,7 @@ workflow VARIANT_CALLING_SHORTREAD_GERMLINE {
 
         if (run_delly2) {
             VARIANT_CALLING_DELLY2_SHORTREAD_GERMLINE(
-                input_bam_files_ch,
+                realign_bam_files_ch,
                 output_dir,
                 uncompressed_fasta,
                 cfg_delly2.exclude_tsv_file,
@@ -170,7 +181,7 @@ workflow VARIANT_CALLING_SHORTREAD_GERMLINE {
 
         if (run_dysgu) {
             VARIANT_CALLING_DYSGU_GERMLINE(
-                input_bam_files_ch,
+                realign_bam_files_ch,
                 uncompressed_fasta,
                 cfg_dysgu.run_extra_args ?: '',
                 cfg_dysgu.filter_extra_args ?: '',
@@ -180,7 +191,7 @@ workflow VARIANT_CALLING_SHORTREAD_GERMLINE {
 
         if (run_gridss2) {
             VARIANT_CALLING_GRIDSS2_GERMLINE(
-                input_bam_files_ch,
+                no_realign_bam_files_ch,
                 output_dir,
                 uncompressed_fasta,
                 cfg_gridss2.extra_args ?: ''
@@ -189,7 +200,7 @@ workflow VARIANT_CALLING_SHORTREAD_GERMLINE {
 
         if (run_haplotypecaller) {
             VARIANT_CALLING_HAPLOTYPECALLER(
-                input_bam_files_ch,
+                realign_bam_files_ch,
                 output_dir,
                 uncompressed_fasta,
                 cfg_haplotypecaller.extra_args ?: '',
@@ -199,14 +210,14 @@ workflow VARIANT_CALLING_SHORTREAD_GERMLINE {
 
         if (run_lumpy) {
             VARIANT_CALLING_LUMPY_GERMLINE(
-                input_bam_files_ch,
+                realign_bam_files_ch,
                 output_dir
             )
         }
 
         if (run_manta) {
             VARIANT_CALLING_MANTA_GERMLINE(
-                input_bam_files_ch,
+                no_realign_bam_files_ch,
                 uncompressed_fasta,
                 cfg_manta.config_extra_args ?: '',
                 cfg_manta.run_extra_args ?: '',
@@ -216,7 +227,7 @@ workflow VARIANT_CALLING_SHORTREAD_GERMLINE {
 
         if (run_octopus) {
             VARIANT_CALLING_OCTOPUS_GERMLINE(
-                input_bam_files_ch,
+                realign_bam_files_ch,
                 uncompressed_fasta,
                 cfg_octopus.regions_txt_file,
                 cfg_octopus.extra_args ?: '',
@@ -226,7 +237,7 @@ workflow VARIANT_CALLING_SHORTREAD_GERMLINE {
 
         if (run_pindel) {
             VARIANT_CALLING_PINDEL(
-                input_bam_files_ch,
+                realign_bam_files_ch,
                 output_dir,
                 uncompressed_fasta,
                 cfg_pindel.extra_args ?: ''
@@ -235,7 +246,7 @@ workflow VARIANT_CALLING_SHORTREAD_GERMLINE {
 
         if (run_strelka2) {
             VARIANT_CALLING_STRELKA2_GERMLINE(
-                input_bam_files_ch,
+                realign_bam_files_ch,
                 uncompressed_fasta,
                 cfg_strelka2.extra_args ?: '',
                 output_dir

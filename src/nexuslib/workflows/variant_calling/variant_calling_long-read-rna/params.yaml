@@ -1,0 +1,104 @@
+# =============================================================================
+# params.yaml — variant_calling_long-read-rna
+#
+# Usage:
+#   nextflow run variant_calling_long-read-rna.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with columns:
+#   sample_id
+#   bam_file        (minimap2-aligned, for clair3rna, longgf, pbfusion)
+#   bam_bai_file    (minimap2-aligned, for clair3rna, longgf, pbfusion)
+#   fastq_file      (raw reads, for de-souza)
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+# Reference genome FASTA file (for clair3rna, de-souza, pbfusion)
+reference_genome_fasta_file: ""
+
+# Reference genes annotation GTF file
+# Required when methods includes 'longgf', 'pbfusion', or 'all'.
+reference_genes_gtf_file: ""
+
+
+# -----------------------------------------------------------------------------
+# Optional — general
+# -----------------------------------------------------------------------------
+
+# Methods to run. Comma-separated list or 'all'.
+# Allowed values:
+#   all, clair3rna, de-souza, longgf, pbfusion
+methods: "all"
+
+
+# -----------------------------------------------------------------------------
+# Clair3-RNA
+# Optional arguments.
+# -----------------------------------------------------------------------------
+clair3rna:
+  # Extra CLI arguments passed directly to Clair3-RNA.
+  extra_args: "--platform hifi_sequel2_minimap2"
+
+
+# -----------------------------------------------------------------------------
+# de Souza (lrRNAseqVariantCalling)
+# Required when methods includes 'de-souza' or 'all':
+#   deepvariant_input_path, deepvariant_output_path
+# Optional otherwise.
+# -----------------------------------------------------------------------------
+de_souza:
+  # Required when running de-souza (DeepVariant container bind-mount paths)
+  deepvariant_input_path: ""
+  deepvariant_output_path: ""
+
+  # Extra CLI arguments passed directly to minimap2.
+  params_minimap2: "-ax splice -uf -C5 --secondary=no"
+
+  # Extra CLI arguments passed directly to samtools view.
+  params_samtools_view: "-F 2308"
+
+  # Read group tags
+  platform_tag: "unknown"
+  platform_unit_tag: "unknown"
+  library_tag: "unknown"
+
+  # DeepVariant containerization engine: 'singularity' or 'docker'
+  deepvariant_containerization: "singularity"
+
+  # DeepVariant --model_type value
+  deepvariant_model_type: "PACBIO"
+
+  # Path to the run_deepvariant binary
+  deepvariant_bin_path: "/opt/deepvariant/bin/run_deepvariant"
+
+  # DeepVariant version
+  deepvariant_bin_version: "1.6.1"
+
+
+# -----------------------------------------------------------------------------
+# LongGF
+# Optional arguments.
+# -----------------------------------------------------------------------------
+longgf:
+  # Parameters passed directly to LongGF:
+  #   <min-overlap-len> <bin_size> <min-map-len> [pseudogene:0(default)/1/other(no filter)] [Secondary_alignment:0(default)] [min_sup_read:2(default)] [output_flag:0]
+  extra_args: "100 30 100 1 0 2 1"
+
+
+# -----------------------------------------------------------------------------
+# pbfusion
+# Optional arguments.
+# -----------------------------------------------------------------------------
+pbfusion:
+  # Extra CLI arguments passed directly to pbfusion discover.
+  extra_args: "--min-coverage 3 --min-mean-mapq 20 --gtf-transcript-allow-lncRNA"

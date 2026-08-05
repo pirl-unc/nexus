@@ -30,7 +30,7 @@ params.deepsomatic_output_path          = ''
 params.deepsomatic_containerization     = 'singularity' // or docker
 params.deepsomatic_model_type           = 'PACBIO'
 params.deepsomatic_bin_path             = 'run_deepsomatic'
-params.deepsomatic_bin_version          = '1.9.0'
+params.deepsomatic_bin_version          = '1.10.0'
 
 // ------------------------------------------------------------
 // Step 3. Sub-workflows
@@ -125,7 +125,7 @@ workflow {
             --deepsomatic_containerization      :   Containerization ('singularity' or 'docker'; default: 'singularity').
             --deepsomatic_model_type            :   DeepSomatic --model_type parameter value (default: 'PACBIO').
             --deepsomatic_bin_path              :   DeepSomatic bin path (default: 'run_deepsomatic').
-            --deepsomatic_bin_version           :   DeepSomatic bin version (default: '1.9.0').
+            --deepsomatic_bin_version           :   DeepSomatic bin version (default: '1.10.0').
         """.stripIndent()
         exit 0
     }

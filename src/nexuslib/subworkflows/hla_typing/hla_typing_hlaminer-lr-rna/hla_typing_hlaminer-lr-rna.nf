@@ -22,7 +22,7 @@ params.output_dir           = ''
 
 // Optional arguments
 params.params_minimap2      = '-ax map-hifi --secondary=no'
-params.params_hlaminer      = ''
+params.params_hlaminer      = '-e 1 -s 500 -q 1 -i 1'
 
 // ------------------------------------------------------------
 // Step 3. Sub-workflows
@@ -77,12 +77,16 @@ workflow {
                                         Use -ax map-hifi for PacBio HiFi reads,
                                         or -ax map-ont for Oxford Nanopore reads.
                                         Note that the parameters need to be wrapped in quotes.
-            --params_hlaminer       :   HLAminer.pl extra CLI parameters (default: '""').
+            --params_hlaminer       :   HLAminer.pl extra CLI parameters
+                                        (default: '"-e 1 -s 500 -q 1 -i 1"').
+                                        Long reads need relaxed thresholds; the
+                                        default mirrors HLAminer's official
+                                        long-read RNA-seq demo (HPRArnaseq_ONT*).
                                         Common flags include
                                           -i <minimum percent identity>
                                           -s <minimum alignment score>
-                                          -q <minimum mapping quality>
-                                          -e <expect value threshold>
+                                          -q <minimum log10 expect value>
+                                          -e <single-end reads (1=yes/0=no)>
                                         Note that the parameters need to be wrapped in quotes.
         """.stripIndent()
         exit 0

@@ -22,3 +22,6 @@ docs/workflows/*
 !docs/subworkflows/index.qmd
 !docs/utilities/index.qmd
 !docs/workflows/index.qmd
+CLAUDE.md
+references/
+tasks/

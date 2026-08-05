@@ -5,14 +5,14 @@
 #   nextflow run haplotagging_long-read-rna.nf -params-file params.yaml
 #
 # methods selects which haplotagging tools to run (CSV list or "all"):
-#   {flair-longshot, longcallr}
+#   {flair3-longshot, longcallr}
 # =============================================================================
 
 
 # ---- required: input/output paths -------------------------------------------
 
 # TSV file. Required columns depend on which methods you run:
-#   flair-longshot  → sample_id, fastq_file
+#   flair3-longshot → sample_id, fastq_file
 #   longcallr       → sample_id, bam_file, bam_bai_file
 # To run both, include all four columns.
 samples_tsv_file: ""
@@ -26,7 +26,7 @@ reference_genome_fasta_file: ""
 
 # ---- optional ---------------------------------------------------------------
 
-# Methods to run. CSV list of {flair-longshot, longcallr}, or "all".
+# Methods to run. CSV list of {flair3-longshot, longcallr}, or "all".
 methods: "all"
 
 # Output format for haplotagged reads.
@@ -41,8 +41,8 @@ haplotag_output: "bam"
 # Tool-specific settings (only consumed when the corresponding tool runs).
 # =============================================================================
 
-# FLAIR + Longshot — inputs come from the samples_tsv_file 'fastq_file' column.
-flair_longshot:
+# FLAIR3 + Longshot — inputs come from the samples_tsv_file 'fastq_file' column.
+flair3_longshot:
   flair_align_extra_args: ""
   longshot_extra_args: ""
 

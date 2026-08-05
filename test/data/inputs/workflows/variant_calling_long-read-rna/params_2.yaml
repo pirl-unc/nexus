@@ -1,0 +1,19 @@
+# Test 2: FASTQ-based caller — de Souza (lrRNAseqVariantCalling)
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+reference_genes_gtf_file: ""
+methods: "de-souza"
+
+de_souza:
+  deepvariant_input_path: ""
+  deepvariant_output_path: ""
+  params_minimap2: "-ax splice -uf -C5 --secondary=no"
+  params_samtools_view: "-F 2308"
+  platform_tag: "unknown"
+  platform_unit_tag: "unknown"
+  library_tag: "unknown"
+  deepvariant_containerization: "docker"
+  deepvariant_model_type: "PACBIO"
+  deepvariant_bin_path: "/opt/deepvariant/bin/run_deepvariant"
+  deepvariant_bin_version: "1.6.1"

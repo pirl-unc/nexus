@@ -1,4 +1,4 @@
-# Test fixture: same as params_all.yaml (flair-longshot + longcallr) but with
+# Test fixture: same as params_all.yaml (flair3-longshot + longcallr) but with
 # haplotag_output="tsv" so the workflow publishes only haplotag TSVs and skips
 # the haplotagged BAMs.
 #
@@ -6,8 +6,8 @@
 #
 # Expected output_dir layout (per sample):
 #   ${output_dir}/${sample_id}/
-#     ├── (flair-longshot)
-#     │   ├── ${sample_id}_flair_outputs/                ← FLAIR alignment outputs
+#     ├── (flair3-longshot)
+#     │   ├── ${sample_id}_flair3.bam                    ← FLAIR3 alignment outputs
 #     │   ├── ${sample_id}_longshot.vcf
 #     │   └── ${sample_id}_longshot_haplotag.tsv.gz      ← Longshot 2-col TSV
 #     └── (longcallr)
@@ -27,7 +27,7 @@ reference_genome_fasta_file: ""
 methods: "all"
 haplotag_output: "tsv"
 
-flair_longshot:
+flair3_longshot:
   flair_align_extra_args: ""
   longshot_extra_args: ""
 

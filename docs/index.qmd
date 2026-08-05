@@ -92,6 +92,12 @@ Check out the [Subworkflows](subworkflows/index.qmd) and [Workflows](workflows/i
 
 * python (>=3.10)
 * nextflow (>=24.10.0)
+* biopython
+* matplotlib
+* networkx (>=3.0)
+* numpy (>=1.26)
+* pandas (>=2.0.3)
+* pysam
 * pyyaml
 
 ## License

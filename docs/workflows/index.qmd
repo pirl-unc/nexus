@@ -13,48 +13,14 @@ nexus run --nf-workflow <workflow>.nf -params-file params.yaml
 
 ::: {.panel-tabset}
 
-### Variant Calling
+### Assembly
 
-Run multiple variant callers in parallel on the same samples.
-
-| Workflow | Tools | Input |
-|:---------|:--------|:------|
-| [long-read germline](variant_calling/variant_calling_long-read-dna-germline.qmd) | clair3, cutesv, deepvariant, delly2, dysgu, hificnv, longshot, nanocaller, nanovar, pbsv, sniffles2, svim | single-sample BAM |
-| [long-read somatic](variant_calling/variant_calling_long-read-dna-somatic.qmd) | clairs, deepsomatic, delly2, dysgu, nanomonsv, savana, severus, svisionpro | tumor/normal BAM |
-| [short-read germline](variant_calling/variant_calling_short-read-dna-germline.qmd) | clair3, deepvariant, delly2, dysgu, gridss2, haplotypecaller, lumpy, manta, octopus, pindel, strelka2 | single-sample BAM |
-| [short-read somatic](variant_calling/variant_calling_short-read-dna-somatic.qmd) | clairs, deepsomatic, delly2, dysgu, gridss2, lumpy, manta, mutect2, octopus, sequenza, strelka2, svaba | tumor/normal BAM |
-
-: {.striped .hover}
-
-### Quantification
-
-Quantify transcript expression with multiple tools.
+Assemble transcripts with multiple tools.
 
 | Workflow | Tools | Input |
 |:---------|:------|:------|
-| [long-read](quantification/quantification_long-read.qmd) | bambu, kallisto, liqa, oarfish, transigner | BAM + FASTQ |
-| [short-read](quantification/quantification_short-read.qmd) | kallisto, salmon | paired-end FASTQ |
-
-: {.striped .hover}
-
-### Isoform Characterization
-
-Characterize transcript isoforms with multiple tools.
-
-| Workflow | Tools | Input |
-|:---------|:------|:------|
-| [long-read](isoform_characterization/isoform_characterization_long-read.qmd) | espresso, flair, isoquant, isotools, mandalorion, sqanti3, talon | BAM + FASTQ + FASTA + GTF |
-| [short-read](isoform_characterization/isoform_characterization_short-read.qmd) | rmats | BAM |
-
-: {.striped .hover}
-
-### HLA Typing
-
-Type HLA alleles with multiple tools.
-
-| Workflow | Tools | Input |
-|:---------|:------|:------|
-| [short-read](hla_typing/hla_typing_short-read.qmd) | arcashla, hlaprofiler, seq2hla | BAM + paired-end FASTQ |
+| [long-read-rna](assembly/assembly_long-read-rna.qmd) | isonform, isonform-clustered, rattle, rattle-clustered, rnabloom2, rnabloom2-clustered, stringtie3 | FASTQ + cluster TSV + BAM + GTF |
+| [short-read-rna](assembly/assembly_short-read-rna.qmd) | spades, trinity, bookend | paired-end FASTQ + BAM + FASTA |
 
 : {.striped .hover}
 
@@ -65,8 +31,57 @@ Phase and haplotag reads with multiple tools.
 | Workflow | Tools | Input |
 |:---------|:------|:------|
 | [long-read-dna](haplotagging/haplotagging_long-read-dna.qmd) | hapcut2-whatshap, hiphase, longphase, margin, whatshap | long-read DNA FASTQ |
-| [long-read-rna](haplotagging/haplotagging_long-read-rna.qmd) | flair-longshot, longcallr | long-read RNA FASTQ |
+| [long-read-rna](haplotagging/haplotagging_long-read-rna.qmd) | flair3-longshot, longcallr | long-read RNA FASTQ |
 | [short-read-dna](haplotagging/haplotagging_short-read-dna.qmd) | hapcut2-whatshap, whatshap | short-read DNA FASTQ |
+
+: {.striped .hover}
+
+### HLA Typing
+
+Type HLA alleles with multiple tools.
+
+| Workflow | Tools | Input |
+|:---------|:------|:------|
+| [short-read-dna](hla_typing/hla_typing_short-read-dna.qmd) | hlaminer-sr-dna, optitype, spechla | paired-end FASTQ |
+| [short-read-rna](hla_typing/hla_typing_short-read-rna.qmd) | arcashla, hlaminer-sr-rna, hlaprofiler, seq2hla, optitype | BAM + paired-end FASTQ |
+| [long-read-dna](hla_typing/hla_typing_long-read-dna.qmd) | fufihla, hlaminer-lr-dna, spechla-lr-dna, specimmune | long-read FASTQ |
+| [long-read-rna](hla_typing/hla_typing_long-read-rna.qmd) | hlaminer-lr-rna, specimmune | long-read FASTQ |
+
+: {.striped .hover}
+
+### Isoform Characterization
+
+Characterize transcript isoforms with multiple tools.
+
+| Workflow | Tools | Input |
+|:---------|:------|:------|
+| [long-read](isoform_characterization/isoform_characterization_long-read.qmd) | espresso, flair3, isoquant, isotools, lraa, mandalorion, sqanti3, talon | BAM + FASTQ + FASTA + GTF |
+| [short-read](isoform_characterization/isoform_characterization_short-read.qmd) | rmats | BAM |
+
+: {.striped .hover}
+
+### Quantification
+
+Quantify transcript expression with multiple tools.
+
+| Workflow | Tools | Input |
+|:---------|:------|:------|
+| [long-read-rna](quantification/quantification_long-read-rna.qmd) | bambu, kallisto, liqa, oarfish, transigner | BAM + FASTQ |
+| [short-read-rna](quantification/quantification_short-read-rna.qmd) | kallisto, salmon | paired-end FASTQ |
+
+: {.striped .hover}
+
+### Variant Calling
+
+Run multiple variant callers in parallel on the same samples.
+
+| Workflow | Tools | Input |
+|:---------|:--------|:------|
+| [long-read germline](variant_calling/variant_calling_long-read-dna-germline.qmd) | clair3, cutesv, deepvariant, delly2, dysgu, hificnv, longshot, nanocaller, nanovar, pbsv, sniffles2, svim | single-sample BAM |
+| [long-read somatic](variant_calling/variant_calling_long-read-dna-somatic.qmd) | clairs, deepsomatic, delly2, dysgu, nanomonsv, savana, severus, svisionpro | tumor/normal BAM |
+| [short-read germline](variant_calling/variant_calling_short-read-dna-germline.qmd) | clair3, deepvariant, delly2, dysgu, gridss2, haplotypecaller, lumpy, manta, octopus, pindel, strelka2 | single-sample BAM |
+| [short-read somatic](variant_calling/variant_calling_short-read-dna-somatic.qmd) | clairs, deepsomatic, delly2, dysgu, gridss2, lumpy, manta, mutect2, octopus, sequenza, strelka2, svaba | tumor/normal BAM |
+| [long-read rna](variant_calling/variant_calling_long-read-rna.qmd) | clair3rna, de-souza, longgf, pbfusion | BAM + FASTQ |
 
 : {.striped .hover}
 

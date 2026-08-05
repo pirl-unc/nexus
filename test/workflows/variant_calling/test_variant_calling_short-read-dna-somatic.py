@@ -36,7 +36,8 @@ def test_variant_calling_short_read_dna_somatic_github_1():
         'tumor_bam_bai_file_no_realign': [tumor_bam_bai_file],
         'normal_bam_file_no_realign': [normal_bam_file],
         'normal_bam_bai_file_no_realign': [normal_bam_bai_file],
-        'normal_sample_id': ['nexus-dna-002-normal-paired-end-read']
+        'normal_sample_id': ['nexus-dna-002-normal-paired-end-read'],
+        'sex': ['female']
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
 
     with open(params_yaml_file, 'r') as f:
@@ -96,7 +97,8 @@ def test_variant_calling_short_read_dna_somatic_local_1():
         'tumor_bam_bai_file_no_realign': [tumor_bam_bai_file],
         'normal_bam_file_no_realign': [normal_bam_file],
         'normal_bam_bai_file_no_realign': [normal_bam_bai_file],
-        'normal_sample_id': ['nexus-dna-002-normal-paired-end-read']
+        'normal_sample_id': ['nexus-dna-002-normal-paired-end-read'],
+        'sex': ['female']
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
 
     with open(params_yaml_file, 'r') as f:
@@ -104,7 +106,7 @@ def test_variant_calling_short_read_dna_somatic_local_1():
     params['samples_tsv_file'] = f"{intermediate_dir}/samples.tsv"
     params['output_dir'] = output_dir
     params['reference_genome_fasta_file'] = reference_genome_fasta_file
-    params['deepsomatic']['input_path'] = '/Users/leework/Documents/Research/projects/project_nexus/'
+    params['deepsomatic']['input_path'] = '/Users/ajslee/Documents/Research/projects/project_nexus/'
     params['deepsomatic']['output_path'] = '/var/folders/'
     params['delly2']['exclude_tsv_file'] = delly2_exclude_tsv_file
     params['mutect2']['germline_resource_vcf_file'] = ''
@@ -154,7 +156,8 @@ def test_variant_calling_short_read_dna_somatic_2():
         'tumor_bam_bai_file_no_realign': [tumor_bam_bai_file],
         'normal_bam_file_no_realign': [normal_bam_file],
         'normal_bam_bai_file_no_realign': [normal_bam_bai_file],
-        'normal_sample_id': ['nexus-dna-002-normal-paired-end-read']
+        'normal_sample_id': ['nexus-dna-002-normal-paired-end-read'],
+        'sex': ['female']
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
 
     with open(params_yaml_file, 'r') as f:
@@ -206,7 +209,8 @@ def test_variant_calling_short_read_dna_somatic_3():
         'tumor_bam_bai_file_no_realign': [tumor_bam_bai_file],
         'normal_bam_file_no_realign': [normal_bam_file],
         'normal_bam_bai_file_no_realign': [normal_bam_bai_file],
-        'normal_sample_id': ['nexus-dna-002-normal-paired-end-read']
+        'normal_sample_id': ['nexus-dna-002-normal-paired-end-read'],
+        'sex': ['female']
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
 
     with open(params_yaml_file, 'r') as f:
@@ -258,7 +262,8 @@ def test_variant_calling_short_read_dna_somatic_4():
         'tumor_bam_bai_file_no_realign': [tumor_bam_bai_file],
         'normal_bam_file_no_realign': [normal_bam_file],
         'normal_bam_bai_file_no_realign': [normal_bam_bai_file],
-        'normal_sample_id': ['nexus-dna-005-normal-paired-end-read']
+        'normal_sample_id': ['nexus-dna-005-normal-paired-end-read'],
+        'sex': ['female']
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
 
     with open(params_yaml_file, 'r') as f:

@@ -37,3 +37,4 @@ def test_variant_calling_pbfusion():
     run_workflow(workflow='variant_calling_pbfusion.nf',
                  nextflow='nextflow',
                  workflow_args=workflow_args)
+

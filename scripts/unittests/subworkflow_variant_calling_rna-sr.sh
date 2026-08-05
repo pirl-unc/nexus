@@ -1,6 +1,7 @@
 tests=(
   test_variant_calling_arriba
   test_variant_calling_circexplorer2
+  test_variant_calling_reditools2
 )
 
 expr=$(printf " or %s" "${tests[@]}")

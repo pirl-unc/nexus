@@ -18,7 +18,7 @@ def test_isoform_characterization_isoseq():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     pd.DataFrame({
-        'sample_id': ['nexus-rna-001-tumor'],
+        'sample_id': ['sample'],
         'bam_file': [bam_file]
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
     workflow_args = [
@@ -30,3 +30,4 @@ def test_isoform_characterization_isoseq():
     run_workflow(workflow='isoform_characterization_isoseq.nf',
                  nextflow='nextflow',
                  workflow_args=workflow_args)
+

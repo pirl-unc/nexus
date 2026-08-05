@@ -1,0 +1,83 @@
+# =============================================================================
+# params.yaml — hla_typing_long-read-dna
+#
+# Usage:
+#   nextflow run hla_typing_long-read-dna.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with columns:
+#   sample_id
+#   fastq_file             long-read DNA FASTQ (PacBio or Nanopore), gzipped
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+
+# -----------------------------------------------------------------------------
+# Optional — general
+# -----------------------------------------------------------------------------
+
+# Methods to run. Comma-separated list or 'all'.
+# Allowed values:
+#   all, fufihla, hlaminer, spechla, specimmune
+methods: "all"
+
+
+# -----------------------------------------------------------------------------
+# FuFiHLA
+# Optional arguments.
+# -----------------------------------------------------------------------------
+fufihla:
+  # Extra CLI arguments passed directly to fufihla. Use --hifi for PacBio HiFi
+  # or --ont for Oxford Nanopore.
+  extra_args: "--hifi"
+
+
+# -----------------------------------------------------------------------------
+# HLAminer (long-read DNA)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+# Pipeline:
+#   minimap2 (against HLAminer's genomic HLA reference) | HLAminer.pl
+hlaminer:
+  # Extra CLI arguments passed directly to minimap2 for the upstream
+  # alignment step. Use -ax map-hifi for PacBio HiFi, -ax map-ont for ONT.
+  minimap2_extra_args: "-ax map-hifi --secondary=no --MD"
+
+  # Extra CLI arguments passed directly to HLAminer.pl. Long reads need
+  # relaxed thresholds. Common flags:
+  #   -i <minimum percent identity>
+  #   -s <minimum alignment score>
+  #   -q <minimum log10 expect value>
+  hlaminer_extra_args: "-s 500 -q 1 -i 1"
+
+
+# -----------------------------------------------------------------------------
+# SpecHLA (long-read)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+spechla:
+  # Extra CLI arguments passed directly to spechla-long-read.
+  extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# SpecImmune
+# Optional arguments.
+# -----------------------------------------------------------------------------
+specimmune:
+  # Extra CLI arguments passed directly to SpecImmune (scripts/main.py).
+  #   -i  typing target:        HLA | KIR | CYP | IG_TR | extend
+  #   -y  read type:            nanopore | pacbio | pacbio-hifi
+  #   --seq_tech  library type: wgs | amplicon  (DNA/WGS is the default mode;
+  #               do NOT pass an RNA token here — use --RNA_type for RNA data)
+  extra_args: "-i HLA -y pacbio-hifi --seq_tech wgs"

@@ -1,4 +1,4 @@
-# Test fixture: full pipeline (flair-longshot + longcallr).
+# Test fixture: full pipeline (flair3-longshot + longcallr).
 samples_tsv_file: ""
 output_dir: ""
 reference_genome_fasta_file: ""
@@ -6,7 +6,7 @@ reference_genome_fasta_file: ""
 methods: "all"
 haplotag_output: "bam"
 
-flair_longshot:
+flair3_longshot:
   flair_align_extra_args: ""
   longshot_extra_args: ""
 

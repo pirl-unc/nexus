@@ -9,7 +9,7 @@ nextflow.enable.dsl=2
 // ------------------------------------------------------------
 // Step 1. Import Nextflow workflows
 // ------------------------------------------------------------
-include { HAPLOTAGGING_FLAIR_LONGSHOT }    from '../../../subworkflows/haplotagging/haplotagging_flair-longshot/haplotagging_flair-longshot'
+include { HAPLOTAGGING_FLAIR3_LONGSHOT }   from '../../../subworkflows/haplotagging/haplotagging_flair3-longshot/haplotagging_flair3-longshot'
 include { HAPLOTAGGING_LONGCALLR }         from '../../../subworkflows/haplotagging/haplotagging_longcallr/haplotagging_longcallr'
 
 // ------------------------------------------------------------
@@ -18,7 +18,7 @@ include { HAPLOTAGGING_LONGCALLR }         from '../../../subworkflows/haplotagg
 log.info """\
          ===============================================================================
          Phase variants in long-read RNA sequencing data
-         (FLAIR + Longshot, LongcallR)
+         (FLAIR3 + Longshot, LongcallR)
          ===============================================================================
          """.stripIndent()
 
@@ -37,7 +37,7 @@ if (params.help) {
 // ------------------------------------------------------------
 def active_methods   = params.methods.toString().tokenize(',').collect { it.trim().toLowerCase() }
 def run_all          = active_methods.isEmpty() || active_methods.contains('all')
-def run_flair_ls     = run_all || active_methods.contains('flair-longshot')
+def run_flair3_ls    = run_all || active_methods.contains('flair3-longshot')
 def run_longcallr    = run_all || active_methods.contains('longcallr')
 
 if (!params.samples_tsv_file)            error "ERROR: samples_tsv_file is required."
@@ -55,7 +55,7 @@ if (run_longcallr) {
         error "ERROR: longcallr.preset must be one of ${known_presets} (got: '${params.longcallr.preset}')."
 }
 
-def known_methods = ['all', 'flair-longshot', 'longcallr']
+def known_methods = ['all', 'flair3-longshot', 'longcallr']
 active_methods.each { m ->
     if (!known_methods.contains(m)) log.warn "WARNING: unknown method '${m}' — will be ignored."
 }
@@ -77,9 +77,9 @@ log.info """\
 // ------------------------------------------------------------
 // Step 4. Set channels
 // ------------------------------------------------------------
-// FASTQ channel — required when running flair-longshot.
+// FASTQ channel — required when running flair3-longshot.
 //   samples.tsv columns: sample_id, fastq_file
-if (run_flair_ls) {
+if (run_flair3_ls) {
     Channel
         .fromPath( params.samples_tsv_file )
         .splitCsv( header: true, sep: '\t' )
@@ -107,20 +107,20 @@ if (run_longcallr) {
 // ------------------------------------------------------------
 workflow HAPLOTAGGING_LONGREAD_RNA {
     take:
-        input_fastq_files_ch        // channel: [val(sample_id), path(fastq_file)] — used by flair-longshot
+        input_fastq_files_ch        // channel: [val(sample_id), path(fastq_file)] — used by flair3-longshot
         input_bam_files_ch          // channel: [val(sample_id), path(bam_file), path(bam_bai_file)] — used by longcallr
         reference_genome_fasta_file
         output_dir
-        cfg_flair_longshot
+        cfg_flair3_longshot
         cfg_longcallr
 
     main:
-        if (run_flair_ls) {
-            HAPLOTAGGING_FLAIR_LONGSHOT(
+        if (run_flair3_ls) {
+            HAPLOTAGGING_FLAIR3_LONGSHOT(
                 input_fastq_files_ch,
                 reference_genome_fasta_file,
-                cfg_flair_longshot.flair_align_extra_args ?: '',
-                cfg_flair_longshot.longshot_extra_args    ?: '',
+                cfg_flair3_longshot.flair_align_extra_args ?: '',
+                cfg_flair3_longshot.longshot_extra_args    ?: '',
                 output_dir
             )
         }
@@ -142,11 +142,11 @@ workflow HAPLOTAGGING_LONGREAD_RNA {
 // ------------------------------------------------------------
 workflow {
     HAPLOTAGGING_LONGREAD_RNA(
-        run_flair_ls   ? input_fastq_files_ch : Channel.empty(),
+        run_flair3_ls  ? input_fastq_files_ch : Channel.empty(),
         run_longcallr  ? input_bam_files_ch   : Channel.empty(),
         params.reference_genome_fasta_file,
         params.output_dir,
-        params.flair_longshot,
+        params.flair3_longshot,
         params.longcallr
     )
 }

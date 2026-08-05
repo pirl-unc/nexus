@@ -1,0 +1,55 @@
+FROM --platform=linux/amd64 ubuntu:22.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Install necessary packages for Miniconda installation
+RUN apt-get update --fix-missing && \
+    apt-get install -y --no-install-recommends wget curl git bzip2 ca-certificates  \
+    libpcre3 libpcre3-dev libssl-dev zlib1g zlib1g-dev gfortran openssl \
+    make build-essential cmake libncurses-dev ncurses-dev \
+    libbz2-dev lzma-dev liblzma-dev libssl-dev autoconf automake libcurl4-openssl-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Download and Install Miniconda
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py312_24.11.1-0-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh
+
+# Add Miniconda to PATH
+ENV PATH /opt/conda/bin:$PATH
+ENV PATH /opt/conda/lib:$PATH
+
+# Test conda installation by updating conda
+RUN conda update -n base -c defaults conda
+
+# Install samtools
+RUN wget https://github.com/samtools/samtools/releases/download/1.18/samtools-1.18.tar.bz2 && \
+    tar -xvjf samtools-1.18.tar.bz2 && \
+    cd samtools-1.18/ && \
+    mkdir bin && \
+    ./configure --prefix=$(pwd) && \
+    make && \
+    make install
+
+# Add samtools to PATH
+ENV PATH /samtools-1.18:$PATH
+
+# Install minimap2
+RUN conda install -c conda-forge libgcc-ng==14.2.0
+RUN conda install -c bioconda minimap2==2.28
+
+# Install geluster
+RUN mkdir -p /opt/geluster/ && \
+    cd /opt/geluster/ && \
+    wget https://github.com/yutingsdu/GeLuster/archive/refs/tags/v.1.1.tar.gz && \
+    tar -xvf v.1.1.tar.gz && \
+    cd /opt/geluster/GeLuster-v.1.1/src/ &&\
+    make release
+
+# Add geluster to PATH
+ENV PATH /opt/geluster/GeLuster-v.1.1:$PATH
+
+# Clean up to reduce Docker image size
+RUN conda clean -all
+RUN apt-get clean

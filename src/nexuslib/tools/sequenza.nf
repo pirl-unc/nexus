@@ -128,7 +128,7 @@ process runSequenza {
     )
 
     input:
-        tuple val(sample_id), path(small_seqz_gz_file), path(small_seqz_gz_tbi_file)
+        tuple val(sample_id), path(small_seqz_gz_file), path(small_seqz_gz_tbi_file), val(sex)
         val(chromosomes)
         val(assembly)
         val(output_dir)
@@ -144,6 +144,7 @@ process runSequenza {
             --small-seqz-file $small_seqz_gz_file \
             --assembly $assembly \
             --chromosomes $chromosomes \
+            --sex $sex \
             --output-path sequenza/
         """
 }

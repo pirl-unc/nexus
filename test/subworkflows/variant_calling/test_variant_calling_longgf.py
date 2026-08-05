@@ -29,7 +29,7 @@ def test_variant_calling_longgf():
         '-w', work_dir,
         '--samples_tsv_file', intermediate_dir + '/samples.tsv',
         '--reference_genes_gtf_file', reference_genes_gtf_file,
-        '--params_longgf', '"100 30 100 1 0 3"',
+        '--params_longgf', '"100 30 100 1 0 2 1"',
         '--output_dir', output_dir,
     ]
     run_workflow(workflow='variant_calling_longgf.nf',

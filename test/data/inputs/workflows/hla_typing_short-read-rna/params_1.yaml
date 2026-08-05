@@ -1,0 +1,18 @@
+# Test 1: arcasHLA, HLAminer (sr-rna), HLAProfiler, seq2HLA, OptiType
+samples_tsv_file: ""
+output_dir: ""
+methods: "all"
+
+hlaminer:
+  bwa_aln_extra_args: "-e 0 -o 0"
+  bwa_sampe_extra_args: "-o 1000"
+  hlaminer_extra_args: "-s 500"
+
+hlaprofiler:
+  extra_args: "-allele_refinement all -if"
+
+seq2hla:
+  extra_args: ""
+
+optitype:
+  extra_args: "--rna"

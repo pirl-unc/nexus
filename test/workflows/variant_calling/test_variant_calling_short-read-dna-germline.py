@@ -26,7 +26,9 @@ def test_variant_calling_short_read_dna_germline_1():
     pd.DataFrame({
         'sample_id': ['nexus-dna-001-tumor'],
         'bam_file': [bam_file],
-        'bam_bai_file': [bam_bai_file]
+        'bam_bai_file': [bam_bai_file],
+        'bam_file_no_realign': [bam_file],
+        'bam_bai_file_no_realign': [bam_bai_file]
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
 
     with open(params_yaml_file, 'r') as f:
@@ -70,7 +72,9 @@ def test_variant_calling_short_read_dna_germline_2():
     pd.DataFrame({
         'sample_id': ['nexus-dna-002-tumor'],
         'bam_file': [bam_file],
-        'bam_bai_file': [bam_bai_file]
+        'bam_bai_file': [bam_bai_file],
+        'bam_file_no_realign': [bam_file],
+        'bam_bai_file_no_realign': [bam_bai_file]
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
 
     with open(params_yaml_file, 'r') as f:
@@ -114,7 +118,9 @@ def test_variant_calling_short_read_dna_germline_github_3():
     pd.DataFrame({
         'sample_id': ['nexus-dna-001-tumor'],
         'bam_file': [bam_file],
-        'bam_bai_file': [bam_bai_file]
+        'bam_bai_file': [bam_bai_file],
+        'bam_file_no_realign': [bam_file],
+        'bam_bai_file_no_realign': [bam_bai_file]
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
 
     with open(params_yaml_file, 'r') as f:
@@ -161,7 +167,9 @@ def test_variant_calling_short_read_dna_germline_local_3():
     pd.DataFrame({
         'sample_id': ['nexus-dna-001-tumor'],
         'bam_file': [bam_file],
-        'bam_bai_file': [bam_bai_file]
+        'bam_bai_file': [bam_bai_file],
+        'bam_file_no_realign': [bam_file],
+        'bam_bai_file_no_realign': [bam_bai_file]
     }).to_csv(intermediate_dir + "/samples.tsv", sep='\t', index=False)
 
     with open(params_yaml_file, 'r') as f:
@@ -169,7 +177,7 @@ def test_variant_calling_short_read_dna_germline_local_3():
     params['samples_tsv_file'] = f"{intermediate_dir}/samples.tsv"
     params['output_dir'] = output_dir
     params['reference_genome_fasta_file'] = reference_genome_fasta_file
-    params['deepvariant']['input_path'] = '/Users/leework/Documents/Research/projects/project_nexus/'
+    params['deepvariant']['input_path'] = os.getcwd() + '/'
     params['deepvariant']['output_path'] = '/var/folders/'
     params['octopus']['regions_txt_file'] = octopus_regions_txt_file
 

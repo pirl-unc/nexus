@@ -40,7 +40,9 @@ jobs:
           - haplotagging
           - hla_typing
           - isoform_characterization
+          - peptide_prediction
           - quantification
+          - read_clustering
           - read_error_correction
           - sequencing_simulation
           - utilities
@@ -101,16 +103,21 @@ jobs:
       fail-fast: false
       matrix:
         group:
+          - assembly
           - haplotagging_dna-lr
           - haplotagging_dna-sr
           - haplotagging_rna-lr
-          - hla_typing
+          - hla_typing_dna-lr
+          - hla_typing_dna-sr
+          - hla_typing_rna-lr
+          - hla_typing_rna-sr
           - isoform_characterization
           - quantification
           - variant_calling_dna-lr-germline
           - variant_calling_dna-lr-somatic
           - variant_calling_dna-sr-germline
           - variant_calling_dna-sr-somatic
+          - variant_calling_rna-lr
 
     steps:
       - name: Checkout repository

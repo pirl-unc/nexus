@@ -41,5 +41,16 @@ process runTalon {
             --threads ${task.cpus} \
             --o talon/${sample_id} \
             $params_talon
+
+        talon_filter_transcripts \
+            --db talon/reference.db \
+            -a reference_annotation \
+            --o talon/${sample_id}_talon_filtered_transcripts.csv
+
+        talon_create_GTF \
+            --db talon/reference.db \
+            -b reference_genome \
+            -a reference_annotation \
+            --o talon/${sample_id}
         """
 }

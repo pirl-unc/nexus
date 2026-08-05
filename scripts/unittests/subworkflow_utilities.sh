@@ -1,8 +1,8 @@
 tests=(
+  test_utilities_cutadapt
   test_utilities_fastq2unalignedbam
   test_utilities_fastqc_1
   test_utilities_fastqc_2
-  test_utilities_filter_rnabloom2_transcripts
   test_utilities_pbccs
   test_utilities_sequencing_coverage
 )

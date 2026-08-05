@@ -1,0 +1,15 @@
+# Test 1: BAM-based callers — Clair3-RNA, LongGF, pbfusion
+samples_tsv_file: ""
+output_dir: ""
+reference_genome_fasta_file: ""
+reference_genes_gtf_file: ""
+methods: "clair3rna,longgf,pbfusion"
+
+clair3rna:
+  extra_args: "--platform hifi_sequel2_minimap2 --ctg_name chr17"
+
+longgf:
+  extra_args: "100 30 100 1 0 3"
+
+pbfusion:
+  extra_args: "--min-coverage 0 --min-mean-mapq 20 --gtf-transcript-allow-lncRNA --min-fusion-read-fraction 0"

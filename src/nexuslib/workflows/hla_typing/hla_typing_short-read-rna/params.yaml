@@ -1,0 +1,83 @@
+# =============================================================================
+# params.yaml — hla_typing_short-read-rna
+#
+# Usage:
+#   nextflow run hla_typing_short-read-rna.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with columns:
+#   sample_id
+#   bam_file               (required for arcasHLA)
+#   bam_bai_file           (required for arcasHLA)
+#   fastq_file_1           (required for HLAProfiler, seq2HLA, OptiType)
+#   fastq_file_2           (required for HLAProfiler, seq2HLA, OptiType)
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+
+# -----------------------------------------------------------------------------
+# Optional — general
+# -----------------------------------------------------------------------------
+
+# Methods to run. Comma-separated list or 'all'.
+# Allowed values:
+#   all, arcashla, hlaminer, hlaprofiler, seq2hla, optitype
+methods: "all"
+
+
+# -----------------------------------------------------------------------------
+# HLAminer (short-read RNA-seq)
+# Optional arguments.
+# -----------------------------------------------------------------------------
+# Pipeline:
+#   bwa aln/sampe (against HLAminer's coding HLA reference) | HLAminer.pl
+hlaminer:
+  # Extra CLI arguments passed directly to "bwa aln" (run per mate).
+  bwa_aln_extra_args: "-e 0 -o 0"
+
+  # Extra CLI arguments passed directly to "bwa sampe" (pairing step).
+  bwa_sampe_extra_args: "-o 1000"
+
+  # Extra CLI arguments passed directly to HLAminer.pl. Short reads keep the
+  # strict default identity/expect thresholds. Common flags:
+  #   -i <minimum percent identity>
+  #   -s <minimum alignment score>
+  #   -q <minimum log10 expect value>
+  hlaminer_extra_args: "-s 500"
+
+
+# -----------------------------------------------------------------------------
+# HLAProfiler
+# Optional arguments.
+# -----------------------------------------------------------------------------
+hlaprofiler:
+  # Extra CLI arguments passed directly to HLAProfiler predict.
+  extra_args: "-allele_refinement all -if"
+
+
+# -----------------------------------------------------------------------------
+# seq2HLA
+# Optional arguments.
+# -----------------------------------------------------------------------------
+seq2hla:
+  # Extra CLI arguments passed directly to seq2HLA.
+  extra_args: ""
+
+
+# -----------------------------------------------------------------------------
+# OptiType
+# Optional arguments.
+# -----------------------------------------------------------------------------
+optitype:
+  # Extra CLI arguments passed directly to OptiType. Use --rna for RNA data.
+  extra_args: "--rna"

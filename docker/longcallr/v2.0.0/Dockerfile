@@ -1,7 +1,5 @@
-# Use Ubuntu 18.04 LTS as the base image
-FROM ubuntu:18.04
+FROM --platform=linux/amd64 ubuntu:22.04
 
-# Set noninteractive installation to avoid getting stuck during build
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Install necessary packages for Miniconda installation
@@ -27,6 +25,18 @@ RUN conda update -n base -c defaults conda
 
 # Install longcallR
 RUN conda install -c bioconda longcallr==2.0.0
+
+# Install samtools
+RUN wget https://github.com/samtools/samtools/releases/download/1.18/samtools-1.18.tar.bz2 && \
+    tar -xvjf samtools-1.18.tar.bz2 && \
+    cd samtools-1.18/ && \
+    mkdir bin && \
+    ./configure --prefix=$(pwd) && \
+    make && \
+    make install
+
+# Add samtools to PATH
+ENV PATH /samtools-1.18:$PATH
 
 # Clean up to reduce Docker image size
 RUN conda clean -all

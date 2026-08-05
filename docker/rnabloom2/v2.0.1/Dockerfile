@@ -1,7 +1,5 @@
-# Use Ubuntu 18.04 LTS as the base image
-FROM ubuntu:18.04
+FROM --platform=linux/amd64 ubuntu:22.04
 
-# Set noninteractive installation to avoid getting stuck during build
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Install necessary packages for Miniconda installation
@@ -56,7 +54,11 @@ RUN wget https://github.com/bcgsc/ntCard/releases/download/1.2.2/ntcard-1.2.2.ta
 # Add ntcard to PATH
 ENV PATH /opt/ntcard/bin:$PATH
 
-# Download rna-bloom2
+# Install pandas and pysam
+RUN conda install -c anaconda pandas==2.2.3
+RUN pip install pysam==0.22.1
+
+# Download RNABloom2
 RUN mkdir /opt/rnabloom2/ && \
     cd /opt/rnabloom2/ && \
     wget https://github.com/bcgsc/RNA-Bloom/releases/download/v2.0.1/rnabloom_v2.0.1.tar.gz && \
@@ -66,6 +68,9 @@ RUN mkdir /opt/rnabloom2/ && \
 
 # Add RNA-Bloom.jar to PATH
 ENV PATH /opt/rnabloom2/:$PATH
+
+ADD run_rnabloom2_clustered.py /opt/rnabloom2/run_rnabloom2_clustered.py
+RUN chmod +x /opt/rnabloom2/run_rnabloom2_clustered.py
 
 # Clean up to reduce Docker image size
 RUN conda clean -all

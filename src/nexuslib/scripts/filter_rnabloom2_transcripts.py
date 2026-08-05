@@ -1,8 +1,3 @@
-"""
-The purpose of this python3 script is to filter RNAbloom2 transcripts.
-"""
-
-
 import argparse
 import gzip
 import pandas as pd
@@ -55,14 +50,14 @@ def run():
         'transcript_start': [],
         'transcript_end': [],
         'num_residue_matches': [],
-        'frac_residue_matches': [],
+        'frac_transcript_covered': [],
         'alignment_block_length': [],
         'mapping_quality': []
     }
     with gzip.open(args.assembly3_map_paf_file, 'rt') as file:
         for line in file:
             values = line.strip().split('\t')
-            frac_residue_matches = float(values[9]) / float(values[6])
+            frac_transcript_covered = float(values[9]) / float(values[6])
             data['read_name'].append(str(values[0]))
             data['read_length'].append(int(values[1]))
             data['read_start'].append(int(values[2]))
@@ -73,13 +68,13 @@ def run():
             data['transcript_start'].append(int(values[7]))
             data['transcript_end'].append(int(values[8]))
             data['num_residue_matches'].append(int(values[9]))
-            data['frac_residue_matches'].append(frac_residue_matches)
+            data['frac_transcript_covered'].append(frac_transcript_covered)
             data['alignment_block_length'].append(int(values[10]))
             data['mapping_quality'].append(int(values[11]))
     df_paf = pd.DataFrame(data)
     df_paf_filtered = df_paf[
         (df_paf['mapping_quality'] >= args.min_mapping_quality) &
-        (df_paf['frac_residue_matches'] >= args.min_fraction_match)
+        (df_paf['frac_transcript_covered'] >= args.min_fraction_match)
     ]
     df_grouped = df_paf_filtered.groupby("transcript_id")["read_name"].nunique().reset_index()
     df_grouped = df_grouped.rename(columns={"read_name": "num_read_support"})

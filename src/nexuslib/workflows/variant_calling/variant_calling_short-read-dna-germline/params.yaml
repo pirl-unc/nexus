@@ -15,8 +15,10 @@
 
 # TSV file with columns:
 #   sample_id
-#   bam_file
-#   bam_bai_file
+#   bam_file                  (indel-realigned)
+#   bam_bai_file              (indel-realigned)
+#   bam_file_no_realign       (not indel-realigned, for Manta and GRIDSS2)
+#   bam_bai_file_no_realign   (not indel-realigned, for Manta and GRIDSS2)
 samples_tsv_file: ""
 
 # Directory to which output files will be copied

@@ -24,7 +24,7 @@ params.params_pbccs         = ''
 // ------------------------------------------------------------
 workflow UTILITIES_PBCCS {
     take:
-        input_dir_ch             // channel: [val(sample_id), path(rnabloom2_output_dir)]
+        input_dir_ch             // channel: [val(sample_id), path(subreads_bam_file)]
         params_pbccs
         output_dir
 

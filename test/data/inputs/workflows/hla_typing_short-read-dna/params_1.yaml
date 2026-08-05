@@ -1,0 +1,15 @@
+# Test 1: HLAminer (sr-dna), OptiType, SpecHLA (short-read)
+samples_tsv_file: ""
+output_dir: ""
+methods: "all"
+
+hlaminer:
+  bwa_aln_extra_args: "-e 0 -o 0"
+  bwa_sampe_extra_args: "-o 1000"
+  hlaminer_extra_args: "-s 500"
+
+optitype:
+  extra_args: "--dna"
+
+spechla:
+  extra_args: "-u 0"

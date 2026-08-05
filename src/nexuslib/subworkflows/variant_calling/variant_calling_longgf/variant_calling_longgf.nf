@@ -24,7 +24,7 @@ params.output_dir                   = ''
 params.reference_genes_gtf_file     = ''
 
 // Optional arguments
-params.params_longgf        = '100 30 100 1 0 3' // <min-overlap-len> <bin_size> <min-map-len> [pseudogene:0(default)/1/other(no filter)] [Secondary_alignment:0(default)] [min_sup_read:2(default)]
+params.params_longgf        = '100 30 100 1 0 2 1' // <min-overlap-len> <bin_size> <min-map-len> [pseudogene:0(default)/1/other(no filter)] [Secondary_alignment:0(default)] [min_sup_read:2(default)] [output_flag:0]
 
 // ------------------------------------------------------------
 // Step 3. Sub-workflows
@@ -76,8 +76,8 @@ workflow {
             --reference_genes_gtf_file      :   Reference genes annotation GTF file.
 
         optional arguments:
-            --params_longgf                 :   Longgf parameters (default: '"100 30 100 1 0 3"').
-                                                <min-overlap-len> <bin_size> <min-map-len> [pseudogene:0(default)/1/other(no filter)] [Secondary_alignment:0(default)] [min_sup_read:2(default)]
+            --params_longgf                 :   Longgf parameters (default: '"100 30 100 1 0 2 1"').
+                                                <min-overlap-len> <bin_size> <min-map-len> [pseudogene:0(default)/1/other(no filter)] [Secondary_alignment:0(default)] [min_sup_read:2(default)] [output_flag:0]
                                                 Note that the parameters need to be wrapped in quotes.
         """.stripIndent()
         exit 0

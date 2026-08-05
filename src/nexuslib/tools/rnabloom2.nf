@@ -29,3 +29,38 @@ process runRnaBloom2LongRead {
             $params_rnabloom2
         """
 }
+
+process runRnaBloom2LongReadClustered {
+
+    label 'rnabloom2_clustered'
+    tag "${sample_id}:${cluster_method}"
+    debug true
+
+    publishDir(
+        path: "${output_dir}/${sample_id}/",
+        mode: 'copy'
+    )
+
+    input:
+        tuple val(sample_id), path(fastq_file), path(tsv_file), val(cluster_method)
+        val(params_rnabloom2)
+        val(output_dir)
+
+    output:
+        tuple val(sample_id), val(cluster_method), path("${cluster_method}_rnabloom2_clustered/"), emit: f
+
+    script:
+        """
+        mkdir -p ${cluster_method}_rnabloom2_clustered/
+        python /opt/rnabloom2/run_rnabloom2_clustered.py \
+            --jar /opt/rnabloom2/RNA-Bloom.jar \
+            --fastq-file $fastq_file \
+            --tsv-file $tsv_file \
+            --output-dir \${PWD}/${cluster_method}_rnabloom2_clustered/ \
+            --output-prefix ${sample_id}_${cluster_method} \
+            --num-threads ${task.num_threads_per_worker} \
+            --num-parallel ${task.num_parallel} \
+            --xmx ${task.java_max_mem_per_worker.toGiga()}G \
+            --extra-args="$params_rnabloom2"
+        """
+}
