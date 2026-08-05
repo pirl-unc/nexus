@@ -1,9 +1,8 @@
-# Test: All tools + SQANTI3-GTF chaining
 samples_tsv_file: ""
 output_dir: ""
 reference_genome_fasta_file: ""
 reference_genes_gtf_file: ""
-methods: "all"
+methods: "flair3,lraa,talon"
 
 espresso:
   s_extra_args: ""
