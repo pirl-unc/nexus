@@ -71,6 +71,18 @@ Quantify transcript expression with multiple tools.
 
 : {.striped .hover}
 
+### Read Clustering
+
+Cluster long reads into gene families with multiple tools. Each tool publishes a
+normalized `cluster_id`/`read_name` TSV that can be fed straight to the
+`*_clustered` methods of the assembly workflow.
+
+| Workflow | Tools | Input |
+|:---------|:------|:------|
+| [long-read-rna](read_clustering/read_clustering_long-read-rna.qmd) | geluster, isonclust3 | FASTQ |
+
+: {.striped .hover}
+
 ### Variant Calling
 
 Run multiple variant callers in parallel on the same samples.

@@ -211,6 +211,9 @@ website:
       contents:
       - workflows/quantification/quantification_long-read-rna.qmd
       - workflows/quantification/quantification_short-read-rna.qmd
+    - section: Read Clustering
+      contents:
+      - workflows/read_clustering/read_clustering_long-read-rna.qmd
     - section: Variant Calling
       contents:
       - workflows/variant_calling/variant_calling_long-read-dna-germline.qmd

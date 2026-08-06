@@ -113,6 +113,7 @@ jobs:
           - hla_typing_rna-sr
           - isoform_characterization
           - quantification
+          - read_clustering
           - variant_calling_dna-lr-germline
           - variant_calling_dna-lr-somatic
           - variant_calling_dna-sr-germline

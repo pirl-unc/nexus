@@ -1,0 +1,10 @@
+# Test 1: GeLuster, isONclust3
+samples_tsv_file: ""
+output_dir: ""
+methods: "all"
+
+geluster:
+  extra_args: "--rform fq --seqType PacBio"
+
+isonclust3:
+  extra_args: "--mode pacbio --no-fastq"

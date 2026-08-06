@@ -40,7 +40,8 @@ workflow READ_CLUSTERING_ISONCLUST3 {
         )
 
     emit:
-        runIsonClust3.out.f
+        f   = runIsonClust3.out.f
+        tsv = runIsonClust3.out.tsv
 }
 
 // ------------------------------------------------------------

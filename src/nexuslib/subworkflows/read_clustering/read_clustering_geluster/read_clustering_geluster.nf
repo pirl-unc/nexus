@@ -40,7 +40,8 @@ workflow READ_CLUSTERING_GELUSTER {
         )
 
     emit:
-        runGeluster.out.f
+        f   = runGeluster.out.f
+        tsv = runGeluster.out.tsv
 }
 
 // ------------------------------------------------------------

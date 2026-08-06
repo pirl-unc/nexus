@@ -52,6 +52,7 @@ WORKFLOW_LABELS = {
     "isoform_characterization_short-read": "Isoform Characterization (Short-read)",
     "quantification_long-read-rna": "Quantification (Long-read RNA)",
     "quantification_short-read-rna": "Quantification (Short-read RNA)",
+    "read_clustering_long-read-rna": "Read Clustering (Long-read RNA)",
     "variant_calling_long-read-dna-germline": "Variant Calling (Long-read DNA Germline)",
     "variant_calling_long-read-dna-somatic": "Variant Calling (Long-read DNA Somatic)",
     "variant_calling_long-read-rna": "Variant Calling (Long-read RNA)",

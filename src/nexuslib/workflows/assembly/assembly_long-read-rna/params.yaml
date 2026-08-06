@@ -20,6 +20,10 @@
 #                    for isonform_clustered, rattle_clustered, rnabloom2_clustered)
 #   cluster_method  (name of the tool that produced tsv_file, e.g. 'isonclust3';
 #                    required whenever a *_clustered method is active)
+#
+# read_clustering_long-read-rna.nf publishes tsv_file directly, as
+# <sample_id>/geluster/<sample_id>_geluster_clusters.tsv and
+# <sample_id>/isonclust3/<sample_id>_isonclust3_clusters.tsv.
 #   bam_file        (splice-aware aligned reads, e.g. minimap2, for stringtie3)
 #   bam_bai_file    (index of bam_file, for stringtie3)
 #

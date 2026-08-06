@@ -1,0 +1,75 @@
+# =============================================================================
+# params.yaml — read_clustering_long-read-rna
+#
+# Usage:
+#   nextflow run read_clustering_long-read-rna.nf -params-file params.yaml
+#
+# Fill in the required fields below. Optional fields can be left at their
+# defaults or removed entirely.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Required
+# -----------------------------------------------------------------------------
+
+# TSV file with columns:
+#   sample_id
+#   fastq_file             long-read RNA FASTQ (PacBio or Nanopore), gzipped
+samples_tsv_file: ""
+
+# Directory to which output files will be copied
+output_dir: ""
+
+
+# -----------------------------------------------------------------------------
+# Optional — general
+# -----------------------------------------------------------------------------
+
+# Methods to run. Comma-separated list or 'all'.
+# Allowed values:
+#   all, geluster, isonclust3
+methods: "all"
+
+
+# -----------------------------------------------------------------------------
+# Outputs
+# -----------------------------------------------------------------------------
+# For each sample, every active method publishes its raw output directory
+# containing, alongside the tool's own files, a normalized per-read cluster
+# assignment TSV with columns 'cluster_id' and 'read_name':
+#
+#   <output_dir>/<sample_id>/geluster/<sample_id>_geluster_clusters.tsv
+#   <output_dir>/<sample_id>/isonclust3/<sample_id>_isonclust3_clusters.tsv
+#
+# Those TSVs can be used as-is for the tsv_file column of
+# assembly_long-read-rna.nf, with cluster_method set to 'geluster' or
+# 'isonclust3'.
+
+
+# -----------------------------------------------------------------------------
+# GeLuster
+# Optional arguments.
+# -----------------------------------------------------------------------------
+geluster:
+  # Extra CLI arguments passed directly to GeLuster. Common flags:
+  #   --rform <fq|fa>                 input read format
+  #   --seqType <cDNA|dRNA|PacBio>    sequencing protocol
+  #   --iteration <int>               number of iterations, range [3,9]
+  # The number of threads is set from the process cpus directive, not here.
+  extra_args: "--rform fq --seqType PacBio"
+
+
+# -----------------------------------------------------------------------------
+# isONclust3
+# Optional arguments.
+# -----------------------------------------------------------------------------
+isonclust3:
+  # Extra CLI arguments passed directly to isONclust3. Common flags:
+  #   --mode <pacbio|ont>   pacbio sets --k 15 --w 51; ont sets --k 13 --w 21
+  #   --no-fastq            skip writing one FASTQ per cluster
+  #   --n <int>             minimum number of reads for a cluster to be written
+  #                         as FASTQ (no effect when --no-fastq is set; the
+  #                         cluster TSV always lists every read)
+  #   --post-cluster        extra post-clustering pass; better results, slower
+  extra_args: "--mode pacbio --no-fastq"
